@@ -1,0 +1,222 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://fnodes/FNodeGetFiles.cs" type="Script" id=1]
+[ext_resource path="res://code/NodeTree.cs" type="Script" id=2]
+[ext_resource path="res://fnodes/FNodeFileInfo.cs" type="Script" id=3]
+[ext_resource path="res://fnodes/FNodeDateToString.cs" type="Script" id=4]
+[ext_resource path="res://ui/TCAddNodesPanel.cs" type="Script" id=5]
+
+[sub_resource type="CSharpScript" id=1]
+resource_name = "EvaluateTree"
+script/source = "using Godot;
+using System;
+
+public class EvaluateTree : Button
+{
+    // Declare member variables here. Examples:
+    // private int a = 2;
+    // private string b = \"text\";
+
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
+    {
+        
+    }
+
+//  // Called every frame. 'delta' is the elapsed time since the previous frame.
+//  public override void _Process(float delta)
+//  {
+//      
+//  }
+}
+"
+
+[node name="VBMain" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel2" type="Panel" parent="."]
+margin_right = 1600.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 0, 24 )
+
+[node name="TabContainer" type="TabContainer" parent="."]
+margin_top = 32.0
+margin_right = 1600.0
+margin_bottom = 632.0
+size_flags_vertical = 3
+tab_align = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 61.0
+margin_right = -8.0
+margin_bottom = -8.0
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="TabContainer/HBoxContainer"]
+margin_right = 240.0
+margin_bottom = 531.0
+rect_min_size = Vector2( 240, 0 )
+
+[node name="NodeTree" type="GraphEdit" parent="TabContainer/HBoxContainer"]
+margin_left = 248.0
+margin_right = 1584.0
+margin_bottom = 531.0
+size_flags_horizontal = 3
+right_disconnects = true
+scroll_offset = Vector2( -8, 0 )
+use_snap = false
+minimap_enabled = false
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="left" type="GraphNode" parent="TabContainer/HBoxContainer/NodeTree"]
+margin_left = 30.0
+margin_top = 22.0
+margin_right = 254.0
+margin_bottom = 170.0
+mouse_filter = 1
+title = "File Info"
+offset = Vector2( 22, 22 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="middle" type="GraphNode" parent="TabContainer/HBoxContainer/NodeTree"]
+margin_left = 308.0
+margin_top = 22.0
+margin_right = 627.0
+margin_bottom = 207.0
+mouse_filter = 1
+title = "Get Files"
+offset = Vector2( 300, 22 )
+show_close = true
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="right" type="GraphNode" parent="TabContainer/HBoxContainer/NodeTree"]
+margin_left = 608.0
+margin_top = 22.0
+margin_right = 927.0
+margin_bottom = 207.0
+mouse_filter = 1
+title = "Get Files"
+offset = Vector2( 600, 22 )
+show_close = true
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DateToString" type="GraphNode" parent="TabContainer/HBoxContainer/NodeTree"]
+margin_left = 608.0
+margin_top = 22.0
+margin_right = 927.0
+margin_bottom = 207.0
+mouse_filter = 1
+title = "Date To String"
+offset = Vector2( 600, 22 )
+show_close = true
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TCAddNodesPanel" type="TabContainer" parent="."]
+margin_top = 640.0
+margin_right = 1600.0
+margin_bottom = 760.0
+rect_min_size = Vector2( 0, 120 )
+tab_align = 0
+script = ExtResource( 5 )
+NPNodeTree = NodePath("../TabContainer/HBoxContainer/NodeTree")
+
+[node name="File" type="HBoxContainer" parent="TCAddNodesPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 61.0
+margin_right = -8.0
+margin_bottom = -8.0
+
+[node name="String" type="HBoxContainer" parent="TCAddNodesPanel"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 61.0
+margin_right = -8.0
+margin_bottom = -8.0
+
+[node name="Date" type="HBoxContainer" parent="TCAddNodesPanel"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 61.0
+margin_right = -8.0
+margin_bottom = -8.0
+
+[node name="Math" type="HBoxContainer" parent="TCAddNodesPanel"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 61.0
+margin_right = -8.0
+margin_bottom = -8.0
+
+[node name="Other" type="HBoxContainer" parent="TCAddNodesPanel"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 61.0
+margin_right = -8.0
+margin_bottom = -8.0
+
+[node name="Panel" type="Panel" parent="."]
+margin_top = 768.0
+margin_right = 1600.0
+margin_bottom = 800.0
+rect_min_size = Vector2( 0, 32 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="Panel/HBoxContainer"]
+margin_right = 1421.0
+margin_bottom = 37.0
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="Panel/HBoxContainer"]
+margin_left = 1429.0
+margin_right = 1600.0
+margin_bottom = 37.0
+text = "Evaluate Tree"
+script = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="connection_request" from="TabContainer/HBoxContainer/NodeTree" to="TabContainer/HBoxContainer/NodeTree" method="OnConnectionRequest"]
+[connection signal="disconnection_request" from="TabContainer/HBoxContainer/NodeTree" to="TabContainer/HBoxContainer/NodeTree" method="OnDisconnectionRequest"]
+[connection signal="pressed" from="Panel/HBoxContainer/Button" to="TabContainer/HBoxContainer/NodeTree" method="TestTree" binds= [ "DateToString" ]]

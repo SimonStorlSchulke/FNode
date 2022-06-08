@@ -1,0 +1,9 @@
+C:\Users\simon\Dev\nodefiler\.mono\temp\bin\Debug\nodefiler.dll
+C:\Users\simon\Dev\nodefiler\.mono\temp\bin\Debug\nodefiler.pdb
+C:\Users\simon\Dev\nodefiler\.mono\temp\obj\Debug\nodefiler.csproj.AssemblyReference.cache
+C:\Users\simon\Dev\nodefiler\.mono\temp\obj\Debug\nodefiler.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\simon\Dev\nodefiler\.mono\temp\obj\Debug\nodefiler.AssemblyInfoInputs.cache
+C:\Users\simon\Dev\nodefiler\.mono\temp\obj\Debug\nodefiler.AssemblyInfo.cs
+C:\Users\simon\Dev\nodefiler\.mono\temp\obj\Debug\nodefiler.csproj.CoreCompileInputs.cache
+C:\Users\simon\Dev\nodefiler\.mono\temp\obj\Debug\nodefiler.dll
+C:\Users\simon\Dev\nodefiler\.mono\temp\obj\Debug\nodefiler.pdb
