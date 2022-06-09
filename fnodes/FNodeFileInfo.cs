@@ -22,27 +22,27 @@ public class FNodeFileInfo : FNode
                 return ((FileInfo)inputs["File"].Get()).Extension;
             })},
             {
-            "Base Dir", new FOutputString(this, 0, delegate() 
+            "Base Dir", new FOutputString(this, 2, delegate() 
             {
                 return ((FileInfo)inputs["File"].Get()).Directory.ToString(); //TODO - Add DirectoryInfo Slot Type??
             })},
             {
-            "Creation Time", new FOutputDate(this, 2, delegate() 
+            "Creation Time", new FOutputDate(this, 3, delegate() 
             {
                 return ((FileInfo)inputs["File"].Get()).CreationTime;
             })},
             {
-            "Last Access Time", new FOutputDate(this, 3, delegate() 
+            "Last Access Time", new FOutputDate(this, 4, delegate() 
             {
                 return ((FileInfo)inputs["File"].Get()).LastAccessTime;
             })},
             {
-            "Last Write Time", new FOutputDate(this, 4, delegate() 
+            "Last Write Time", new FOutputDate(this, 5, delegate() 
             {
                 return ((FileInfo)inputs["File"].Get()).LastWriteTime;
             })},
             {
-            "Size", new FOutputInt(this, 5, delegate() 
+            "Size", new FOutputInt(this, 6, delegate() 
             {
                 return ((FileInfo)inputs["File"].Get()).Length;
             })},

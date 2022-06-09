@@ -64,6 +64,7 @@ public class UIUtil : Node
         ct.SizeFlagsHorizontal = 2;
         hb.AddChild(ct);
         hb.AddChild(lb);
+        hb.RectMinSize = new Vector2(0, 40);
         toNode.AddChild(hb);
         toNode.SetSlot(hb.GetIndex(), false, 0, slotColor, true, 0, slotColor, null, null);
     }
@@ -72,6 +73,7 @@ public class UIUtil : Node
         var hb = new HBoxContainer();
         var lb = new Label();
         lb.Text = labeltext;
+        lb.RectMinSize = new Vector2(100, 0);
         hb.AddChild(lb);
         Control ct;
         Godot.Color slotColor;
@@ -118,8 +120,10 @@ public class UIUtil : Node
                 slotColor = Colors.Black;
                 break;
         }
-
+        
+        ct.SizeFlagsHorizontal = 3;
         hb.AddChild(ct);
+        hb.RectMinSize = new Vector2(0, 40);
         toNode.AddChild(hb);
         toNode.SetSlot(hb.GetIndex(), true, 0, slotColor, false, 0, Colors.Red, null, null);
     }

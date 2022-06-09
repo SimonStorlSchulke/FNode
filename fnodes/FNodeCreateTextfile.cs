@@ -24,6 +24,7 @@ public class FNodeCreateTextFile : FNode
 
     public override void ExecutiveMethod()
     {
+        //TODO Add Exception Handling + create Folder if it doesn't exist.
         string path = System.IO.Path.Combine((string)inputs["Path"].Get(), (string)inputs["Name"].Get());
         System.IO.File.WriteAllText(path, (string)inputs["Text"].Get()); // Todo - Replaye with faster Method
     }

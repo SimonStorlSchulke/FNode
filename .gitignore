@@ -1,9 +1,1 @@
-.import/
 .idea/
-Control.gd
-Control.tscn
-default_env.tres
-icon.png.import
-project.godot
-addons/calendar_button/icon.png.import
-addons/calendar_button/btn_img/*.import

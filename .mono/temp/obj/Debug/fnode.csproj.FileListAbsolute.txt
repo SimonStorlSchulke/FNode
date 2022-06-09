@@ -1,0 +1,9 @@
+A:\dev\FNode\.mono\temp\bin\Debug\fnode.dll
+A:\dev\FNode\.mono\temp\bin\Debug\fnode.pdb
+A:\dev\FNode\.mono\temp\obj\Debug\fnode.AssemblyInfoInputs.cache
+A:\dev\FNode\.mono\temp\obj\Debug\fnode.AssemblyInfo.cs
+A:\dev\FNode\.mono\temp\obj\Debug\fnode.csproj.CoreCompileInputs.cache
+A:\dev\FNode\.mono\temp\obj\Debug\fnode.dll
+A:\dev\FNode\.mono\temp\obj\Debug\fnode.pdb
+A:\dev\FNode\.mono\temp\obj\Debug\fnode.csproj.AssemblyReference.cache
+A:\dev\FNode\.mono\temp\obj\Debug\fnode.GeneratedMSBuildEditorConfig.editorconfig

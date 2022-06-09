@@ -15,17 +15,19 @@ public class FOutput {
         Get = method;
     }
 
-    public FInput ConnectedTo() {
+    
+    public List<FInput> ConnectedTo() {
         NodeTree nt = owner.GetParent<NodeTree>();
         Godot.Collections.Array links = nt.GetConnectionList();
+        List<FInput> inpList = new List<FInput>();
         
         // There must be a better way...
         foreach (Godot.Collections.Dictionary link in links) {
             if ((string)link["from"] == owner.Name && (int)link["from_port"] == idx) {
-                return nt.GetNode<FNode>((string)link["to"]).inputs.ElementAt((int)link["to_port"]).Value;
+                inpList.Add(nt.GetNode<FNode>((string)link["to"]).inputs.ElementAt((int)link["to_port"]).Value);
             }
         }
-        return null;
+        return inpList;
     }
 
 }

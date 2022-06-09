@@ -18,6 +18,7 @@ public class FNodeJoinStrings : FNode
             {
                 string str = "";
                 string sep = inputs["Separator"].Get() as string;
+                sep = sep.Replace("[LINEBREAK]", "\n"); //TODO sanitize this...
                 int i = 0;
                 foreach (var item in inputs) {
                     if (i!=0) {
@@ -33,6 +34,8 @@ public class FNodeJoinStrings : FNode
     public override void _Ready()
     {
         base._Ready();
+        (GetChild(1).GetChild(1) as LineEdit).Text = "[LINEBREAK]"; //Set Default Value to Linebreak
+
         Button plusButton = new Button();
         plusButton.Name = "PlusButton";
         plusButton.Text = "+";

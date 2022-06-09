@@ -11,11 +11,18 @@ public abstract class FNode : GraphNode {
 
     public override void _Ready()
     {
+        ShowClose = true;
         Title = this.GetType().Name.Replace("FNode", "");
+        this.RectMinSize = new Vector2(250, 0);
         UIUtil.CreateUI(this);
+        Connect(
+            "close_request", 
+            GetParent(), 
+            nameof(NodeTree.DeleteNode), 
+            new Godot.Collections.Array(){this});
     }
 
-    // If a Node isExecutiveNode, this Method will always be called regardles of connected Nodes.
+    // If a Node isExecutiveNode, this Method will always be called regardless of connected Nodes.
     public virtual void ExecutiveMethod(){}
 }
 

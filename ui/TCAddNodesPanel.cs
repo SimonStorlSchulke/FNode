@@ -13,6 +13,7 @@ public class TCAddNodesPanel : TabContainer
         CreateAddButton(typeof(FNodeRename), "File");
         CreateAddButton(typeof(FNodeCreateTextFile), "File");
         CreateAddButton(typeof(FNodeJoinStrings), "String");
+        CreateAddButton(typeof(FNodeTextViewer), "String");
         CreateAddButton(typeof(FNodeDateToString), "Date");
     }
 
