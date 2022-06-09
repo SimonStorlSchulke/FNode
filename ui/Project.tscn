@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://ui/TCFilestacks.cs" type="Script" id=1]
 [ext_resource path="res://code/NodeTree.cs" type="Script" id=2]
-[ext_resource path="res://fnodes/file/FNodeFileInfo.cs" type="Script" id=3]
 [ext_resource path="res://code/Project.cs" type="Script" id=4]
 
 [node name="Project 1" type="HBoxContainer"]
@@ -66,19 +65,6 @@ right_disconnects = true
 scroll_offset = Vector2( -297, 0 )
 minimap_enabled = false
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="left" type="GraphNode" parent="NodeTree"]
-margin_left = 319.0
-margin_top = 44.0
-margin_right = 543.0
-margin_bottom = 192.0
-mouse_filter = 1
-title = "File Info"
-offset = Vector2( 22, 44 )
-script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

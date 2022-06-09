@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,14 @@ public class NodeTree : GraphEdit
 
     public void EvaluateTree() {
         Project.idxEval = 0;
-        for (int i = 0; i < 5; i++) { //TODO insert longest Filestack length
+        Project.maxNumFiles = 0;
+
+        foreach (var fileList in Main.inst.currentProject.FileStacks.Stacks) {
+            if (fileList.Count > Project.maxNumFiles)
+                Project.maxNumFiles = fileList.Count;
+        }
+
+        for (int i = 0; i < Project.maxNumFiles; i++) { //TODO insert longest Filestack length
             foreach (Node fn in GetChildren()) {
                 if (fn is FNode)
                     (fn as FNode).ExecutiveMethodRan = false;

@@ -18,7 +18,6 @@ public abstract class FInput {
     }
 
     protected object AutoSlotConversion(object value) {
-        GD.Print(value.GetType());
         if (this.GetType() == typeof(FInputString) && value.GetType() == typeof(DateTime)) {
             return ((DateTime)value).ToString();
         }
@@ -112,7 +111,6 @@ public class FInputDate : FInput {
     {
         Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
         defaultValue = DateTime.Parse((nd as Label).Text);
-        GD.Print(defaultValue);
     }
 }
 

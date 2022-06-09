@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 public class Main : VBoxContainer
 {
+    [Signal]
+    public delegate void StartParsing();
+
     public static Main inst;
     public Project currentProject;
     TabContainer prTabs;
@@ -54,6 +57,7 @@ public class Main : VBoxContainer
     }
 
     public void OnParseTree() {
+        EmitSignal(nameof(StartParsing));
         currentProject.GetNode<NodeTree>("NodeTree").EvaluateTree();
     }
 
