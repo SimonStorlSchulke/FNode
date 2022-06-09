@@ -78,7 +78,7 @@ public class FInputInt : FInput {
     public override void UpdateDefaultValueFromUI()
     {
         Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
-        defaultValue = (nd as SpinBox).Value;
+        defaultValue = (int)(nd as SpinBox).Value;
     }
 }
 

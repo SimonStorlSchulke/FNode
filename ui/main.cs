@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Linq;
+using System.Collections.Generic;
 
 public class Main : VBoxContainer
 {
@@ -18,7 +19,7 @@ public class Main : VBoxContainer
 
     public void OnFilesDropped(string[] files, int screen) {
         int i = 0;
-        if (GetGlobalMousePosition().x > RectGlobalPosition.x && GetGlobalMousePosition().y > RectGlobalPosition.y) {
+        if (GetGlobalMousePosition().x > currentProject.NodeTree.RectGlobalPosition.x && GetGlobalMousePosition().y > currentProject.NodeTree.RectGlobalPosition.y) {
             foreach (string f in files) {
                 //Magic Numbers Bad
                 FNodeFileInfo fi = new FNodeFileInfo();
@@ -31,7 +32,13 @@ public class Main : VBoxContainer
             }
         }
         else {
-            //TODO add to File Stacks
+            List<Tuple<bool, string>> l = new List<Tuple<bool, string>>();
+            currentProject.FileStacks.Stacks = new List<List<Tuple<bool, string>>>(); //TODO support multiple Stacks
+            currentProject.FileStacks.Stacks.Add(new List<Tuple<bool, string>>());
+            foreach (string f in files) {
+                currentProject.FileStacks.Stacks[0].Add(new Tuple<bool, string>(false, f));
+            }
+            currentProject.FileStacks.OnUpdateUI(0);
         }
     }
 

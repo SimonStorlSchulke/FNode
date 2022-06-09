@@ -18,6 +18,7 @@ public class TCAddNodesPanel : TabContainer
         CreateAddButton(typeof(FNodeDateCompare), "Date");
         CreateAddButton(typeof(FNodeCurrentDate), "Date");
         CreateAddButton(typeof(FNodeGetParentPath), "File");
+        CreateAddButton(typeof(FNodeGetFilesFromStack), "File");
     }
 
     void CreateAddButton(Type t, string Category) {

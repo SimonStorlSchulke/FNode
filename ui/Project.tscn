@@ -19,9 +19,9 @@ __meta__ = {
 }
 
 [node name="TCFilestacks" type="TabContainer" parent="."]
-margin_right = 200.0
+margin_right = 300.0
 margin_bottom = 1026.0
-rect_min_size = Vector2( 200, 0 )
+rect_min_size = Vector2( 300, 0 )
 tab_align = 0
 script = ExtResource( 1 )
 
@@ -58,7 +58,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="NodeTree" type="GraphEdit" parent="."]
-margin_left = 208.0
+margin_left = 308.0
 margin_right = 1910.0
 margin_bottom = 1026.0
 size_flags_horizontal = 3

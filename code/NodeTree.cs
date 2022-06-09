@@ -19,19 +19,24 @@ public class NodeTree : GraphEdit
     }
 
     public void EvaluateTree() {
-        foreach (Node fn in GetChildren()) {
-            if (fn is FNode)
-                (fn as FNode).ExecutiveMethodRan = false;
-        }
+        Project.idxEval = 0;
+        for (int i = 0; i < 5; i++) { //TODO insert longest Filestack length
+            foreach (Node fn in GetChildren()) {
+                if (fn is FNode)
+                    (fn as FNode).ExecutiveMethodRan = false;
+            }
 
-        foreach (Node fn in GetChildren()) {
-            if (fn is FNode) {
-                //Only run Executive Methods if they haven't been called before by the Tree Evaluation (this might be necessary for Nodes that return created Files etc.)
-                if ((fn as FNode).HasExecutiveMethod() && !(fn as FNode).ExecutiveMethodRan) { 
-                    (fn as FNode).ExecutiveMethod();
+            foreach (Node fn in GetChildren()) {
+                if (fn is FNode) {
+                    //Only run Executive Methods if they haven't been called before by the Tree Evaluation (this might be necessary for Nodes that return created Files etc.)
+                    if ((fn as FNode).HasExecutiveMethod() && !(fn as FNode).ExecutiveMethodRan) { 
+                        (fn as FNode).ExecutiveMethod();
+                    }
                 }
             }
+            Project.idxEval++;
         }
+
         //object v = Root.outputs["Name"].Get();
         //GD.Print(v);
     }
