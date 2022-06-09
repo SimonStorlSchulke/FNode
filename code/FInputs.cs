@@ -11,9 +11,9 @@ public abstract class FInput {
     public FOutput connectedTo;
     public int idx;
 
-    public FInput(FNode owner, int idx) {
+    public FInput(FNode owner, int idx=-1) {
         this.owner = owner;
-        this.idx = idx;
+        this.idx = idx == -1 ? this.idx = FNode.IdxNext() : idx;
     }
 
     public object Get() {
@@ -29,7 +29,7 @@ public abstract class FInput {
 }
 
 public class FInputString : FInput {
-    public FInputString(FNode owner, int idx) : base(owner, idx) {
+    public FInputString(FNode owner, int idx=-1) : base(owner, idx) {
     }
 
     public override void UpdateDefaultValueFromUI()
@@ -40,7 +40,7 @@ public class FInputString : FInput {
 }
 
 public class FInputFile : FInput {
-    public FInputFile(FNode owner, int idx) : base(owner, idx) {
+    public FInputFile(FNode owner, int idx=-1) : base(owner, idx) {
     }
     
     public override void UpdateDefaultValueFromUI()
@@ -51,7 +51,7 @@ public class FInputFile : FInput {
 }
 
 public class FInputInt : FInput {
-    public FInputInt(FNode owner, int idx) : base(owner, idx) {
+    public FInputInt(FNode owner, int idx=-1) : base(owner, idx) {
     }
     
     public override void UpdateDefaultValueFromUI()
@@ -62,7 +62,7 @@ public class FInputInt : FInput {
 }
 
 public class FInputFloat : FInput {
-    public FInputFloat(FNode owner, int idx) : base(owner, idx) {
+    public FInputFloat(FNode owner, int idx=-1) : base(owner, idx) {
     }
     
     public override void UpdateDefaultValueFromUI()
@@ -73,7 +73,7 @@ public class FInputFloat : FInput {
 }
 
 public class FInputBool : FInput {
-    public FInputBool(FNode owner, int idx) : base(owner, idx) {
+    public FInputBool(FNode owner, int idx=-1) : base(owner, idx) {
     }
     
     public override void UpdateDefaultValueFromUI()
@@ -84,7 +84,7 @@ public class FInputBool : FInput {
 }
 
 public class FInputDate : FInput {
-    public FInputDate(FNode owner, int idx) : base(owner, idx) {
+    public FInputDate(FNode owner, int idx=-1) : base(owner, idx) {
     }
     
     public override void UpdateDefaultValueFromUI()

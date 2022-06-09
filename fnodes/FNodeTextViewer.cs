@@ -5,7 +5,7 @@ using System;
 public class FNodeTextViewer : FNode
 {
     public FNodeTextViewer() {
-        isExecutiveNode = true;
+        
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
             {"Text", new FInputString(this, 0)},
         };
@@ -18,7 +18,7 @@ public class FNodeTextViewer : FNode
     {
         //TODO Add Exception Handling + create Folder if it doesn't exist.
         GetNode<TextEdit>("Viewer").Text = inputs["Text"].Get() as string;
-        GD.Print("Text:", inputs["Text"].Get() as string);
+        base.ExecutiveMethod();
     }
 
     public override void _Ready()

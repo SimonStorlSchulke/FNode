@@ -46,10 +46,15 @@ public class NodeTree : GraphEdit
     }
 
     public void EvaluateTree(FNode Root) {
+        foreach (Node fn in GetChildren()) {
+            if (fn is FNode)
+                (fn as FNode).ExecutiveMethodRan = false;
+        }
 
         foreach (Node fn in GetChildren()) {
             if (fn is FNode) {
-                if ((fn as FNode).isExecutiveNode) {
+                //Only run Executive Methods if they haven't been called before by the Tree Evaluation (this might be necessary for Nodes that return created Files etc.)
+                if ((fn as FNode).HasExecutiveMethod() && !(fn as FNode).ExecutiveMethodRan) { 
                     (fn as FNode).ExecutiveMethod();
                 }
             }
@@ -104,7 +109,6 @@ public class NodeTree : GraphEdit
             idxOutputs++;
         }
         fn.QueueFree();
-
     }
 
     public void OnDeleteRequest() {

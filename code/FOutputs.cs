@@ -9,9 +9,9 @@ public class FOutput {
     public FNode owner;
     public GetOutputValue Get;
     public int idx;
-    public FOutput(FNode owner, int idx, GetOutputValue method) {
+    public FOutput(FNode owner, GetOutputValue method) {
         this.owner = owner;
-        this.idx = idx;
+        this.idx = FNode.IdxNext();
         Get = method;
     }
 
@@ -33,37 +33,37 @@ public class FOutput {
 }
 
 public class FOutputInt : FOutput {
-    public FOutputInt(FNode owner, int idx, GetOutputValue method) : base(owner, idx, method) {
+    public FOutputInt(FNode owner, GetOutputValue method) : base(owner, method) {
 
     }
 }
 
 public class FOutputFloat : FOutput {
-    public FOutputFloat(FNode owner, int idx, GetOutputValue method) : base(owner, idx, method) {
+    public FOutputFloat(FNode owner, GetOutputValue method) : base(owner, method) {
 
     }
 }
 
 public class FOutputBool : FOutput {
-    public FOutputBool(FNode owner, int idx, GetOutputValue method) : base(owner, idx, method) {
+    public FOutputBool(FNode owner, GetOutputValue method) : base(owner, method) {
 
     }
 }
 
 public class FOutputString : FOutput {
-    public FOutputString(FNode owner, int idx, GetOutputValue method) : base(owner, idx, method) {
+    public FOutputString(FNode owner, GetOutputValue method) : base(owner, method) {
 
     }
 }
 
 public class FOutputFile : FOutput {
-    public FOutputFile(FNode owner, int idx, GetOutputValue method) : base(owner, idx, method) {
+    public FOutputFile(FNode owner, GetOutputValue method) : base(owner, method) {
 
     }
 }
 
 public class FOutputDate : FOutput {
-    public FOutputDate(FNode owner, int idx, GetOutputValue method) : base(owner, idx, method) {
+    public FOutputDate(FNode owner, GetOutputValue method) : base(owner, method) {
 
     }
 }

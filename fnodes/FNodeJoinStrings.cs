@@ -6,15 +6,17 @@ public class FNodeJoinStrings : FNode
 {
     public FNodeJoinStrings() {
 
+        FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
-            {"Separator", new FInputString(this, 0)},
-            {"String1", new FInputString(this, 1)},
-            {"String2", new FInputString(this, 2)},
+            {"Separator", new FInputString(this)},
+            {"String1", new FInputString(this)},
+            {"String2", new FInputString(this)},
         };
 
+        FNode.IdxReset();
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
             {
-            "String", new FOutputString(this, 0, delegate() 
+            "String", new FOutputString(this, delegate() 
             {
                 string str = "";
                 string sep = inputs["Separator"].Get() as string;
