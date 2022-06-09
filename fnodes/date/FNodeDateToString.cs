@@ -5,6 +5,8 @@ using System;
 public class FNodeDateToString : FNode
 {
     public FNodeDateToString() {
+        HintTooltip = "Converts a Date to a string.\nFor Formating Examples, see docs.microsoft.com/de-de/dotnet/api/system.datetime.tostring"; //TODO better doc
+        category = "Date";        
 
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {

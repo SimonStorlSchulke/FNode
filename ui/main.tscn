@@ -1,11 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://theme/default.theme" type="Theme" id=1]
-[ext_resource path="res://code/NodeTree.cs" type="Script" id=2]
-[ext_resource path="res://fnodes/FNodeFileInfo.cs" type="Script" id=3]
-[ext_resource path="res://ui/main.cs" type="Script" id=4]
+[ext_resource path="res://ui/Project.tscn" type="PackedScene" id=2]
+[ext_resource path="res://ui/Main.cs" type="Script" id=4]
 [ext_resource path="res://ui/TCAddNodesPanel.cs" type="Script" id=5]
-[ext_resource path="res://ui/TCFilestacks.cs" type="Script" id=6]
+[ext_resource path="res://ui/UIUtil.cs" type="Script" id=7]
 
 [node name="VBMain" type="VBoxContainer"]
 anchor_right = 1.0
@@ -14,102 +13,35 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 1 )
 script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Panel2" type="Panel" parent="."]
-margin_right = 1500.0
+margin_right = 1920.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 0, 24 )
 
-[node name="TabContainer" type="TabContainer" parent="."]
+[node name="ProjectTabs" type="TabContainer" parent="."]
 margin_top = 28.0
-margin_right = 1500.0
-margin_bottom = 728.0
+margin_right = 1920.0
+margin_bottom = 908.0
 size_flags_vertical = 3
 tab_align = 0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Project 1" type="HBoxContainer" parent="TabContainer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 49.0
-margin_right = -5.0
-margin_bottom = -5.0
-size_flags_vertical = 3
-
-[node name="TCFilestacks" type="TabContainer" parent="TabContainer/Project 1"]
-margin_right = 200.0
-margin_bottom = 646.0
-rect_min_size = Vector2( 200, 0 )
-tab_align = 0
-script = ExtResource( 6 )
-
-[node name="1" type="ItemList" parent="TabContainer/Project 1/TCFilestacks"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 49.0
-margin_right = -5.0
-margin_bottom = -5.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="2" type="ItemList" parent="TabContainer/Project 1/TCFilestacks"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 49.0
-margin_right = -5.0
-margin_bottom = -5.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="3" type="ItemList" parent="TabContainer/Project 1/TCFilestacks"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 49.0
-margin_right = -5.0
-margin_bottom = -5.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="NodeTree" type="GraphEdit" parent="TabContainer/Project 1"]
-margin_left = 204.0
-margin_right = 1490.0
-margin_bottom = 646.0
-size_flags_horizontal = 3
-right_disconnects = true
-scroll_offset = Vector2( -153, 0 )
-use_snap = false
-minimap_enabled = false
-script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="left" type="GraphNode" parent="TabContainer/Project 1/NodeTree"]
-margin_left = 175.0
-margin_top = 44.0
-margin_right = 399.0
-margin_bottom = 192.0
-mouse_filter = 1
-title = "File Info"
-offset = Vector2( 22, 44 )
-script = ExtResource( 3 )
+[node name="Project 1" parent="ProjectTabs" instance=ExtResource( 2 )]
 
 [node name="TCAddNodesPanel" type="TabContainer" parent="."]
-margin_top = 732.0
-margin_right = 1500.0
-margin_bottom = 852.0
+margin_top = 912.0
+margin_right = 1920.0
+margin_bottom = 1032.0
 rect_min_size = Vector2( 0, 120 )
 tab_align = 0
 script = ExtResource( 5 )
-NPNodeTree = NodePath("../TabContainer/Project 1/NodeTree")
+NPNodeTree = NodePath("../ProjectTabs/Project 1/NodeTree")
 
 [node name="File" type="HBoxContainer" parent="TCAddNodesPanel"]
 anchor_right = 1.0
@@ -156,9 +88,9 @@ margin_right = -5.0
 margin_bottom = -5.0
 
 [node name="Panel" type="Panel" parent="."]
-margin_top = 856.0
-margin_right = 1500.0
-margin_bottom = 888.0
+margin_top = 1036.0
+margin_right = 1920.0
+margin_bottom = 1068.0
 rect_min_size = Vector2( 0, 32 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
@@ -169,13 +101,13 @@ __meta__ = {
 }
 
 [node name="Control" type="Control" parent="Panel/HBoxContainer"]
-margin_right = 1337.0
+margin_right = 1757.0
 margin_bottom = 42.0
 size_flags_horizontal = 3
 
 [node name="Button" type="Button" parent="Panel/HBoxContainer"]
-margin_left = 1341.0
-margin_right = 1500.0
+margin_left = 1761.0
+margin_right = 1920.0
 margin_bottom = 42.0
 text = "Evaluate Tree"
 __meta__ = {
@@ -183,15 +115,16 @@ __meta__ = {
 }
 
 [node name="TextEdit" type="TextEdit" parent="."]
-margin_top = 892.0
-margin_right = 1500.0
-margin_bottom = 900.0
+margin_top = 1072.0
+margin_right = 1920.0
+margin_bottom = 1080.0
 text = "aa
 dd
 ss"
 readonly = true
 
-[connection signal="connection_request" from="TabContainer/Project 1/NodeTree" to="TabContainer/Project 1/NodeTree" method="OnConnectionRequest"]
-[connection signal="delete_nodes_request" from="TabContainer/Project 1/NodeTree" to="TabContainer/Project 1/NodeTree" method="OnDeleteRequest"]
-[connection signal="disconnection_request" from="TabContainer/Project 1/NodeTree" to="TabContainer/Project 1/NodeTree" method="OnDisconnectionRequest"]
-[connection signal="pressed" from="Panel/HBoxContainer/Button" to="TabContainer/Project 1/NodeTree" method="TestTree" binds= [ "left" ]]
+[node name="Node" type="Node" parent="."]
+process_priority = -1
+script = ExtResource( 7 )
+
+[connection signal="pressed" from="Panel/HBoxContainer/Button" to="." method="OnParseTree"]

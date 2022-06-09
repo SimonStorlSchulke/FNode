@@ -5,8 +5,9 @@ using System.Linq;
 
 public abstract class FNode : GraphNode {
 
-    public Dictionary<string, FInput> inputs;
-    public Dictionary<string, FOutput> outputs;
+    public Dictionary<string, FInput> inputs = new Dictionary<string, FInput>();
+    public Dictionary<string, FOutput> outputs = new Dictionary<string, FOutput>();
+    public string category = "other";
     public override void _Ready()
     {
         ShowClose = true;

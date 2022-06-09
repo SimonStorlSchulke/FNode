@@ -5,7 +5,7 @@ using System;
 public class FNodeCreateTextFile : FNode
 {
     public FNodeCreateTextFile() {
-
+        category = "File";
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
             {"Text", new FInputString(this)},
@@ -25,9 +25,21 @@ public class FNodeCreateTextFile : FNode
 
     public override void ExecutiveMethod()
     {
-        //TODO Add Exception Handling + create Folder if it doesn't exist.
-        string path = System.IO.Path.Combine((string)inputs["Path"].Get(), (string)inputs["Name"].Get());
-        System.IO.File.WriteAllText(path, (string)inputs["Text"].Get()); // Todo - Replaye with faster Method
+        try {
+            System.IO.Directory.CreateDirectory((string)inputs["Path"].Get());
+        } catch {
+            base.ExecutiveMethod(); // TODO Error Logging
+            return;
+        }
+
+        try {
+            string path = System.IO.Path.Combine((string)inputs["Path"].Get(), (string)inputs["Name"].Get());
+            System.IO.File.WriteAllText(path, (string)inputs["Text"].Get()); // Todo - Replaye with faster Method
+        } catch {
+            base.ExecutiveMethod();
+            return;
+
+        }
         base.ExecutiveMethod();
     }
 }

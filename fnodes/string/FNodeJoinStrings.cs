@@ -5,6 +5,8 @@ using System;
 public class FNodeJoinStrings : FNode
 {
     public FNodeJoinStrings() {
+        HintTooltip = "Join multiple Strings separated by the a Separator String.\nTo Split Lines, instert [LINEBREAK] somwhere in the Separator String";
+        category = "String";        
 
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {

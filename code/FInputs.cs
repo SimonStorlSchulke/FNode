@@ -1,3 +1,4 @@
+using System.IO;
 using System;
 using System.Collections.Generic;
 using Godot;
@@ -16,9 +17,29 @@ public abstract class FInput {
         this.idx = idx == -1 ? this.idx = FNode.IdxNext() : idx;
     }
 
-    public object Get() {
+    protected object AutoSlotConversion(object value) {
+        GD.Print(value.GetType());
+        if (this.GetType() == typeof(FInputString) && value.GetType() == typeof(DateTime)) {
+            return ((DateTime)value).ToString();
+        }
+        else if (this.GetType() == typeof(FInputString) && value.GetType() == typeof(int)) {
+            return ((int)value).ToString();
+        }
+        else if (this.GetType() == typeof(FInputString) && value.GetType() == typeof(float)) {
+            return ((float)value).ToString("0.00");
+        }
+        else if (this.GetType() == typeof(FInputString) && value.GetType() == typeof(FileInfo)) {
+            return ((FileInfo)value).FullName;
+        }
+        else if (this.GetType() == typeof(FInputString) && value.GetType() == typeof(bool)) {
+            return ((bool)value).ToString();
+        }
+        else return value;
+    }
+
+    public virtual object Get() {
         if (connectedTo != null) {
-            return connectedTo.Get();
+            return AutoSlotConversion(connectedTo.Get());
         } else {
             UpdateDefaultValueFromUI();
             return defaultValue;
@@ -90,7 +111,8 @@ public class FInputDate : FInput {
     public override void UpdateDefaultValueFromUI()
     {
         Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
-        defaultValue = DateTime.Now;
+        defaultValue = DateTime.Parse((nd as Label).Text);
+        GD.Print(defaultValue);
     }
 }
 

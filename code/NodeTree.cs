@@ -3,29 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class NodeTree : GraphEdit
-{
-
-    
-    // Called when the node enters the scene tree for the first time.
-    public override void _Ready() {
-        GetTree().Connect("files_dropped", this, nameof(OnFilesDropped));
-    }
-
-    public void OnFilesDropped(string[] files, int screen) {
-        int i = 0;
-        if (GetGlobalMousePosition().x > RectGlobalPosition.x && GetGlobalMousePosition().y > RectGlobalPosition.y) {
-            foreach (string f in files) {
-                //Magic Numbers Bad
-                FNodeFileInfo fi = new FNodeFileInfo();
-                fi.Offset = (GetLocalMousePosition() + ScrollOffset) / Zoom;
-                fi.Offset += new Vector2(i * 340, 0);
-                AddChild(fi);
-                fi.GetChild(7).GetChild<LineEdit>(1).Text = f;
-                fi.Title = "FI " + new string(f.GetFile().Take(22).ToArray());;
-                i++;
-            }
-        }
-    }
+{    
 
     public List<FNode> GetFNodes() {
 
@@ -40,12 +18,7 @@ public class NodeTree : GraphEdit
         return fNodes;
     }
 
-    public void TestTree(string root) {
-        FNode n = GetNode<FNode>(root);
-        EvaluateTree(n);
-    }
-
-    public void EvaluateTree(FNode Root) {
+    public void EvaluateTree() {
         foreach (Node fn in GetChildren()) {
             if (fn is FNode)
                 (fn as FNode).ExecutiveMethodRan = false;
@@ -92,7 +65,9 @@ public class NodeTree : GraphEdit
     }
 
     public void OnAddNode(FNode fn) {
-        AddChild(fn.Duplicate());
+        FNode fd = (FNode)fn.Duplicate();
+        fd.Offset = ScrollOffset + RectSize / 2f;
+        AddChild(fd);
     }
 
     public void DeleteNode(FNode fn) {
@@ -103,7 +78,7 @@ public class NodeTree : GraphEdit
             foreach (var inp in outp.Value.ConnectedTo()) {
                 DisconnectNode(fn.Name, idxOutputs, inp.owner.Name, inp.idx);
                 inp.connectedTo = null;
-                inp.owner.GetChild(inp.idx).GetChild<Control>(1).Visible = true;
+                inp.owner.GetChild(inp.idx + inp.owner.outputs.Count).GetChild<Control>(1).Visible = true;
                 idxConnectedInputs++;
             }
             idxOutputs++;

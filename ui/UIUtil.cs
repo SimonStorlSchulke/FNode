@@ -1,25 +1,72 @@
 using System.Drawing;
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public class UIUtil : Node
 {
 
+    static Dictionary<string, StyleBox> styleboxes = new Dictionary<string, StyleBox>();
+    
     // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
-    {
-        
+    public override void _EnterTree() {
+        styleboxes.Add("NodeFile", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeFile.stylebox"));
+        styleboxes.Add("NodeFile_Selected", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeFile_selected.stylebox"));
+        styleboxes.Add("NodeString", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeString.stylebox"));
+        styleboxes.Add("NodeString_Selected", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeString_selected.stylebox"));
+        styleboxes.Add("NodeDate", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeDate.stylebox"));
+        styleboxes.Add("NodeDate_Selected", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeDate_selected.stylebox"));
+        styleboxes.Add("NodeMath", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeMath.stylebox"));
+        styleboxes.Add("NodeMath_Selected", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeMath_selected.stylebox"));
+        styleboxes.Add("NodeOther", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeBool.stylebox"));
+        styleboxes.Add("NodeOther_Selected", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeOther_selected.stylebox"));
+        styleboxes.Add("NodeBool", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeOther.stylebox"));
+        styleboxes.Add("NodeBool_Selected", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeBool_selected.stylebox"));
     }
 
     public static Control CreateUI(FNode fn) {
 
-        foreach (var item in fn.outputs)
-        {
+    switch (fn.category)
+    {
+        case "File":
+            fn.AddStyleboxOverride("frame", styleboxes["NodeFile"]);
+            fn.AddStyleboxOverride("selectedframe", styleboxes["NodeFile_Selected"]);
+            break;
+
+        case "String":
+            fn.AddStyleboxOverride("frame", styleboxes["NodeString"]);
+            fn.AddStyleboxOverride("selectedframe", styleboxes["NodeString_Selected"]);
+            break;
+
+        case "Date":
+        GD.Print("Date!");
+        GD.Print((styleboxes["NodeDate"] as StyleBoxFlat).BorderColor);
+            fn.AddStyleboxOverride("frame", styleboxes["NodeDate"]);
+            fn.AddStyleboxOverride("selectedframe", styleboxes["NodeDate_Selected"]);
+            break;
+
+        case "Math":
+            fn.AddStyleboxOverride("frame", styleboxes["NodeMath"]);
+            fn.AddStyleboxOverride("selectedframe", styleboxes["NodeMath_Selected"]);
+            break;
+
+
+        case "Bool":
+            fn.AddStyleboxOverride("frame", styleboxes["NodeBool"]);
+            fn.AddStyleboxOverride("selectedframe", styleboxes["NodeBool_Selected"]);
+            break;
+
+        default:
+            fn.AddStyleboxOverride("frame", styleboxes["NodeOther"]);
+            fn.AddStyleboxOverride("selectedframe", styleboxes["NodeOther_Selected"]);
+            break;
+    }
+
+        foreach (var item in fn.outputs) {
             AddOutputUI(fn, item.Key, item.Value);
         }
 
-        foreach (var item in fn.inputs)
-        {
+        foreach (var item in fn.inputs) {
             AddInputUI(fn, item.Key, item.Value);
         }
         return new Control();
@@ -41,7 +88,7 @@ public class UIUtil : Node
                 break;
 
             case FOutputBool t3:
-                slotColor = Colors.DarkBlue;
+                slotColor = Colors.LightPink;
                 break;
 
             case FOutputString t4:
@@ -73,7 +120,7 @@ public class UIUtil : Node
         var hb = new HBoxContainer();
         var lb = new Label();
         lb.Text = labeltext;
-        lb.RectMinSize = new Vector2(100, 0);
+        lb.RectMinSize = new Vector2(130, 0);
         hb.AddChild(lb);
         Control ct;
         Godot.Color slotColor;
@@ -92,7 +139,7 @@ public class UIUtil : Node
 
             case FInputBool t3:
                 ct = new CheckBox();
-                slotColor = Colors.DarkBlue;
+                slotColor = Colors.LightPink;
                 break;
 
             case FInputString t4:
@@ -107,11 +154,13 @@ public class UIUtil : Node
 
             case FInputDate t5:
                 GDScript calendarbutonClass = (GDScript) GD.Load("res://addons/calendar_button/scripts/calendar_script.gd");
-                Label lblDate = new Label();
+                DateLabel lblDate = new DateLabel();
                 lblDate.Text = DateTime.Now.ToString();
+                lblDate.SizeFlagsHorizontal = (int)Control.SizeFlags.ExpandFill;
                 hb.AddChild(lblDate);
                 ct = (Control) calendarbutonClass.New();
-                //ct.Connect("date_selected", lblDate, ("SetText"));
+                ct.Name = "clButton";
+                ct.Connect("date_selected", lblDate, nameof(DateLabel.SetDate));
                 slotColor = Colors.LightGreen;
                 break;
 
@@ -120,11 +169,20 @@ public class UIUtil : Node
                 slotColor = Colors.Black;
                 break;
         }
-        
-        ct.SizeFlagsHorizontal = 3;
+
+        if (ct.Name != "clButton")
+            ct.SizeFlagsHorizontal = 3;
+
         hb.AddChild(ct);
+        hb.SizeFlagsHorizontal = (int)Control.SizeFlags.ExpandFill;
         hb.RectMinSize = new Vector2(0, 40);
         toNode.AddChild(hb);
         toNode.SetSlot(hb.GetIndex(), true, 0, slotColor, false, 0, Colors.Red, null, null);
+    }
+}
+
+class DateLabel : Label {
+    public void SetDate(Godot.Reference date) {
+        Text = (string)date.Call("date", new object[]{"DD.MM.YYYY"});
     }
 }

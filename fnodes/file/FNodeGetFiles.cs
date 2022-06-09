@@ -5,7 +5,7 @@ using System.IO;
 public class FNodeGetFiles : FNode
 {
     public FNodeGetFiles() {
-        
+        category = "File";
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
             {"Path", new FInputString(this)},
