@@ -1,14 +1,18 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://theme/default.theme" type="Theme" id=1]
 [ext_resource path="res://code/NodeTree.cs" type="Script" id=2]
 [ext_resource path="res://fnodes/FNodeFileInfo.cs" type="Script" id=3]
+[ext_resource path="res://ui/main.cs" type="Script" id=4]
 [ext_resource path="res://ui/TCAddNodesPanel.cs" type="Script" id=5]
 
 [node name="VBMain" type="VBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme = ExtResource( 1 )
+script = ExtResource( 4 )
 
 [node name="Panel2" type="Panel" parent="."]
 margin_right = 1500.0
@@ -45,7 +49,7 @@ margin_right = 1490.0
 margin_bottom = 646.0
 size_flags_horizontal = 3
 right_disconnects = true
-scroll_offset = Vector2( -7.56, 0 )
+scroll_offset = Vector2( -153, 0 )
 use_snap = false
 minimap_enabled = false
 script = ExtResource( 2 )
@@ -54,9 +58,9 @@ __meta__ = {
 }
 
 [node name="left" type="GraphNode" parent="TabContainer/Project 1/NodeTree"]
-margin_left = 29.56
+margin_left = 175.0
 margin_top = 44.0
-margin_right = 253.56
+margin_right = 399.0
 margin_bottom = 192.0
 mouse_filter = 1
 title = "File Info"
