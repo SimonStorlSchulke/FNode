@@ -18,20 +18,47 @@ public abstract class FInput {
     }
 
     protected object AutoSlotConversion(object value) {
-        if (this.GetType() == typeof(FInputString) && value.GetType() == typeof(DateTime)) {
+        // TODO this Could probably be more effective
+        Type slotType = this.GetType();
+        Type valueType = value.GetType();
+        if (slotType == typeof(FInputString) && valueType == typeof(DateTime)) {
             return ((DateTime)value).ToString();
         }
-        else if (this.GetType() == typeof(FInputString) && value.GetType() == typeof(int)) {
+        else if (slotType == typeof(FInputString) && valueType == typeof(int)) {
             return ((int)value).ToString();
         }
-        else if (this.GetType() == typeof(FInputString) && value.GetType() == typeof(float)) {
+        else if (slotType == typeof(FInputString) && valueType == typeof(float)) {
             return ((float)value).ToString("0.00");
         }
-        else if (this.GetType() == typeof(FInputString) && value.GetType() == typeof(FileInfo)) {
+        else if (slotType == typeof(FInputString) && valueType == typeof(double)) {
+            return ((double)value).ToString("0.00");
+        }
+        else if (slotType == typeof(FInputString) && valueType == typeof(FileInfo)) {
             return ((FileInfo)value).FullName;
         }
-        else if (this.GetType() == typeof(FInputString) && value.GetType() == typeof(bool)) {
+        else if (slotType == typeof(FInputString) && valueType == typeof(bool)) {
             return ((bool)value).ToString();
+        }
+        else if (slotType == typeof(FInputInt) && valueType == typeof(float)) {
+            return (int)((float)value);
+        }
+        else if (slotType == typeof(FInputFloat) && valueType == typeof(int)) {
+            return (float)((int)value);
+        }
+        else if (slotType == typeof(FInputBool) && valueType == typeof(int)) {
+            return ((int)value) > 0 ? true : false;
+        }
+        else if (slotType == typeof(FInputBool) && valueType == typeof(float)) {
+            return ((float)value) >= 1f ? true : false;
+        }
+        else if (slotType == typeof(FInputFloat) && valueType == typeof(bool)) {
+            return (bool)value ? 1.0f : 0.0f;
+        }
+        else if (slotType == typeof(FInputInt) && valueType == typeof(bool)) {
+            return (bool)value ? 1 : 0;
+        }
+        else if (slotType == typeof(FInputString) && valueType == typeof(bool)) {
+            return (bool)value ? "True" : "False";
         }
         else return value;
     }
@@ -41,7 +68,7 @@ public abstract class FInput {
             return AutoSlotConversion(connectedTo.Get());
         } else {
             UpdateDefaultValueFromUI();
-            return defaultValue;
+            return AutoSlotConversion(defaultValue);
         }
     }
 
@@ -88,7 +115,7 @@ public class FInputFloat : FInput {
     public override void UpdateDefaultValueFromUI()
     {
         Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
-        defaultValue = (nd as SpinBox).Value;
+        defaultValue = (float)(nd as SpinBox).Value;
     }
 }
 

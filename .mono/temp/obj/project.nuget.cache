@@ -1,11 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "EJXhXb+lHZRlWIHMgI0ufhhlRd4AxIkN2G1eblrYSusF1gOuuZYvPIu7tHIcVh6i70DgfBrVXn9b6dO9ZXgp3Q==",
+  "dgSpecHash": "MXihNL9e9b1o7GNDHSfkDlSM0jMNKQJbqsrkJ9/z340o2bl26Ajdw/AN4rV8ZTHwWEqvIhY+Nhl2BBfwGe5BsQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\simon\\Dev\\nodefiler\\fnode.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\simon\\.nuget\\packages\\microsoft.netframework.referenceassemblies\\1.0.2\\microsoft.netframework.referenceassemblies.1.0.2.nupkg.sha512",
-    "C:\\Users\\simon\\.nuget\\packages\\microsoft.netframework.referenceassemblies.net472\\1.0.2\\microsoft.netframework.referenceassemblies.net472.1.0.2.nupkg.sha512"
-  ],
+  "projectFilePath": "A:\\dev\\FNode\\fnode.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }

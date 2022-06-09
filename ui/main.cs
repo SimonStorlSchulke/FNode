@@ -29,7 +29,7 @@ public class Main : VBoxContainer
                 fi.Offset = (currentProject.NodeTree.GetLocalMousePosition() + currentProject.NodeTree.ScrollOffset) / currentProject.NodeTree.Zoom;
                 fi.Offset += new Vector2(i * 340, 0);
                 currentProject.NodeTree.AddChild(fi);
-                fi.GetChild(7).GetChild<LineEdit>(1).Text = f;
+                fi.GetChild(8).GetChild<LineEdit>(1).Text = f;
                 fi.Title = "FI " + new string(f.GetFile().Take(22).ToArray());;
                 i++;
             }

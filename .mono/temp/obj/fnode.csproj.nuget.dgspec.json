@@ -1,18 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\simon\\Dev\\nodefiler\\fnode.csproj": {}
+    "A:\\dev\\FNode\\fnode.csproj": {}
   },
   "projects": {
-    "C:\\Users\\simon\\Dev\\nodefiler\\fnode.csproj": {
+    "A:\\dev\\FNode\\fnode.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\simon\\Dev\\nodefiler\\fnode.csproj",
+        "projectUniqueName": "A:\\dev\\FNode\\fnode.csproj",
         "projectName": "fnode",
-        "projectPath": "C:\\Users\\simon\\Dev\\nodefiler\\fnode.csproj",
+        "projectPath": "A:\\dev\\FNode\\fnode.csproj",
         "packagesPath": "C:\\Users\\simon\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\simon\\Dev\\nodefiler\\.mono\\temp\\obj\\",
+        "outputPath": "A:\\dev\\FNode\\.mono\\temp\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
           "C:\\Users\\simon\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
@@ -37,15 +40,7 @@
       "frameworks": {
         "net472": {
           "targetAlias": "net472",
-          "dependencies": {
-            "Microsoft.NETFramework.ReferenceAssemblies": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[1.0.2, )",
-              "autoReferenced": true
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

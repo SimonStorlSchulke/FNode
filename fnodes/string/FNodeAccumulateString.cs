@@ -18,7 +18,11 @@ public class FNodeAccumulateString : FNode
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
             {
             "String", new FOutputString(this, delegate() {
-                Main.inst.Connect(nameof(Main.StartParsing), this, nameof(ResetString)); //Doing this here because of process order (instance of main is initialized after Nodes)
+                
+                if (!Main.inst.IsConnected(nameof(Main.StartParsing), this, nameof(ResetString))) {
+                    Main.inst.Connect(nameof(Main.StartParsing), this, nameof(ResetString)); //Doing this here because of process order (instance of main is initialized after Nodes)
+                }
+                
                 string sep = inputs["Separator"].Get() as string;
                 sep = sep.Replace("[LINEBREAK]", "\n"); //TODO sanitize this...
                 

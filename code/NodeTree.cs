@@ -21,7 +21,7 @@ public class NodeTree : GraphEdit
 
     public void EvaluateTree() {
         Project.idxEval = 0;
-        Project.maxNumFiles = 0;
+        Project.maxNumFiles = 1;
 
         foreach (var fileList in Main.inst.currentProject.FileStacks.Stacks) {
             if (fileList.Count > Project.maxNumFiles)

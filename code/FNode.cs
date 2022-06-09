@@ -38,8 +38,8 @@ public abstract class FNode : GraphNode {
         indexerNum++;
         return val;
     }
-    public static void IdxReset() {
-        indexerNum = 0;
+    public static void IdxReset(int num = 0) {
+        indexerNum = num;
     }
 }
 

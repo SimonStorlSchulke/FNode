@@ -11,17 +11,17 @@ public class UIUtil : Node
     // Called when the node enters the scene tree for the first time.
     public override void _EnterTree() {
         styleboxes.Add("NodeFile", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeFile.stylebox"));
-        styleboxes.Add("NodeFile_Selected", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeFile_selected.stylebox"));
+        styleboxes.Add("NodeFile_Selected", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeFile_Selected.stylebox"));
         styleboxes.Add("NodeString", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeString.stylebox"));
-        styleboxes.Add("NodeString_Selected", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeString_selected.stylebox"));
+        styleboxes.Add("NodeString_Selected", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeString_Selected.stylebox"));
         styleboxes.Add("NodeDate", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeDate.stylebox"));
-        styleboxes.Add("NodeDate_Selected", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeDate_selected.stylebox"));
+        styleboxes.Add("NodeDate_Selected", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeDate_Selected.stylebox"));
         styleboxes.Add("NodeMath", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeMath.stylebox"));
-        styleboxes.Add("NodeMath_Selected", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeMath_selected.stylebox"));
+        styleboxes.Add("NodeMath_Selected", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeMath_Selected.stylebox"));
         styleboxes.Add("NodeOther", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeBool.stylebox"));
-        styleboxes.Add("NodeOther_Selected", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeOther_selected.stylebox"));
+        styleboxes.Add("NodeOther_Selected", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeOther_Selected.stylebox"));
         styleboxes.Add("NodeBool", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeOther.stylebox"));
-        styleboxes.Add("NodeBool_Selected", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeBool_selected.stylebox"));
+        styleboxes.Add("NodeBool_Selected", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeBool_Selected.stylebox"));
     }
 
     public static Control CreateUI(FNode fn) {

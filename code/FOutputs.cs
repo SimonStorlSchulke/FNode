@@ -25,6 +25,7 @@ public class FOutput {
         foreach (Godot.Collections.Dictionary link in links) {
             if ((string)link["from"] == owner.Name && (int)link["from_port"] == idx) {
                 inpList.Add(nt.GetNode<FNode>((string)link["to"]).inputs.ElementAt((int)link["to_port"]).Value);
+                GD.Print(nt.GetNode<FNode>((string)link["to"]).inputs.ElementAt((int)link["to_port"]).Value);
             }
         }
         return inpList;

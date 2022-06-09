@@ -77,6 +77,15 @@ public class FNodeFileInfo : FNode
                     return 0;
                 }
             })},
+            {
+            "Readonly", new FOutputBool(this, delegate() 
+            {
+                try {
+                    return ((FileInfo)inputs["File"].Get()).IsReadOnly;
+                } catch {
+                    return true;
+                }
+            })},
         };
     }
 }

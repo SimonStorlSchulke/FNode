@@ -18,14 +18,14 @@ __meta__ = {
 }
 
 [node name="Panel2" type="Panel" parent="."]
-margin_right = 1920.0
+margin_right = 1800.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 0, 24 )
 
 [node name="ProjectTabs" type="TabContainer" parent="."]
 margin_top = 28.0
-margin_right = 1920.0
-margin_bottom = 908.0
+margin_right = 1800.0
+margin_bottom = 728.0
 size_flags_vertical = 3
 tab_align = 0
 __meta__ = {
@@ -35,9 +35,9 @@ __meta__ = {
 [node name="Project 1" parent="ProjectTabs" instance=ExtResource( 2 )]
 
 [node name="TCAddNodesPanel" type="TabContainer" parent="."]
-margin_top = 912.0
-margin_right = 1920.0
-margin_bottom = 1032.0
+margin_top = 732.0
+margin_right = 1800.0
+margin_bottom = 852.0
 rect_min_size = Vector2( 0, 120 )
 tab_align = 0
 script = ExtResource( 5 )
@@ -88,9 +88,9 @@ margin_right = -5.0
 margin_bottom = -5.0
 
 [node name="Panel" type="Panel" parent="."]
-margin_top = 1036.0
-margin_right = 1920.0
-margin_bottom = 1068.0
+margin_top = 856.0
+margin_right = 1800.0
+margin_bottom = 888.0
 rect_min_size = Vector2( 0, 32 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
@@ -101,13 +101,13 @@ __meta__ = {
 }
 
 [node name="Control" type="Control" parent="Panel/HBoxContainer"]
-margin_right = 1757.0
+margin_right = 1637.0
 margin_bottom = 42.0
 size_flags_horizontal = 3
 
 [node name="Button" type="Button" parent="Panel/HBoxContainer"]
-margin_left = 1761.0
-margin_right = 1920.0
+margin_left = 1641.0
+margin_right = 1800.0
 margin_bottom = 42.0
 text = "Evaluate Tree"
 __meta__ = {
@@ -115,9 +115,9 @@ __meta__ = {
 }
 
 [node name="TextEdit" type="TextEdit" parent="."]
-margin_top = 1072.0
-margin_right = 1920.0
-margin_bottom = 1080.0
+margin_top = 892.0
+margin_right = 1800.0
+margin_bottom = 900.0
 text = "aa
 dd
 ss"
