@@ -2,39 +2,32 @@ using System.IO;
 using Godot;
 using System;
 
+
+
 public class FNodeSwitch : FNode
 {
     OptionButton ob;
+
     public FNodeSwitch() {
         HintTooltip = "Multiple Math Operations";
         category = "Math";
 
-        // Monstrosity....
-        FInput inpFalse;
-        FInput inpTrue;
-        FOutput outp;
+
         FNode.IdxReset();
-        FInputBool opSwitch = new FInputBool(this);
-
-
-        inpFalse = new FInputFile(this);
-        inpTrue = new FInputFile(this);
-    
-        outp = new FOutputFile(this, delegate() {
-            FileInfo valFalse = (FileInfo)inputs["False"].Get();
-            FileInfo valTrue = (FileInfo)inputs["True"].Get();
-            return (bool)inputs["Switch"].Get() ? valTrue : valFalse;
-        });
-
-
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
-            {"Switch", opSwitch},
-            {"False", inpFalse},
-            {"True", inpTrue},
+            {"Switch", new FInputBool(this)},
+            {"False", new FInputFile(this)},
+            {"True", new FInputFile(this)},
         };
+
         FNode.IdxReset();
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
-            {"Result", outp},
+            {"Result", 
+            new FOutputFile(this, delegate() {
+                FileInfo valFalse = (FileInfo)inputs["False"].Get();
+                FileInfo valTrue = (FileInfo)inputs["True"].Get();
+                return (FileInfo)((bool)inputs["Switch"].Get() ? valTrue : valFalse);
+            })},
         };
     }
 
@@ -53,9 +46,9 @@ public class FNodeSwitch : FNode
         ob = new OptionButton();
         ob.AddItem("File");
         ob.AddItem("String");
-        ob.AddItem("Float");
-        ob.AddItem("Int");
         ob.AddItem("Bool");
+        ob.AddItem("Int");
+        ob.AddItem("Float");
         ob.AddItem("Date");
         AddChild(ob);
 
@@ -65,6 +58,79 @@ public class FNodeSwitch : FNode
 
     public void OptionSelected(int option) {
 
-        ChangeSlotType(inputs["False"], FNode.FNodeSlotTypes.BOOL);
+        var oldConList = outputs["Result"].ConnectedTo();
+
+        //This is a monstrosity- is there a better way?
+
+        ChangeSlotType(inputs["True"], (FNode.FNodeSlotTypes)option);
+        ChangeSlotType(inputs["False"], (FNode.FNodeSlotTypes)option);
+
+        switch (option)
+        {
+            case (int)(FNodeSlotTypes.FILE):
+                ChangeSlotType(
+                    outputs["Result"], 
+                    delegate() {
+                        FileInfo valFalse = (FileInfo)inputs["False"].Get();
+                        FileInfo valTrue = (FileInfo)inputs["True"].Get();
+                        return (FileInfo)((bool)inputs["Switch"].Get() ? valTrue : valFalse);
+                    }, 
+                    (FNode.FNodeSlotTypes)option);
+                break;
+            case (int)(FNodeSlotTypes.STRING):
+            GD.Print("HU");
+                ChangeSlotType(
+                    outputs["Result"], 
+                    delegate() {
+                        string valFalse = (string)inputs["False"].Get();
+                        string valTrue = (string)inputs["True"].Get();
+                        return (string)((bool)inputs["Switch"].Get() ? valTrue : valFalse);
+                    }, 
+                    (FNode.FNodeSlotTypes)option);
+                break;
+            case (int)(FNodeSlotTypes.BOOL):
+                ChangeSlotType(
+                    outputs["Result"], 
+                    delegate() {
+                        bool valFalse = (bool)inputs["False"].Get();
+                        bool valTrue = (bool)inputs["True"].Get();
+                        return (bool)((bool)inputs["Switch"].Get() ? valTrue : valFalse);
+                    }, 
+                    (FNode.FNodeSlotTypes)option);
+                break;
+            case (int)(FNodeSlotTypes.INT):
+                ChangeSlotType(
+                    outputs["Result"], 
+                    delegate() {
+                        int valFalse = (int)inputs["False"].Get();
+                        int valTrue = (int)inputs["True"].Get();
+                        return (int)((bool)inputs["Switch"].Get() ? valTrue : valFalse);
+                    }, 
+                    (FNode.FNodeSlotTypes)option);
+                break;
+            case (int)(FNodeSlotTypes.FLOAT):
+                ChangeSlotType(
+                    outputs["Result"], 
+                    delegate() {
+                        float valFalse = (float)inputs["False"].Get();
+                        float valTrue = (float)inputs["True"].Get();
+                        return (float)((bool)inputs["Switch"].Get() ? valTrue : valFalse);
+                    }, 
+                    (FNode.FNodeSlotTypes)option);
+                break;
+            case (int)(FNodeSlotTypes.DATE):
+                ChangeSlotType(
+                    outputs["Result"], 
+                    delegate() {
+                        DateTime valFalse = (DateTime)inputs["False"].Get();
+                        DateTime valTrue = (DateTime)inputs["True"].Get();
+                        return (DateTime)((bool)inputs["Switch"].Get() ? valTrue : valFalse);
+                    }, 
+                    (FNode.FNodeSlotTypes)option);
+                break;
+        }
+        foreach (var cTo in oldConList){
+            cTo.connectedTo = outputs["Result"];
+        }
     }
 }

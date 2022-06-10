@@ -71,7 +71,7 @@ public class UIUtil : Node
         }
     }
 
-    public static void AddOutputUI(FNode toNode, string labeltext, FOutput fOutp) {
+    public static void AddOutputUI(FNode toNode, string labeltext, FOutput fOutp, int atIdx = -1) {
         var hb = new HBoxContainer();
         var lb = new Label();
         lb.Text = labeltext;
@@ -112,7 +112,14 @@ public class UIUtil : Node
         hb.AddChild(lb);
         hb.RectMinSize = new Vector2(0, 40);
         toNode.AddChild(hb);
-        toNode.SetSlot(hb.GetIndex(), false, 0, slotColor, true, 0, slotColor, null, null);
+        
+
+        if (atIdx != -1) {
+            toNode.SetSlot(atIdx, false, 0, slotColor, true, 0, slotColor, null, null);
+            toNode.MoveChild(hb, atIdx);
+        } else {
+            toNode.SetSlot(hb.GetIndex(), false, 0, slotColor, true, 0, slotColor, null, null);
+        }
     }
 
     public static void AddInputUI(FNode toNode, string labeltext, FInput fInp, int atIdx = -1) {

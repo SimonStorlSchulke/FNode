@@ -64,7 +64,6 @@ public abstract class FInput {
     }
 
     public virtual object Get() {
-        GD.Print("Me bastard: ", this.GetType());
         if (connectedTo != null) {
             return AutoSlotConversion(connectedTo.Get());
         } else {
