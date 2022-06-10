@@ -11,7 +11,17 @@ public class FNodeSwitch : FNode
     }
 
     public override void _Ready() {
-        base._Ready();
+        //base._Ready();
+
+        ShowClose = true;
+        Title = this.GetType().Name.Replace("FNode", "");
+        this.RectMinSize = new Vector2(250, 0);
+        Connect(
+            "close_request", 
+            GetParent(), 
+            nameof(NodeTree.DeleteNode), 
+            new Godot.Collections.Array(){this});
+
         ob = new OptionButton();
         ob.AddItem("File");
         ob.AddItem("String");
@@ -36,7 +46,7 @@ public class FNodeSwitch : FNode
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
             {"Switch", new FInputBool(this)},
         };
-
+        GD.Print(option);
         switch (option)
         {
             case 0:
@@ -120,16 +130,28 @@ public class FNodeSwitch : FNode
             {"Result", outp},
         };
 
-        if (GetChildCount() > 1) {
-            GetChild(0).QueueFree();
-            GetChild(1).QueueFree();
-            GetChild(2).QueueFree();
-            GetChild(3).QueueFree();
-            RemoveChild(ob);
+        GD.Print("Children: ", GetChildCount());
+        int c = GetChildCount();
+        for (int id = 0; id < c-1; id++) {
+            Node n = GetChild(0);
+            n.QueueFree();
+            RemoveChild(n);
+            GD.Print("Removing Child ", id);
         }
+        try {
+            RemoveChild(ob);
+        } catch {}
+        
 
-        UIUtil.CreateUI(this);
+        SetSlot(0, false, 0, Colors.Red, false, 0, Colors.Red, null, null);
+        SetSlot(1, false, 0, Colors.Red, false, 0, Colors.Red, null, null);
+        SetSlot(2, false, 0, Colors.Red, false, 0, Colors.Red, null, null);
+        SetSlot(3, false, 0, Colors.Red, false, 0, Colors.Red, null, null);
+
+
+        GD.Print(outputs.Count);
         GD.Print(inputs.Count);
+        UIUtil.CreateUI(this);
         AddChild(ob);
        //UIUtil.AddInputUI(this, "False", inpFalse);
         //UIUtil.AddInputUI(this, "True", inpTrue);

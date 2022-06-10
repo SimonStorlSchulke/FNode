@@ -24,7 +24,7 @@ public class UIUtil : Node
         styleboxes.Add("NodeBool_Selected", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeBool_Selected.stylebox"));
     }
 
-    public static Control CreateUI(FNode fn) {
+    public static void CreateUI(FNode fn) {
 
     switch (fn.category)
     {
@@ -69,7 +69,6 @@ public class UIUtil : Node
         foreach (var item in fn.inputs) {
             AddInputUI(fn, item.Key, item.Value);
         }
-        return new Control();
     }
 
     public static void AddOutputUI(FNode toNode, string labeltext, FOutput fOutp) {
@@ -177,6 +176,7 @@ public class UIUtil : Node
         hb.SizeFlagsHorizontal = (int)Control.SizeFlags.ExpandFill;
         hb.RectMinSize = new Vector2(0, 40);
         toNode.AddChild(hb);
+        GD.Print("ID: ", hb.GetIndex());
         toNode.SetSlot(hb.GetIndex(), true, 0, slotColor, false, 0, Colors.Red, null, null);
     }
 }
