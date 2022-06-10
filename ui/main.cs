@@ -15,7 +15,7 @@ public class Main : VBoxContainer
     // Called when the node enters the scene tree for the first time.
     public override void _Ready() {
         inst = this;
-        prTabs = GetNode<TabContainer>("ProjectTabs");
+        prTabs = GetNode<TabContainer>("HBMain/ProjectTabs");
         currentProject = prTabs.GetChild<Project>(prTabs.CurrentTab);
         GetTree().Connect("files_dropped", this, nameof(OnFilesDropped));
     }
