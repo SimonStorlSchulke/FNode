@@ -26,6 +26,7 @@ public class TCAddNodesPanel : TabContainer
         CreateAddButton(typeof(FNodeAccumulateNumber), "Math");
         CreateAddButton(typeof(FNodeStringIncludes), "String");
         CreateAddButton(typeof(FNodeReplaceString), "String");
+        CreateAddButton(typeof(FNodeSwitch), "Other");
     }
 
     void CreateAddButton(Type t, string Category) {

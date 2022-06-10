@@ -1,6 +1,4 @@
-using System.IO;
 using Godot;
-using System;
 
 public class FNodeReplaceString : FNode
 {
@@ -25,10 +23,7 @@ public class FNodeReplaceString : FNode
                 for (int i = 0; i < ((inputs.Count) / 2); i++) {
                     string replaceStr = (string)inputs["Replace"+(i+1)].Get();
                     string withStr = (string)inputs["With"+(i+1)].Get();
-                    GD.Print("Replace " + replaceStr);
-                    GD.Print("With " + withStr);
                     str = str.Replace(replaceStr, withStr);
-                    GD.Print("str " + str);
                 }
 
                 return str;
