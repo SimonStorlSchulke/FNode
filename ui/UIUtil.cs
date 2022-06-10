@@ -115,7 +115,7 @@ public class UIUtil : Node
         toNode.SetSlot(hb.GetIndex(), false, 0, slotColor, true, 0, slotColor, null, null);
     }
 
-    public static void AddInputUI(FNode toNode, string labeltext, FInput fInp) {
+    public static void AddInputUI(FNode toNode, string labeltext, FInput fInp, int atIdx = -1) {
         var hb = new HBoxContainer();
         var lb = new Label();
         lb.Text = labeltext;
@@ -176,8 +176,13 @@ public class UIUtil : Node
         hb.SizeFlagsHorizontal = (int)Control.SizeFlags.ExpandFill;
         hb.RectMinSize = new Vector2(0, 40);
         toNode.AddChild(hb);
-        GD.Print("ID: ", hb.GetIndex());
-        toNode.SetSlot(hb.GetIndex(), true, 0, slotColor, false, 0, Colors.Red, null, null);
+
+        if (atIdx != -1) {
+            toNode.SetSlot(atIdx, true, 0, slotColor, false, 0, Colors.Red, null, null);
+            toNode.MoveChild(hb, atIdx);
+        } else {
+            toNode.SetSlot(hb.GetIndex(), true, 0, slotColor, false, 0, Colors.Red, null, null);
+        }
     }
 }
 

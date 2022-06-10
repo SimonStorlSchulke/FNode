@@ -41,5 +41,23 @@ public abstract class FNode : GraphNode {
     public static void IdxReset(int num = 0) {
         indexerNum = num;
     }
+
+    public enum FNodeSlotTypes {
+        FILE,
+        STRING,
+        BOOL,
+        INT,
+        FLOAT,
+        DATE
+    }
+    public void ChangeSlotType(FInput finput, FNodeSlotTypes toType) {
+        int childIdx = outputs.Count + finput.idx;
+        Node n = GetChild(childIdx);
+        RemoveChild(n);
+        n.QueueFree();
+        int idx = finput.idx;
+        finput = new FInputBool(this, idx);
+        UIUtil.AddInputUI(this, "Test", finput, childIdx);
+    }
 }
 

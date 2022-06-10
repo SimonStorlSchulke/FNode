@@ -8,10 +8,38 @@ public class FNodeSwitch : FNode
     public FNodeSwitch() {
         HintTooltip = "Multiple Math Operations";
         category = "Math";
+
+        // Monstrosity....
+        FInput inpFalse;
+        FInput inpTrue;
+        FOutput outp;
+        FNode.IdxReset();
+        FInputBool opSwitch = new FInputBool(this);
+
+
+        inpFalse = new FInputFile(this);
+        inpTrue = new FInputFile(this);
+    
+        outp = new FOutputFile(this, delegate() {
+            FileInfo valFalse = (FileInfo)inputs["False"].Get();
+            FileInfo valTrue = (FileInfo)inputs["True"].Get();
+            return (bool)inputs["Switch"].Get() ? valTrue : valFalse;
+        });
+
+
+        inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
+            {"Switch", opSwitch},
+            {"False", inpFalse},
+            {"True", inpTrue},
+        };
+        FNode.IdxReset();
+        outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
+            {"Result", outp},
+        };
     }
 
     public override void _Ready() {
-        //base._Ready();
+        base._Ready();
 
         ShowClose = true;
         Title = this.GetType().Name.Replace("FNode", "");
@@ -29,131 +57,14 @@ public class FNodeSwitch : FNode
         ob.AddItem("Int");
         ob.AddItem("Bool");
         ob.AddItem("Date");
+        AddChild(ob);
 
         ob.Connect("item_selected", this, nameof(OptionSelected));
-        OptionSelected(0);
 
     }
 
     public void OptionSelected(int option) {
-        GD.Print("CALLING!");
-        // Monstrosity....
-        FInput inpFalse;
-        FInput inpTrue;
-        FOutput outp;
 
-        FNode.IdxReset();
-        inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
-            {"Switch", new FInputBool(this)},
-        };
-        GD.Print(option);
-        switch (option)
-        {
-            case 0:
-                inpFalse = new FInputFile(this);
-                inpTrue = new FInputFile(this);
-            
-                outp = new FOutputFile(this, delegate() {
-                    GD.Print("ME NO STRING!");
-                    FileInfo valFalse = (FileInfo)inputs["False"].Get();
-                    FileInfo valTrue = (FileInfo)inputs["True"].Get();
-                    return (bool)inputs["Switch"].Get() ? valTrue : valFalse;
-                });
-                break;
-            case 1:
-                inpFalse = new FInputString(this);
-                inpTrue = new FInputString(this);
-                GD.Print("ME STRING!");
-                outp = new FOutputString(this, delegate() {
-                    string valFalse = (string)inputs["False"].Get();
-                    string valTrue = (string)inputs["True"].Get();
-                    return (string)((bool)inputs["Switch"].Get() ? valTrue : valFalse);
-                });
-                break;
-            case 2:
-                inpFalse = new FInputFloat(this);
-                inpTrue = new FInputFloat(this);
-            
-                outp = new FOutputFloat(this, delegate() {
-                    float valFalse = (float)inputs["False"].Get();
-                    float valTrue = (float)inputs["True"].Get();
-                    return (bool)inputs["Switch"].Get() ? valTrue : valFalse;
-                });
-                break;
-            case 3:
-                inpFalse = new FInputInt(this);
-                inpTrue = new FInputInt(this);
-            
-                outp = new FOutputInt(this, delegate() {
-                    int valFalse = (int)inputs["False"].Get();
-                    int valTrue = (int)inputs["True"].Get();
-                    return (bool)inputs["Switch"].Get() ? valTrue : valFalse;
-                });
-                break;
-            case 4:
-                inpFalse = new FInputBool(this);
-                inpTrue = new FInputBool(this);
-            
-                outp = new FOutputBool(this, delegate() {
-                    bool valFalse = (bool)inputs["False"].Get();
-                    bool valTrue = (bool)inputs["True"].Get();
-                    return (bool)inputs["Switch"].Get() ? valTrue : valFalse;
-                });
-                break;
-            case 5:
-                inpFalse = new FInputDate(this);
-                inpTrue = new FInputDate(this);
-            
-                outp = new FOutputDate(this, delegate() {
-                    DateTime valFalse = (DateTime)inputs["False"].Get();
-                    DateTime valTrue = (DateTime)inputs["True"].Get();
-                    return (bool)inputs["Switch"].Get() ? valTrue : valFalse;
-                });
-                break;
-            default:
-                inpFalse = new FInputFile(this);
-                inpTrue = new FInputFile(this);
-            
-                outp = new FOutputFloat(this, delegate() {
-                    FileInfo valFalse = (FileInfo)inputs["False"].Get();
-                    FileInfo valTrue = (FileInfo)inputs["True"].Get();
-                    return (bool)inputs["Switch"].Get() ? valTrue : valFalse;
-                });
-                break;
-        }
-
-        inputs.Add("False", inpFalse);
-        inputs.Add("True", inpTrue);
-
-        FNode.IdxReset();
-        outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
-            {"Result", outp},
-        };
-
-        GD.Print("Children: ", GetChildCount());
-        int c = GetChildCount();
-        for (int id = 0; id < c-1; id++) {
-            Node n = GetChild(0);
-            n.QueueFree();
-            RemoveChild(n);
-            GD.Print("Removing Child ", id);
-        }
-        try {
-            RemoveChild(ob);
-        } catch {}
-        
-
-        SetSlot(0, false, 0, Colors.Red, false, 0, Colors.Red, null, null);
-        SetSlot(1, false, 0, Colors.Red, false, 0, Colors.Red, null, null);
-        SetSlot(2, false, 0, Colors.Red, false, 0, Colors.Red, null, null);
-        SetSlot(3, false, 0, Colors.Red, false, 0, Colors.Red, null, null);
-
-
-        GD.Print(outputs.Count);
-        GD.Print(inputs.Count);
-        UIUtil.CreateUI(this);
-        AddChild(ob);
-       //UIUtil.AddInputUI(this, "False", inpFalse);
-        //UIUtil.AddInputUI(this, "True", inpTrue);
+        ChangeSlotType(inputs["False"], FNode.FNodeSlotTypes.BOOL);
     }
 }

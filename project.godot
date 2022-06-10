@@ -47,7 +47,6 @@ config/icon="res://icon.png"
 window/size/width=1800
 window/size/height=900
 window/dpi/allow_hidpi=true
-window/stretch/shrink=0.6
 
 [editor_plugins]
 
