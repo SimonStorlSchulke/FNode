@@ -2,6 +2,16 @@ using System.IO;
 using System;
 using Godot;
 
+public enum SlotType {
+    FILE,
+    STRING,
+    BOOL,
+    INT,
+    FLOAT,
+    DATE,
+    IMAGE,
+    OTHER
+}
 
 public abstract class FInput {
     protected object defaultValue;
@@ -10,6 +20,7 @@ public abstract class FInput {
     public FOutput connectedTo;
     public int idx;
     public string description;
+    public SlotType slotType = SlotType.OTHER;
 
     public FInput(FNode owner, int idx, string description) {
         this.owner = owner;
@@ -75,19 +86,9 @@ public abstract class FInput {
     public abstract void UpdateDefaultValueFromUI();
 }
 
-public class FInputString : FInput {
-    public FInputString(FNode owner, int idx=-1, string description="") : base(owner, idx, description) {
-    }
-
-    public override void UpdateDefaultValueFromUI()
-    {
-        Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
-        defaultValue = (nd as LineEdit).Text.Replace("[LINEBREAK]", "\n");
-    }
-}
-
 public class FInputFile : FInput {
     public FInputFile(FNode owner, int idx=-1, string description="") : base(owner, idx, description) {
+        slotType = SlotType.FILE;
     }
     
     public override void UpdateDefaultValueFromUI()
@@ -97,8 +98,22 @@ public class FInputFile : FInput {
     }
 }
 
+public class FInputString : FInput {
+    public FInputString(FNode owner, int idx=-1, string description="") : base(owner, idx, description) {
+        slotType = SlotType.STRING;
+    }
+
+    public override void UpdateDefaultValueFromUI()
+    {
+        Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
+        defaultValue = (nd as LineEdit).Text.Replace("[LINEBREAK]", "\n");
+    }
+}
+
+
 public class FInputInt : FInput {
     public FInputInt(FNode owner, int idx=-1, string description="") : base(owner, idx, description) {
+        slotType = SlotType.INT;
     }
     
     public override void UpdateDefaultValueFromUI()
@@ -110,6 +125,7 @@ public class FInputInt : FInput {
 
 public class FInputFloat : FInput {
     public FInputFloat(FNode owner, int idx=-1, string description="") : base(owner, idx, description) {
+        slotType = SlotType.FLOAT;
     }
     
     public override void UpdateDefaultValueFromUI()
@@ -123,6 +139,7 @@ public class FInputFloat : FInput {
 
 public class FInputBool : FInput {
     public FInputBool(FNode owner, int idx=-1, string description="") : base(owner, idx, description) {
+        slotType = SlotType.BOOL;
     }
     
     public override void UpdateDefaultValueFromUI()
@@ -134,6 +151,7 @@ public class FInputBool : FInput {
 
 public class FInputDate : FInput {
     public FInputDate(FNode owner, int idx=-1, string description="") : base(owner, idx, description) {
+        slotType = SlotType.DATE;
     }
     
     public override void UpdateDefaultValueFromUI()

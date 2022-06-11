@@ -77,32 +77,44 @@ public class NodeTree : GraphEdit
         fnTo.GetChild(toSlot + fnTo.outputs.Count).GetChild<Control>(1).Visible = true;
     }
 
-    public void OnAddNodeB(FNode fn) {
+    public void OnAddNode(FNode fn, Vector2? offset = null) {
         FNode fnDup = (FNode)fn.Duplicate();
-        fnDup.Offset = ScrollOffset + RectSize / 2f;
+        fnDup.Offset = (offset == null) ? ScrollOffset + RectSize / 2f : (Vector2)offset;
         AddChild(fnDup);
         SetSelected(fnDup);
     }
 
-    public void OnAddNode(FNode fn) {
-
+    public void OnAddNodeFromUI(FNode fn) {
+        
         var fnSel = GetFirstSelectedNode();
         if (fnSel == null) {
-            OnAddNodeB(fn);
+            OnAddNode(fn);
             return;
         }
 
         if (fnSel.outputs.Count > 0 && fn.inputs.Count > 0) {
             FNode fnDup = (FNode)fn.Duplicate();
             fnDup.Offset = fnSel.Offset + new Vector2(fnSel.RectSize.x + 50, 0);
-
+            
             AddChild(fnDup);
+
+            foreach (var outp in fnSel.outputs) {
+                foreach (var inp in fnDup.inputs) {
+                    if (inp.Value.slotType == outp.Value.slotType) {
+                        SetSelected(fnDup);
+                        OnConnectionRequest(fnSel.Name, outp.Value.idx, fnDup.Name, inp.Value.idx);
+                        return;
+                    }
+                }
+            }
+
+            
             SetSelected(fnDup);
             OnConnectionRequest(fnSel.Name, 0, fnDup.Name, 0);
-        } 
+        }
         
         else {
-            OnAddNodeB(fn);
+            OnAddNode(fn);
         }
     }
 

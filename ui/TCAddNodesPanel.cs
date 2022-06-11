@@ -35,7 +35,7 @@ public class TCAddNodesPanel : TabContainer
 
         FNode fNode = (FNode)Activator.CreateInstance(t);
 
-        AddNodeButton.Connect("pressed", GetNode(NPNodeTree), "OnAddNode", new Godot.Collections.Array{fNode});
+        AddNodeButton.Connect("pressed", GetNode(NPNodeTree), nameof(NodeTree.OnAddNodeFromUI), new Godot.Collections.Array{fNode});
         GetNode<HBoxContainer>(Category).AddChild(AddNodeButton);
     }
 }
