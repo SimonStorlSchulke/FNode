@@ -1,8 +1,6 @@
 using System.IO;
 using System;
-using System.Collections.Generic;
 using Godot;
-using System.Linq;
 
 
 public abstract class FInput {
@@ -11,9 +9,11 @@ public abstract class FInput {
     public FNode owner;
     public FOutput connectedTo;
     public int idx;
+    public string description;
 
-    public FInput(FNode owner, int idx=-1) {
+    public FInput(FNode owner, int idx, string description) {
         this.owner = owner;
+        this.description = description;
         this.idx = idx == -1 ? this.idx = FNode.IdxNext() : idx;
     }
 
@@ -76,7 +76,7 @@ public abstract class FInput {
 }
 
 public class FInputString : FInput {
-    public FInputString(FNode owner, int idx=-1) : base(owner, idx) {
+    public FInputString(FNode owner, int idx=-1, string description="") : base(owner, idx, description) {
     }
 
     public override void UpdateDefaultValueFromUI()
@@ -87,7 +87,7 @@ public class FInputString : FInput {
 }
 
 public class FInputFile : FInput {
-    public FInputFile(FNode owner, int idx=-1) : base(owner, idx) {
+    public FInputFile(FNode owner, int idx=-1, string description="") : base(owner, idx, description) {
     }
     
     public override void UpdateDefaultValueFromUI()
@@ -98,7 +98,7 @@ public class FInputFile : FInput {
 }
 
 public class FInputInt : FInput {
-    public FInputInt(FNode owner, int idx=-1) : base(owner, idx) {
+    public FInputInt(FNode owner, int idx=-1, string description="") : base(owner, idx, description) {
     }
     
     public override void UpdateDefaultValueFromUI()
@@ -109,7 +109,7 @@ public class FInputInt : FInput {
 }
 
 public class FInputFloat : FInput {
-    public FInputFloat(FNode owner, int idx=-1) : base(owner, idx) {
+    public FInputFloat(FNode owner, int idx=-1, string description="") : base(owner, idx, description) {
     }
     
     public override void UpdateDefaultValueFromUI()
@@ -122,7 +122,7 @@ public class FInputFloat : FInput {
 }
 
 public class FInputBool : FInput {
-    public FInputBool(FNode owner, int idx=-1) : base(owner, idx) {
+    public FInputBool(FNode owner, int idx=-1, string description="") : base(owner, idx, description) {
     }
     
     public override void UpdateDefaultValueFromUI()
@@ -133,7 +133,7 @@ public class FInputBool : FInput {
 }
 
 public class FInputDate : FInput {
-    public FInputDate(FNode owner, int idx=-1) : base(owner, idx) {
+    public FInputDate(FNode owner, int idx=-1, string description="") : base(owner, idx, description) {
     }
     
     public override void UpdateDefaultValueFromUI()

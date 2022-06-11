@@ -77,10 +77,33 @@ public class NodeTree : GraphEdit
         fnTo.GetChild(toSlot + fnTo.outputs.Count).GetChild<Control>(1).Visible = true;
     }
 
+    public void OnAddNodeB(FNode fn) {
+        FNode fnDup = (FNode)fn.Duplicate();
+        fnDup.Offset = ScrollOffset + RectSize / 2f;
+        AddChild(fnDup);
+        SetSelected(fnDup);
+    }
+
     public void OnAddNode(FNode fn) {
-        FNode fd = (FNode)fn.Duplicate();
-        fd.Offset = ScrollOffset + RectSize / 2f;
-        AddChild(fd);
+
+        var fnSel = GetFirstSelectedNode();
+        if (fnSel == null) {
+            OnAddNodeB(fn);
+            return;
+        }
+
+        if (fnSel.outputs.Count > 0 && fn.inputs.Count > 0) {
+            FNode fnDup = (FNode)fn.Duplicate();
+            fnDup.Offset = fnSel.Offset + new Vector2(fnSel.RectSize.x + 50, 0);
+
+            AddChild(fnDup);
+            SetSelected(fnDup);
+            OnConnectionRequest(fnSel.Name, 0, fnDup.Name, 0);
+        } 
+        
+        else {
+            OnAddNodeB(fn);
+        }
     }
 
     public void DeleteNode(FNode fn) {
@@ -100,14 +123,34 @@ public class NodeTree : GraphEdit
     }
 
     public void OnDeleteRequest() {
-        
+
+        foreach (var n in GetSelectedNodes()) {
+            DeleteNode(n);
+        }
+    }
+
+    public List<FNode> GetSelectedNodes() {
+        List<FNode> selected = new List<FNode>();
         for (int i=0; i < GetChildCount(); i++) {
             var fn = GetChild(i);
             if (fn is FNode) {
                 if ((fn as FNode).Selected) {
-                    DeleteNode(fn as FNode);
+                    selected.Add(fn as FNode);
                 }
             }
         }
+        return selected;
+    }
+
+    public FNode GetFirstSelectedNode() {
+        for (int i=0; i < GetChildCount(); i++) {
+            var fn = GetChild(i);
+            if (fn is FNode) {
+                if ((fn as FNode).Selected) {
+                    return fn as FNode;
+                }
+            }
+        }
+        return null;
     }
 }

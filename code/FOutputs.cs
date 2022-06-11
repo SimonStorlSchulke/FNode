@@ -9,6 +9,8 @@ public class FOutput {
     public FNode owner;
     public GetOutputValue Get;
     public int idx;
+    public string description;
+    
     public FOutput(FNode owner, GetOutputValue method, int idx=-1) {
         this.owner = owner;
         this.idx = idx == -1 ? this.idx = FNode.IdxNext() : idx;

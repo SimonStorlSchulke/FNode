@@ -179,6 +179,8 @@ public class UIUtil : Node
         if (ct.Name != "clButton")
             ct.SizeFlagsHorizontal = 3;
 
+        hb.HintTooltip = ct.HintTooltip = fInp.description;
+
         hb.AddChild(ct);
         hb.SizeFlagsHorizontal = (int)Control.SizeFlags.ExpandFill;
         hb.RectMinSize = new Vector2(0, 40);

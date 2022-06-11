@@ -6,12 +6,12 @@ public class FNodeAccumulateString : FNode
 {
     string accumulatedString = "";
     public FNodeAccumulateString() {
-        HintTooltip = "Accumulates Strings from all Iterations (when looping ofer a File Stack)\nand combines them using the Separator";
+        HintTooltip = "Accumulates Text from all Iterations (when looping ofer a File Stack)\nand combines them using the Separator";
         category = "String";
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
-            {"Separator", new FInputString(this)},
-            {"String", new FInputString(this)},
+            {"Separator", new FInputString(this, description: "This Text will be added between each accumulated Text")},
+            {"Text", new FInputString(this)},
         };
 
         FNode.IdxReset();
