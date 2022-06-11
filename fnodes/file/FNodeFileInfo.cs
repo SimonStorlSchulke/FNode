@@ -47,7 +47,7 @@ public class FNodeFileInfo : FNode
                 try {
                     return ((FileInfo)inputs["File"].Get()).CreationTime;
                 } catch {
-                    return new DateTime(); // Maybe Null here instead?
+                    return null; // Maybe Null here instead?
                 }
             })},
             {
@@ -56,7 +56,7 @@ public class FNodeFileInfo : FNode
                 try {
                     return ((FileInfo)inputs["File"].Get()).LastAccessTime;
                 } catch {
-                    return new DateTime();;
+                    return null;
                 }
             })},
             {
@@ -65,7 +65,7 @@ public class FNodeFileInfo : FNode
                 try {
                     return ((FileInfo)inputs["File"].Get()).LastWriteTime;
                 } catch {
-                    return new DateTime();
+                    return null;
                 }
             })},
             {

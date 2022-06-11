@@ -78,17 +78,17 @@ public class NodeTree : GraphEdit
     }
 
     public void OnAddNode(FNode fn, Vector2? offset = null) {
-        FNode fnDup = (FNode)fn.Duplicate();
-        fnDup.Offset = (offset == null) ? ScrollOffset + RectSize / 2f : (Vector2)offset;
-        AddChild(fnDup);
-        SetSelected(fnDup);
+        //FNode fnDup = (FNode)fn.Duplicate();
+        fn.Offset = (offset == null) ? ScrollOffset + RectSize / 2f : (Vector2)offset;
+        AddChild(fn);
+        SetSelected(fn);
     }
 
     public void OnAddNodeFromUI(FNode fn) {
         
         var fnSel = GetFirstSelectedNode();
         if (fnSel == null) {
-            OnAddNode(fn);
+            OnAddNode(fn.Duplicate() as FNode);
             return;
         }
 
@@ -98,6 +98,7 @@ public class NodeTree : GraphEdit
             
             AddChild(fnDup);
 
+            // Search matching Slottypes and connect them if aviable
             foreach (var outp in fnSel.outputs) {
                 foreach (var inp in fnDup.inputs) {
                     if (inp.Value.slotType == outp.Value.slotType) {
@@ -107,14 +108,14 @@ public class NodeTree : GraphEdit
                     }
                 }
             }
-
             
             SetSelected(fnDup);
             OnConnectionRequest(fnSel.Name, 0, fnDup.Name, 0);
+            return;
         }
         
         else {
-            OnAddNode(fn);
+            OnAddNode(fn.Duplicate() as FNode);
         }
     }
 

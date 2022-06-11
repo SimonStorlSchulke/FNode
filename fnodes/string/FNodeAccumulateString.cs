@@ -26,7 +26,7 @@ public class FNodeAccumulateString : FNode
                 string sep = inputs["Separator"].Get() as string;
                 sep = sep.Replace("[LINEBREAK]", "\n"); //TODO sanitize this...
                 
-                accumulatedString += Project.idxEval < Project.maxNumFiles-1 ? inputs["String"].Get() as string + sep : inputs["String"].Get() as string; //TODO Use String.Join;
+                accumulatedString += Project.idxEval < Project.maxNumFiles-1 ? inputs["Text"].Get() as string + sep : inputs["Text"].Get() as string; //TODO Use String.Join;
                 
                 return accumulatedString;
             })},

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://theme/default.theme" type="Theme" id=1]
 [ext_resource path="res://ui/Project.tscn" type="PackedScene" id=2]
+[ext_resource path="res://theme/OpenSansReg.tres" type="DynamicFont" id=3]
 [ext_resource path="res://ui/Main.cs" type="Script" id=4]
 [ext_resource path="res://ui/TCAddNodesPanel.cs" type="Script" id=5]
 [ext_resource path="res://ui/UIUtil.cs" type="Script" id=7]
@@ -11,7 +11,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = ExtResource( 1 )
 script = ExtResource( 4 )
 
 [node name="Panel2" type="Panel" parent="."]
@@ -19,36 +18,45 @@ margin_right = 1700.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 0, 24 )
 
-[node name="ProjectTabs" type="TabContainer" parent="."]
+[node name="HBMain" type="HBoxContainer" parent="."]
 margin_top = 28.0
 margin_right = 1700.0
-margin_bottom = 728.0
+margin_bottom = 852.0
+size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="ProjectTabs" type="TabContainer" parent="HBMain"]
+margin_right = 1296.0
+margin_bottom = 824.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 3 )
 tab_align = 0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Project 1" parent="ProjectTabs" instance=ExtResource( 2 )]
+[node name="Project 1" parent="HBMain/ProjectTabs" instance=ExtResource( 2 )]
+margin_top = 47.0
 
-[node name="TCAddNodesPanel" type="TabContainer" parent="."]
-margin_top = 732.0
+[node name="TCAddNodesPanel" type="TabContainer" parent="HBMain"]
+margin_left = 1300.0
 margin_right = 1700.0
-margin_bottom = 852.0
-rect_min_size = Vector2( 0, 120 )
+margin_bottom = 824.0
+rect_min_size = Vector2( 400, 0 )
 tab_align = 0
 script = ExtResource( 5 )
 NPNodeTree = NodePath("../ProjectTabs/Project 1/NodeTree")
 
-[node name="File" type="HBoxContainer" parent="TCAddNodesPanel"]
+[node name="File" type="VBoxContainer" parent="HBMain/TCAddNodesPanel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
-margin_top = 49.0
+margin_top = 40.0
 margin_right = -5.0
 margin_bottom = -5.0
 
-[node name="String" type="HBoxContainer" parent="TCAddNodesPanel"]
+[node name="String" type="VBoxContainer" parent="HBMain/TCAddNodesPanel"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -57,7 +65,7 @@ margin_top = 49.0
 margin_right = -5.0
 margin_bottom = -5.0
 
-[node name="Date" type="HBoxContainer" parent="TCAddNodesPanel"]
+[node name="Date" type="VBoxContainer" parent="HBMain/TCAddNodesPanel"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -66,7 +74,7 @@ margin_top = 49.0
 margin_right = -5.0
 margin_bottom = -5.0
 
-[node name="Math" type="HBoxContainer" parent="TCAddNodesPanel"]
+[node name="Math" type="VBoxContainer" parent="HBMain/TCAddNodesPanel"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -75,7 +83,7 @@ margin_top = 49.0
 margin_right = -5.0
 margin_bottom = -5.0
 
-[node name="Other" type="HBoxContainer" parent="TCAddNodesPanel"]
+[node name="Other" type="VBoxContainer" parent="HBMain/TCAddNodesPanel"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -99,13 +107,13 @@ __meta__ = {
 
 [node name="Control" type="Control" parent="Panel/HBoxContainer"]
 margin_right = 1537.0
-margin_bottom = 42.0
+margin_bottom = 33.0
 size_flags_horizontal = 3
 
 [node name="Button" type="Button" parent="Panel/HBoxContainer"]
 margin_left = 1541.0
 margin_right = 1700.0
-margin_bottom = 42.0
+margin_bottom = 33.0
 text = "Evaluate Tree"
 __meta__ = {
 "_edit_use_anchors_": false

@@ -10,7 +10,7 @@ public class FNodeSwitch : FNode
 
     public FNodeSwitch() {
         HintTooltip = "Multiple Math Operations";
-        category = "Math";
+        category = "Other";
 
 
         FNode.IdxReset();

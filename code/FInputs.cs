@@ -29,6 +29,9 @@ public abstract class FInput {
     }
 
     protected object AutoSlotConversion(object value) {
+        if (value == null) {
+            return null;
+        }
         // TODO this Could probably be more effective
         Type slotType = this.GetType();
         Type valueType = value.GetType();
