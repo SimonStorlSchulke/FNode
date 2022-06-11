@@ -50,27 +50,27 @@ public class NodeTree : GraphEdit
     }
 
     public void OnConnectionRequest(string from, int fromSlot, string to, int toSlot) {
-        ConnectNode(from, fromSlot, to, toSlot);
-        
+                
         FNode fnTo = GetNode<FNode>(to);
         FNode fnFrom = GetNode<FNode>(from);
-        try {
 
-        //Disconnect existing Connection to Slot. This shoudln't be so hard Godot Wtf?!! 
-        DisconnectNode(
-            fnTo.inputs.ElementAt(toSlot).Value.connectedTo.owner.Name,  
-            fnTo.inputs.ElementAt(toSlot).Value.connectedTo.idx,
-            to, 
-            toSlot);
-        } catch {
-            // Not Connected
-        }
-        
+        try {
+            //Disconnect existing Connection to Slot. This shoudln't be so hard Godot Wtf?!! 
+            DisconnectNode(
+                fnTo.inputs.ElementAt(toSlot).Value.connectedTo.owner.Name,  
+                fnTo.inputs.ElementAt(toSlot).Value.connectedTo.idx,
+                to, 
+                toSlot);
+        } catch {/*Nothing Connected - just trying and catching is probably cheaper than checking if a connection exists first.*/}
+
+        ConnectNode(from, fromSlot, to, toSlot);
+
         fnTo.inputs.ElementAt(toSlot).Value.connectedTo = fnFrom.outputs.ElementAt(fromSlot).Value;
         fnTo.GetChild(toSlot + fnTo.outputs.Count).GetChild<Control>(1).Visible = false;
     }
 
     public void OnDisconnectionRequest(string from, int fromSlot, string to, int toSlot) {
+        GD.Print("Disc");
         DisconnectNode(from, fromSlot, to, toSlot);
         FNode fnTo = GetNode<FNode>(to);
         fnTo.inputs.ElementAt(toSlot).Value.connectedTo = null;
@@ -78,7 +78,6 @@ public class NodeTree : GraphEdit
     }
 
     public void OnAddNode(FNode fn, Vector2? offset = null) {
-        //FNode fnDup = (FNode)fn.Duplicate();
         fn.Offset = (offset == null) ? ScrollOffset + RectSize / 2f : (Vector2)offset;
         AddChild(fn);
         SetSelected(fn);

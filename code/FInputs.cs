@@ -15,6 +15,7 @@ public enum SlotType {
 
 public abstract class FInput {
     protected object defaultValue;
+    public object initialValue;
     Control GetUI;
     public FNode owner;
     public FOutput connectedTo;
@@ -22,9 +23,10 @@ public abstract class FInput {
     public string description;
     public SlotType slotType = SlotType.OTHER;
 
-    public FInput(FNode owner, int idx, string description) {
+    public FInput(FNode owner, int idx, string description, object initialValue) {
         this.owner = owner;
         this.description = description;
+        this.initialValue = initialValue;
         this.idx = idx == -1 ? this.idx = FNode.IdxNext() : idx;
     }
 
@@ -90,7 +92,7 @@ public abstract class FInput {
 }
 
 public class FInputFile : FInput {
-    public FInputFile(FNode owner, int idx=-1, string description="") : base(owner, idx, description) {
+    public FInputFile(FNode owner, int idx=-1, string description="", object initialValue=null) : base(owner, idx, description, initialValue) {
         slotType = SlotType.FILE;
     }
     
@@ -102,7 +104,7 @@ public class FInputFile : FInput {
 }
 
 public class FInputString : FInput {
-    public FInputString(FNode owner, int idx=-1, string description="") : base(owner, idx, description) {
+    public FInputString(FNode owner, int idx=-1, string description="", object initialValue=null) : base(owner, idx, description, initialValue) {
         slotType = SlotType.STRING;
     }
 
@@ -115,7 +117,7 @@ public class FInputString : FInput {
 
 
 public class FInputInt : FInput {
-    public FInputInt(FNode owner, int idx=-1, string description="") : base(owner, idx, description) {
+    public FInputInt(FNode owner, int idx=-1, string description="", object initialValue=null) : base(owner, idx, description, initialValue) {
         slotType = SlotType.INT;
     }
     
@@ -127,7 +129,7 @@ public class FInputInt : FInput {
 }
 
 public class FInputFloat : FInput {
-    public FInputFloat(FNode owner, int idx=-1, string description="") : base(owner, idx, description) {
+    public FInputFloat(FNode owner, int idx=-1, string description="", object initialValue=null) : base(owner, idx, description, initialValue) {
         slotType = SlotType.FLOAT;
     }
     
@@ -141,7 +143,7 @@ public class FInputFloat : FInput {
 }
 
 public class FInputBool : FInput {
-    public FInputBool(FNode owner, int idx=-1, string description="") : base(owner, idx, description) {
+    public FInputBool(FNode owner, int idx=-1, string description="", object initialValue=null) : base(owner, idx, description, initialValue) {
         slotType = SlotType.BOOL;
     }
     
@@ -153,7 +155,7 @@ public class FInputBool : FInput {
 }
 
 public class FInputDate : FInput {
-    public FInputDate(FNode owner, int idx=-1, string description="") : base(owner, idx, description) {
+    public FInputDate(FNode owner, int idx=-1, string description="", object initialValue=null) : base(owner, idx, description, initialValue) {
         slotType = SlotType.DATE;
     }
     

@@ -60,5 +60,4 @@ public class Main : VBoxContainer
         EmitSignal(nameof(StartParsing));
         currentProject.GetNode<NodeTree>("NodeTree").EvaluateTree();
     }
-
 }

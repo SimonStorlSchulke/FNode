@@ -18,7 +18,7 @@ public class FNodeFileInfo : FNode
             "Name", new FOutputString(this, delegate() 
             {
                 try {
-                    return ((FileInfo)inputs["File"].Get()).Name;
+                    return (System.IO.Path.GetFileNameWithoutExtension(((FileInfo)inputs["File"].Get()).FullName));
                 } catch {
                     return "";
                 }
@@ -28,6 +28,14 @@ public class FNodeFileInfo : FNode
             {
                 try {
                     return ((FileInfo)inputs["File"].Get()).Extension;
+                } catch {
+                    return "";
+                }
+            })},{
+            "Name with Extension", new FOutputString(this, delegate() 
+            {
+                try {
+                    return ((FileInfo)inputs["File"].Get()).Name;
                 } catch {
                     return "";
                 }

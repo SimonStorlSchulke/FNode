@@ -10,7 +10,7 @@ public class FNodeJoinStrings : FNode
 
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
-            {"Separator", new FInputString(this)},
+            {"Separator", new FInputString(this, initialValue: "[LINEBREAK]")},
             {"String1", new FInputString(this)},
             {"String2", new FInputString(this)},
         };
@@ -38,8 +38,6 @@ public class FNodeJoinStrings : FNode
     public override void _Ready()
     {
         base._Ready();
-        (GetChild(1).GetChild(1) as LineEdit).Text = "[LINEBREAK]"; //Set Default Value to Linebreak
-
         Button plusButton = new Button();
         plusButton.Name = "PlusButton";
         plusButton.Text = "+";

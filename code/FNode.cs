@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Godot;
 using System.Linq;
 
-
 public abstract class FNode : GraphNode {
 
     public Dictionary<string, FInput> inputs = new Dictionary<string, FInput>();
@@ -11,7 +10,7 @@ public abstract class FNode : GraphNode {
     public override void _Ready()
     {
         ShowClose = true;
-        Title = this.GetType().Name.Replace("FNode", "");
+        Title = UIUtil.SnakeCaseToWords(this.GetType().Name.Replace("FNode", ""));
         this.RectMinSize = new Vector2(250, 0);
         UIUtil.CreateUI(this);
         Connect(

@@ -10,7 +10,7 @@ public class FNodeAccumulateString : FNode
         category = "String";
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
-            {"Separator", new FInputString(this, description: "This Text will be added between each accumulated Text")},
+            {"Separator", new FInputString(this, description: "This Text will be added between each accumulated Text", initialValue: "[LINEBREAK]")},
             {"Text", new FInputString(this)},
         };
 
@@ -34,12 +34,6 @@ public class FNodeAccumulateString : FNode
     }
     public void ResetString() {
         accumulatedString = "";
-    }
-
-    public override void _Ready()
-    {
-        base._Ready();
-        (GetChild(1).GetChild(1) as LineEdit).Text = "[LINEBREAK]"; //Set Default Value to Linebreak
     }
 }
 
