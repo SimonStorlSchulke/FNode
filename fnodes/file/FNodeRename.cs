@@ -25,8 +25,11 @@ public class FNodeRename : FNode
         };
     }
 
-    public override void ExecutiveMethod()
-    {
+    public override void ExecutiveMethod() {
+        if (inputs["File"].Get() == null) {
+            base.ExecutiveMethod();
+            return;
+        }
         string dest = ((FileInfo)inputs["File"].Get()).DirectoryName + "\\" + ((string)inputs["To"].Get());
         try {
             System.IO.File.Move(((FileInfo)inputs["File"].Get()).FullName, dest);

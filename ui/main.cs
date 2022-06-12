@@ -8,16 +8,79 @@ public class Main : VBoxContainer
     [Signal]
     public delegate void StartParsing();
 
+    [Signal]
+    public delegate void MainReady();
+
     public static Main inst;
     public Project currentProject;
-    TabContainer prTabs;
+    PackedScene projectScene;
+    [Export] NodePath NPProjectTabs;
+    TabContainer projectTabs;
+
+    [Export] NodePath NPAddNodeButtons;
+    TCAddNodesPanel addNodeButtons;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready() {
         inst = this;
-        prTabs = GetNode<TabContainer>("HBMain/ProjectTabs");
-        currentProject = prTabs.GetChild<Project>(prTabs.CurrentTab);
         GetTree().Connect("files_dropped", this, nameof(OnFilesDropped));
+        projectScene = GD.Load<PackedScene>("res://ui/Project.tscn");
+        projectTabs = GetNode<TabContainer>(NPProjectTabs);
+        currentProject = projectTabs.GetChild<Project>(projectTabs.CurrentTab);
+        projectTabs.Connect("tab_selected", this, nameof(OnChangeProject));
+        addNodeButtons = GetNode<TCAddNodesPanel>(NPAddNodeButtons);
+        addNodeButtons.CreateButtons();
+    }
+
+    
+    public void OnAddNodeFromUI(FNode fn) {
+        
+        var fnSel = currentProject.NodeTree.GetFirstSelectedNode();
+        if (fnSel == null) {
+            if (currentProject.NodeTree.MouseOver()) currentProject.NodeTree.OnAddNode(fn.Duplicate() as FNode, currentProject.NodeTree.GetMouseOffset());
+            else currentProject.NodeTree.OnAddNode(fn.Duplicate() as FNode);
+            return;
+        }
+
+        if (fnSel.outputs.Count > 0 && fn.inputs.Count > 0) {
+            FNode fnDup = (FNode)fn.Duplicate();
+            fnDup.Offset = fnSel.Offset + new Vector2(fnSel.RectSize.x + 50, 0);
+            
+            currentProject.NodeTree.AddChild(fnDup);
+
+            // Search matching Slottypes and connect them if aviable
+            foreach (var outp in fnSel.outputs) {
+                foreach (var inp in fnDup.inputs) {
+                    if (inp.Value.slotType == outp.Value.slotType) {
+                        currentProject.NodeTree.SetSelected(fnDup);
+                        currentProject.NodeTree.OnConnectionRequest(fnSel.Name, outp.Value.idx, fnDup.Name, inp.Value.idx);
+                        return;
+                    }
+                }
+            }
+            
+            currentProject.NodeTree.SetSelected(fnDup);
+            currentProject.NodeTree.OnConnectionRequest(fnSel.Name, 0, fnDup.Name, 0);
+            return;
+        }
+        
+        else {
+            if (currentProject.NodeTree.MouseOver()) currentProject.NodeTree.OnAddNode(fn.Duplicate() as FNode, currentProject.NodeTree.GetMouseOffset());
+            else currentProject.NodeTree.OnAddNode(fn.Duplicate() as FNode);
+        }
+    }
+
+    void OnChangeProject(int idx) {
+        this.currentProject = projectTabs.GetChild<Project>(idx);
+    }
+
+    public static Project NewProject(string name) {
+        Project pr = inst.projectScene.Instance<Project>();
+        pr.Name = name;
+        inst.projectTabs.AddChild(pr);
+        inst.projectTabs.CurrentTab = inst.projectTabs.GetChildCount()-1;
+        Main.inst.currentProject = pr;
+        return pr;
     }
 
     public void OnFilesDropped(string[] files, int screen) {

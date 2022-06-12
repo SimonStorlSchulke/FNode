@@ -5,8 +5,7 @@ public class TCAddNodesPanel : TabContainer
 {
     [Export] NodePath NPNodeTree;
 
-    public override void _Ready()
-    {
+    public void CreateButtons() {
         CreateAddButton<FNodeGetFiles>();
         CreateAddButton<FNodeFileInfo>();
         CreateAddButton<FNodeRename>();
@@ -37,53 +36,53 @@ public class TCAddNodesPanel : TabContainer
         AddNodeButton.Align = Button.TextAlign.Left;
         FNode fn = (FNode)Activator.CreateInstance(typeof(fnType));
         AddNodeButton.Text = UIUtil.SnakeCaseToWords(typeof(fnType).Name.Replace("FNode", ""));
-        AddNodeButton.Connect("pressed", GetNode(NPNodeTree), nameof(NodeTree.OnAddNodeFromUI), new Godot.Collections.Array{fn});
+        AddNodeButton.Connect("pressed", Main.inst, nameof(Main.OnAddNodeFromUI), new Godot.Collections.Array{fn});
         GetNode(fn.category).AddChild(AddNodeButton);
     }
 
     public override void _UnhandledInput(InputEvent e) {
         if(e.IsActionPressed("add_viewer")) {
-            Main.inst.currentProject.NodeTree.OnAddNodeFromUI(
+            Main.inst.OnAddNodeFromUI(
                 (FNode)Activator.CreateInstance(typeof(FNodeTextViewer)));
         }
         if(e.IsActionPressed("add_get_files")) {
-            Main.inst.currentProject.NodeTree.OnAddNodeFromUI(
+            Main.inst.OnAddNodeFromUI(
                 (FNode)Activator.CreateInstance(typeof(FNodeGetFilesFromStack)));
         }
         if(e.IsActionPressed("add_fileinfo")) {
-            Main.inst.currentProject.NodeTree.OnAddNodeFromUI(
+            Main.inst.OnAddNodeFromUI(
                 (FNode)Activator.CreateInstance(typeof(FNodeFileInfo)));
         }
         if(e.IsActionPressed("add_switch")) {
-            Main.inst.currentProject.NodeTree.OnAddNodeFromUI(
+            Main.inst.OnAddNodeFromUI(
                 (FNode)Activator.CreateInstance(typeof(FNodeSwitch)));
         }
         if(e.IsActionPressed("add_math")) {
-            Main.inst.currentProject.NodeTree.OnAddNodeFromUI(
+            Main.inst.OnAddNodeFromUI(
                 (FNode)Activator.CreateInstance(typeof(FNodeMath)));
         }
         if(e.IsActionPressed("add_move")) {
-            Main.inst.currentProject.NodeTree.OnAddNodeFromUI(
+            Main.inst.OnAddNodeFromUI(
                 (FNode)Activator.CreateInstance(typeof(FNodeMove)));
         }
         if(e.IsActionPressed("add_rename")) {
-            Main.inst.currentProject.NodeTree.OnAddNodeFromUI(
+            Main.inst.OnAddNodeFromUI(
                 (FNode)Activator.CreateInstance(typeof(FNodeRename)));
         }
         if(e.IsActionPressed("add_del")) {
-            /*Main.inst.currentProject.NodeTree.OnAddNodeFromUI(
+            /*Main.OnAddNodeFromUI(
                 (FNode)Activator.CreateInstance(typeof(FNodeTextViewer)));*/
         }
         if(e.IsActionPressed("add_join")) {
-            Main.inst.currentProject.NodeTree.OnAddNodeFromUI(
+            Main.inst.OnAddNodeFromUI(
                 (FNode)Activator.CreateInstance(typeof(FNodeJoinTexts)));
         }
         if(e.IsActionPressed("add_index")) {
-            Main.inst.currentProject.NodeTree.OnAddNodeFromUI(
+            Main.inst.OnAddNodeFromUI(
                 (FNode)Activator.CreateInstance(typeof(FNodeIndex)));
         }
         if(e.IsActionPressed("add_accumulate_string")) {
-            Main.inst.currentProject.NodeTree.OnAddNodeFromUI(
+            Main.inst.OnAddNodeFromUI(
                 (FNode)Activator.CreateInstance(typeof(FNodeAccumulateText)));
         }
 

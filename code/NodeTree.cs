@@ -61,14 +61,14 @@ public class NodeTree : GraphEdit
         FNode fnTo = GetNode<FNode>(to);
         FNode fnFrom = GetNode<FNode>(from);
 
-        try {
-            //Disconnect existing Connection to Slot. This shoudln't be so hard Godot Wtf?!! 
-            DisconnectNode(
-                fnTo.inputs.ElementAt(toSlot).Value.connectedTo.owner.Name,  
-                fnTo.inputs.ElementAt(toSlot).Value.connectedTo.idx,
-                to, 
-                toSlot);
-        } catch {/*Nothing Connected - just trying and catching is probably cheaper than checking if a connection exists first.*/}
+            try {
+                //Disconnect existing Connection to Slot. This shoudln't be so hard Godot Wtf?!! 
+                DisconnectNode(
+                    fnTo.inputs.ElementAt(toSlot).Value.connectedTo.owner.Name,  
+                    fnTo.inputs.ElementAt(toSlot).Value.connectedTo.idx,
+                    to, 
+                    toSlot);
+            } catch {/*Nothing Connected - just trying and catching is probably cheaper than checking if a connection exists first.*/}
 
         ConnectNode(from, fromSlot, to, toSlot);
 
@@ -99,43 +99,6 @@ public class NodeTree : GraphEdit
         return fn;
     }
 
-    public void OnAddNodeFromUI(FNode fn) {
-        
-        var fnSel = GetFirstSelectedNode();
-        if (fnSel == null) {
-            if (MouseOver()) OnAddNode(fn.Duplicate() as FNode, GetMouseOffset());
-            else OnAddNode(fn.Duplicate() as FNode);
-            return;
-        }
-
-        if (fnSel.outputs.Count > 0 && fn.inputs.Count > 0) {
-            FNode fnDup = (FNode)fn.Duplicate();
-            fnDup.Offset = fnSel.Offset + new Vector2(fnSel.RectSize.x + 50, 0);
-            
-            AddChild(fnDup);
-
-            // Search matching Slottypes and connect them if aviable
-            foreach (var outp in fnSel.outputs) {
-                foreach (var inp in fnDup.inputs) {
-                    if (inp.Value.slotType == outp.Value.slotType) {
-                        SetSelected(fnDup);
-                        OnConnectionRequest(fnSel.Name, outp.Value.idx, fnDup.Name, inp.Value.idx);
-                        return;
-                    }
-                }
-            }
-            
-            SetSelected(fnDup);
-            OnConnectionRequest(fnSel.Name, 0, fnDup.Name, 0);
-            return;
-        }
-        
-        else {
-            if (MouseOver()) OnAddNode(fn.Duplicate() as FNode, GetMouseOffset());
-            else OnAddNode(fn.Duplicate() as FNode);
-        }
-    }
-
     public void DeleteNode(FNode fn) {
         
         int idxOutputs = 0;
@@ -148,6 +111,17 @@ public class NodeTree : GraphEdit
                 idxConnectedInputs++;
             }
             idxOutputs++;
+        }
+        
+        foreach (KeyValuePair<string, FInput> inp in fn.inputs) {
+
+            if (inp.Value.connectedTo != null) {
+                DisconnectNode(
+                    inp.Value.connectedTo.owner.Name,
+                    inp.Value.connectedTo.idx,
+                    inp.Value.owner.Name,
+                    inp.Value.idx);
+            }
         }
         fn.QueueFree();
     }

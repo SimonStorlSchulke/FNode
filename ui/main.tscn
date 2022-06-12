@@ -8,29 +8,56 @@
 [ext_resource path="res://code/IO.cs" type="Script" id=6]
 [ext_resource path="res://ui/UIUtil.cs" type="Script" id=7]
 
-[node name="VBMain" type="VBoxContainer"]
+[node name="Window" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBMain" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 1 )
 script = ExtResource( 4 )
+NPProjectTabs = NodePath("HBMain/ProjectTabs")
+NPAddNodeButtons = NodePath("HBMain/TCAddNodesPanel")
 
-[node name="Panel2" type="Panel" parent="."]
+[node name="PNLMenu" type="Panel" parent="VBMain"]
 margin_right = 1700.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 0, 24 )
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
 
-[node name="HBMain" type="HBoxContainer" parent="."]
-margin_top = 28.0
+[node name="HBMenu" type="HBoxContainer" parent="VBMain/PNLMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="BtnSave" type="Button" parent="VBMain/PNLMenu/HBMenu"]
+margin_right = 76.0
+margin_bottom = 37.0
+text = " Save "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BtnLoad" type="Button" parent="VBMain/PNLMenu/HBMenu"]
+margin_left = 80.0
+margin_right = 158.0
+margin_bottom = 37.0
+text = " Load "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBMain" type="HBoxContainer" parent="VBMain"]
+margin_top = 36.0
 margin_right = 1700.0
 margin_bottom = 852.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ProjectTabs" type="TabContainer" parent="HBMain"]
+[node name="ProjectTabs" type="TabContainer" parent="VBMain/HBMain"]
 margin_right = 1296.0
-margin_bottom = 824.0
+margin_bottom = 816.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 3 )
@@ -39,19 +66,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Project 1" parent="HBMain/ProjectTabs" instance=ExtResource( 2 )]
+[node name="Project 1" parent="VBMain/HBMain/ProjectTabs" instance=ExtResource( 2 )]
 margin_top = 44.0
 
-[node name="TCAddNodesPanel" type="TabContainer" parent="HBMain"]
+[node name="TCAddNodesPanel" type="TabContainer" parent="VBMain/HBMain"]
 margin_left = 1300.0
 margin_right = 1700.0
-margin_bottom = 824.0
+margin_bottom = 816.0
 rect_min_size = Vector2( 400, 0 )
 tab_align = 0
 script = ExtResource( 5 )
 NPNodeTree = NodePath("../ProjectTabs/Project 1/NodeTree")
 
-[node name="File" type="VBoxContainer" parent="HBMain/TCAddNodesPanel"]
+[node name="File" type="VBoxContainer" parent="VBMain/HBMain/TCAddNodesPanel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
@@ -59,7 +86,7 @@ margin_top = 44.0
 margin_right = -5.0
 margin_bottom = -5.0
 
-[node name="Text" type="VBoxContainer" parent="HBMain/TCAddNodesPanel"]
+[node name="Text" type="VBoxContainer" parent="VBMain/HBMain/TCAddNodesPanel"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -68,7 +95,7 @@ margin_top = 49.0
 margin_right = -5.0
 margin_bottom = -5.0
 
-[node name="Date" type="VBoxContainer" parent="HBMain/TCAddNodesPanel"]
+[node name="Date" type="VBoxContainer" parent="VBMain/HBMain/TCAddNodesPanel"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -77,7 +104,7 @@ margin_top = 49.0
 margin_right = -5.0
 margin_bottom = -5.0
 
-[node name="Math" type="VBoxContainer" parent="HBMain/TCAddNodesPanel"]
+[node name="Math" type="VBoxContainer" parent="VBMain/HBMain/TCAddNodesPanel"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -86,7 +113,7 @@ margin_top = 49.0
 margin_right = -5.0
 margin_bottom = -5.0
 
-[node name="Other" type="VBoxContainer" parent="HBMain/TCAddNodesPanel"]
+[node name="Other" type="VBoxContainer" parent="VBMain/HBMain/TCAddNodesPanel"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -95,43 +122,25 @@ margin_top = 49.0
 margin_right = -5.0
 margin_bottom = -5.0
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="VBMain"]
 margin_top = 856.0
 margin_right = 1700.0
 margin_bottom = 888.0
 rect_min_size = Vector2( 0, 32 )
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBMain/Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Control" type="Control" parent="Panel/HBoxContainer"]
-margin_right = 1399.0
+[node name="Control" type="Control" parent="VBMain/Panel/HBoxContainer"]
+margin_right = 1537.0
 margin_bottom = 37.0
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="Panel/HBoxContainer"]
-margin_left = 1403.0
-margin_right = 1467.0
-margin_bottom = 37.0
-text = "Save"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button3" type="Button" parent="Panel/HBoxContainer"]
-margin_left = 1471.0
-margin_right = 1537.0
-margin_bottom = 37.0
-text = "Load"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button2" type="Button" parent="Panel/HBoxContainer"]
+[node name="Button2" type="Button" parent="VBMain/Panel/HBoxContainer"]
 margin_left = 1541.0
 margin_right = 1700.0
 margin_bottom = 37.0
@@ -140,7 +149,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextEdit" type="TextEdit" parent="."]
+[node name="TextEdit" type="TextEdit" parent="VBMain"]
 margin_top = 892.0
 margin_right = 1700.0
 margin_bottom = 900.0
@@ -149,13 +158,13 @@ dd
 ss"
 readonly = true
 
-[node name="UIUtil" type="Node" parent="."]
+[node name="UIUtil" type="Node" parent="VBMain"]
 process_priority = -1
 script = ExtResource( 7 )
 
-[node name="IO" type="Node" parent="."]
+[node name="IO" type="Node" parent="VBMain"]
 script = ExtResource( 6 )
 
-[connection signal="pressed" from="Panel/HBoxContainer/Button" to="IO" method="Save"]
-[connection signal="pressed" from="Panel/HBoxContainer/Button3" to="IO" method="Load"]
-[connection signal="pressed" from="Panel/HBoxContainer/Button2" to="." method="OnParseTree"]
+[connection signal="pressed" from="VBMain/PNLMenu/HBMenu/BtnSave" to="VBMain/IO" method="Save"]
+[connection signal="pressed" from="VBMain/PNLMenu/HBMenu/BtnLoad" to="VBMain/IO" method="Load" binds= [ "D:/home/Desktop/thumbs/savegame.save" ]]
+[connection signal="pressed" from="VBMain/Panel/HBoxContainer/Button2" to="VBMain" method="OnParseTree"]
