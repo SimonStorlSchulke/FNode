@@ -36,8 +36,28 @@ public class TCAddNodesPanel : TabContainer
         AddNodeButton.Align = Button.TextAlign.Left;
         FNode fn = (FNode)Activator.CreateInstance(typeof(fnType));
         AddNodeButton.Text = UIUtil.SnakeCaseToWords(typeof(fnType).Name.Replace("FNode", ""));
-        AddNodeButton.Connect("pressed", Main.inst, nameof(Main.OnAddNodeFromUI), new Godot.Collections.Array{fn});
+        //AddNodeButton.Connect("pressed", Main.inst, nameof(Main.OnAddNodeFromUI), new Godot.Collections.Array{fn});
+        AddNodeButton.Connect("button_down", this, nameof(StartDrag), new Godot.Collections.Array{fn});
         GetNode(fn.category).AddChild(AddNodeButton);
+    }
+
+    FNode draggedFnode = null;
+    bool dragging = false;
+    public void StartDrag(FNode fn) {
+        draggedFnode = fn;
+        dragging = true;
+    }
+
+    public override void _Input(InputEvent e) {
+        if (dragging == false) {
+            return;
+        }
+        if (e is InputEventMouseButton) {
+            if (((InputEventMouseButton)e).ButtonIndex == (int)ButtonList.Left && ((InputEventMouseButton)e).Pressed == false) {
+                Main.inst.OnAddNodeFromUI(draggedFnode);
+                dragging = false;
+            }
+        }
     }
 
     public override void _UnhandledInput(InputEvent e) {
