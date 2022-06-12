@@ -11,13 +11,13 @@
 [node name="Window" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 1 )
 
 [node name="VBMain" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = ExtResource( 1 )
 script = ExtResource( 4 )
 NPProjectTabs = NodePath("HBMain/ProjectTabs")
 NPAddNodeButtons = NodePath("HBMain/TCAddNodesPanel")
@@ -158,13 +158,42 @@ dd
 ss"
 readonly = true
 
-[node name="UIUtil" type="Node" parent="VBMain"]
+[node name="FDSave" type="FileDialog" parent="."]
+visible = true
+margin_left = 522.0
+margin_top = 195.0
+margin_right = 1091.0
+margin_bottom = 768.0
+popup_exclusive = true
+window_title = "Save"
+resizable = true
+access = 2
+current_dir = "/dev/Godot/fnode"
+current_path = "/dev/Godot/fnode/"
+
+[node name="FDLoad" type="FileDialog" parent="."]
+visible = true
+margin_left = 522.0
+margin_top = 195.0
+margin_right = 1091.0
+margin_bottom = 768.0
+popup_exclusive = true
+window_title = "Open"
+resizable = true
+mode = 0
+access = 2
+current_dir = "/dev/Godot/fnode"
+current_path = "/dev/Godot/fnode/"
+
+[node name="UIUtil" type="Node" parent="."]
 process_priority = -1
 script = ExtResource( 7 )
 
-[node name="IO" type="Node" parent="VBMain"]
+[node name="IO" type="Node" parent="."]
 script = ExtResource( 6 )
+NPFDSave = NodePath("../FDSave")
+NPFDLoad = NodePath("../FDLoad")
 
-[connection signal="pressed" from="VBMain/PNLMenu/HBMenu/BtnSave" to="VBMain/IO" method="Save"]
-[connection signal="pressed" from="VBMain/PNLMenu/HBMenu/BtnLoad" to="VBMain/IO" method="Load" binds= [ "D:/home/Desktop/thumbs/savegame.save" ]]
+[connection signal="pressed" from="VBMain/PNLMenu/HBMenu/BtnSave" to="IO" method="OnPopupSave"]
+[connection signal="pressed" from="VBMain/PNLMenu/HBMenu/BtnLoad" to="IO" method="OnPopupLoad"]
 [connection signal="pressed" from="VBMain/Panel/HBoxContainer/Button2" to="VBMain" method="OnParseTree"]

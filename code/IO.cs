@@ -1,13 +1,42 @@
 using Godot;
 using Godot.Collections;
-using System;
-using System.Linq;
 
 public class IO : Node {
+
+    [Export] NodePath NPFDSave;
+    FileDialog FDSave;
+    [Export] NodePath NPFDLoad;
+    FileDialog FDLoad;
+
+    public override void _Ready() {
+        FDSave = GetNode<FileDialog>(NPFDSave);
+        FDSave.Connect("file_selected", this, nameof(OnSaveFileSelected));
+        FDLoad = GetNode<FileDialog>(NPFDLoad);
+        FDLoad.Connect("file_selected", this, nameof(OnLoadFileSelected));
+    }
+
+    public void OnLoadFileSelected(string path) {
+        GD.Print("Loading");
+        Load(path);
+    }
+
+    public void OnSaveFileSelected(string path) {
+        GD.Print("Saving");
+        Save(path);
+    }
+
+    public void OnPopupLoad() {
+        FDLoad.PopupCentered();
+    }
+
+    public void OnPopupSave() {
+        FDSave.PopupCentered();
+    }
+
+
     public static string serializeProject() {
         return "";
     }
-
 
     public static Dictionary<string, object> serializeNodeTree(NodeTree nt) {
 
@@ -23,9 +52,9 @@ public class IO : Node {
         return saveData;
     }
 
-    public void Save() {
+    public void Save(string path) {
         var saveGame = new File();
-        saveGame.Open("D:/home/Desktop/thumbs/savegame.save", File.ModeFlags.Write);
+        saveGame.Open(path, File.ModeFlags.Write);
 
         var saveData = IO.serializeNodeTree(Main.inst.currentProject.NodeTree);
         saveGame.StoreLine(JSON.Print(saveData));
