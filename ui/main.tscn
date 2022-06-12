@@ -109,15 +109,24 @@ __meta__ = {
 }
 
 [node name="Control" type="Control" parent="Panel/HBoxContainer"]
-margin_right = 1469.0
+margin_right = 1399.0
 margin_bottom = 37.0
 size_flags_horizontal = 3
 
 [node name="Button" type="Button" parent="Panel/HBoxContainer"]
-margin_left = 1473.0
-margin_right = 1537.0
+margin_left = 1403.0
+margin_right = 1467.0
 margin_bottom = 37.0
 text = "Save"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button3" type="Button" parent="Panel/HBoxContainer"]
+margin_left = 1471.0
+margin_right = 1537.0
+margin_bottom = 37.0
+text = "Load"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -148,4 +157,5 @@ script = ExtResource( 7 )
 script = ExtResource( 6 )
 
 [connection signal="pressed" from="Panel/HBoxContainer/Button" to="IO" method="Save"]
+[connection signal="pressed" from="Panel/HBoxContainer/Button3" to="IO" method="Load"]
 [connection signal="pressed" from="Panel/HBoxContainer/Button2" to="." method="OnParseTree"]

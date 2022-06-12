@@ -138,6 +138,7 @@ public abstract class FNode : GraphNode {
         };
 
         saveData.Add("Type", GetType().ToString());
+        saveData.Add("NodeName", Name);
         saveData.Add("OffsetX", Offset.x);
         saveData.Add("OffsetY", Offset.y);
 

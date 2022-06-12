@@ -97,6 +97,7 @@ public abstract class FInput {
 
     public abstract void UpdateDefaultValueFromUI(); // This updates the Nodes defaultValue parameter and sanitizes it
     public abstract object GetDefaultValueFromUI(); // This returns the actual text etc the User has entered in the Input Field
+    public abstract void UpdateUIFromValue(object value); // This returns the actual text etc the User has entered in the Input Field
 }
 
 public class FInputFile : FInput {
@@ -118,6 +119,10 @@ public class FInputFile : FInput {
         Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
         return (nd as LineEdit).Text;
     }
+
+    public override void UpdateUIFromValue(object value) {
+        ((LineEdit)owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1)).Text = (string)value;
+    }
 }
 
 public class FInputString : FInput {
@@ -133,6 +138,10 @@ public class FInputString : FInput {
     public override object GetDefaultValueFromUI() {
         Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
         return (nd as LineEdit).Text;
+    }
+    
+    public override void UpdateUIFromValue(object value) {
+        ((LineEdit)owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1)).Text = (string)value;
     }
 }
 
@@ -152,6 +161,10 @@ public class FInputInt : FInput {
         Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
         return (int)(nd as SpinBox).Value;
     }
+    
+    public override void UpdateUIFromValue(object value) {
+        ((SpinBox)owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1)).Value = (float)value;
+    }
 }
 
 public class FInputFloat : FInput {
@@ -166,7 +179,11 @@ public class FInputFloat : FInput {
 
     public override object GetDefaultValueFromUI() {
         Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
-        return (int)(nd as SpinBox).Value;
+        return (float)(nd as SpinBox).Value;
+    }
+    
+    public override void UpdateUIFromValue(object value) {
+        ((SpinBox)owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1)).Value = (float)value;
     }
 }
 
@@ -185,6 +202,10 @@ public class FInputBool : FInput {
         Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
         return (nd as CheckBox).Pressed;
     }
+    
+    public override void UpdateUIFromValue(object value) {
+        ((CheckBox)owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1)).Pressed = (bool)value;
+    }
 }
 
 public class FInputDate : FInput {
@@ -199,7 +220,11 @@ public class FInputDate : FInput {
 
     public override object GetDefaultValueFromUI() {
         Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
-        return DateTime.Parse((nd as Label).Text); // kinda wonky...
+        return (nd as Label).Text; // kinda wonky...
+    }
+    
+    public override void UpdateUIFromValue(object value) {
+        ((Label)owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1)).Text = (string)value;
     }
 }
 

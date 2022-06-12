@@ -90,6 +90,15 @@ public class NodeTree : GraphEdit
         SetSelected(fn);
     }
 
+    // Mainly used for Loading
+    public FNode OnAddNode(string nodetype, Vector2? offset = null) {
+        var t = System.Type.GetType(nodetype);
+        FNode fn = (FNode)Activator.CreateInstance(t);
+        fn.Offset = (offset == null) ? Vector2.Zero : (Vector2)offset;
+        AddChild(fn);
+        return fn;
+    }
+
     public void OnAddNodeFromUI(FNode fn) {
         
         var fnSel = GetFirstSelectedNode();
