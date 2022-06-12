@@ -132,5 +132,25 @@ public abstract class FNode : GraphNode {
 
         outputs[outputs.ElementAt(foutput.idx).Key] = foutput;
     }
+
+    public virtual Godot.Collections.Dictionary<string, object> Serialize() {
+        Godot.Collections.Dictionary<string, object> saveData = new Godot.Collections.Dictionary<string, object>() {
+        };
+
+        saveData.Add("Type", GetType().ToString());
+        saveData.Add("OffsetX", Offset.x);
+        saveData.Add("OffsetY", Offset.y);
+
+        Godot.Collections.Dictionary<string, object> saveDatInputs = new Godot.Collections.Dictionary<string, object>() {
+        };
+
+        foreach (var input in inputs) {
+            saveDatInputs.Add(input.Key, input.Value.GetDefaultValueFromUI());
+        }
+
+        saveData.Add("Inputs", saveDatInputs);
+
+        return saveData;
+    }
 }
 

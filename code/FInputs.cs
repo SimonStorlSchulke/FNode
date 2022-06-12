@@ -14,7 +14,7 @@ public enum SlotType {
 }
 
 public abstract class FInput {
-    protected object defaultValue;
+    public object defaultValue;
     public object initialValue;
     Control GetUI;
     public FNode owner;
@@ -95,7 +95,8 @@ public abstract class FInput {
         }
     }
 
-    public abstract void UpdateDefaultValueFromUI();
+    public abstract void UpdateDefaultValueFromUI(); // This updates the Nodes defaultValue parameter and sanitizes it
+    public abstract object GetDefaultValueFromUI(); // This returns the actual text etc the User has entered in the Input Field
 }
 
 public class FInputFile : FInput {
@@ -112,6 +113,11 @@ public class FInputFile : FInput {
         else
             defaultValue = null;
     }
+
+    public override object GetDefaultValueFromUI() {
+        Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
+        return (nd as LineEdit).Text;
+    }
 }
 
 public class FInputString : FInput {
@@ -119,10 +125,14 @@ public class FInputString : FInput {
         slotType = SlotType.STRING;
     }
 
-    public override void UpdateDefaultValueFromUI()
-    {
+    public override void UpdateDefaultValueFromUI() {
         Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
         defaultValue = (nd as LineEdit).Text.Replace("[LINEBREAK]", "\n");
+    }
+
+    public override object GetDefaultValueFromUI() {
+        Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
+        return (nd as LineEdit).Text;
     }
 }
 
@@ -137,6 +147,11 @@ public class FInputInt : FInput {
         Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
         defaultValue = (int)(nd as SpinBox).Value;
     }
+
+    public override object GetDefaultValueFromUI() {
+        Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
+        return (int)(nd as SpinBox).Value;
+    }
 }
 
 public class FInputFloat : FInput {
@@ -144,10 +159,14 @@ public class FInputFloat : FInput {
         slotType = SlotType.FLOAT;
     }
     
-    public override void UpdateDefaultValueFromUI()
-    {
+    public override void UpdateDefaultValueFromUI() {
         Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
         defaultValue = (float)(nd as SpinBox).Value;
+    }
+
+    public override object GetDefaultValueFromUI() {
+        Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
+        return (int)(nd as SpinBox).Value;
     }
 }
 
@@ -161,6 +180,11 @@ public class FInputBool : FInput {
         Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
         defaultValue = (nd as CheckBox).Pressed;
     }
+
+    public override object GetDefaultValueFromUI() {
+        Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
+        return (nd as CheckBox).Pressed;
+    }
 }
 
 public class FInputDate : FInput {
@@ -168,10 +192,14 @@ public class FInputDate : FInput {
         slotType = SlotType.DATE;
     }
     
-    public override void UpdateDefaultValueFromUI()
-    {
+    public override void UpdateDefaultValueFromUI() {
         Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
         defaultValue = DateTime.Parse((nd as Label).Text);
+    }
+
+    public override object GetDefaultValueFromUI() {
+        Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
+        return DateTime.Parse((nd as Label).Text); // kinda wonky...
     }
 }
 
