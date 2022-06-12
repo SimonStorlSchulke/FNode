@@ -2,16 +2,16 @@ using System.IO;
 using Godot;
 using System;
 
-public class FNodeStringIncludes : FNode
+public class FNodeTextIncludes : FNode
 {
     OptionButton ob;
-    public FNodeStringIncludes() {
+    public FNodeTextIncludes() {
         HintTooltip = "Returns true if the given String includes one of the given strings";
-        category = "String";        
+        category = "Text";        
 
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
-            {"String", new FInputString(this)},
+            {"Text", new FInputString(this)},
             {"Includes1", new FInputString(this)},
         };
 
@@ -20,7 +20,7 @@ public class FNodeStringIncludes : FNode
             {
             "Includes", new FOutputBool(this, delegate() 
             {
-                string str = (string)inputs["String"].Get();
+                string str = (string)inputs["Text"].Get();
                 int i = 0;
                 bool includesAll = true;
                 foreach (var item in inputs) {

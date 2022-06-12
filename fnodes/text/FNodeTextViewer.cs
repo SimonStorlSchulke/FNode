@@ -5,7 +5,7 @@ using System;
 public class FNodeTextViewer : FNode
 {
     public FNodeTextViewer() {
-        category = "String";        
+        category = "Text";        
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
             {"Text", new FInputString(this, 0)},
         };

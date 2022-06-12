@@ -1,2 +1,2 @@
-﻿63072
+﻿49207
 A:/software/windows/Godot_v3.4.4-stable_mono_win64/Godot_v3.4.4-stable_mono_win64.exe

@@ -2,12 +2,12 @@ using System.IO;
 using Godot;
 using System;
 
-public class FNodeAccumulateString : FNode
+public class FNodeAccumulateText : FNode
 {
     string accumulatedString = "";
-    public FNodeAccumulateString() {
+    public FNodeAccumulateText() {
         HintTooltip = "Accumulates Text from all Iterations (when looping ofer a File Stack)\nand combines them using the Separator";
-        category = "String";
+        category = "Text";
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
             {"Separator", new FInputString(this, description: "This Text will be added between each accumulated Text", initialValue: "[LINEBREAK]")},
@@ -17,7 +17,7 @@ public class FNodeAccumulateString : FNode
         FNode.IdxReset();
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
             {
-            "String", new FOutputString(this, delegate() {
+            "Text", new FOutputString(this, delegate() {
                 
                 if (!Main.inst.IsConnected(nameof(Main.StartParsing), this, nameof(ResetString))) {
                     Main.inst.Connect(nameof(Main.StartParsing), this, nameof(ResetString)); //Doing this here because of process order (instance of main is initialized after Nodes)

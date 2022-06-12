@@ -45,7 +45,7 @@ public class FNodeSwitch : FNode
 
         ob = new OptionButton();
         ob.AddItem("File");
-        ob.AddItem("String");
+        ob.AddItem("Text");
         ob.AddItem("Bool");
         ob.AddItem("Int");
         ob.AddItem("Float");
@@ -78,7 +78,6 @@ public class FNodeSwitch : FNode
                     (FNode.FNodeSlotTypes)option);
                 break;
             case (int)(FNodeSlotTypes.STRING):
-            GD.Print("HU");
                 ChangeSlotType(
                     outputs["Result"], 
                     delegate() {

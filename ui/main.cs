@@ -22,14 +22,14 @@ public class Main : VBoxContainer
 
     public void OnFilesDropped(string[] files, int screen) {
         int i = 0;
-        if (GetGlobalMousePosition().x > currentProject.NodeTree.RectGlobalPosition.x && GetGlobalMousePosition().y > currentProject.NodeTree.RectGlobalPosition.y) {
+        if (currentProject.NodeTree.MouseOver()) {
             foreach (string f in files) {
                 //Magic Numbers Bad
                 FNodeFileInfo fi = new FNodeFileInfo();
-                fi.Offset = (currentProject.NodeTree.GetLocalMousePosition() + currentProject.NodeTree.ScrollOffset) / currentProject.NodeTree.Zoom;
+                fi.Offset = currentProject.NodeTree.GetMouseOffset();
                 fi.Offset += new Vector2(i * 340, 0);
                 currentProject.NodeTree.AddChild(fi);
-                fi.GetChild(8).GetChild<LineEdit>(1).Text = f;
+                fi.GetChild(10).GetChild<LineEdit>(1).Text = f;
                 fi.Title = "FI " + new string(f.GetFile().Take(22).ToArray());;
                 i++;
             }

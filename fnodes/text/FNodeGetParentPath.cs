@@ -6,7 +6,7 @@ public class FNodeGetParentPath : FNode
 {
     public FNodeGetParentPath() {
         HintTooltip = "Returns the Parent Path of the given string.\nIf this fails, it returns the original path instead.";
-        category = "String";        
+        category = "Text";        
 
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {

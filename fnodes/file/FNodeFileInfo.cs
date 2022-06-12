@@ -2,8 +2,7 @@ using System.IO;
 using Godot;
 using System;
 
-public class FNodeFileInfo : FNode
-{
+public class FNodeFileInfo : FNode {
     // TODO check if File exists
     public FNodeFileInfo() {
         category = "File";
@@ -15,8 +14,11 @@ public class FNodeFileInfo : FNode
         FNode.IdxReset();
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
             {
-            "Name", new FOutputString(this, delegate() 
+            "File", new FOutputFile(this, delegate() {
+                return (FileInfo)inputs["File"].Get();
+            })},
             {
+            "Name", new FOutputString(this, delegate() {
                 try {
                     return (System.IO.Path.GetFileNameWithoutExtension(((FileInfo)inputs["File"].Get()).FullName));
                 } catch {
@@ -24,16 +26,14 @@ public class FNodeFileInfo : FNode
                 }
             })},
             {
-            "Extension", new FOutputString(this, delegate() 
-            {
+            "Extension", new FOutputString(this, delegate() {
                 try {
                     return ((FileInfo)inputs["File"].Get()).Extension;
                 } catch {
                     return "";
                 }
             })},{
-            "Name with Extension", new FOutputString(this, delegate() 
-            {
+            "Name with Extension", new FOutputString(this, delegate() {
                 try {
                     return ((FileInfo)inputs["File"].Get()).Name;
                 } catch {
@@ -41,8 +41,7 @@ public class FNodeFileInfo : FNode
                 }
             })},
             {
-            "Base Dir", new FOutputString(this, delegate() 
-            {
+            "Base Dir", new FOutputString(this, delegate() {
                 try {
                     return ((FileInfo)inputs["File"].Get()).Directory.ToString(); //TODO - Add DirectoryInfo Slot Type??
                 } catch {
@@ -50,8 +49,7 @@ public class FNodeFileInfo : FNode
                 }
             })},
             {
-            "Creation Time", new FOutputDate(this, delegate() 
-            {
+            "Creation Time", new FOutputDate(this, delegate() {
                 try {
                     return ((FileInfo)inputs["File"].Get()).CreationTime;
                 } catch {
@@ -59,8 +57,7 @@ public class FNodeFileInfo : FNode
                 }
             })},
             {
-            "Last Access Time", new FOutputDate(this, delegate() 
-            {
+            "Last Access Time", new FOutputDate(this, delegate() {
                 try {
                     return ((FileInfo)inputs["File"].Get()).LastAccessTime;
                 } catch {
@@ -68,8 +65,7 @@ public class FNodeFileInfo : FNode
                 }
             })},
             {
-            "Last Write Time", new FOutputDate(this, delegate() 
-            {
+            "Last Write Time", new FOutputDate(this, delegate() {
                 try {
                     return ((FileInfo)inputs["File"].Get()).LastWriteTime;
                 } catch {
@@ -77,8 +73,7 @@ public class FNodeFileInfo : FNode
                 }
             })},
             {
-            "Size", new FOutputInt(this, delegate() 
-            {
+            "Size", new FOutputInt(this, delegate() {
                 try {
                     return (int)((FileInfo)inputs["File"].Get()).Length;
                 } catch {
@@ -86,8 +81,7 @@ public class FNodeFileInfo : FNode
                 }
             })},
             {
-            "Readonly", new FOutputBool(this, delegate() 
-            {
+            "Readonly", new FOutputBool(this, delegate() {
                 try {
                     return ((FileInfo)inputs["File"].Get()).IsReadOnly;
                 } catch {

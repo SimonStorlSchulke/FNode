@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class NodeTree : GraphEdit
-{    
-
+{
     public List<FNode> GetFNodes() {
 
         List<FNode> fNodes = new List<FNode>();
@@ -19,16 +18,27 @@ public class NodeTree : GraphEdit
         return fNodes;
     }
 
+    public Vector2 GetMouseOffset() {
+        return (GetLocalMousePosition() + ScrollOffset) / Zoom;
+    }
+
+    public bool MouseOver() {
+        Vector2 mPos = GetLocalMousePosition();
+        return mPos.x > 0 && mPos.x < RectSize.x && mPos.y > 0 && mPos.y < RectSize.y;
+    }
+
     public void EvaluateTree() {
         Project.idxEval = 0;
         Project.maxNumFiles = 1;
+
+        //(GetChild(1).GetChild(2) as Control).Visible = false; // Hide unnecessary Nodeeditor Controlls
 
         foreach (var fileList in Main.inst.currentProject.FileStacks.Stacks) {
             if (fileList.Count > Project.maxNumFiles)
                 Project.maxNumFiles = fileList.Count;
         }
 
-        for (int i = 0; i < Project.maxNumFiles; i++) { //TODO insert longest Filestack length
+        for (int i = 0; i < Project.maxNumFiles; i++) {
             foreach (Node fn in GetChildren()) {
                 if (fn is FNode)
                     (fn as FNode).ExecutiveMethodRan = false;
@@ -44,9 +54,6 @@ public class NodeTree : GraphEdit
             }
             Project.idxEval++;
         }
-
-        //object v = Root.outputs["Name"].Get();
-        //GD.Print(v);
     }
 
     public void OnConnectionRequest(string from, int fromSlot, string to, int toSlot) {
@@ -70,7 +77,6 @@ public class NodeTree : GraphEdit
     }
 
     public void OnDisconnectionRequest(string from, int fromSlot, string to, int toSlot) {
-        GD.Print("Disc");
         DisconnectNode(from, fromSlot, to, toSlot);
         FNode fnTo = GetNode<FNode>(to);
         fnTo.inputs.ElementAt(toSlot).Value.connectedTo = null;
@@ -78,7 +84,8 @@ public class NodeTree : GraphEdit
     }
 
     public void OnAddNode(FNode fn, Vector2? offset = null) {
-        fn.Offset = (offset == null) ? ScrollOffset + RectSize / 2f : (Vector2)offset;
+
+        fn.Offset = (offset == null) ? (ScrollOffset + new Vector2(100, 100)) / Zoom : (Vector2)offset;
         AddChild(fn);
         SetSelected(fn);
     }
@@ -87,7 +94,8 @@ public class NodeTree : GraphEdit
         
         var fnSel = GetFirstSelectedNode();
         if (fnSel == null) {
-            OnAddNode(fn.Duplicate() as FNode);
+            if (MouseOver()) OnAddNode(fn.Duplicate() as FNode, GetMouseOffset());
+            else OnAddNode(fn.Duplicate() as FNode);
             return;
         }
 
@@ -114,7 +122,8 @@ public class NodeTree : GraphEdit
         }
         
         else {
-            OnAddNode(fn.Duplicate() as FNode);
+            if (MouseOver()) OnAddNode(fn.Duplicate() as FNode, GetMouseOffset());
+            else OnAddNode(fn.Duplicate() as FNode);
         }
     }
 

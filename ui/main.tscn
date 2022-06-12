@@ -58,7 +58,7 @@ margin_top = 44.0
 margin_right = -5.0
 margin_bottom = -5.0
 
-[node name="String" type="VBoxContainer" parent="HBMain/TCAddNodesPanel"]
+[node name="Text" type="VBoxContainer" parent="HBMain/TCAddNodesPanel"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -130,7 +130,7 @@ dd
 ss"
 readonly = true
 
-[node name="Node" type="Node" parent="."]
+[node name="UIUtil" type="Node" parent="."]
 process_priority = -1
 script = ExtResource( 7 )
 

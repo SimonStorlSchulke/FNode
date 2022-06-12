@@ -6,7 +6,7 @@ public class FNodeTextField : FNode
 {
     TextEdit TEEdit;
     public FNodeTextField() {
-        category = "String";        
+        category = "Text";        
         FNode.IdxReset();
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
             {

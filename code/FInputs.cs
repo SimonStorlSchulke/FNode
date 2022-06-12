@@ -37,6 +37,7 @@ public abstract class FInput {
         // TODO this Could probably be more effective
         Type slotType = this.GetType();
         Type valueType = value.GetType();
+
         if (slotType == typeof(FInputString) && valueType == typeof(DateTime)) {
             return ((DateTime)value).ToString();
         }
@@ -76,7 +77,13 @@ public abstract class FInput {
         else if (slotType == typeof(FInputString) && valueType == typeof(bool)) {
             return (bool)value ? "True" : "False";
         }
-        else return value;
+
+        if (slotType == typeof(FInputFile)) {
+            if(!FileUtil.IsAbsolutePath(((FileInfo)value).FullName)) {
+                return null; //Only allow absolute paths
+            }
+        }
+        return value;
     }
 
     public virtual object Get() {
@@ -99,7 +106,11 @@ public class FInputFile : FInput {
     public override void UpdateDefaultValueFromUI()
     {
         Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
-        defaultValue = new System.IO.FileInfo((nd as LineEdit).Text);
+        string path = (nd as LineEdit).Text;
+        if (FileUtil.IsAbsolutePath(path))
+            defaultValue = new System.IO.FileInfo(path);
+        else
+            defaultValue = null;
     }
 }
 
@@ -135,8 +146,6 @@ public class FInputFloat : FInput {
     
     public override void UpdateDefaultValueFromUI()
     {
-        GD.Print(owner.GetChild<HBoxContainer>(owner.outputs.Count + idx));
-        GD.Print(owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1));
         Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
         defaultValue = (float)(nd as SpinBox).Value;
     }

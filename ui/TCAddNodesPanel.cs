@@ -12,8 +12,8 @@ public class TCAddNodesPanel : TabContainer
         CreateAddButton<FNodeRename>();
         CreateAddButton<FNodeFilterFiles>();
         CreateAddButton<FNodeCreateTextFile>();
-        CreateAddButton<FNodeJoinStrings>();
-        CreateAddButton<FNodeAccumulateString>();
+        CreateAddButton<FNodeJoinTexts>();
+        CreateAddButton<FNodeAccumulateText>();
         CreateAddButton<FNodeTextViewer>();
         CreateAddButton<FNodeTextField>();
         CreateAddButton<FNodeDateToString>();
@@ -24,10 +24,12 @@ public class TCAddNodesPanel : TabContainer
         CreateAddButton<FNodeIndex>();
         CreateAddButton<FNodeMath>();
         CreateAddButton<FNodeAccumulateNumber>();
-        CreateAddButton<FNodeStringIncludes>();
-        CreateAddButton<FNodeReplaceString>();
+        CreateAddButton<FNodeTextIncludes>();
+        CreateAddButton<FNodeReplaceText>();
         CreateAddButton<FNodeSwitch>();
         CreateAddButton<FNodeNumberToText>();
+        CreateAddButton<FNodeMove>();
+        CreateAddButton<FNodeJoinPaths>();
     }
 
     void CreateAddButton<fnType>() where fnType : FNode {
@@ -60,6 +62,10 @@ public class TCAddNodesPanel : TabContainer
             Main.inst.currentProject.NodeTree.OnAddNodeFromUI(
                 (FNode)Activator.CreateInstance(typeof(FNodeMath)));
         }
+        if(e.IsActionPressed("add_move")) {
+            Main.inst.currentProject.NodeTree.OnAddNodeFromUI(
+                (FNode)Activator.CreateInstance(typeof(FNodeMove)));
+        }
         if(e.IsActionPressed("add_rename")) {
             Main.inst.currentProject.NodeTree.OnAddNodeFromUI(
                 (FNode)Activator.CreateInstance(typeof(FNodeRename)));
@@ -70,7 +76,7 @@ public class TCAddNodesPanel : TabContainer
         }
         if(e.IsActionPressed("add_join")) {
             Main.inst.currentProject.NodeTree.OnAddNodeFromUI(
-                (FNode)Activator.CreateInstance(typeof(FNodeJoinStrings)));
+                (FNode)Activator.CreateInstance(typeof(FNodeJoinTexts)));
         }
         if(e.IsActionPressed("add_index")) {
             Main.inst.currentProject.NodeTree.OnAddNodeFromUI(
@@ -78,7 +84,11 @@ public class TCAddNodesPanel : TabContainer
         }
         if(e.IsActionPressed("add_accumulate_string")) {
             Main.inst.currentProject.NodeTree.OnAddNodeFromUI(
-                (FNode)Activator.CreateInstance(typeof(FNodeAccumulateString)));
+                (FNode)Activator.CreateInstance(typeof(FNodeAccumulateText)));
+        }
+
+        if(e.IsActionPressed("evaluate_tree")) { //TODO put this somewhere else
+            Main.inst.currentProject.NodeTree.EvaluateTree();
         }
     }
 }

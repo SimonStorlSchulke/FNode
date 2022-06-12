@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vfOAN2pgnrnj5X9Flcek+o3magFaDWG+dQ2lFi2rsgv78evCa7sjZGWpYBJhngsATbjRzJ7TSOKlfpShzv6Z2A==",
+  "dgSpecHash": "kstGxwtqunh1eyi6/8tb1Uatk8uFYSivP93EPUa+ZfkdP0v7MSVurXjRoxEH/20Nj0BkZjt6pDuWUhutG0PJyg==",
   "success": true,
-  "projectFilePath": "A:\\dev\\FNode\\fnode.csproj",
+  "projectFilePath": "A:\\dev\\Godot\\fnode\\fnode.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
