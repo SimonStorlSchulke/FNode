@@ -13,15 +13,20 @@ public class IO : Node {
         FDSave.Connect("file_selected", this, nameof(OnSaveFileSelected));
         FDLoad = GetNode<FileDialog>(NPFDLoad);
         FDLoad.Connect("file_selected", this, nameof(OnLoadFileSelected));
+        FDLoad.CurrentDir = FDSave.CurrentDir = GetDefaultSaveDir();
+    }
+
+    public string GetDefaultSaveDir() {
+        string path = FileUtil.JoinPaths(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), "FNode");
+        FileUtil.CreateDirIfNotExisting(path);
+        return path;
     }
 
     public void OnLoadFileSelected(string path) {
-        GD.Print("Loading");
         Load(path);
     }
 
     public void OnSaveFileSelected(string path) {
-        GD.Print("Saving");
         Save(path);
     }
 
@@ -60,6 +65,7 @@ public class IO : Node {
         saveGame.StoreLine(JSON.Print(saveData));
 
         saveGame.Close();
+        InfoLine.Show($"Saved Project to {path}");
     }
 
     public void Load(string path) {
@@ -70,6 +76,7 @@ public class IO : Node {
         // Load the file line by line and process that dictionary to restore the object
         // it represents.
         saveGame.Open(path, File.ModeFlags.Read);
+
 
         Project pr = Main.NewProject(System.IO.Path.GetFileNameWithoutExtension(path));
 
@@ -95,11 +102,6 @@ public class IO : Node {
             Godot.Collections.Array connectionsData = saveData["Connections"] as Godot.Collections.Array;
 
             foreach (Godot.Collections.Dictionary cData in connectionsData) {
-                GD.PrintT(cData["from"].GetType());
-                GD.PrintT((System.Single)cData["from_port"]);
-                GD.PrintT(cData["to"]);
-                GD.PrintT(cData["to_port"]);
-                
                 pr.NodeTree.OnConnectionRequest(
                      (string)cData["from"],
                      (int)((System.Single)cData["from_port"]),
@@ -109,5 +111,6 @@ public class IO : Node {
         }
 
         saveGame.Close();
+        InfoLine.Show($"Loaded Project {path}");
     }
 }

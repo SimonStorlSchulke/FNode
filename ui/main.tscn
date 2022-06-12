@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://theme/default.theme" type="Theme" id=1]
 [ext_resource path="res://ui/Project.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://ui/TCAddNodesPanel.cs" type="Script" id=5]
 [ext_resource path="res://code/IO.cs" type="Script" id=6]
 [ext_resource path="res://ui/UIUtil.cs" type="Script" id=7]
+[ext_resource path="res://ui/InfoLine.cs" type="Script" id=8]
 
 [node name="Window" type="Control"]
 anchor_right = 1.0
@@ -131,11 +132,18 @@ rect_min_size = Vector2( 0, 32 )
 [node name="HBoxContainer" type="HBoxContainer" parent="VBMain/Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="InfoLine" type="Label" parent="VBMain/Panel/HBoxContainer"]
+margin_right = 8.0
+margin_bottom = 37.0
+script = ExtResource( 8 )
+
+[node name="ClearTimer" type="Timer" parent="VBMain/Panel/HBoxContainer/InfoLine"]
+wait_time = 5.0
+one_shot = true
 
 [node name="Control" type="Control" parent="VBMain/Panel/HBoxContainer"]
+margin_left = 12.0
 margin_right = 1537.0
 margin_bottom = 37.0
 size_flags_horizontal = 3
@@ -168,11 +176,11 @@ popup_exclusive = true
 window_title = "Save"
 resizable = true
 access = 2
-current_dir = "/dev/Godot/fnode"
-current_path = "/dev/Godot/fnode/"
+filters = PoolStringArray( "*.fnode" )
+current_dir = "/dev"
+current_path = "/dev/"
 
 [node name="FDLoad" type="FileDialog" parent="."]
-visible = true
 margin_left = 522.0
 margin_top = 195.0
 margin_right = 1091.0
@@ -182,6 +190,7 @@ window_title = "Open"
 resizable = true
 mode = 0
 access = 2
+filters = PoolStringArray( "*.fnode" )
 current_dir = "/dev/Godot/fnode"
 current_path = "/dev/Godot/fnode/"
 
@@ -196,4 +205,5 @@ NPFDLoad = NodePath("../FDLoad")
 
 [connection signal="pressed" from="VBMain/PNLMenu/HBMenu/BtnSave" to="IO" method="OnPopupSave"]
 [connection signal="pressed" from="VBMain/PNLMenu/HBMenu/BtnLoad" to="IO" method="OnPopupLoad"]
+[connection signal="timeout" from="VBMain/Panel/HBoxContainer/InfoLine/ClearTimer" to="VBMain/Panel/HBoxContainer/InfoLine" method="Clear"]
 [connection signal="pressed" from="VBMain/Panel/HBoxContainer/Button2" to="VBMain" method="OnParseTree"]
