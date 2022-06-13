@@ -154,5 +154,19 @@ public abstract class FNode : GraphNode {
 
         return saveData;
     }
+
+    public static void Deserialize(Godot.Collections.Dictionary nodeData, Project pr) {
+        string nodeType = (string)nodeData["Type"];
+        string nodeName = (string)nodeData["NodeName"];
+        Vector2 offset = new Vector2((float)nodeData["OffsetX"], (float)nodeData["OffsetY"]);
+        FNode fn = pr.NodeTree.OnAddNode(nodeType, offset);
+        fn.Name = nodeName;
+        int i = 0;
+        foreach (System.Collections.DictionaryEntry inputData in (Godot.Collections.Dictionary)nodeData["Inputs"]) {
+            fn.inputs[(string)inputData.Key].UpdateUIFromValue(inputData.Value);
+            i++;
+        }
+        
+    }
 }
 

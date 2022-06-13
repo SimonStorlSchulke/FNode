@@ -2,6 +2,60 @@
   "version": 3,
   "targets": {
     ".NETFramework,Version=v4.7.2": {
+      "Magick.NET-Q16-AnyCPU/11.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Magick.NET.Core": "11.2.0"
+        },
+        "compile": {
+          "lib/netstandard20/Magick.NET-Q16-AnyCPU.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard20/Magick.NET-Q16-AnyCPU.dll": {}
+        },
+        "build": {
+          "build/netstandard20/Magick.NET-Q16-AnyCPU.targets": {}
+        },
+        "runtimeTargets": {
+          "runtimes/linux-arm64/native/Magick.Native-Q16-arm64.dll.so": {
+            "assetType": "native",
+            "rid": "linux-arm64"
+          },
+          "runtimes/linux-musl-x64/native/Magick.Native-Q16-x64.dll.so": {
+            "assetType": "native",
+            "rid": "linux-musl-x64"
+          },
+          "runtimes/linux-x64/native/Magick.Native-Q16-x64.dll.so": {
+            "assetType": "native",
+            "rid": "linux-x64"
+          },
+          "runtimes/osx-x64/native/Magick.Native-Q16-x64.dll.dylib": {
+            "assetType": "native",
+            "rid": "osx-x64"
+          },
+          "runtimes/win-arm64/native/Magick.Native-Q16-arm64.dll": {
+            "assetType": "native",
+            "rid": "win-arm64"
+          },
+          "runtimes/win-x64/native/Magick.Native-Q16-x64.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x86/native/Magick.Native-Q16-x86.dll": {
+            "assetType": "native",
+            "rid": "win-x86"
+          }
+        }
+      },
+      "Magick.NET.Core/11.2.0": {
+        "type": "package",
+        "compile": {
+          "lib/net20/Magick.NET.Core.dll": {}
+        },
+        "runtime": {
+          "lib/net20/Magick.NET.Core.dll": {}
+        }
+      },
       "Microsoft.NETFramework.ReferenceAssemblies/1.0.2": {
         "type": "package",
         "dependencies": {
@@ -17,6 +71,53 @@
     }
   },
   "libraries": {
+    "Magick.NET-Q16-AnyCPU/11.2.0": {
+      "sha512": "9B6thTB/chqQtxyenumwsHgm93mpNFCEGGWzgUGSceP6XIYbcbAGW2TEakxHGBJleaN6IN7ZfZkmnFm7zNUcYg==",
+      "type": "package",
+      "path": "magick.net-q16-anycpu/11.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Magick.NET.icon.png",
+        "Notice.linux-musl.txt",
+        "Notice.linux.txt",
+        "Notice.osx.txt",
+        "Notice.win.txt",
+        "build/netstandard20/Magick.NET-Q16-AnyCPU.targets",
+        "lib/netstandard20/Magick.NET-Q16-AnyCPU.dll",
+        "lib/netstandard20/Magick.NET-Q16-AnyCPU.xml",
+        "lib/netstandard21/Magick.NET-Q16-AnyCPU.dll",
+        "lib/netstandard21/Magick.NET-Q16-AnyCPU.xml",
+        "magick.net-q16-anycpu.11.2.0.nupkg.sha512",
+        "magick.net-q16-anycpu.nuspec",
+        "runtimes/linux-arm64/native/Magick.Native-Q16-arm64.dll.so",
+        "runtimes/linux-musl-x64/native/Magick.Native-Q16-x64.dll.so",
+        "runtimes/linux-x64/native/Magick.Native-Q16-x64.dll.so",
+        "runtimes/osx-x64/native/Magick.Native-Q16-x64.dll.dylib",
+        "runtimes/win-arm64/native/Magick.Native-Q16-arm64.dll",
+        "runtimes/win-x64/native/Magick.Native-Q16-x64.dll",
+        "runtimes/win-x86/native/Magick.Native-Q16-x86.dll"
+      ]
+    },
+    "Magick.NET.Core/11.2.0": {
+      "sha512": "LgfWnoN/5jRNYjadp/2UVNPp6yDFYZ82JY3N6n6WqwPq3x8yKhicJNYpb8GkOSIooPKA+jIgAM+8m3nXaFcN0g==",
+      "type": "package",
+      "path": "magick.net.core/11.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Copyright.txt",
+        "Magick.NET.icon.png",
+        "lib/net20/Magick.NET.Core.dll",
+        "lib/net20/Magick.NET.Core.xml",
+        "lib/netstandard20/Magick.NET.Core.dll",
+        "lib/netstandard20/Magick.NET.Core.xml",
+        "lib/netstandard21/Magick.NET.Core.dll",
+        "lib/netstandard21/Magick.NET.Core.xml",
+        "magick.net.core.11.2.0.nupkg.sha512",
+        "magick.net.core.nuspec"
+      ]
+    },
     "Microsoft.NETFramework.ReferenceAssemblies/1.0.2": {
       "sha512": "5/cSEVld+px/CuRrbohO/djfg6++eR6zGpy88MgqloXvkj//WXWpFZyu/OpkXPN0u5m+dN/EVwLNYFUxD4h2+A==",
       "type": "package",
@@ -411,6 +512,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETFramework,Version=v4.7.2": [
+      "Magick.NET-Q16-AnyCPU >= 11.2.0",
       "Microsoft.NETFramework.ReferenceAssemblies >= 1.0.2"
     ]
   },
@@ -451,6 +553,10 @@
       "net472": {
         "targetAlias": "net472",
         "dependencies": {
+          "Magick.NET-Q16-AnyCPU": {
+            "target": "Package",
+            "version": "[11.2.0, )"
+          },
           "Microsoft.NETFramework.ReferenceAssemblies": {
             "suppressParent": "All",
             "target": "Package",

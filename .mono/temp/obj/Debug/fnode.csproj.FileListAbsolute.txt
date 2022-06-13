@@ -26,3 +26,9 @@ A:\dev\Godot\fnode\.mono\temp\obj\Debug\fnode.AssemblyInfo.cs
 A:\dev\Godot\fnode\.mono\temp\obj\Debug\fnode.csproj.CoreCompileInputs.cache
 A:\dev\Godot\fnode\.mono\temp\obj\Debug\fnode.dll
 A:\dev\Godot\fnode\.mono\temp\obj\Debug\fnode.pdb
+C:\Users\simon\Dev\nodefiler\.mono\temp\bin\Debug\Magick.Native-Q16-arm64.dll
+C:\Users\simon\Dev\nodefiler\.mono\temp\bin\Debug\Magick.Native-Q16-x64.dll
+C:\Users\simon\Dev\nodefiler\.mono\temp\bin\Debug\Magick.Native-Q16-x86.dll
+C:\Users\simon\Dev\nodefiler\.mono\temp\bin\Debug\Magick.NET-Q16-AnyCPU.dll
+C:\Users\simon\Dev\nodefiler\.mono\temp\bin\Debug\Magick.NET.Core.dll
+C:\Users\simon\Dev\nodefiler\.mono\temp\obj\Debug\fnode.csproj.CopyComplete
