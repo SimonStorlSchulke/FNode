@@ -2,16 +2,16 @@ using System.Collections.Generic;
 using Godot;
 using System.Linq;
 
-
 public abstract class FNode : GraphNode {
 
     public Dictionary<string, FInput> inputs = new Dictionary<string, FInput>();
     public Dictionary<string, FOutput> outputs = new Dictionary<string, FOutput>();
     public string category = "other";
-    public override void _Ready()
-    {
+
+    public override void _Ready() {
+        Name = "FNode_" + GetParent().GetChildCount();
         ShowClose = true;
-        Title = this.GetType().Name.Replace("FNode", "");
+        Title = UIUtil.SnakeCaseToWords(this.GetType().Name.Replace("FNode", ""));
         this.RectMinSize = new Vector2(250, 0);
         UIUtil.CreateUI(this);
         Connect(
@@ -132,6 +132,27 @@ public abstract class FNode : GraphNode {
         }
 
         outputs[outputs.ElementAt(foutput.idx).Key] = foutput;
+    }
+
+    public virtual Godot.Collections.Dictionary<string, object> Serialize() {
+        Godot.Collections.Dictionary<string, object> saveData = new Godot.Collections.Dictionary<string, object>() {
+        };
+
+        saveData.Add("Type", GetType().ToString());
+        saveData.Add("NodeName", Name);
+        saveData.Add("OffsetX", Offset.x);
+        saveData.Add("OffsetY", Offset.y);
+
+        Godot.Collections.Dictionary<string, object> saveDatInputs = new Godot.Collections.Dictionary<string, object>() {
+        };
+
+        foreach (var input in inputs) {
+            saveDatInputs.Add(input.Key, input.Value.GetDefaultValueFromUI());
+        }
+
+        saveData.Add("Inputs", saveDatInputs);
+
+        return saveData;
     }
 }
 

@@ -1,14 +1,14 @@
 using Godot;
 
-public class FNodeReplaceString : FNode
+public class FNodeReplaceText : FNode
 {
-    public FNodeReplaceString() {
-        HintTooltip = "Replace Semgents of a String with other Segments";
-        category = "String";        
+    public FNodeReplaceText() {
+        HintTooltip = "Replace Semgents of a Text with other Segments";
+        category = "Text";        
 
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
-            {"String", new FInputString(this)},
+            {"Text", new FInputString(this)},
             {"Replace1", new FInputString(this)},
             {"With1", new FInputString(this)},
         };
@@ -16,9 +16,9 @@ public class FNodeReplaceString : FNode
         FNode.IdxReset();
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
             {
-            "String", new FOutputString(this, delegate() 
+            "Text", new FOutputString(this, delegate() 
             {
-                string str = inputs["String"].Get() as string;
+                string str = inputs["Text"].Get() as string;
 
                 for (int i = 0; i < ((inputs.Count) / 2); i++) {
                     string replaceStr = (string)inputs["Replace"+(i+1)].Get();

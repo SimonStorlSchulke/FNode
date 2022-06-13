@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class NodeTree : GraphEdit
-{    
-
+{
     public List<FNode> GetFNodes() {
 
         List<FNode> fNodes = new List<FNode>();
@@ -19,16 +18,27 @@ public class NodeTree : GraphEdit
         return fNodes;
     }
 
+    public Vector2 GetMouseOffset() {
+        return (GetLocalMousePosition() + ScrollOffset) / Zoom;
+    }
+
+    public bool MouseOver() {
+        Vector2 mPos = GetLocalMousePosition();
+        return mPos.x > 0 && mPos.x < RectSize.x && mPos.y > 0 && mPos.y < RectSize.y;
+    }
+
     public void EvaluateTree() {
         Project.idxEval = 0;
         Project.maxNumFiles = 1;
+
+        //(GetChild(1).GetChild(2) as Control).Visible = false; // Hide unnecessary Nodeeditor Controlls
 
         foreach (var fileList in Main.inst.currentProject.FileStacks.Stacks) {
             if (fileList.Count > Project.maxNumFiles)
                 Project.maxNumFiles = fileList.Count;
         }
 
-        for (int i = 0; i < Project.maxNumFiles; i++) { //TODO insert longest Filestack length
+        for (int i = 0; i < Project.maxNumFiles; i++) {
             foreach (Node fn in GetChildren()) {
                 if (fn is FNode)
                     (fn as FNode).ExecutiveMethodRan = false;
@@ -44,28 +54,24 @@ public class NodeTree : GraphEdit
             }
             Project.idxEval++;
         }
-
-        //object v = Root.outputs["Name"].Get();
-        //GD.Print(v);
     }
 
     public void OnConnectionRequest(string from, int fromSlot, string to, int toSlot) {
-        ConnectNode(from, fromSlot, to, toSlot);
-        
+                
         FNode fnTo = GetNode<FNode>(to);
         FNode fnFrom = GetNode<FNode>(from);
-        try {
 
-        //Disconnect existing Connection to Slot. This shoudln't be so hard Godot Wtf?!! 
-        DisconnectNode(
-            fnTo.inputs.ElementAt(toSlot).Value.connectedTo.owner.Name,  
-            fnTo.inputs.ElementAt(toSlot).Value.connectedTo.idx,
-            to, 
-            toSlot);
-        } catch {
-            // Not Connected
-        }
-        
+            try {
+                //Disconnect existing Connection to Slot. This shoudln't be so hard Godot Wtf?!! 
+                DisconnectNode(
+                    fnTo.inputs.ElementAt(toSlot).Value.connectedTo.owner.Name,  
+                    fnTo.inputs.ElementAt(toSlot).Value.connectedTo.idx,
+                    to, 
+                    toSlot);
+            } catch {/*Nothing Connected - just trying and catching is probably cheaper than checking if a connection exists first.*/}
+
+        ConnectNode(from, fromSlot, to, toSlot);
+
         fnTo.inputs.ElementAt(toSlot).Value.connectedTo = fnFrom.outputs.ElementAt(fromSlot).Value;
         fnTo.GetChild(toSlot + fnTo.outputs.Count).GetChild<Control>(1).Visible = false;
     }
@@ -77,10 +83,20 @@ public class NodeTree : GraphEdit
         fnTo.GetChild(toSlot + fnTo.outputs.Count).GetChild<Control>(1).Visible = true;
     }
 
-    public void OnAddNode(FNode fn) {
-        FNode fd = (FNode)fn.Duplicate();
-        fd.Offset = ScrollOffset + RectSize / 2f;
-        AddChild(fd);
+    public void OnAddNode(FNode fn, Vector2? offset = null) {
+
+        fn.Offset = (offset == null) ? (ScrollOffset + new Vector2(100, 100)) / Zoom : (Vector2)offset;
+        AddChild(fn);
+        SetSelected(fn);
+    }
+
+    // Mainly used for Loading
+    public FNode OnAddNode(string nodetype, Vector2? offset = null) {
+        var t = System.Type.GetType(nodetype);
+        FNode fn = (FNode)Activator.CreateInstance(t);
+        fn.Offset = (offset == null) ? Vector2.Zero : (Vector2)offset;
+        AddChild(fn);
+        return fn;
     }
 
     public void DeleteNode(FNode fn) {
@@ -96,18 +112,49 @@ public class NodeTree : GraphEdit
             }
             idxOutputs++;
         }
+        
+        foreach (KeyValuePair<string, FInput> inp in fn.inputs) {
+
+            if (inp.Value.connectedTo != null) {
+                DisconnectNode(
+                    inp.Value.connectedTo.owner.Name,
+                    inp.Value.connectedTo.idx,
+                    inp.Value.owner.Name,
+                    inp.Value.idx);
+            }
+        }
         fn.QueueFree();
     }
 
     public void OnDeleteRequest() {
-        
+
+        foreach (var n in GetSelectedNodes()) {
+            DeleteNode(n);
+        }
+    }
+
+    public List<FNode> GetSelectedNodes() {
+        List<FNode> selected = new List<FNode>();
         for (int i=0; i < GetChildCount(); i++) {
             var fn = GetChild(i);
             if (fn is FNode) {
                 if ((fn as FNode).Selected) {
-                    DeleteNode(fn as FNode);
+                    selected.Add(fn as FNode);
                 }
             }
         }
+        return selected;
+    }
+
+    public FNode GetFirstSelectedNode() {
+        for (int i=0; i < GetChildCount(); i++) {
+            var fn = GetChild(i);
+            if (fn is FNode) {
+                if ((fn as FNode).Selected) {
+                    return fn as FNode;
+                }
+            }
+        }
+        return null;
     }
 }

@@ -9,6 +9,9 @@ public class FOutput {
     public FNode owner;
     public GetOutputValue Get;
     public int idx;
+    public string description;
+    public SlotType slotType = SlotType.OTHER;
+
     public FOutput(FNode owner, GetOutputValue method, int idx=-1) {
         this.owner = owner;
         this.idx = idx == -1 ? this.idx = FNode.IdxNext() : idx;
@@ -34,36 +37,36 @@ public class FOutput {
 
 public class FOutputInt : FOutput {
     public FOutputInt(FNode owner, GetOutputValue method, int idx=-1) : base(owner, method, idx) {
-
+        slotType = SlotType.INT;
     }
 }
 
 public class FOutputFloat : FOutput {
     public FOutputFloat(FNode owner, GetOutputValue method, int idx=-1) : base(owner, method, idx) {
-
+        slotType = SlotType.FLOAT;
     }
 }
 
 public class FOutputBool : FOutput {
     public FOutputBool(FNode owner, GetOutputValue method, int idx=-1) : base(owner, method, idx) {
-
+        slotType = SlotType.BOOL;
     }
 }
 
 public class FOutputString : FOutput {
     public FOutputString(FNode owner, GetOutputValue method, int idx=-1) : base(owner, method, idx) {
-
+        slotType = SlotType.STRING;
     }
 }
 
 public class FOutputFile : FOutput {
     public FOutputFile(FNode owner, GetOutputValue method, int idx=-1) : base(owner, method, idx) {
-
+        slotType = SlotType.FILE;
     }
 }
 
 public class FOutputDate : FOutput {
     public FOutputDate(FNode owner, GetOutputValue method, int idx=-1) : base(owner, method, idx) {
-
+        slotType = SlotType.DATE;
     }
 }

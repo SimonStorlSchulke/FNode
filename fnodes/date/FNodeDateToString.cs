@@ -17,7 +17,7 @@ public class FNodeDateToString : FNode
         FNode.IdxReset();
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
             {
-            "String", new FOutputString(this, delegate() 
+            "Text", new FOutputString(this, delegate() 
             {
                 return ((DateTime)inputs["Date"].Get()).ToString(inputs["Format"].Get() as string);
             })},

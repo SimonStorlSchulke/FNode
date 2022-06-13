@@ -2,8 +2,7 @@ using Godot;
 using System;
 using System.IO;
 
-public class FNodeGetFiles : FNode
-{
+public class FNodeGetFiles : FNode {
     public FNodeGetFiles() {
         category = "File";
         FNode.IdxReset();
@@ -15,7 +14,18 @@ public class FNodeGetFiles : FNode
         FNode.IdxReset();
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
             {"File", new FOutputFile(this, delegate() {
-            return new FileInfo(inputs["Path"].Get() as string);
+                string path = inputs["Path"].Get() as string;
+                try {
+                    if (FileUtil.IsAbsolutePath(path)) return new FileInfo(path);
+                    else {
+                        Errorlog.Log(this, "Only absolute Paths are allowed"); 
+                        return null;
+                    }
+                }
+                catch (System.Exception e) {
+                    Errorlog.Log(this, e.Message);
+                    return null;
+            }
         })},
         };
     }

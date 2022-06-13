@@ -13,13 +13,10 @@ margin_right = -5.0
 margin_bottom = -5.0
 size_flags_vertical = 3
 script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="TCFilestacks" type="TabContainer" parent="."]
 margin_right = 300.0
-margin_bottom = 1026.0
+margin_bottom = 846.0
 rect_min_size = Vector2( 300, 0 )
 tab_align = 0
 script = ExtResource( 1 )
@@ -27,10 +24,10 @@ script = ExtResource( 1 )
 [node name="1" type="ItemList" parent="TCFilestacks"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 8.0
-margin_top = 61.0
-margin_right = -8.0
-margin_bottom = -8.0
+margin_left = 5.0
+margin_top = 40.0
+margin_right = -5.0
+margin_bottom = -5.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -57,12 +54,12 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="NodeTree" type="GraphEdit" parent="."]
-margin_left = 308.0
-margin_right = 1910.0
-margin_bottom = 1026.0
+margin_left = 304.0
+margin_right = 1690.0
+margin_bottom = 846.0
 size_flags_horizontal = 3
 right_disconnects = true
-scroll_offset = Vector2( -297, 0 )
+zoom_step = 1.1
 minimap_enabled = false
 script = ExtResource( 2 )
 __meta__ = {

@@ -6,7 +6,7 @@ public class FNodeTextField : FNode
 {
     TextEdit TEEdit;
     public FNodeTextField() {
-        category = "String";        
+        category = "Text";        
         FNode.IdxReset();
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
             {
@@ -21,8 +21,7 @@ public class FNodeTextField : FNode
         base._Ready();
         TEEdit = new TextEdit();
         TEEdit.Name = "TextEdit";
-        TEEdit.RectMinSize = new Vector2(0, 200);
+        TEEdit.RectMinSize = new Vector2(400, 400);
         AddChild(TEEdit);
     }
-    
 }

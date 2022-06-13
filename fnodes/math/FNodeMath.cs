@@ -24,7 +24,6 @@ public class FNodeMath : FNode
                 switch (ob.Selected)
                 {
                     case 0:
-                        GD.Print(inputs["Val1"].Get().GetType());
                         return val1 + val2;
                     case 1:
                         return val1 - val2;

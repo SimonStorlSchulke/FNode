@@ -2,9 +2,9 @@ using System.IO;
 using Godot;
 using System;
 
-public class FNodeRename : FNode
+public class FNodeCopy : FNode
 {
-    public FNodeRename() {
+    public FNodeCopy() {
         category = "File";
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
@@ -25,11 +25,8 @@ public class FNodeRename : FNode
         };
     }
 
-    public override void ExecutiveMethod() {
-        if (inputs["File"].Get() == null) {
-            base.ExecutiveMethod();
-            return;
-        }
+    public override void ExecutiveMethod()
+    {
         string dest = ((FileInfo)inputs["File"].Get()).DirectoryName + "\\" + ((string)inputs["To"].Get());
         try {
             System.IO.File.Move(((FileInfo)inputs["File"].Get()).FullName, dest);

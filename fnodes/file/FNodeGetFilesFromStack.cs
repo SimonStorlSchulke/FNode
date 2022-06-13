@@ -15,7 +15,17 @@ public class FNodeGetFilesFromStack : FNode
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
             {"Files", new FOutputFile(this, delegate() {
             int stack = (int)inputs["Stack"].Get();
-            return new FileInfo(Main.inst.currentProject.FileStacks.Stacks[stack][Project.idxEval].Item2);
+            string path = Main.inst.currentProject.FileStacks.Stacks[stack][Project.idxEval].Item2;
+            try {
+                if (FileUtil.IsAbsolutePath(path)) return new FileInfo(path);
+                else {
+                    Errorlog.Log(this, "Only absolute Paths are allowed"); 
+                    return null;
+                };
+            } catch (System.Exception e) {
+                Errorlog.Log(this, e.Message);
+                return null;
+            }
         })},
         };
     }

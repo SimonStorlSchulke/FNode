@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 public class UIUtil : Node
 {
+    public static string SnakeCaseToWords(string str) {
+        return System.Text.RegularExpressions.Regex.Replace(str, "([A-Z0-9]+)", " $1").Trim();
+    }
 
     static Dictionary<string, StyleBox> styleboxes = new Dictionary<string, StyleBox>();
     
@@ -18,9 +21,9 @@ public class UIUtil : Node
         styleboxes.Add("NodeDate_Selected", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeDate_Selected.stylebox"));
         styleboxes.Add("NodeMath", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeMath.stylebox"));
         styleboxes.Add("NodeMath_Selected", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeMath_Selected.stylebox"));
-        styleboxes.Add("NodeOther", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeBool.stylebox"));
+        styleboxes.Add("NodeOther", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeOther.stylebox"));
         styleboxes.Add("NodeOther_Selected", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeOther_Selected.stylebox"));
-        styleboxes.Add("NodeBool", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeOther.stylebox"));
+        styleboxes.Add("NodeBool", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeBool.stylebox"));
         styleboxes.Add("NodeBool_Selected", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeBool_Selected.stylebox"));
     }
 
@@ -33,14 +36,12 @@ public class UIUtil : Node
             fn.AddStyleboxOverride("selectedframe", styleboxes["NodeFile_Selected"]);
             break;
 
-        case "String":
+        case "Text":
             fn.AddStyleboxOverride("frame", styleboxes["NodeString"]);
             fn.AddStyleboxOverride("selectedframe", styleboxes["NodeString_Selected"]);
             break;
 
         case "Date":
-        GD.Print("Date!");
-        GD.Print((styleboxes["NodeDate"] as StyleBoxFlat).BorderColor);
             fn.AddStyleboxOverride("frame", styleboxes["NodeDate"]);
             fn.AddStyleboxOverride("selectedframe", styleboxes["NodeDate_Selected"]);
             break;
@@ -134,27 +135,32 @@ public class UIUtil : Node
         {
             case FInputInt t1:
                 ct = new SpinBox();
+                if(fInp.initialValue != null) (ct as SpinBox).Value = (int)fInp.initialValue;
                 slotColor = Colors.SeaGreen;
                 break;
                 
             case FInputFloat t2:
                 ct = new SpinBox();
                 ((SpinBox)ct).Step = 0.01;
+                if(fInp.initialValue != null) (ct as SpinBox).Value = (float)fInp.initialValue;
                 slotColor = Colors.SkyBlue;
                 break;
 
             case FInputBool t3:
                 ct = new CheckBox();
+                if(fInp.initialValue != null) (ct as CheckBox).Pressed = (bool)fInp.initialValue;
                 slotColor = Colors.LightPink;
                 break;
 
             case FInputString t4:
                 ct = new LineEdit();
+                if(fInp.initialValue != null) (ct as LineEdit).Text = (string)fInp.initialValue;
                 slotColor = Colors.Orange;
                 break;
 
             case FInputFile t5:
                 ct = new LineEdit();
+                if(fInp.initialValue != null) (ct as LineEdit).Text = (string)fInp.initialValue;
                 slotColor = Colors.Red;
                 break;
 
@@ -178,6 +184,8 @@ public class UIUtil : Node
 
         if (ct.Name != "clButton")
             ct.SizeFlagsHorizontal = 3;
+
+        hb.HintTooltip = ct.HintTooltip = fInp.description;
 
         hb.AddChild(ct);
         hb.SizeFlagsHorizontal = (int)Control.SizeFlags.ExpandFill;
