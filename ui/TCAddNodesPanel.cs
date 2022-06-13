@@ -54,7 +54,11 @@ public class TCAddNodesPanel : TabContainer
         }
         if (e is InputEventMouseButton) {
             if (((InputEventMouseButton)e).ButtonIndex == (int)ButtonList.Left && ((InputEventMouseButton)e).Pressed == false) {
-                Main.inst.OnAddNodeFromUI(draggedFnode);
+                if (Main.inst.currentProject.NodeTree.MouseOver()) {
+                    Main.inst.OnAddNodeFromUI(draggedFnode, false);
+                } else {
+                    Main.inst.OnAddNodeFromUI(draggedFnode, true);
+                }
                 dragging = false;
             }
         }

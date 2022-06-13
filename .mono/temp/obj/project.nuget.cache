@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "kstGxwtqunh1eyi6/8tb1Uatk8uFYSivP93EPUa+ZfkdP0v7MSVurXjRoxEH/20Nj0BkZjt6pDuWUhutG0PJyg==",
+  "dgSpecHash": "EJXhXb+lHZRlWIHMgI0ufhhlRd4AxIkN2G1eblrYSusF1gOuuZYvPIu7tHIcVh6i70DgfBrVXn9b6dO9ZXgp3Q==",
   "success": true,
-  "projectFilePath": "A:\\dev\\Godot\\fnode\\fnode.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\simon\\Dev\\nodefiler\\fnode.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\simon\\.nuget\\packages\\microsoft.netframework.referenceassemblies\\1.0.2\\microsoft.netframework.referenceassemblies.1.0.2.nupkg.sha512",
+    "C:\\Users\\simon\\.nuget\\packages\\microsoft.netframework.referenceassemblies.net472\\1.0.2\\microsoft.netframework.referenceassemblies.net472.1.0.2.nupkg.sha512"
+  ],
   "logs": []
 }

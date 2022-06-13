@@ -33,7 +33,7 @@ public class Main : VBoxContainer
     }
 
     
-    public void OnAddNodeFromUI(FNode fn) {
+    public void OnAddNodeFromUI(FNode fn, bool autoconnect = true) {
         
         var fnSel = currentProject.NodeTree.GetFirstSelectedNode();
         if (fnSel == null) {
@@ -42,7 +42,7 @@ public class Main : VBoxContainer
             return;
         }
 
-        if (fnSel.outputs.Count > 0 && fn.inputs.Count > 0) {
+        if (fnSel.outputs.Count > 0 && fn.inputs.Count > 0 && autoconnect) {
             FNode fnDup = (FNode)fn.Duplicate();
             fnDup.Offset = fnSel.Offset + new Vector2(fnSel.RectSize.x + 50, 0);
             

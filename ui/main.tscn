@@ -92,7 +92,7 @@ visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
-margin_top = 49.0
+margin_top = 44.0
 margin_right = -5.0
 margin_bottom = -5.0
 
@@ -101,7 +101,7 @@ visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
-margin_top = 49.0
+margin_top = 44.0
 margin_right = -5.0
 margin_bottom = -5.0
 
@@ -110,7 +110,7 @@ visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
-margin_top = 49.0
+margin_top = 44.0
 margin_right = -5.0
 margin_bottom = -5.0
 
@@ -119,7 +119,7 @@ visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
-margin_top = 49.0
+margin_top = 44.0
 margin_right = -5.0
 margin_bottom = -5.0
 
@@ -172,27 +172,29 @@ margin_left = 522.0
 margin_top = 195.0
 margin_right = 1091.0
 margin_bottom = 768.0
+rect_min_size = Vector2( 300, 105 )
 popup_exclusive = true
 window_title = "Save"
 resizable = true
 access = 2
 filters = PoolStringArray( "*.fnode" )
-current_dir = "/dev"
-current_path = "/dev/"
+current_dir = "/Users/simon/Dev/nodefiler"
+current_path = "/Users/simon/Dev/nodefiler/"
 
 [node name="FDLoad" type="FileDialog" parent="."]
 margin_left = 522.0
 margin_top = 195.0
 margin_right = 1091.0
 margin_bottom = 768.0
+rect_min_size = Vector2( 300, 105 )
 popup_exclusive = true
 window_title = "Open a File"
 resizable = true
 mode = 0
 access = 2
 filters = PoolStringArray( "*.fnode" )
-current_dir = "/dev/Godot/fnode"
-current_path = "/dev/Godot/fnode/"
+current_dir = "/Users/simon/Dev/nodefiler"
+current_path = "/Users/simon/Dev/nodefiler/"
 
 [node name="UIUtil" type="Node" parent="."]
 process_priority = -1

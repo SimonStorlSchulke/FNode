@@ -1,22 +1,18 @@
 {
   "format": 1,
   "restore": {
-    "A:\\dev\\Godot\\fnode\\fnode.csproj": {}
+    "C:\\Users\\simon\\Dev\\nodefiler\\fnode.csproj": {}
   },
   "projects": {
-    "A:\\dev\\Godot\\fnode\\fnode.csproj": {
+    "C:\\Users\\simon\\Dev\\nodefiler\\fnode.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "A:\\dev\\Godot\\fnode\\fnode.csproj",
+        "projectUniqueName": "C:\\Users\\simon\\Dev\\nodefiler\\fnode.csproj",
         "projectName": "fnode",
-        "projectPath": "A:\\dev\\Godot\\fnode\\fnode.csproj",
+        "projectPath": "C:\\Users\\simon\\Dev\\nodefiler\\fnode.csproj",
         "packagesPath": "C:\\Users\\simon\\.nuget\\packages\\",
-        "outputPath": "A:\\dev\\Godot\\fnode\\.mono\\temp\\obj\\",
+        "outputPath": "C:\\Users\\simon\\Dev\\nodefiler\\.mono\\temp\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Users\\simon\\AppData\\Roaming\\Godot\\mono\\GodotNuGetFallbackFolder",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
           "C:\\Users\\simon\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
@@ -41,7 +37,15 @@
       "frameworks": {
         "net472": {
           "targetAlias": "net472",
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+          "dependencies": {
+            "Microsoft.NETFramework.ReferenceAssemblies": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.0.2, )",
+              "autoReferenced": true
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
