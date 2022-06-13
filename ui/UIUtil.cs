@@ -39,6 +39,8 @@ public class UIUtil : Node
             break;
 
         case "Date":
+        GD.Print("Date!");
+        GD.Print((styleboxes["NodeDate"] as StyleBoxFlat).BorderColor);
             fn.AddStyleboxOverride("frame", styleboxes["NodeDate"]);
             fn.AddStyleboxOverride("selectedframe", styleboxes["NodeDate_Selected"]);
             break;

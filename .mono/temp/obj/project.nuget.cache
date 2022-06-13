@@ -1,11 +1,9 @@
 {
   "version": 2,
-  "dgSpecHash": "45tv1YS6nV4q6hdayeMDcXLK49z54zp+ZZ/NuJQY6oNx6wKVy/Oa3ax8KHqtqCzYMfDvrSLgdYuufUgCbtAolQ==",
+  "dgSpecHash": "EJXhXb+lHZRlWIHMgI0ufhhlRd4AxIkN2G1eblrYSusF1gOuuZYvPIu7tHIcVh6i70DgfBrVXn9b6dO9ZXgp3Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\simon\\Dev\\nodefiler\\fnode.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\simon\\.nuget\\packages\\magick.net-q16-anycpu\\11.1.2\\magick.net-q16-anycpu.11.1.2.nupkg.sha512",
-    "C:\\Users\\simon\\.nuget\\packages\\magick.net.core\\11.1.2\\magick.net.core.11.1.2.nupkg.sha512",
     "C:\\Users\\simon\\.nuget\\packages\\microsoft.netframework.referenceassemblies\\1.0.2\\microsoft.netframework.referenceassemblies.1.0.2.nupkg.sha512",
     "C:\\Users\\simon\\.nuget\\packages\\microsoft.netframework.referenceassemblies.net472\\1.0.2\\microsoft.netframework.referenceassemblies.net472.1.0.2.nupkg.sha512"
   ],

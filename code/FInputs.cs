@@ -114,6 +114,8 @@ public class FInputFloat : FInput {
     
     public override void UpdateDefaultValueFromUI()
     {
+        GD.Print(owner.GetChild<HBoxContainer>(owner.outputs.Count + idx));
+        GD.Print(owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1));
         Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
         defaultValue = (float)(nd as SpinBox).Value;
     }
