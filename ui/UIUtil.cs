@@ -176,6 +176,7 @@ public class UIUtil : Node
                 //ct = new Label();
                 //(ct as Label).Text = "connect List Slot"; //(string)fInp.initialValue;
                 ct = new Button();
+                ((Button)ct).Text = "Edit List";
                 ct.Connect("pressed", ListCreator.inst, nameof(ListCreator.ShowCreator), 
                     new Godot.Collections.Array(){fInp.defaultValue, fInp.owner.Name, labeltext}); //This might break...
                 slotColor = Colors.Purple;

@@ -5,8 +5,6 @@ public class ListCreator : AcceptDialog {
     static Godot.Collections.Array list;
     [Export] NodePath NPTypeSelector;
     OptionButton typeSelector;
-    [Export] NodePath NPCountSelector;
-    SpinBox countSelector;
     [Export] NodePath NPItemsBox;
     VBoxContainer itemsBox;
     public static ListCreator inst;
@@ -16,42 +14,160 @@ public class ListCreator : AcceptDialog {
     public override void _Ready() {
         inst = this;
         typeSelector = GetNode<OptionButton>(NPTypeSelector);
-        countSelector = GetNode<SpinBox>(NPCountSelector);
         itemsBox = GetNode<VBoxContainer>(NPItemsBox);
-        countSelector.Connect("value_changed", this, nameof(SetItemCount));
     }
 
     public void ShowCreator(Godot.Collections.Array listInput, string connectedNodeName, string connectedSlotName) {
         list = listInput;
         //GD.Print($"{connectedNodeName} slotname: {connectedSlotName}");
         connectedListInput = Main.inst.currentProject.NodeTree.GetNode<FNode>(connectedNodeName).inputs[connectedSlotName] as FInputList; //Dangerous...
-        for (int i = 0; i < (int)inst.countSelector.Value; i++) {
-            inst.itemsBox.AddChild(new SpinBox());
+        if (connectedListInput.defaultValue == null) {
+            GD.Print(1);
+            connectedListInput.defaultValue = new Godot.Collections.Array();
+        }
+        for (int i = 0; i < ((Godot.Collections.Array)connectedListInput.defaultValue).Count; i++) {
+            AddItem(((Godot.Collections.Array)connectedListInput.defaultValue)[i]);
         }
         inst.PopupCentered();
     }
 
     public void OnPopupHide() {
-        //inp
-        foreach (Node c in itemsBox.GetChildren()) {
-            c.QueueFree();
-        }
-        connectedListInput.defaultValue = new Godot.Collections.Array(){"TEST", "YAY"};
-        GD.Print(((Godot.Collections.Array)connectedListInput.defaultValue)[1]);
+        connectedListInput.defaultValue = new Godot.Collections.Array();
+        foreach (Node item in itemsBox.GetChildren()) {
+            Node itemCtl = item.GetChild(1);
+            string itemType = (string)item.GetGroups()[0];
+            object itemValue;
+            switch (itemType) {
+                case "file":
+                    itemValue = ((LineEdit)itemCtl).Text;
+                    break;
+                case "text":
+                    itemValue = ((LineEdit)itemCtl).Text;
+                    break;
+                case "bool":
+                    itemValue = ((CheckBox)itemCtl).Pressed;
+                    break;
+                case "int":
+                    itemValue = ((SpinBox)itemCtl).Value;
+                    break;
+                case "float":
+                    itemValue = ((SpinBox)itemCtl).Value;
+                    break;
+                case "date":
+                    itemValue = ((SpinBox)itemCtl).Value;
+                    break;
+                default:
+                    itemValue = ((SpinBox)itemCtl).Value;
+                    break;
+            }
+           ((Godot.Collections.Array)connectedListInput.defaultValue).Add(itemValue);
+           item.QueueFree();
+        }  
     }
 
-    public void SetItemCount(int count) {
-        int diff = count - itemsBox.GetChildCount();
+    public void AddItem(string type) {
+        HBoxContainer hbItem = new HBoxContainer();
+            Label lblItem = new Label();
+            lblItem.RectMinSize = new Vector2(90, 0);
+            lblItem.Text = type;
+            hbItem.AddChild(lblItem);
 
-        if (diff > 0) {
-            for (int i = 0; i < diff; i++) {
-                itemsBox.AddChild(new SpinBox()); 
+            switch (type) {
+                case "file":
+                    hbItem.AddChild(new LineEdit());
+                    break;
+                case "text":
+                    hbItem.AddChild(new LineEdit());
+                    break;
+                case "bool":
+                    hbItem.AddChild(new CheckBox());
+                    break;
+                case "int":
+                    SpinBox spI = new SpinBox();
+                    spI.MinValue = -Mathf.Inf;
+                    hbItem.AddChild(spI);
+                    break;
+                case "float":
+                    SpinBox spF = new SpinBox();
+                    spF.MinValue = -Mathf.Inf;
+                    spF.Step = 0.01;
+                    hbItem.AddChild(spF);
+                    break;
+                case "date":
+                    SpinBox spT = new SpinBox(); //TODO
+                    hbItem.AddChild(spT);
+                    break;
+                default:
+                    break;
             }
-        } else if(diff < 0) {
-            for (int i = 0; i < -diff; i++) {
-                itemsBox.GetChild(itemsBox.GetChildCount()-1).QueueFree();
-            }
-        }
+            Button btnRemoveItem = new Button();
+            btnRemoveItem.Text = " X ";
+            hbItem.AddChild(btnRemoveItem);
+            hbItem.AddToGroup(type);
+            hbItem.GetChild<Control>(1).RectMinSize = new Vector2(200, 0);
+            itemsBox.AddChild(hbItem);
+            btnRemoveItem.Connect("pressed", this, nameof(RemoveItem), new Godot.Collections.Array{hbItem});
     }
 
+    //ugly duplicated code but connections don't allow optional function parameters
+    public void AddItem(object value) {
+        HBoxContainer hbItem = new HBoxContainer();
+            Label lblItem = new Label();
+            lblItem.RectMinSize = new Vector2(90, 0);
+            lblItem.Text = value.GetType().ToString(); //Meh...
+            hbItem.AddChild(lblItem);
+
+            switch (value) {
+                case System.IO.FileInfo fi:
+                LineEdit leF = new LineEdit();
+                    leF.Text = fi.FullName;
+                    hbItem.AddToGroup("file");
+                    hbItem.AddChild(leF);
+                    break;
+                case string fi:
+                LineEdit leT = new LineEdit();
+                    leT.Text = (string)value;
+                    hbItem.AddToGroup("text");
+                    hbItem.AddChild(leT);
+                    break;
+                case bool fi:
+                    CheckBox cb = new CheckBox();
+                    cb.Pressed = (bool)value;
+                    hbItem.AddToGroup("bool");
+                    hbItem.AddChild(cb);
+                    break;
+                case int fi:
+                    SpinBox spI = new SpinBox();
+                    spI.Value = (float)value;
+                    spI.MinValue = -Mathf.Inf;
+                    hbItem.AddToGroup("int");
+                    hbItem.AddChild(spI);
+                    break;
+                case float fi:
+                    SpinBox spF = new SpinBox();
+                    spF.MinValue = -Mathf.Inf;
+                    spF.Step = 0.01;
+                    spF.Value = (float)value;
+                    hbItem.AddToGroup("float");
+                    hbItem.AddChild(spF);
+                    break;
+                case DateTime fi:
+                    SpinBox spT = new SpinBox(); //TODO
+                    hbItem.AddToGroup("date");
+                    hbItem.AddChild(spT);
+                    break;
+                default:
+                    break;
+            }
+            Button btnRemoveItem = new Button();
+            btnRemoveItem.Text = " X ";
+            hbItem.AddChild(btnRemoveItem);
+            hbItem.GetChild<Control>(1).RectMinSize = new Vector2(200, 0);
+            itemsBox.AddChild(hbItem);
+            btnRemoveItem.Connect("pressed", this, nameof(RemoveItem), new Godot.Collections.Array{hbItem});
+    }
+
+    public void RemoveItem(Node nd) {
+        nd.QueueFree();
+    }
 }
