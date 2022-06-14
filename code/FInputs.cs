@@ -10,6 +10,7 @@ public enum SlotType {
     FLOAT,
     DATE,
     IMAGE,
+    LIST,
     OTHER
 }
 
@@ -145,9 +146,34 @@ public class FInputString : FInput {
     }
 }
 
+public class FInputList : FInput {
+    public FInputList(FNode owner, int idx=-1, string description="", object initialValue=null) : base(owner, idx, description, initialValue) {
+        slotType = SlotType.LIST;
+    }
+
+    public override void UpdateDefaultValueFromUI() {
+        //Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
+        GD.Print("Def:", defaultValue);
+    }
+
+    public override object GetDefaultValueFromUI() {
+        Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
+        GD.Print("Def:", defaultValue);
+        return defaultValue;
+    }
+    
+    public override void UpdateUIFromValue(object value) {
+        ((LineEdit)owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1)).Text = (string)value;
+    }
+}
+
 
 public class FInputInt : FInput {
-    public FInputInt(FNode owner, int idx=-1, string description="", object initialValue=null) : base(owner, idx, description, initialValue) {
+    public int min;
+    public int max;
+    public FInputInt(FNode owner, int idx=-1, string description="", object initialValue=null, int min=int.MinValue, int max=int.MaxValue) : base(owner, idx, description, initialValue) {
+        this.min = min;
+        this.max = max;
         slotType = SlotType.INT;
     }
     
@@ -168,7 +194,11 @@ public class FInputInt : FInput {
 }
 
 public class FInputFloat : FInput {
-    public FInputFloat(FNode owner, int idx=-1, string description="", object initialValue=null) : base(owner, idx, description, initialValue) {
+    public float min;
+    public float max;
+    public FInputFloat(FNode owner, int idx=-1, string description="", object initialValue=null, float min=-Mathf.Inf, float max=Mathf.Inf) : base(owner, idx, description, initialValue) {
+        this.min = min;
+        this.max = max;
         slotType = SlotType.FLOAT;
     }
     

@@ -59,6 +59,12 @@ public class FOutputString : FOutput {
     }
 }
 
+public class FOutputList : FOutput {
+    public FOutputList(FNode owner, GetOutputValue method, int idx=-1) : base(owner, method, idx) {
+        slotType = SlotType.LIST;
+    }
+}
+
 public class FOutputFile : FOutput {
     public FOutputFile(FNode owner, GetOutputValue method, int idx=-1) : base(owner, method, idx) {
         slotType = SlotType.FILE;

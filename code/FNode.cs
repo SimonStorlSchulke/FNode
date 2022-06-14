@@ -50,6 +50,21 @@ public abstract class FNode : GraphNode {
         FLOAT,
         DATE
     }
+    
+    public void AddOptionEnum(string name, string[] options) {
+        // TODO handle case when child with given name already exists
+        OptionButton ob = new OptionButton();
+        ob.Name = name;
+        foreach (var item in options) {
+            ob.AddItem(item);
+        }
+        AddChild(ob);
+    }
+
+    public string GetSelectedOption(string optionButtonName) {
+        OptionButton btn = GetNode<OptionButton>(optionButtonName);
+        return btn.GetItemText(btn.Selected);
+    }
 
     
     public void ChangeSlotType(FInput finput, FNodeSlotTypes toType) {

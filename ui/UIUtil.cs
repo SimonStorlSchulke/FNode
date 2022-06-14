@@ -99,12 +99,16 @@ public class UIUtil : Node
                 slotColor = Colors.Red;
                 break;
 
+            case FOutputList t5:
+                slotColor = Colors.Purple;
+                break;
+
             case FOutputDate t5:
                 slotColor = Colors.LightGreen;
                 break;
 
             default:
-                slotColor = Colors.Black;
+                slotColor = Colors.White;
                 break;
         }
         Control ct = new Control();
@@ -135,12 +139,16 @@ public class UIUtil : Node
         {
             case FInputInt t1:
                 ct = new SpinBox();
+                (ct as SpinBox).MinValue = (fInp as FInputInt).min;
+                (ct as SpinBox).MaxValue = (fInp as FInputInt).max;
                 if(fInp.initialValue != null) (ct as SpinBox).Value = (int)fInp.initialValue;
                 slotColor = Colors.SeaGreen;
                 break;
                 
             case FInputFloat t2:
                 ct = new SpinBox();
+                (ct as SpinBox).MinValue = (fInp as FInputFloat).min;
+                (ct as SpinBox).MaxValue = (fInp as FInputFloat).max;
                 ((SpinBox)ct).Step = 0.01;
                 if(fInp.initialValue != null) (ct as SpinBox).Value = (float)fInp.initialValue;
                 slotColor = Colors.SkyBlue;
@@ -164,6 +172,15 @@ public class UIUtil : Node
                 slotColor = Colors.Red;
                 break;
 
+            case FInputList t5:
+                //ct = new Label();
+                //(ct as Label).Text = "connect List Slot"; //(string)fInp.initialValue;
+                ct = new Button();
+                ct.Connect("pressed", ListCreator.inst, nameof(ListCreator.ShowCreator), 
+                    new Godot.Collections.Array(){fInp.defaultValue, fInp.owner.Name, labeltext}); //This might break...
+                slotColor = Colors.Purple;
+                break;
+
             case FInputDate t5:
                 GDScript calendarbutonClass = (GDScript) GD.Load("res://addons/calendar_button/scripts/calendar_script.gd");
                 DateLabel lblDate = new DateLabel();
@@ -178,7 +195,7 @@ public class UIUtil : Node
 
             default:
                 ct = new LineEdit();
-                slotColor = Colors.Black;
+                slotColor = Colors.White;
                 break;
         }
 
@@ -191,6 +208,7 @@ public class UIUtil : Node
         hb.SizeFlagsHorizontal = (int)Control.SizeFlags.ExpandFill;
         hb.RectMinSize = new Vector2(0, 40);
         toNode.AddChild(hb);
+        hb.Name = labeltext;
 
         if (atIdx != -1) {
             toNode.SetSlot(atIdx, true, 0, slotColor, false, 0, Colors.Red, null, null);

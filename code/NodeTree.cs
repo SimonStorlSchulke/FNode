@@ -3,8 +3,11 @@ using Godot;
 using System.Collections.Generic;
 using System.Linq;
 
+
 public class NodeTree : GraphEdit
 {
+    [Signal] public delegate void StartNextIteration();
+
     public List<FNode> GetFNodes() {
 
         List<FNode> fNodes = new List<FNode>();
@@ -38,7 +41,9 @@ public class NodeTree : GraphEdit
                 Project.maxNumFiles = fileList.Count;
         }
 
+        
         for (int i = 0; i < Project.maxNumFiles; i++) {
+            EmitSignal(nameof(StartNextIteration));
             foreach (Node fn in GetChildren()) {
                 if (fn is FNode)
                     (fn as FNode).ExecutiveMethodRan = false;
