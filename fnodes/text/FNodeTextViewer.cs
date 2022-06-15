@@ -18,11 +18,6 @@ public class FNodeTextViewer : FNode
 
     public override void ExecutiveMethod() {
 
-        //Doing this here because of process order (instance of main is initialized after Nodes)
-        if (!Main.inst.IsConnected(nameof(Main.StartParsing), this, nameof(ResetString))) {
-            Main.inst.Connect(nameof(Main.StartParsing), this, nameof(ResetString));
-        }
-
         if ((bool)inputs["Accumulate"].Get()) {
             accumulatedString += inputs["Text"].Get() as string + "\n";
             GetNode<TextEdit>("Viewer").Text = accumulatedString;
@@ -41,7 +36,8 @@ public class FNodeTextViewer : FNode
         AddChild(TEViewer);
     }
 
-    public void ResetString() {
+    public override void OnBeforeEvaluation() {
+        GD.Print("HUH");
         accumulatedString = "";
     }
     

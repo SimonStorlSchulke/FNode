@@ -16,7 +16,7 @@ public class FNodeIndex : FNode
             })},
             {
             "Loop Number", new FOutputInt(this, delegate() {
-                return Project.maxNumFiles;
+                return (int)Math.Max(Project.spIterations.Value, Project.maxNumFiles);
             })},
         };
     }

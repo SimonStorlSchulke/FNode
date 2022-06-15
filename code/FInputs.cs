@@ -41,7 +41,10 @@ public abstract class FInput {
 
         if (slotType == typeof(FInputString) && valueType == typeof(DateTime)) {
             return ((DateTime)value).ToString();
-        }
+        }/*
+        else if (slotType == typeof(FInputList) && value != null) {
+            return new Godot.Collections.Array(){value};
+        }*/
         else if (slotType == typeof(FInputString) && valueType == typeof(int)) {
             return ((int)value).ToString();
         }

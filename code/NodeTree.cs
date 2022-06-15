@@ -8,6 +8,14 @@ public class NodeTree : GraphEdit
 {
     [Signal] public delegate void StartNextIteration();
 
+    public override void _Ready() {
+        CallDeferred(nameof(HideControle));
+    }
+
+    public void HideControle() {
+        (GetChild(1).GetChild(2) as Control).Visible = false;
+    }
+
     public List<FNode> GetFNodes() {
 
         List<FNode> fNodes = new List<FNode>();
@@ -33,6 +41,9 @@ public class NodeTree : GraphEdit
     public void EvaluateTree() {
         Project.idxEval = 0;
         Project.maxNumFiles = 1;
+        
+        GetTree().CallGroupFlags((int)SceneTree.GroupCallFlags.Realtime, FNode.RunBeforeEvaluationGroup, nameof(FNode.OnBeforeEvaluation));
+
 
         //(GetChild(1).GetChild(2) as Control).Visible = false; // Hide unnecessary Nodeeditor Controlls
 
@@ -41,12 +52,12 @@ public class NodeTree : GraphEdit
                 Project.maxNumFiles = fileList.Count;
         }
 
+        int iterations = (int)Math.Max(Project.spIterations.Value, Project.maxNumFiles);
         
-        for (int i = 0; i < Project.maxNumFiles; i++) {
+        for (int i = 0; i < iterations; i++) {
 
             EmitSignal(nameof(StartNextIteration));
             GetTree().CallGroupFlags((int)SceneTree.GroupCallFlags.Realtime, FNode.RunBeforeIterationGroup, nameof(FNode.OnNextIteration));
-            GetTree().CallGroupFlags((int)SceneTree.GroupCallFlags.Realtime, FNode.RunBeforeEvaluationGroup, nameof(FNode.OnBeforeEvaluation));
 
             foreach (Node fn in GetChildren()) {
                 if (fn is FNode)

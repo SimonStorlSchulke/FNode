@@ -28,9 +28,10 @@ public class FNodeRandomNumber : FNode
                 } else {
                     rng.Seed = Convert.ToUInt64((int)inputs["Seed"].Get());
                 }
+                
                 rng.Seed += seedAdds;
                 seedAdds++;
-                //rng.Randomize();
+
                 if (GetNode<OptionButton>("numbertype").Selected == 0) {
                     return rng.RandiRange((int)inputs["Min"].Get(), (int)inputs["Max"].Get());
                 } else {

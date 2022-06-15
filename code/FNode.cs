@@ -16,11 +16,13 @@ public abstract class FNode : GraphNode {
         Title = UIUtil.SnakeCaseToWords(this.GetType().Name.Replace("FNode", ""));
         this.RectMinSize = new Vector2(250, 0);
         UIUtil.CreateUI(this);
+        
         Connect(
             "close_request", 
             GetParent(), 
             nameof(NodeTree.DeleteNode), 
             new Godot.Collections.Array(){this});
+
         if (this.GetType().GetMethod(nameof(OnBeforeEvaluation)).DeclaringType == this.GetType()) {
             AddToGroup(RunBeforeEvaluationGroup);
         }

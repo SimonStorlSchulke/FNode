@@ -33,6 +33,7 @@ public class TCAddNodesPanel : TabContainer
         CreateAddButton<FNodeList>();
         CreateAddButton<FNodeGetListItem>();
         CreateAddButton<FNodeRandomNumber>();
+        CreateAddButton<FNodeJoinList>();
     }
 
     void CreateAddButton<fnType>() where fnType : FNode {
