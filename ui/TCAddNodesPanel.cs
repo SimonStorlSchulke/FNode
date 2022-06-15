@@ -30,7 +30,9 @@ public class TCAddNodesPanel : TabContainer
         CreateAddButton<FNodeMove>();
         CreateAddButton<FNodeJoinPaths>();
         CreateAddButton<FNodeCutText>();
+        CreateAddButton<FNodeList>();
         CreateAddButton<FNodeGetListItem>();
+        CreateAddButton<FNodeRandomNumber>();
     }
 
     void CreateAddButton<fnType>() where fnType : FNode {

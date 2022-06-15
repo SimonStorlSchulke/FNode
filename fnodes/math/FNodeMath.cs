@@ -12,7 +12,6 @@ public class FNodeMath : FNode
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
             {"Val1", new FInputFloat(this)},
             {"Val2", new FInputFloat(this)},
-            {"Array", new FInputList(this)},
         };
 
         FNode.IdxReset();

@@ -43,7 +43,11 @@ public class NodeTree : GraphEdit
 
         
         for (int i = 0; i < Project.maxNumFiles; i++) {
+
             EmitSignal(nameof(StartNextIteration));
+            GetTree().CallGroupFlags((int)SceneTree.GroupCallFlags.Realtime, FNode.RunBeforeIterationGroup, nameof(FNode.OnNextIteration));
+            GetTree().CallGroupFlags((int)SceneTree.GroupCallFlags.Realtime, FNode.RunBeforeEvaluationGroup, nameof(FNode.OnBeforeEvaluation));
+
             foreach (Node fn in GetChildren()) {
                 if (fn is FNode)
                     (fn as FNode).ExecutiveMethodRan = false;

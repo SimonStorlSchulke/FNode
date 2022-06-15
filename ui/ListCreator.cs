@@ -39,7 +39,11 @@ public class ListCreator : AcceptDialog {
             object itemValue;
             switch (itemType) {
                 case "file":
-                    itemValue = ((LineEdit)itemCtl).Text;
+                    string path = ((LineEdit)itemCtl).Text;
+                    if (FileUtil.IsAbsolutePath(path))
+                        itemValue = new System.IO.FileInfo(path);
+                    else
+                        itemValue = null;
                     break;
                 case "text":
                     itemValue = ((LineEdit)itemCtl).Text;
@@ -48,7 +52,7 @@ public class ListCreator : AcceptDialog {
                     itemValue = ((CheckBox)itemCtl).Pressed;
                     break;
                 case "int":
-                    itemValue = ((SpinBox)itemCtl).Value;
+                    itemValue = (int)((SpinBox)itemCtl).Value;
                     break;
                 case "float":
                     itemValue = ((SpinBox)itemCtl).Value;
@@ -138,7 +142,7 @@ public class ListCreator : AcceptDialog {
                     break;
                 case int fi:
                     SpinBox spI = new SpinBox();
-                    spI.Value = (float)value;
+                    spI.Value = (int)value;
                     spI.MinValue = -Mathf.Inf;
                     hbItem.AddToGroup("int");
                     hbItem.AddChild(spI);

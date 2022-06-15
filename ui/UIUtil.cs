@@ -21,10 +21,12 @@ public class UIUtil : Node
         styleboxes.Add("NodeDate_Selected", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeDate_Selected.stylebox"));
         styleboxes.Add("NodeMath", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeMath.stylebox"));
         styleboxes.Add("NodeMath_Selected", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeMath_Selected.stylebox"));
-        styleboxes.Add("NodeOther", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeOther.stylebox"));
-        styleboxes.Add("NodeOther_Selected", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeOther_Selected.stylebox"));
         styleboxes.Add("NodeBool", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeBool.stylebox"));
         styleboxes.Add("NodeBool_Selected", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeBool_Selected.stylebox"));
+        styleboxes.Add("NodeList", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeList.stylebox"));
+        styleboxes.Add("NodeList_Selected", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeList_Selected.stylebox"));
+        styleboxes.Add("NodeOther", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeOther.stylebox"));
+        styleboxes.Add("NodeOther_Selected", ResourceLoader.Load<StyleBox>("res://ui/NodeStyles/NodeOther_Selected.stylebox"));
     }
 
     public static void CreateUI(FNode fn) {
@@ -55,6 +57,11 @@ public class UIUtil : Node
         case "Bool":
             fn.AddStyleboxOverride("frame", styleboxes["NodeBool"]);
             fn.AddStyleboxOverride("selectedframe", styleboxes["NodeBool_Selected"]);
+            break;
+
+        case "List":
+            fn.AddStyleboxOverride("frame", styleboxes["NodeList"]);
+            fn.AddStyleboxOverride("selectedframe", styleboxes["NodeList_Selected"]);
             break;
 
         default:

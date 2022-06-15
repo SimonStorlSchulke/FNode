@@ -153,12 +153,10 @@ public class FInputList : FInput {
 
     public override void UpdateDefaultValueFromUI() {
         //Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
-        GD.Print("Def:", defaultValue);
     }
 
     public override object GetDefaultValueFromUI() {
         Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
-        GD.Print("Def:", defaultValue);
         return defaultValue;
     }
     

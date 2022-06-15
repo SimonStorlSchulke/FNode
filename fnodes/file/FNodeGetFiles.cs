@@ -4,12 +4,6 @@ using System.IO;
 
 public class FNodeGetFiles : FNode
 {
-    public override void _Ready() {
-        // For each iteration, reparse the Fileinfo (so it doesn't have to be reparsed for each input per iteration)
-        GetParent<NodeTree>().Connect(nameof(NodeTree.StartNextIteration), this, nameof(ParseNextFileInfo));
-        base._Ready();
-    }
-
     FileInfo currentFile;
     public FNodeGetFiles()
     {
@@ -79,11 +73,12 @@ public class FNodeGetFiles : FNode
         };
     }
 
-    public void ParseNextFileInfo() {
+    public override void OnNextIteration() {
         string path;
         try {
             path = Main.inst.currentProject.FileStacks.Stacks[(int)inputs["Stack"].Get()][Project.idxEval].Item2;
         } catch(System.Exception e) {
+            GD.Print("NANNI1", e);
             currentFile = null;
             return;
         }
@@ -94,11 +89,13 @@ public class FNodeGetFiles : FNode
                 }
                 else {
                     Errorlog.Log(this, "Only absolute Paths are allowed");
+                    GD.Print("NANNI2");
                     currentFile = null;
                     return;
                 };
             } catch (System.Exception e) {
                 Errorlog.Log(this, e.Message);
+                GD.Print("NANNI3");
                 currentFile = null;
             }
     }

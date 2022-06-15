@@ -7,6 +7,8 @@ public abstract class FNode : GraphNode {
     public Dictionary<string, FInput> inputs = new Dictionary<string, FInput>();
     public Dictionary<string, FOutput> outputs = new Dictionary<string, FOutput>();
     public string category = "other";
+    public const string RunBeforeEvaluationGroup = "run_before_evaluation_group";
+    public const string RunBeforeIterationGroup = "run_before_iteration_group";
 
     public override void _Ready() {
         Name = "FNode_" + GetParent().GetChildCount();
@@ -19,6 +21,12 @@ public abstract class FNode : GraphNode {
             GetParent(), 
             nameof(NodeTree.DeleteNode), 
             new Godot.Collections.Array(){this});
+        if (this.GetType().GetMethod(nameof(OnBeforeEvaluation)).DeclaringType == this.GetType()) {
+            AddToGroup(RunBeforeEvaluationGroup);
+        }
+        if (this.GetType().GetMethod(nameof(OnNextIteration)).DeclaringType == this.GetType()) {
+            AddToGroup(RunBeforeIterationGroup);
+        }
     }
 
     public bool ExecutiveMethodRan = false;
@@ -51,7 +59,7 @@ public abstract class FNode : GraphNode {
         DATE
     }
     
-    public void AddOptionEnum(string name, string[] options) {
+    public void AddOptionEnum(string name, string[] options, string callbackMethod="") {
         // TODO handle case when child with given name already exists
         OptionButton ob = new OptionButton();
         ob.Name = name;
@@ -59,6 +67,9 @@ public abstract class FNode : GraphNode {
             ob.AddItem(item);
         }
         AddChild(ob);
+        if (callbackMethod != "") {
+            ob.Connect("item_selected", this, callbackMethod);
+        }
     }
 
     public string GetSelectedOption(string optionButtonName) {
@@ -67,7 +78,7 @@ public abstract class FNode : GraphNode {
     }
 
     
-    public void ChangeSlotType(FInput finput, FNodeSlotTypes toType) {
+    public void ChangeSlotType(FInput finput, FNodeSlotTypes toType, object initialValue = null) {
         int childIdx = outputs.Count + finput.idx;
         Node n = GetChild(childIdx);
         string labelText = n.GetChild<Label>(0).Text;
@@ -82,23 +93,23 @@ public abstract class FNode : GraphNode {
                 UIUtil.AddInputUI(this, labelText, finput, childIdx);
                 break;
             case FNodeSlotTypes.STRING:
-                finput = new FInputString(this, idx);
+                finput = new FInputString(this, idx, initialValue: initialValue);
                 UIUtil.AddInputUI(this, labelText, finput, childIdx);
                 break;
             case FNodeSlotTypes.BOOL:
-                finput = new FInputBool(this, idx);
+                finput = new FInputBool(this, idx, initialValue: initialValue);
                 UIUtil.AddInputUI(this, labelText, finput, childIdx);
                 break;
             case FNodeSlotTypes.INT:
-                finput = new FInputInt(this, idx);
+                finput = new FInputInt(this, idx, initialValue: initialValue);
                 UIUtil.AddInputUI(this, labelText, finput, childIdx);
                 break;
             case FNodeSlotTypes.FLOAT:
-                finput = new FInputFloat(this, idx);
+                finput = new FInputFloat(this, idx, initialValue: initialValue);
                 UIUtil.AddInputUI(this, labelText, finput, childIdx);
                 break;
             case FNodeSlotTypes.DATE:
-                finput = new FInputDate(this, idx);
+                finput = new FInputDate(this, idx, initialValue: initialValue);
                 UIUtil.AddInputUI(this, labelText, finput, childIdx);
                 break;
         }
@@ -149,6 +160,50 @@ public abstract class FNode : GraphNode {
         outputs[outputs.ElementAt(foutput.idx).Key] = foutput;
     }
 
+    // Dangerous - change output type without changing it's Get-Method
+    public void ChangeSlotType(FOutput foutput, FNodeSlotTypes toType) {
+        int childIdx = foutput.idx;
+        Node n = GetChild(childIdx);
+        string labelText = n.GetChild<Label>(1).Text;
+        RemoveChild(n);
+        n.QueueFree();
+        GetOutputValue m = foutput.Get;
+        int idx = foutput.idx;
+        var oldConnectionList = foutput.ConnectedTo();
+
+        switch(toType) {
+            case FNodeSlotTypes.FILE:
+                foutput = new FOutputFile(this, m, idx);
+                UIUtil.AddOutputUI(this, labelText, foutput, childIdx);
+                break;
+            case FNodeSlotTypes.STRING:
+                foutput = new FOutputString(this, m, idx);
+                UIUtil.AddOutputUI(this, labelText, foutput, childIdx);
+                break;
+            case FNodeSlotTypes.BOOL:
+                foutput = new FOutputBool(this, m, idx);
+                UIUtil.AddOutputUI(this, labelText, foutput, childIdx);
+                break;
+            case FNodeSlotTypes.INT:
+                foutput = new FOutputInt(this, m, idx);
+                UIUtil.AddOutputUI(this, labelText, foutput, childIdx);
+                break;
+            case FNodeSlotTypes.FLOAT:
+                foutput = new FOutputFloat(this, m, idx);
+                UIUtil.AddOutputUI(this, labelText, foutput, childIdx);
+                break;
+            case FNodeSlotTypes.DATE:
+                foutput = new FOutputDate(this, m, idx);
+                UIUtil.AddOutputUI(this, labelText, foutput, childIdx);
+                break;
+        }
+        foreach (var conSlot in oldConnectionList) {
+            conSlot.connectedTo = foutput; //TODO Test if this is necessary
+        }
+
+        outputs[outputs.ElementAt(foutput.idx).Key] = foutput;
+    }
+
     public virtual Godot.Collections.Dictionary<string, object> Serialize() {
         Godot.Collections.Dictionary<string, object> saveData = new Godot.Collections.Dictionary<string, object>() {
         };
@@ -183,5 +238,9 @@ public abstract class FNode : GraphNode {
         }
         
     }
+
+    ///<summary>This will be called before each NodeTree iteration (optimized via group CallGroup)</summary>
+    public virtual void OnNextIteration(){}
+    public virtual void OnBeforeEvaluation(){}
 }
 
