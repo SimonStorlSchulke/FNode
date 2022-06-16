@@ -18,21 +18,19 @@ public class FNodeAccumulateText : FNode
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
             {
             "Text", new FOutputString(this, delegate() {
-                
-                if (!Main.inst.IsConnected(nameof(Main.StartParsing), this, nameof(ResetString))) {
-                    Main.inst.Connect(nameof(Main.StartParsing), this, nameof(ResetString)); //Doing this here because of process order (instance of main is initialized after Nodes)
-                }
-                
+        
                 string sep = inputs["Separator"].Get() as string;
                 sep = sep.Replace("[LINEBREAK]", "\n"); //TODO sanitize this...
+
+                int iterations = (int)Math.Max(Project.spIterations.Value, Project.maxNumFiles);
                 
-                accumulatedString += Project.idxEval < Project.maxNumFiles-1 ? inputs["Text"].Get() as string + sep : inputs["Text"].Get() as string; //TODO Use String.Join;
+                accumulatedString += Project.idxEval < iterations-1 ? inputs["Text"].Get() as string + sep : inputs["Text"].Get() as string; //TODO Use String.Join;
                 
                 return accumulatedString;
             })},
         };
     }
-    public void ResetString() {
+    public override void OnBeforeEvaluation() {
         accumulatedString = "";
     }
 }

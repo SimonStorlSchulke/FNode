@@ -42,16 +42,18 @@ public class NodeTree : GraphEdit
     public void EvaluateTree() {
         Project.idxEval = 0;
         Project.maxNumFiles = 1;
+
+        foreach (var fileList in Main.inst.currentProject.FileStacks.Stacks) {
+            if (fileList.Count > Project.maxNumFiles)
+                Project.maxNumFiles = fileList.Count;
+        }
         
         GetTree().CallGroupFlags((int)SceneTree.GroupCallFlags.Realtime, FNode.RunBeforeEvaluationGroup, nameof(FNode.OnBeforeEvaluation));
 
 
         //(GetChild(1).GetChild(2) as Control).Visible = false; // Hide unnecessary Nodeeditor Controlls
 
-        foreach (var fileList in Main.inst.currentProject.FileStacks.Stacks) {
-            if (fileList.Count > Project.maxNumFiles)
-                Project.maxNumFiles = fileList.Count;
-        }
+        
 
         int iterations = (int)Math.Max(Project.spIterations.Value, Project.maxNumFiles);
         
