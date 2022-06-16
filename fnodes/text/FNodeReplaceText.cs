@@ -1,6 +1,6 @@
 using Godot;
 
-public class FNodeReplaceText : FNode
+public class FNodeReplaceText : FNode, IFNodeVarInputSize
 {
     public FNodeReplaceText() {
         HintTooltip = "Replace Semgents of a Text with other Segments";
@@ -42,11 +42,11 @@ public class FNodeReplaceText : FNode
         Button plusButton = new Button();
         plusButton.Name = "PlusButton";
         plusButton.Text = "+";
-        plusButton.Connect("pressed", this, nameof(AddLine));
+        plusButton.Connect("pressed", this, nameof(AddInput));
         AddChild(plusButton);
     }
 
-    void AddLine() {
+    void AddInput() {
         FNode.IdxReset(inputs.Count);
         int count = (inputs.Count - 1) / 2 + 1;
         inputs.Add("Replace" + count, new FInputString(this));
@@ -59,5 +59,16 @@ public class FNodeReplaceText : FNode
         SetSlot(GetChildCount()-2, true, 0, Colors.Orange, false, 0, Colors.Orange, null, null);
         SetSlot(GetChildCount()-3, true, 0, Colors.Orange, false, 0, Colors.Orange, null, null);
         SetSlot(GetChildCount()-1, false, 0, Colors.Red, false, 0, Colors.Red, null, null);
+    }
+
+    public void SetInputSize(int size) {
+
+        int pairsToAdd = (size - inputs.Count) / 2;
+
+        if (size > inputs.Count) {
+            for (int i = 0; i < pairsToAdd; i++) {
+                AddInput();
+            }
+        }
     }
 }

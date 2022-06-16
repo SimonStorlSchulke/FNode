@@ -125,6 +125,9 @@ margin_bottom = 715.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_styles/bg = SubResource( 1 )
+follow_focus = true
+scroll_horizontal_enabled = false
+scroll_deadzone = 50
 
 [node name="VbItems" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
 margin_left = 8.0

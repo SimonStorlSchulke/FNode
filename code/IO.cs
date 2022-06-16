@@ -32,10 +32,12 @@ public class IO : Node {
 
     public void OnPopupLoad() {
         FDLoad.PopupCentered();
+        FDLoad.CurrentDir = FDLoad.CurrentDir; //refresh files
     }
 
     public void OnPopupSave() {
         FDSave.PopupCentered();
+        FDSave.CurrentDir = FDSave.CurrentDir; //refresh files
     }
 
 

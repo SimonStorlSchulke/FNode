@@ -249,6 +249,11 @@ public abstract class FNode : GraphNode {
         Vector2 offset = new Vector2((float)nodeData["OffsetX"], (float)nodeData["OffsetY"]);
         FNode fn = pr.NodeTree.OnAddNode(nodeType, offset);
         fn.Name = nodeName;
+
+        if (fn is IFNodeVarInputSize) {
+            (fn as IFNodeVarInputSize).SetInputSize(((Godot.Collections.Dictionary)nodeData["Inputs"]).Count);
+        }
+
         int i = 0;
         foreach (System.Collections.DictionaryEntry inputData in (Godot.Collections.Dictionary)nodeData["Inputs"]) {
 

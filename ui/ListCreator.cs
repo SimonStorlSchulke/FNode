@@ -127,6 +127,7 @@ public class ListCreator : AcceptDialog {
             itemsBox.AddChild(hbItem);
             btnRemoveItem.Connect("pressed", this, nameof(RemoveItem), new Godot.Collections.Array{hbItem});
             lblItemCount.Text = itemsBox.GetChildCount().ToString() + " Items";
+            hbItem.GetChild<Control>(1).GrabFocus();
     }
 
     //ugly duplicated code but connections don't allow optional function parameters
