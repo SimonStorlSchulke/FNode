@@ -5,7 +5,7 @@ public class Project : Control
 {
     public NodeTree NodeTree;
     public TCFilestacks FileStacks;
-    public static SpinBox spIterations;
+    public SpinBox spIterations;
     public static int idxEval = 0;
     public static int maxNumFiles = 0;
 

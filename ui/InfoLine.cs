@@ -13,6 +13,13 @@ public class InfoLine : Label
 
     public static void Show(string text) {
         inst.clearTimer.Start();
+        inst.AddColorOverride("font_color", Colors.White);
+        inst.Text = text;
+    }
+
+    public static void ShowColored(string text, Color color) {
+        inst.clearTimer.Start();
+        inst.AddColorOverride("font_color", color);
         inst.Text = text;
     }
 

@@ -15,7 +15,7 @@ public class Main : VBoxContainer
     public Project currentProject;
     PackedScene projectScene;
     [Export] NodePath NPProjectTabs;
-    TabContainer projectTabs;
+    public TabContainer projectTabs;
 
     [Export] NodePath NPAddNodeButtons;
     TCAddNodesPanel addNodeButtons;
@@ -119,8 +119,8 @@ public class Main : VBoxContainer
         RectSize = winSize * RectScale * (16f / 9f);// / RectScale;//(2f * RectScale);// * RectScale;
     }
 
-    public void OnParseTree() {
+    public void OnParseTree(bool preview) {
         EmitSignal(nameof(StartParsing));
-        currentProject.GetNode<NodeTree>("NodeTree").EvaluateTree();
+        currentProject.GetNode<NodeTree>("NodeTree").EvaluateTree(preview);
     }
 }

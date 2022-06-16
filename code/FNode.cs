@@ -19,7 +19,7 @@ public abstract class FNode : GraphNode {
         UIUtil.CreateUI(this);
         Connect(
             "close_request", 
-            GetParent(), 
+            GetParent(),
             nameof(NodeTree.DeleteNode), 
             new Godot.Collections.Array(){this});
 

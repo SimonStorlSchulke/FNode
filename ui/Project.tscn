@@ -20,7 +20,7 @@ margin_bottom = 846.0
 
 [node name="TCFilestacks" type="TabContainer" parent="VBSideBar"]
 margin_right = 359.0
-margin_bottom = 809.0
+margin_bottom = 768.0
 rect_min_size = Vector2( 300, 0 )
 size_flags_vertical = 3
 tab_align = 0
@@ -62,13 +62,33 @@ size_flags_vertical = 3
 select_mode = 1
 
 [node name="VBProjectSettings" type="VBoxContainer" parent="VBSideBar"]
-margin_top = 813.0
+margin_top = 772.0
 margin_right = 359.0
 margin_bottom = 846.0
+custom_constants/separation = 8
 
-[node name="HBIterations" type="HBoxContainer" parent="VBSideBar/VBProjectSettings"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBSideBar/VBProjectSettings"]
 margin_right = 359.0
 margin_bottom = 33.0
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="VBSideBar/VBProjectSettings/HBoxContainer"]
+margin_right = 177.0
+margin_bottom = 33.0
+size_flags_horizontal = 3
+text = "Add Files"
+
+[node name="Button2" type="Button" parent="VBSideBar/VBProjectSettings/HBoxContainer"]
+margin_left = 181.0
+margin_right = 359.0
+margin_bottom = 33.0
+size_flags_horizontal = 3
+text = "Clear Files"
+
+[node name="HBIterations" type="HBoxContainer" parent="VBSideBar/VBProjectSettings"]
+margin_top = 41.0
+margin_right = 359.0
+margin_bottom = 74.0
 
 [node name="Label" type="Label" parent="VBSideBar/VBProjectSettings/HBIterations"]
 margin_right = 167.0

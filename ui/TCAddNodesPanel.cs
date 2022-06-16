@@ -20,7 +20,7 @@ public class TCAddNodesPanel : TabContainer
         CreateAddButton<FNodeCurrentDate>();
         CreateAddButton<FNodeGetParentPath>();
         CreateAddButton<FNodeGetFilesFromStack>();
-        CreateAddButton<FNodeIndex>();
+        CreateAddButton<FNodeIndexInfo>();
         CreateAddButton<FNodeMath>();
         CreateAddButton<FNodeAccumulateNumber>();
         CreateAddButton<FNodeTextIncludes>();
@@ -44,6 +44,7 @@ public class TCAddNodesPanel : TabContainer
         AddNodeButton.Align = Button.TextAlign.Left;
         FNode fn = (FNode)Activator.CreateInstance(typeof(fnType));
         AddNodeButton.Text = UIUtil.SnakeCaseToWords(typeof(fnType).Name.Replace("FNode", ""));
+        AddNodeButton.HintTooltip = fn.HintTooltip;
         //AddNodeButton.Connect("pressed", Main.inst, nameof(Main.OnAddNodeFromUI), new Godot.Collections.Array{fn});
         AddNodeButton.Connect("button_down", this, nameof(StartDrag), new Godot.Collections.Array{fn});
         GetNode(fn.category).AddChild(AddNodeButton);
@@ -111,7 +112,7 @@ public class TCAddNodesPanel : TabContainer
         }
         if(e.IsActionPressed("add_index")) {
             Main.inst.OnAddNodeFromUI(
-                (FNode)Activator.CreateInstance(typeof(FNodeIndex)));
+                (FNode)Activator.CreateInstance(typeof(FNodeIndexInfo)));
         }
         if(e.IsActionPressed("add_accumulate_string")) {
             Main.inst.OnAddNodeFromUI(
@@ -119,7 +120,7 @@ public class TCAddNodesPanel : TabContainer
         }
 
         if(e.IsActionPressed("evaluate_tree")) { //TODO put this somewhere else
-            Main.inst.currentProject.NodeTree.EvaluateTree();
+            Main.inst.currentProject.NodeTree.EvaluateTree(false);
         }
     }
 }

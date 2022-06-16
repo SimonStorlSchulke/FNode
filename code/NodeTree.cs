@@ -39,7 +39,9 @@ public class NodeTree : GraphEdit
         return mPos.x > 0 && mPos.x < RectSize.x && mPos.y > 0 && mPos.y < RectSize.y;
     }
 
-    public void EvaluateTree() {
+    public bool previewMode = true;
+    public void EvaluateTree(bool previewMode) {
+        this.previewMode = previewMode;
         Project.idxEval = 0;
         Project.maxNumFiles = 1;
 
@@ -50,12 +52,7 @@ public class NodeTree : GraphEdit
         
         GetTree().CallGroupFlags((int)SceneTree.GroupCallFlags.Realtime, FNode.RunBeforeEvaluationGroup, nameof(FNode.OnBeforeEvaluation));
 
-
-        //(GetChild(1).GetChild(2) as Control).Visible = false; // Hide unnecessary Nodeeditor Controlls
-
-        
-
-        int iterations = (int)Math.Max(Project.spIterations.Value, Project.maxNumFiles);
+        int iterations = (int)Math.Max(Main.inst.currentProject.spIterations.Value, Project.maxNumFiles);
         
         for (int i = 0; i < iterations; i++) {
 
@@ -77,6 +74,7 @@ public class NodeTree : GraphEdit
             }
             Project.idxEval++;
         }
+        PuPreviewOps.ShowPreview();
     }
 
     public void OnConnectionRequest(string from, int fromSlot, string to, int toSlot) {

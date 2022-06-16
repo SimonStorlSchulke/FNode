@@ -14,7 +14,7 @@ public class TCFilestacks : TabContainer
     public void OnUpdateUI(int ofStack) {
         GetChild<ItemList>(ofStack).Clear();
         foreach (var item in Stacks[ofStack]) {
-             GetChild<ItemList>(ofStack).AddItem(item.Item2.GetFile());
+            GetChild<ItemList>(ofStack).AddItem(item.Item2.GetFile());
         }
     }
 }

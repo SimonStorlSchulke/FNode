@@ -22,7 +22,7 @@ public class FNodeAccumulateText : FNode
                 string sep = inputs["Separator"].Get() as string;
                 sep = sep.Replace("[LINEBREAK]", "\n"); //TODO sanitize this...
 
-                int iterations = (int)Math.Max(Project.spIterations.Value, Project.maxNumFiles);
+                int iterations = (int)Math.Max(Main.inst.currentProject.spIterations.Value, Project.maxNumFiles);
                 
                 accumulatedString += Project.idxEval < iterations-1 ? inputs["Text"].Get() as string + sep : inputs["Text"].Get() as string; //TODO Use String.Join;
                 

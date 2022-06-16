@@ -2,9 +2,9 @@ using System.IO;
 using Godot;
 using System;
 
-public class FNodeIndex : FNode
+public class FNodeIndexInfo : FNode
 {
-    public FNodeIndex() {
+    public FNodeIndexInfo() {
         HintTooltip = "Returns the Parent Path of the given string.\nIf this fails, it returns the original path instead.";
         category = "Math";        
 
@@ -16,7 +16,12 @@ public class FNodeIndex : FNode
             })},
             {
             "Loop Number", new FOutputInt(this, delegate() {
-                return (int)Math.Max(Project.spIterations.Value, Project.maxNumFiles);
+                return (int)Math.Max(Main.inst.currentProject.spIterations.Value, Project.maxNumFiles);
+            })},
+            {
+            "Is last iteration", new FOutputBool(this, delegate() {
+                int iterations = (int)Math.Max(Main.inst.currentProject.spIterations.Value, Project.maxNumFiles);
+                return Project.idxEval > (iterations-2);
             })},
         };
     }

@@ -11,6 +11,7 @@ public class FNodeCreateTextFile : FNode
             {"Text", new FInputString(this)},
             {"Name", new FInputString(this)},
             {"Path", new FInputString(this)},
+            {"Filter", new FInputBool(this, initialValue: true)},
         };
 
         FNode.IdxReset();
@@ -25,15 +26,21 @@ public class FNodeCreateTextFile : FNode
 
     public override void ExecutiveMethod()
     {
-        try {
-            System.IO.Directory.CreateDirectory((string)inputs["Path"].Get());
-        } catch {
-            base.ExecutiveMethod(); // TODO Error Logging
+        if (!(bool)inputs["Filter"].Get()) {
+            base.ExecutiveMethod();
+            return;
+        }
+        if (GetParent<NodeTree>().previewMode) {
+            string p = FileUtil.JoinPaths((string)inputs["Path"].Get(), (string)inputs["Name"].Get());
+            PuPreviewOps.AddFileCreated(p);
+            base.ExecutiveMethod();
             return;
         }
 
+        FileUtil.CreateDirIfNotExisting((string)inputs["Path"].Get());
+
         try {
-            string path = System.IO.Path.Combine((string)inputs["Path"].Get(), (string)inputs["Name"].Get());
+            string path = FileUtil.JoinPaths((string)inputs["Path"].Get(), (string)inputs["Name"].Get());
             System.IO.File.WriteAllText(path, (string)inputs["Text"].Get()); // Todo - Replaye with faster Method
         } catch {
             base.ExecutiveMethod();

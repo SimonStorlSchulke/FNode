@@ -64,10 +64,13 @@ public class IO : Node {
         saveGame.Open(path, File.ModeFlags.Write);
 
         var saveData = IO.serializeNodeTree(Main.inst.currentProject.NodeTree);
+
+        saveData.Add("iterations", Main.inst.currentProject.spIterations.Value);
         saveGame.StoreLine(JSON.Print(saveData));
 
         saveGame.Close();
         InfoLine.Show($"Saved Project to {path}");
+        Main.inst.projectTabs.GetChild(Main.inst.projectTabs.CurrentTab).Name = System.IO.Path.GetFileNameWithoutExtension(path);
     }
 
     public void Load(string path) {
@@ -85,6 +88,9 @@ public class IO : Node {
         while (saveGame.GetPosition() < saveGame.GetLen()) {
             var saveData = new Dictionary<string, object>((Dictionary)JSON.Parse(saveGame.GetLine()).Result);
 
+            try {
+
+
             Godot.Collections.Array nodesData = saveData["Nodes"] as Godot.Collections.Array;
             foreach (Dictionary nodeData in nodesData) {
                 FNode.Deserialize(nodeData, pr);
@@ -99,9 +105,16 @@ public class IO : Node {
                      (string)cData["to"],
                      (int)((System.Single)cData["to_port"]));
             }
+
+            Main.inst.currentProject.spIterations.Value = (int)(System.Single)saveData["iterations"];
+            InfoLine.Show($"Loaded Project {path}");
+
+            } catch (System.Exception e) {
+                Errorlog.Log("Error loading Project: ", e);
+            }
+
         }
 
         saveGame.Close();
-        InfoLine.Show($"Loaded Project {path}");
     }
 }
