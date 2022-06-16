@@ -12,7 +12,42 @@ public static class FileUtil
         }
     }
 
+    public static void SecureRename(string path, string renameTo) {
+        string fileName = renameTo == "" ? System.IO.Path.GetFileNameWithoutExtension(path).GetFile() : renameTo;
+        string newPath = FileUtil.JoinPaths(path.GetBaseDir(), fileName + System.IO.Path.GetExtension(path));
+        GD.Print(newPath);
+        
+        if (Main.inst.currentProject.NodeTree.previewMode) {
+            PuPreviewOps.AddFileMoved(path, newPath);
+            return;
+        }
+        
+        try {
+            System.IO.File.Move(path, newPath);
+        } catch (System.Exception e) {
+            Errorlog.Log(e);
+        }
+    }
+
+    public static void SecureDelete(string path) {
+        if (Main.inst.currentProject.NodeTree.previewMode) {
+            PuPreviewOps.AddFileDeleted(path);
+            return;
+        }
+        try {
+            System.IO.File.Delete(path);
+        } catch (System.Exception e) {
+            Errorlog.Log(e);
+        }
+    }
+
     public static void SecureMove(string fromPath, string toPath) {
+
+        if (Main.inst.currentProject.NodeTree.previewMode) {
+            PuPreviewOps.AddFileMoved(fromPath, toPath);
+            return;
+        }
+        
         if (!IsAbsolutePath(toPath) || !IsAbsolutePath(fromPath)) {
             Errorlog.Log($"Cannot Move {fromPath.GetFile()} to {toPath} - only absolute Paths are allowed.");
             return;

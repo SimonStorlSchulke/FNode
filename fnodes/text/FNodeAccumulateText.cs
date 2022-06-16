@@ -6,7 +6,7 @@ public class FNodeAccumulateText : FNode
 {
     string accumulatedString = "";
     public FNodeAccumulateText() {
-        HintTooltip = "Accumulates Text from all Iterations (when looping ofer a File Stack)\nand combines them using the Separator";
+        HintTooltip = "Accumulates Text from all Iterations \nand combines them using the Separator";
         category = "Text";
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {

@@ -9,6 +9,7 @@ public class TCAddNodesPanel : TabContainer
         CreateAddButton<FNodeGetFiles>();
         CreateAddButton<FNodeFileInfo>();
         CreateAddButton<FNodeRename>();
+        CreateAddButton<FNodeDelete>();
         CreateAddButton<FNodeFilterFiles>();
         CreateAddButton<FNodeCreateTextFile>();
         CreateAddButton<FNodeJoinTexts>();
@@ -120,7 +121,7 @@ public class TCAddNodesPanel : TabContainer
         }
 
         if(e.IsActionPressed("evaluate_tree")) { //TODO put this somewhere else
-            Main.inst.currentProject.NodeTree.EvaluateTree(false);
+            Main.inst.currentProject.NodeTree.EvaluateTree(true);
         }
     }
 }

@@ -12,6 +12,7 @@ public class FNodeMove : FNode
             {"File", new FInputFile(this)},
             {"To Path", new FInputString(this)},
             {"Rename?", new FInputString(this, description: "If this is not empty, the File will be renamed (not changing the Extension)")},
+            {"Filter", new FInputBool(this, initialValue: true)},
         };
         
         FNode.IdxReset();
@@ -21,6 +22,11 @@ public class FNodeMove : FNode
 
     public override void ExecutiveMethod()
     {
+        if (!(bool)inputs["Filter"].Get()) {
+            base.ExecutiveMethod();
+            return;
+        }
+        
         FileInfo fi = ((FileInfo)inputs["File"].Get());
         if (fi == null) {
             Errorlog.Log(this, "Illegal Filepath");

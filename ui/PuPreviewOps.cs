@@ -40,14 +40,14 @@ public class PuPreviewOps : WindowDialog
 
     public static void AddFileDeleted(string path) {
         filesDeleted.Text += $"'{path.GetFile()}' in '{path.GetBaseDir()}'";
-        if (System.IO.File.Exists(path)) {
-            filesDeleted.Text += " (overwriting existing file)";
+        if (!System.IO.File.Exists(path)) {
+            filesDeleted.Text += " (which.. doesn't exist yet)";
         }
         filesDeleted.Text += "\n";
     }
 
     public static void AddFileMoved(string pathFrom, string pathTo) {
-        filesMoved.Text += $"'{pathFrom.GetFile()}' → '{pathTo.GetBaseDir()}'";
+        filesMoved.Text += $"'{pathFrom.GetFile()}' to '{pathTo}'";
         if (System.IO.File.Exists(pathTo)) {
             filesMoved.Text += " (overwriting existing file)";
         }

@@ -68,10 +68,11 @@ public class FNodeJoinTexts : FNode, IFNodeVarInputSize
     }
 
     void RemoveInput() {
-        if (GetChildCount() < 6) {
+        if (GetChildCount() < 7) {
             return;
         }
-        inputs.Remove("Text" + (inputs.Count));
+
+        inputs.Remove("Text" + (inputs.Count-2));
         Node rmNode = GetChild(GetChildCount()-2);
         RemoveChild(rmNode);
         rmNode.QueueFree();

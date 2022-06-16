@@ -10,6 +10,7 @@ public class FNodeRename : FNode
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
             {"File", new FInputFile(this)},
             {"To", new FInputString(this)},
+            {"Filter", new FInputBool(this, initialValue: true)},
         };
         
         FNode.IdxReset();
@@ -26,16 +27,19 @@ public class FNodeRename : FNode
     }
 
     public override void ExecutiveMethod() {
+        
+        if (!(bool)inputs["Filter"].Get()) {
+            base.ExecutiveMethod();
+            return;
+        }
+
         if (inputs["File"].Get() == null) {
             base.ExecutiveMethod();
             return;
         }
-        string dest = ((FileInfo)inputs["File"].Get()).DirectoryName + "\\" + ((string)inputs["To"].Get());
-        try {
-            System.IO.File.Move(((FileInfo)inputs["File"].Get()).FullName, dest);
-        } catch {
-            // TODO Exception handling
-        }
+
+        FileUtil.SecureRename(((FileInfo)inputs["File"].Get()).FullName, (string)inputs["To"].Get());
+
         base.ExecutiveMethod();
     }
 }
