@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Godot;
 using System.Linq;
+using System;
 
 public abstract class FNode : GraphNode {
 
@@ -16,7 +17,6 @@ public abstract class FNode : GraphNode {
         Title = UIUtil.SnakeCaseToWords(this.GetType().Name.Replace("FNode", ""));
         this.RectMinSize = new Vector2(250, 0);
         UIUtil.CreateUI(this);
-        
         Connect(
             "close_request", 
             GetParent(), 
@@ -219,7 +219,23 @@ public abstract class FNode : GraphNode {
         };
 
         foreach (var input in inputs) {
-            saveDatInputs.Add(input.Key, input.Value.GetDefaultValueFromUI());
+
+            // ugly hack to differentiate between ints and float in savefile-lists: If value is an Int, save as string "%FNODE-INT%value" instead (example: %FNODE-INT%10)
+            if (input.Value is FInputList) {
+
+                var originalSaveArr = ((Godot.Collections.Array)input.Value.defaultValue);
+                var saveArr = ((Godot.Collections.Array)input.Value.defaultValue).Duplicate();
+
+                for (int i = 0; i < saveArr.Count; i++) {
+                    if (originalSaveArr[i] is System.Int32) {
+                        saveArr[i] = "%FNODE-INT%"+saveArr[i];
+                    }
+                }
+                saveDatInputs.Add(input.Key, saveArr);
+            } 
+            else {
+                saveDatInputs.Add(input.Key, input.Value.GetDefaultValueFromUI());
+            }
         }
 
         saveData.Add("Inputs", saveDatInputs);
@@ -235,10 +251,28 @@ public abstract class FNode : GraphNode {
         fn.Name = nodeName;
         int i = 0;
         foreach (System.Collections.DictionaryEntry inputData in (Godot.Collections.Dictionary)nodeData["Inputs"]) {
-            fn.inputs[(string)inputData.Key].UpdateUIFromValue(inputData.Value);
+
+            // ugly hack #2 - see comment in Serialize()
+            if(inputData.Value.GetType() == typeof(Godot.Collections.Array)) {
+
+                var loadAr = inputData.Value as Godot.Collections.Array;
+
+                for (int j = 0; j < loadAr.Count; j++) {
+                    if (loadAr[j] is System.String) {
+                        string str = (string)loadAr[j];
+                        if(str.StartsWith("%FNODE-INT%")) {
+                            GD.Print(str.Substring(11));
+                            loadAr[j] = System.Convert.ToInt32(str.Substring(11));
+                        }
+                    }
+                }
+
+                fn.inputs[(string)inputData.Key].defaultValue = loadAr;
+            } else {
+                fn.inputs[(string)inputData.Key].UpdateUIFromValue(inputData.Value);
+            }
             i++;
         }
-        
     }
 
     ///<summary>This will be called before each NodeTree iteration (optimized via group CallGroup)</summary>

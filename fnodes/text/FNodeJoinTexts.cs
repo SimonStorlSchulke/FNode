@@ -9,6 +9,7 @@ public class FNodeJoinTexts : FNode
 
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
+            {"Filter", new FInputBool(this, initialValue: true)},
             {"Separator", new FInputString(this, initialValue: "[LINEBREAK]")},
             {"Text1", new FInputString(this)},
             {"Text2", new FInputString(this)},
@@ -20,12 +21,17 @@ public class FNodeJoinTexts : FNode
             "Text", new FOutputString(this, delegate() 
             {
                 string str = "";
+
+                if (!(bool)inputs["Filter"].Get()) {
+                    return str;
+                }
+
                 string sep = inputs["Separator"].Get() as string;
                 sep = sep.Replace("[LINEBREAK]", "\n"); //TODO sanitize this...
                 int i = 0;
                 foreach (var item in inputs) {
                     if (i!=0) {
-                        str += i < inputs.Count-1 ? item.Value.Get() as string + sep : item.Value.Get() as string;
+                        str += i < inputs.Count-3 ? item.Value.Get() as string + sep : item.Value.Get() as string;
                     }
                     i++;
                 }

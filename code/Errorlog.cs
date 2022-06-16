@@ -24,4 +24,8 @@ public class Errorlog : Node
         GD.Print($"Error:\n{e.Message}");
     }
 
+    public static void Log(object thrower, System.Exception e) {
+        GD.Print($"Error:\n{e.Message} on object {thrower.ToString()}");
+    }
+
 }

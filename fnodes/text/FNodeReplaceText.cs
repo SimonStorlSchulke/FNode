@@ -9,6 +9,7 @@ public class FNodeReplaceText : FNode
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
             {"Text", new FInputString(this)},
+            {"Filter", new FInputBool(this, initialValue: true)},
             {"Replace1", new FInputString(this)},
             {"With1", new FInputString(this)},
         };
@@ -20,7 +21,11 @@ public class FNodeReplaceText : FNode
             {
                 string str = inputs["Text"].Get() as string;
 
-                for (int i = 0; i < ((inputs.Count) / 2); i++) {
+                if (!(bool)inputs["Filter"].Get()) {
+                    return str;
+                }
+
+                for (int i = 0; i < ((inputs.Count-1) / 2); i++) {
                     string replaceStr = (string)inputs["Replace"+(i+1)].Get();
                     string withStr = (string)inputs["With"+(i+1)].Get();
                     str = str.Replace(replaceStr, withStr);

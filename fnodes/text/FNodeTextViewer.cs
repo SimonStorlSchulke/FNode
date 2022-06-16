@@ -37,8 +37,6 @@ public class FNodeTextViewer : FNode
     }
 
     public override void OnBeforeEvaluation() {
-        GD.Print("HUH");
         accumulatedString = "";
     }
-    
 }

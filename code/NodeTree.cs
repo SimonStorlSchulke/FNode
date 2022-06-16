@@ -9,8 +9,9 @@ public class NodeTree : GraphEdit
     [Signal] public delegate void StartNextIteration();
 
     public override void _Ready() {
-        CallDeferred(nameof(HideControle));
+        //CallDeferred(nameof(HideControle));
     }
+
 
     public void HideControle() {
         (GetChild(1).GetChild(2) as Control).Visible = false;

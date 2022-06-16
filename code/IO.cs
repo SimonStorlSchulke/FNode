@@ -81,10 +81,8 @@ public class IO : Node {
         Project pr = Main.NewProject(System.IO.Path.GetFileNameWithoutExtension(path));
 
         while (saveGame.GetPosition() < saveGame.GetLen()) {
-            // Get the saved dictionary from the next line in the save file
             var saveData = new Dictionary<string, object>((Dictionary)JSON.Parse(saveGame.GetLine()).Result);
 
-            // Now we set the remaining variables.
             Godot.Collections.Array nodesData = saveData["Nodes"] as Godot.Collections.Array;
             foreach (Dictionary nodeData in nodesData) {
                 FNode.Deserialize(nodeData, pr);

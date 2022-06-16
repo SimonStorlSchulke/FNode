@@ -1,6 +1,4 @@
-using System.IO;
 using Godot;
-using System;
 
 public class FNodeTextField : FNode
 {

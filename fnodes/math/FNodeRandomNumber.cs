@@ -42,7 +42,6 @@ public class FNodeRandomNumber : FNode
     }
 
     public override void OnBeforeEvaluation() {
-        GD.Print("AYY");
        seedAdds = 0;
     }
 

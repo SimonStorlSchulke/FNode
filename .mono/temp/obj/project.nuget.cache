@@ -1,13 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "suRP03QFjOVdFnMpNRI6oxqqbs/FNWYwKfIyO+sQ/Jb4HkFsu3p1IxeSEiOIi9KBjLlFIC5OfwLU2s0ev2rPdg==",
+  "dgSpecHash": "DJeeJXlyK3uY+BHoPGpC7KXy01XsS7cuw6t//V2mSSWti2AL3t2Q5BgBtzC4ScByfrEzJH4CaKOLgb0saaAfuA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\simon\\Dev\\nodefiler\\fnode.csproj",
+  "projectFilePath": "A:\\dev\\Godot\\fnode\\fnode.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\simon\\.nuget\\packages\\magick.net-q16-anycpu\\11.2.0\\magick.net-q16-anycpu.11.2.0.nupkg.sha512",
-    "C:\\Users\\simon\\.nuget\\packages\\magick.net.core\\11.2.0\\magick.net.core.11.2.0.nupkg.sha512",
-    "C:\\Users\\simon\\.nuget\\packages\\microsoft.netframework.referenceassemblies\\1.0.2\\microsoft.netframework.referenceassemblies.1.0.2.nupkg.sha512",
-    "C:\\Users\\simon\\.nuget\\packages\\microsoft.netframework.referenceassemblies.net472\\1.0.2\\microsoft.netframework.referenceassemblies.net472.1.0.2.nupkg.sha512"
+    "C:\\Users\\simon\\.nuget\\packages\\magick.net.core\\11.2.0\\magick.net.core.11.2.0.nupkg.sha512"
   ],
   "logs": []
 }

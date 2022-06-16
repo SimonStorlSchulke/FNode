@@ -13,16 +13,13 @@ margin_right = -5.0
 margin_bottom = -5.0
 size_flags_vertical = 3
 script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="VBSideBar" type="VBoxContainer" parent="."]
-margin_right = 306.0
+margin_right = 359.0
 margin_bottom = 846.0
 
 [node name="TCFilestacks" type="TabContainer" parent="VBSideBar"]
-margin_right = 306.0
+margin_right = 359.0
 margin_bottom = 809.0
 rect_min_size = Vector2( 300, 0 )
 size_flags_vertical = 3
@@ -66,32 +63,32 @@ select_mode = 1
 
 [node name="VBProjectSettings" type="VBoxContainer" parent="VBSideBar"]
 margin_top = 813.0
-margin_right = 306.0
+margin_right = 359.0
 margin_bottom = 846.0
 
 [node name="HBIterations" type="HBoxContainer" parent="VBSideBar/VBProjectSettings"]
-margin_right = 306.0
+margin_right = 359.0
 margin_bottom = 33.0
 
 [node name="Label" type="Label" parent="VBSideBar/VBProjectSettings/HBIterations"]
-margin_right = 114.0
+margin_right = 167.0
 margin_bottom = 33.0
-text = "Iterations"
+text = "Min. Iterations"
 
 [node name="SpIterations" type="SpinBox" parent="VBSideBar/VBProjectSettings/HBIterations"]
-margin_left = 118.0
-margin_right = 306.0
+margin_left = 171.0
+margin_right = 359.0
 margin_bottom = 33.0
 min_value = 1.0
 value = 1.0
 
 [node name="NodeTree" type="GraphEdit" parent="."]
-margin_left = 310.0
+margin_left = 363.0
 margin_right = 1690.0
 margin_bottom = 846.0
 size_flags_horizontal = 3
 right_disconnects = true
-scroll_offset = Vector2( -6, 0 )
+scroll_offset = Vector2( -21, 0 )
 zoom_step = 1.1
 minimap_enabled = false
 script = ExtResource( 2 )
