@@ -17,17 +17,13 @@ public class FNodeAccumulateNumber : FNode
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
             {
             "Number", new FOutputFloat(this, delegate() {
-                
-                if (!Main.inst.IsConnected(nameof(Main.StartParsing), this, nameof(ResetFloat))) {
-                    Main.inst.Connect(nameof(Main.StartParsing), this, nameof(ResetFloat)); //Doing this here because of process order (instance of main is initialized after Nodes)
-                }
                                 
                 accumulatedFloat += (float)inputs["Number"].Get(); //TODO Use String.Join;
                 return accumulatedFloat;
             })},
         };
     }
-    public void ResetFloat() {
+    public override void OnBeforeEvaluation() {
         accumulatedFloat = 0;
     }
 }

@@ -5,20 +5,30 @@ using System;
 public class FNodeNumberToText : FNode
 {
     public FNodeNumberToText() {
-        HintTooltip = "";
+        HintTooltip = "Number can als be an int. if you want 7 to be 007, enter 000 as Format.\nIf you want four decimals, enter 0.0000";
         category = "Math";
 
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
             {"Number", new FInputFloat(this)},
-            {"Length", new FInputInt(this, initialValue: 4)},
+            {"Format", new FInputString(this, initialValue: "0.00", 
+                description: "if you want 7 to be 007, enter 000 as Format.\nIf you want four decimals, enter 0.0000 you can also add pre-/ postfixes for example _0000 or 0.0m")},
         };
 
         FNode.IdxReset();
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
             {
             "Text", new FOutputString(this, delegate() {
-                return "Project.idxEval";
+                string str = "WRONG FORMAT";
+                try {
+                    str = ((float)inputs["Number"].Get()).ToString(
+                        (string)inputs["Format"].Get(),
+                        System.Globalization.CultureInfo.InvariantCulture);
+                } catch (System.Exception e) {
+                    Errorlog.Log(this, e);
+                }
+
+                return str;
             })},
         };
     }

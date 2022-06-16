@@ -251,7 +251,6 @@ size_flags_vertical = 0
 script = ExtResource( 10 )
 
 [node name="PuPreviewOps" type="AcceptDialog" parent="."]
-visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

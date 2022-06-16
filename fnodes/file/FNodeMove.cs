@@ -5,7 +5,7 @@ using System;
 public class FNodeMove : FNode
 {
     public FNodeMove() {
-        HintTooltip = "Moves a File to the given path and creates a Folder if the path doesn't exist";
+        HintTooltip = "Moves a File to the given folder and creates a Folder if the path doesn't exist";
         category = "File";
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {

@@ -49,7 +49,7 @@ public abstract class FInput {
             return ((int)value).ToString();
         }
         else if (slotType == typeof(FInputString) && valueType == typeof(float)) {
-            return ((float)value).ToString("0.00");
+            return ((float)value).ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
         }
         else if (slotType == typeof(FInputString) && valueType == typeof(double)) {
             return ((double)value).ToString("0.00");
