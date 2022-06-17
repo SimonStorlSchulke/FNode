@@ -12,6 +12,7 @@ public class FNodeIndexInfo : FNode
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
             {
             "Index", new FOutputInt(this, delegate() {
+                inputs["File"].Get();
                 return Project.idxEval;
             })},
             {
