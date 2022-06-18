@@ -17,9 +17,13 @@ public class FNodeDateToString : FNode
         FNode.IdxReset();
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
             {
-            "Text", new FOutputString(this, delegate() 
-            {
-                return ((DateTime)inputs["Date"].Get()).ToString(inputs["Format"].Get() as string);
+            "Text", new FOutputString(this, delegate()  {
+                try {
+                    return ((DateTime)inputs["Date"].Get()).ToString(inputs["Format"].Get() as string);
+                } catch {
+                    Errorlog.Log(this, "No Date was given");
+                    return "";
+                }
             })},
         };
     }

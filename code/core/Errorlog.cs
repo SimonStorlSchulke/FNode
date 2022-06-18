@@ -6,8 +6,8 @@ public class Errorlog : Node
     static Color errorColor = new Color(1,.3f,.3f);
 
     public static void Log(FNode thrower, string text) {
-        GD.Print($"Error on {thrower.GetType()}:\n{text}");
-        InfoLine.ShowColored($"Error on {thrower.GetType()}:\n{text}", errorColor);
+        GD.Print($"Error on {thrower.GetType()}: {text}");
+        InfoLine.ShowColored($"Error on {thrower.GetType()}: {text}", errorColor);
     }
 
     public static void Log(string text) {
@@ -31,8 +31,8 @@ public class Errorlog : Node
     }
 
     public static void Log(FNode thrower, System.Exception e) {
-        GD.Print($"Error on {thrower.GetType()}:\n{e.Message}");
-        InfoLine.ShowColored($"Error on {thrower.GetType()}:\n{e.Message}", errorColor);
+        GD.Print($"Error on {thrower.GetType()}: {e.Message}");
+        InfoLine.ShowColored($"Error on {thrower.GetType()}: {e.Message}", errorColor);
     }
 
 }

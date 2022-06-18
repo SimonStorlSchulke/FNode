@@ -41,34 +41,74 @@ public class FNodeGetFiles : FNode
             })},
             {
             "Extension", new FOutputString(this, delegate() {
-                return currentFile.Extension;
-            })},{
+                try {
+                    return currentFile.Extension;
+                    }
+                catch {
+                    return "";
+                }}
+            )},{
             "Name with Extension", new FOutputString(this, delegate() {
-                return currentFile.Name;
+                try {
+                    return currentFile.Name;
+                    }
+                catch {
+                    return "";
+                }
             })},
             {
             "Base Dir", new FOutputString(this, delegate() {
-                return currentFile.Directory.ToString();
+                try {
+                    return currentFile.Directory.ToString();
+                    }
+                catch {
+                    return "";
+                }
             })},
             {
             "Creation Time", new FOutputDate(this, delegate() {
-                return currentFile.CreationTime;
+                try {
+                    return currentFile.CreationTime;
+                    }
+                catch {
+                    return null;
+                }
             })},
             {
             "Last Access Time", new FOutputDate(this, delegate() {
-                return currentFile.LastAccessTime;
+                try {
+                    return currentFile.LastAccessTime;
+                    }
+                catch {
+                    return null;
+                }
             })},
             {
             "Last Write Time", new FOutputDate(this, delegate() {
-                return currentFile.LastWriteTime;
+                try {
+                    return currentFile.LastWriteTime;
+                    }
+                catch {
+                    return null;
+                }
             })},
             {
             "Size", new FOutputInt(this, delegate() {
-                return (int)currentFile.Length;
+                try {
+                    return (int)currentFile.Length;
+                    }
+                catch {
+                    return 0;
+                }
             })},
             {
             "Readonly", new FOutputBool(this, delegate() {
-                return currentFile.IsReadOnly;
+                try {
+                    return currentFile.IsReadOnly;
+                    }
+                catch {
+                    return false;
+                }
             })},
         };
     }
@@ -78,7 +118,6 @@ public class FNodeGetFiles : FNode
         try {
             path = Main.inst.currentProject.FileStacks.Stacks[(int)inputs["Stack"].Get()][Project.idxEval].Item2;
         } catch(System.Exception e) {
-            GD.Print("NANNI1", e);
             currentFile = null;
             return;
         }
