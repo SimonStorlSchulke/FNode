@@ -13,7 +13,7 @@ public class FNodeIndexInfo : FNode
             {
             "Index", new FOutputInt(this, delegate() {
                 inputs["File"].Get();
-                return Project.idxEval;
+                return (int)Project.idxEval;
             })},
             {
             "Loop Number", new FOutputInt(this, delegate() {
