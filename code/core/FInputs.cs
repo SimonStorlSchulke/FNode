@@ -239,6 +239,7 @@ public class FInputString : FInput {
 public class FInputList : FInput {
     public FInputList(FNode owner, int idx = -1, string description = "", object initialValue = null) : base(owner, idx, description, initialValue) {
         slotType = SlotType.LIST;
+        this.defaultValue = initialValue == null ? new Godot.Collections.Array() : initialValue;
     }
 
     public override void UpdateDefaultValueFromUI() {
