@@ -1,5 +1,6 @@
 using Godot;
-using System;
+using System.Linq;
+using System.Collections.Generic;
 
 public class UIInput : Node
 {
@@ -9,12 +10,9 @@ public class UIInput : Node
             TCFilestacks fileStacks = Main.inst.currentProject.FileStacks;
             int selectedStack = Main.inst.currentProject.FileStacks.CurrentTab;
             ItemList il =  fileStacks.GetChild<ItemList>(selectedStack);
-            int i = 0;
-            foreach (int item in il.GetSelectedItems()) {
-                fileStacks.Stacks[selectedStack].RemoveAt(item);
-                fileStacks.OnUpdateUI(selectedStack);
-                i++;
-            }
+            List<int> selItems = il.GetSelectedItems().ToList();
+            fileStacks.Stacks[selectedStack].RemoveAll(i => selItems.Contains(fileStacks.Stacks[selectedStack].IndexOf(i)));
+            fileStacks.OnUpdateUI(selectedStack);
         }
-    }  
+    }
 }

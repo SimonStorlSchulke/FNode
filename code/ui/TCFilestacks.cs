@@ -21,10 +21,17 @@ public class TCFilestacks : TabContainer
     }
 
     public void OnUpdateUI(int ofStack) {
+        ItemList cItemList = GetChild<ItemList>(ofStack);
         GetChild<ItemList>(ofStack).Clear();
-        GetChild<ItemList>(ofStack).GetChild<Label>(1).Visible = false; //Child at 0 is a secret scrollbar
+         //Child at 0 is a secret scrollbar
         foreach (var item in Stacks[ofStack]) {
-            GetChild<ItemList>(ofStack).AddItem(item.Item2.GetFile());
+            cItemList.AddItem(item.Item2.GetFile());
+            cItemList.SetItemTooltip(cItemList.GetItemCount() - 1, item.Item2);
+        }
+        if (Stacks[ofStack].Count > 0) {
+            cItemList.GetChild<Label>(1).Visible = false;
+        } else {
+            cItemList.GetChild<Label>(1).Visible = true;
         }
     }
 

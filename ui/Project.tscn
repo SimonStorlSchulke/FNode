@@ -188,13 +188,13 @@ margin_bottom = 33.0
 size_flags_horizontal = 3
 
 [node name="Button" type="Button" parent="VBSideBar/VBProjectSettings/HBoxContainer"]
+visible = false
 margin_right = 178.0
 margin_bottom = 33.0
 size_flags_horizontal = 3
 text = "Add Files"
 
 [node name="Button2" type="Button" parent="VBSideBar/VBProjectSettings/HBoxContainer"]
-margin_left = 182.0
 margin_right = 360.0
 margin_bottom = 33.0
 size_flags_horizontal = 3
