@@ -12,8 +12,7 @@ public abstract class FNode : GraphNode {
     public const string RunBeforeIterationGroup = "run_before_iteration_group";
 
     public override void _Ready() {
-        Name = "FNode_" + Guid.NewGuid();
-        GD.Print(Name);
+        Name = "FNode_" + GetParent().GetChildCount();
         ShowClose = true;
         Title = UIUtil.SnakeCaseToWords(this.GetType().Name.Replace("FNode", ""));
         this.RectMinSize = new Vector2(250, 0);
