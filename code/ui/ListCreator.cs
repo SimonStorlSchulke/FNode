@@ -24,10 +24,10 @@ public class ListCreator : AcceptDialog {
         lblItemCount = GetNode<Label>(NPItemCount);
     }
 
-    public void ShowCreator(Godot.Collections.Array listInput, string connectedNodeName, string connectedSlotName) {
+    public void ShowCreator(Godot.Collections.Array listInput, FNode connectedNode, string connectedSlotName) {
         list = listInput;
         //GD.Print($"{connectedNodeName} slotname: {connectedSlotName}");
-        connectedListInput = Main.inst.currentProject.NodeTree.GetNode<FNode>(connectedNodeName).inputs[connectedSlotName] as FInputList; //Dangerous...
+        connectedListInput = Main.inst.currentProject.NodeTree.GetNode<FNode>(connectedNode.Name).inputs[connectedSlotName] as FInputList; //Dangerous...
         if (connectedListInput.defaultValue == null) {
             GD.Print(1);
             connectedListInput.defaultValue = new Godot.Collections.Array();

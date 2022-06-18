@@ -11,8 +11,11 @@ public abstract class FNode : GraphNode {
     public const string RunBeforeEvaluationGroup = "run_before_evaluation_group";
     public const string RunBeforeIterationGroup = "run_before_iteration_group";
 
+    public override void _EnterTree() {
+        Name = "FNode_" + Guid.NewGuid();
+    }
+
     public override void _Ready() {
-        Name = "FNode_" + GetParent().GetChildCount();
         ShowClose = true;
         Title = UIUtil.SnakeCaseToWords(this.GetType().Name.Replace("FNode", ""));
         this.RectMinSize = new Vector2(250, 0);
@@ -247,8 +250,8 @@ public abstract class FNode : GraphNode {
         string nodeType = (string)nodeData["Type"];
         string nodeName = (string)nodeData["NodeName"];
         Vector2 offset = new Vector2((float)nodeData["OffsetX"], (float)nodeData["OffsetY"]);
-        FNode fn = pr.NodeTree.OnAddNode(nodeType, offset);
-        fn.Name = nodeName;
+        FNode fn = pr.NodeTree.OnAddNode(nodeType, offset, nodeName);
+        //fn.Name = nodeName;
 
         if (fn is IFNodeVarInputSize) {
             (fn as IFNodeVarInputSize).SetInputSize(((Godot.Collections.Dictionary)nodeData["Inputs"]).Count);

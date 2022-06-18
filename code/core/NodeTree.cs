@@ -112,11 +112,14 @@ public class NodeTree : GraphEdit
     }
 
     // Mainly used for Loading
-    public FNode OnAddNode(string nodetype, Vector2? offset = null) {
+    public FNode OnAddNode(string nodetype, Vector2? offset = null, string name="") {
         var t = System.Type.GetType(nodetype);
         FNode fn = (FNode)Activator.CreateInstance(t);
         fn.Offset = (offset == null) ? Vector2.Zero : (Vector2)offset;
         AddChild(fn);
+        if (name != "") {
+            fn.Name = name;
+        }
         return fn;
     }
 
