@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://ui/TCFilestacks.cs" type="Script" id=1]
-[ext_resource path="res://code/NodeTree.cs" type="Script" id=2]
-[ext_resource path="res://code/Project.cs" type="Script" id=4]
+[ext_resource path="res://code/ui/TCFilestacks.cs" type="Script" id=1]
+[ext_resource path="res://code/core/NodeTree.cs" type="Script" id=2]
+[ext_resource path="res://code/core/Project.cs" type="Script" id=4]
 
 [node name="Project 1" type="HBoxContainer"]
 anchor_right = 1.0
