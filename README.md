@@ -1,5 +1,14 @@
 # FNode
-A Nodebased File Management System
+## A Nodebased File Management System
+
+This Project aims to become a feature rich 
+
+## Why use Godot for GUI?
+This Project uses Godot for it's UI, but why use Godot over any other C# GUI library?
+- Since Godots Editor is also using the UI of the Engine itself, Godot has a very good set of tools for GUI development. Especially drawing and managing Node Editors is very accessible.
+- Cross Platform out of the box (in comparison to WPF etc.)
+
+This has the disadvantage of increasing the build size - although not more than for example Electron would. There is also the possibility to exclude unneeded Godot functionality (3D Stuff) from the build with Export Templates, although it's currently not used.
 
 # Node ideas:
 - Directory Name
