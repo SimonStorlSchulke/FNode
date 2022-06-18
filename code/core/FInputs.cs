@@ -35,87 +35,120 @@ public abstract class FInput {
     protected delegate object SlotConversion(object outputVal, FInput inputType);
     protected static Dictionary<Tuple<Type, Type>, SlotConversion> slotConversionsDict = new Dictionary<Tuple<Type, Type>, SlotConversion>() {
 
-        #region stringInput conversions
+        #region fileInput conversions
+        {new Tuple<Type, Type>(typeof(string), typeof(FInputFile)), delegate(object outVal, FInput fIn) {
+            if (FileUtil.IsAbsolutePath(((string)outVal))) {
+                return new FileInfo((string)outVal); //Only allow absolute paths
+            }
+            return null;
+        }},
+        {new Tuple<Type, Type>(typeof(bool), typeof(FInputFile)), delegate(object outVal, FInput fIn) {
+            return null; //nonsensical
+        }},
+        {new Tuple<Type, Type>(typeof(int), typeof(FInputFile)), delegate(object outVal, FInput fIn) {
+            return null; //nonsensical
+        }},
+        {new Tuple<Type, Type>(typeof(float), typeof(FInputFile)), delegate(object outVal, FInput fIn) {
+            return null; //nonsensical
+        }},
+        {new Tuple<Type, Type>(typeof(DateTime), typeof(FInputFile)), delegate(object outVal, FInput fIn) {
+            return null; //nonsensical
+        }},
+        {new Tuple<Type, Type>(typeof(Godot.Collections.Array), typeof(FInputFile)), delegate(object outVal, FInput fIn) {
+            return null; //nonsensical
+        }},
+        #endregion
 
-        {new Tuple<Type, Type>(typeof(bool), typeof(FInputString)), delegate(object outVal, FInput T2) {
+        #region stringInput conversions
+        {new Tuple<Type, Type>(typeof(FileInfo), typeof(FInputString)), delegate(object outVal, FInput fIn) {
+            return ((FileInfo)outVal).FullName;
+        }},
+        {new Tuple<Type, Type>(typeof(bool), typeof(FInputString)), delegate(object outVal, FInput fIn) {
             return (bool)outVal ? "True" : "False";
         }},
-        {new Tuple<Type, Type>(typeof(int), typeof(FInputString)), delegate(object outVal, FInput T2) {
+        {new Tuple<Type, Type>(typeof(int), typeof(FInputString)), delegate(object outVal, FInput fIn) {
             return ((int)outVal).ToString();
         }},
-        {new Tuple<Type, Type>(typeof(float), typeof(FInputString)), delegate(object outVal, FInput T2) {
+        {new Tuple<Type, Type>(typeof(float), typeof(FInputString)), delegate(object outVal, FInput fIn) {
             return ((float)outVal).ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
         }},
-        {new Tuple<Type, Type>(typeof(DateTime), typeof(FInputString)), delegate(object outVal, FInput T2) {
+        {new Tuple<Type, Type>(typeof(DateTime), typeof(FInputString)), delegate(object outVal, FInput fIn) {
             return ((DateTime)outVal).ToString();
         }},
-        {new Tuple<Type, Type>(typeof(Godot.Collections.Array), typeof(FInputString)), delegate(object outVal, FInput T2) {
+        {new Tuple<Type, Type>(typeof(Godot.Collections.Array), typeof(FInputString)), delegate(object outVal, FInput fIn) {
             return ((Godot.Collections.Array)outVal).ToString();
         }},
-
         #endregion
 
         #region boolInput conversions
-        {new Tuple<Type, Type>(typeof(string), typeof(FInputBool)), delegate(object outVal, FInput T2) {
+        {new Tuple<Type, Type>(typeof(FileInfo), typeof(FInputBool)), delegate(object outVal, FInput fIn) {
+            return System.IO.File.Exists(((FileInfo)outVal).FullName);
+        }},
+        {new Tuple<Type, Type>(typeof(string), typeof(FInputBool)), delegate(object outVal, FInput fIn) {
             return (string)outVal != "";
         }},
-        {new Tuple<Type, Type>(typeof(int), typeof(FInputBool)), delegate(object outVal, FInput T2) {
+        {new Tuple<Type, Type>(typeof(int), typeof(FInputBool)), delegate(object outVal, FInput fIn) {
                return (int)outVal > 0;
         }},
-        {new Tuple<Type, Type>(typeof(float), typeof(FInputBool)), delegate(object outVal, FInput T2) {
+        {new Tuple<Type, Type>(typeof(float), typeof(FInputBool)), delegate(object outVal, FInput fIn) {
             return (float)outVal >= 1f;
         }},
-        {new Tuple<Type, Type>(typeof(DateTime), typeof(FInputBool)), delegate(object outVal, FInput T2) {
+        {new Tuple<Type, Type>(typeof(DateTime), typeof(FInputBool)), delegate(object outVal, FInput fIn) {
             return false;
         }},
-        {new Tuple<Type, Type>(typeof(Godot.Collections.Array), typeof(FInputBool)), delegate(object outVal, FInput T2) {
+        {new Tuple<Type, Type>(typeof(Godot.Collections.Array), typeof(FInputBool)), delegate(object outVal, FInput fIn) {
             return ((Godot.Collections.Array)outVal).Count > 0;
         }},
         #endregion
 
         #region intInput conversions
-        {new Tuple<Type, Type>(typeof(string), typeof(FInputInt)), delegate(object outVal, FInput T2) {
+        {new Tuple<Type, Type>(typeof(FileInfo), typeof(FInputInt)), delegate(object outVal, FInput fIn) {
+            return System.IO.File.Exists(((FileInfo)outVal).FullName) ? 1 : 0;
+        }},
+        {new Tuple<Type, Type>(typeof(string), typeof(FInputInt)), delegate(object outVal, FInput fIn) {
             try {
                 return System.Convert.ToInt32((string)outVal);
             } catch {
                 return 0;
             }
         }},
-
-        {new Tuple<Type, Type>(typeof(bool), typeof(FInputInt)), delegate(object outVal, FInput T2) {
+        {new Tuple<Type, Type>(typeof(bool), typeof(FInputInt)), delegate(object outVal, FInput fIn) {
             return (bool)outVal ? 1 : 0;
         }},
-        {new Tuple<Type, Type>(typeof(float), typeof(FInputInt)), delegate(object outVal, FInput T2) {
+        {new Tuple<Type, Type>(typeof(float), typeof(FInputInt)), delegate(object outVal, FInput fIn) {
             return (int)((float)outVal);
         }},
-        {new Tuple<Type, Type>(typeof(DateTime), typeof(FInputInt)), delegate(object outVal, FInput T2) {
+        {new Tuple<Type, Type>(typeof(DateTime), typeof(FInputInt)), delegate(object outVal, FInput fIn) {
             //nonsensical so return 0 - needs a converter Node to get days / years...
             return 0;
         }},
-        {new Tuple<Type, Type>(typeof(Godot.Collections.Array), typeof(FInputInt)), delegate(object outVal, FInput T2) {
+        {new Tuple<Type, Type>(typeof(Godot.Collections.Array), typeof(FInputInt)), delegate(object outVal, FInput fIn) {
             return ((Godot.Collections.Array)outVal).Count;
         }},
         #endregion
 
         #region floatInput conversions
-        {new Tuple<Type, Type>(typeof(string), typeof(FInputFloat)), delegate(object outVal, FInput T2) {
+        {new Tuple<Type, Type>(typeof(FileInfo), typeof(FInputFloat)), delegate(object outVal, FInput fIn) {
+            return System.IO.File.Exists(((FileInfo)outVal).FullName) ? 1f : 0f;
+        }},
+        {new Tuple<Type, Type>(typeof(string), typeof(FInputFloat)), delegate(object outVal, FInput fIn) {
             try {
                 return System.Convert.ToSingle((string)outVal);
             } catch {
                 return 0f;
             }
         }},
-        {new Tuple<Type, Type>(typeof(bool), typeof(FInputFloat)), delegate(object outVal, FInput T2) {
+        {new Tuple<Type, Type>(typeof(bool), typeof(FInputFloat)), delegate(object outVal, FInput fIn) {
             return (bool)outVal ? 1f : 0f;
         }},
-        {new Tuple<Type, Type>(typeof(int), typeof(FInputFloat)), delegate(object outVal, FInput T2) {
+        {new Tuple<Type, Type>(typeof(int), typeof(FInputFloat)), delegate(object outVal, FInput fIn) {
             return (float)((int)outVal);
         }},
-        {new Tuple<Type, Type>(typeof(DateTime), typeof(FInputFloat)), delegate(object outVal, FInput T2) {
+        {new Tuple<Type, Type>(typeof(DateTime), typeof(FInputFloat)), delegate(object outVal, FInput fIn) {
             //nonsensical so return 0 - needs a converter Node to get days / years...
             return 0f;
         }},
-        {new Tuple<Type, Type>(typeof(Godot.Collections.Array), typeof(FInputFloat)), delegate(object outVal, FInput T2) {
+        {new Tuple<Type, Type>(typeof(Godot.Collections.Array), typeof(FInputFloat)), delegate(object outVal, FInput fIn) {
             return (float)((Godot.Collections.Array)outVal).Count;
         }},
         #endregion
@@ -128,19 +161,15 @@ public abstract class FInput {
 
         var slotType = this.GetType();
         var valueType = value.GetType();
+
         if (valueType == typeof(System.Double)) {
             value = (float)value;
         }
 
         if (slotType == typeof(FInputList) && valueType != typeof(Godot.Collections.Array)) {
-            return new Godot.Collections.Array() { value };
+            return new Godot.Collections.Array() {value};
         }
 
-        if (slotType == typeof(FInputFile)) {
-            if (!FileUtil.IsAbsolutePath(((FileInfo)value).FullName)) {
-                return null; //Only allow absolute paths
-            }
-        }
 
         try {
             return slotConversionsDict[new Tuple<Type, Type>(valueType, slotType)](value, this);
@@ -159,8 +188,8 @@ public abstract class FInput {
     }
 
     public abstract void UpdateDefaultValueFromUI(); // This updates the Nodes defaultValue parameter and sanitizes it
-    public abstract object GetDefaultValueFromUI(); // This returns the actual text etc the User has entered in the Input Field
-    public abstract void UpdateUIFromValue(object value); // This returns the actual text etc the User has entered in the Input Field
+    public abstract object GetDefaultValueFromUI(); // This returns the actual text etc the User has entered in the Input FIeld
+    public abstract void UpdateUIFromValue(object value); // This returns the actual text etc the User has entered in the Input FIeld
 }
 
 public class FInputFile : FInput {

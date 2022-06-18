@@ -11,10 +11,9 @@ content_margin_bottom = 8.0
 bg_color = Color( 0.211765, 0.211765, 0.211765, 1 )
 
 [node name="ListCreatorPopup" type="AcceptDialog"]
-visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -1300.0
+margin_right = -1252.0
 margin_bottom = -100.0
 theme = ExtResource( 1 )
 window_title = "List Creator"
@@ -34,7 +33,7 @@ margin_bottom = -69.0
 custom_constants/separation = 20
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_right = 368.0
+margin_right = 416.0
 margin_bottom = 40.0
 
 [node name="LblType" type="Label" parent="VBoxContainer/HBoxContainer"]
@@ -53,20 +52,20 @@ selected = 1
 
 [node name="Control" type="Control" parent="VBoxContainer/HBoxContainer"]
 margin_left = 222.0
-margin_right = 275.0
+margin_right = 323.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 
 [node name="LblItemCount" type="Label" parent="VBoxContainer/HBoxContainer"]
-margin_left = 279.0
+margin_left = 327.0
 margin_top = 1.0
-margin_right = 368.0
+margin_right = 416.0
 margin_bottom = 38.0
 text = "0 Items"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 60.0
-margin_right = 368.0
+margin_right = 416.0
 margin_bottom = 97.0
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2"]
@@ -84,43 +83,43 @@ text = "File"
 
 [node name="BtnAddText" type="Button" parent="VBoxContainer/HBoxContainer2"]
 margin_left = 111.0
-margin_right = 171.0
+margin_right = 184.0
 margin_bottom = 37.0
 size_flags_horizontal = 3
 text = "Text"
 
 [node name="BtnAddBool" type="Button" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 175.0
-margin_right = 236.0
+margin_left = 188.0
+margin_right = 261.0
 margin_bottom = 37.0
 size_flags_horizontal = 3
 text = "Bool"
 
 [node name="BtnAddInt" type="Button" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 240.0
-margin_right = 298.0
+margin_left = 265.0
+margin_right = 338.0
 margin_bottom = 37.0
 size_flags_horizontal = 3
 text = "Int"
 
 [node name="BtnAddFloat" type="Button" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 302.0
-margin_right = 368.0
+margin_left = 342.0
+margin_right = 416.0
 margin_bottom = 37.0
 size_flags_horizontal = 3
 text = "Float"
 
 [node name="BtnAddDate" type="Button" parent="VBoxContainer/HBoxContainer2"]
 visible = false
-margin_left = 495.0
-margin_right = 568.0
+margin_left = 354.0
+margin_right = 416.0
 margin_bottom = 37.0
 size_flags_horizontal = 3
 text = "Date"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 margin_top = 117.0
-margin_right = 368.0
+margin_right = 416.0
 margin_bottom = 715.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -132,7 +131,7 @@ scroll_deadzone = 50
 [node name="VbItems" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
 margin_left = 8.0
 margin_top = 16.0
-margin_right = 360.0
+margin_right = 408.0
 margin_bottom = 590.0
 size_flags_horizontal = 3
 size_flags_vertical = 3

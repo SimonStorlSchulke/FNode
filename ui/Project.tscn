@@ -1,41 +1,80 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://code/ui/TCFilestacks.cs" type="Script" id=1]
 [ext_resource path="res://code/core/NodeTree.cs" type="Script" id=2]
+[ext_resource path="res://theme/fileStackBG.tres" type="StyleBox" id=3]
 [ext_resource path="res://code/core/Project.cs" type="Script" id=4]
 
 [node name="Project 1" type="HBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 49.0
-margin_right = -5.0
-margin_bottom = -5.0
+size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 4 )
 
 [node name="VBSideBar" type="VBoxContainer" parent="."]
-margin_right = 359.0
-margin_bottom = 846.0
+margin_right = 360.0
+margin_bottom = 900.0
+rect_min_size = Vector2( 360, 0 )
 
 [node name="TCFilestacks" type="TabContainer" parent="VBSideBar"]
-margin_right = 359.0
-margin_bottom = 768.0
-rect_min_size = Vector2( 300, 0 )
+margin_right = 360.0
+margin_bottom = 822.0
+rect_min_size = Vector2( 320, 0 )
+hint_tooltip = "Drag & drop files or folders to add them to the stack"
 size_flags_vertical = 3
+custom_constants/side_margin = 5
 tab_align = 0
 script = ExtResource( 1 )
 
-[node name="1" type="ItemList" parent="VBSideBar/TCFilestacks"]
+[node name="0" type="ItemList" parent="VBSideBar/TCFilestacks"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
 margin_top = 40.0
 margin_right = -5.0
 margin_bottom = -5.0
+hint_tooltip = "Drag & drop files or folders to add them to the stack"
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_styles/bg = ExtResource( 3 )
 select_mode = 1
+
+[node name="Label" type="Label" parent="VBSideBar/TCFilestacks/0"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -126.5
+margin_top = -16.5
+margin_right = 126.5
+margin_bottom = 16.5
+text = "Drag & Drop Files here"
+
+[node name="1" type="ItemList" parent="VBSideBar/TCFilestacks"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 40.0
+margin_right = -5.0
+margin_bottom = -5.0
+hint_tooltip = "Drag & drop files or folders to add them to the stack"
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/bg = ExtResource( 3 )
+select_mode = 1
+
+[node name="Label" type="Label" parent="VBSideBar/TCFilestacks/1"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -126.5
+margin_top = -16.5
+margin_right = 126.5
+margin_bottom = 16.5
+text = "Drag & Drop Files here"
 
 [node name="2" type="ItemList" parent="VBSideBar/TCFilestacks"]
 visible = false
@@ -45,9 +84,22 @@ margin_left = 5.0
 margin_top = 40.0
 margin_right = -5.0
 margin_bottom = -5.0
+hint_tooltip = "Drag & drop files or folders to add them to the stack"
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_styles/bg = ExtResource( 3 )
 select_mode = 1
+
+[node name="Label" type="Label" parent="VBSideBar/TCFilestacks/2"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -126.5
+margin_top = -16.5
+margin_right = 126.5
+margin_bottom = 16.5
+text = "Drag & Drop Files here"
 
 [node name="3" type="ItemList" parent="VBSideBar/TCFilestacks"]
 visible = false
@@ -57,37 +109,100 @@ margin_left = 5.0
 margin_top = 40.0
 margin_right = -5.0
 margin_bottom = -5.0
+hint_tooltip = "Drag & drop files or folders to add them to the stack"
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_styles/bg = ExtResource( 3 )
 select_mode = 1
 
+[node name="Label" type="Label" parent="VBSideBar/TCFilestacks/3"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -126.5
+margin_top = -16.5
+margin_right = 126.5
+margin_bottom = 16.5
+text = "Drag & Drop Files here"
+
+[node name="4" type="ItemList" parent="VBSideBar/TCFilestacks"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 40.0
+margin_right = -5.0
+margin_bottom = -5.0
+hint_tooltip = "Drag & drop files or folders to add them to the stack"
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/bg = ExtResource( 3 )
+select_mode = 1
+
+[node name="Label" type="Label" parent="VBSideBar/TCFilestacks/4"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -126.5
+margin_top = -16.5
+margin_right = 126.5
+margin_bottom = 16.5
+text = "Drag & Drop Files here"
+
+[node name="5" type="ItemList" parent="VBSideBar/TCFilestacks"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 40.0
+margin_right = -5.0
+margin_bottom = -5.0
+hint_tooltip = "Drag & drop files or folders to add them to the stack"
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/bg = ExtResource( 3 )
+select_mode = 1
+
+[node name="Label" type="Label" parent="VBSideBar/TCFilestacks/5"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -126.5
+margin_top = -16.5
+margin_right = 126.5
+margin_bottom = 16.5
+text = "Drag & Drop Files here"
+
 [node name="VBProjectSettings" type="VBoxContainer" parent="VBSideBar"]
-margin_top = 772.0
-margin_right = 359.0
-margin_bottom = 846.0
+margin_top = 826.0
+margin_right = 360.0
+margin_bottom = 900.0
 custom_constants/separation = 8
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBSideBar/VBProjectSettings"]
-margin_right = 359.0
+margin_right = 360.0
 margin_bottom = 33.0
 size_flags_horizontal = 3
 
 [node name="Button" type="Button" parent="VBSideBar/VBProjectSettings/HBoxContainer"]
-margin_right = 177.0
+margin_right = 178.0
 margin_bottom = 33.0
 size_flags_horizontal = 3
 text = "Add Files"
 
 [node name="Button2" type="Button" parent="VBSideBar/VBProjectSettings/HBoxContainer"]
-margin_left = 181.0
-margin_right = 359.0
+margin_left = 182.0
+margin_right = 360.0
 margin_bottom = 33.0
 size_flags_horizontal = 3
 text = "Clear Files"
 
 [node name="HBIterations" type="HBoxContainer" parent="VBSideBar/VBProjectSettings"]
 margin_top = 41.0
-margin_right = 359.0
+margin_right = 360.0
 margin_bottom = 74.0
 
 [node name="Label" type="Label" parent="VBSideBar/VBProjectSettings/HBIterations"]
@@ -103,9 +218,9 @@ min_value = 1.0
 value = 1.0
 
 [node name="NodeTree" type="GraphEdit" parent="."]
-margin_left = 363.0
-margin_right = 1690.0
-margin_bottom = 846.0
+margin_left = 364.0
+margin_right = 1700.0
+margin_bottom = 900.0
 size_flags_horizontal = 3
 right_disconnects = true
 scroll_offset = Vector2( -21, 0 )
@@ -116,6 +231,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[connection signal="pressed" from="VBSideBar/VBProjectSettings/HBoxContainer/Button2" to="VBSideBar/TCFilestacks" method="OnClearFilestack"]
 [connection signal="connection_request" from="NodeTree" to="NodeTree" method="OnConnectionRequest"]
 [connection signal="delete_nodes_request" from="NodeTree" to="NodeTree" method="OnDeleteRequest"]
 [connection signal="disconnection_request" from="NodeTree" to="NodeTree" method="OnDisconnectionRequest"]

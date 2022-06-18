@@ -11,8 +11,8 @@ public class FNodeCutText : FNode
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
             {"Text", new FInputString(this)},
             {"Filter", new FInputBool(this, initialValue: true)},
-            {"Start", new FInputInt(this)},
-            {"End", new FInputInt(this)},
+            {"Start", new FInputInt(this, min: 0)},
+            {"End", new FInputInt(this, min: 0)},
         };
 
         FNode.IdxReset();
@@ -30,6 +30,9 @@ public class FNodeCutText : FNode
                 if (start + end > str.Length) {
                     return str;
                 }
+                if (start < 0) start = 0;
+                if (end < 0) end = 0;
+
                 str = str.Substring(start, str.Length - start - end);
                 return str;
             })},

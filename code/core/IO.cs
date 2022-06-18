@@ -70,7 +70,7 @@ public class IO : Node {
 
         saveGame.Close();
         InfoLine.Show($"Saved Project to {path}");
-        Main.inst.projectTabs.GetChild(Main.inst.projectTabs.CurrentTab).Name = System.IO.Path.GetFileNameWithoutExtension(path);
+        Main.inst.projectTabs.SetTabTitle(Main.inst.projectTabs.CurrentTab, System.IO.Path.GetFileNameWithoutExtension(path));
     }
 
     public void Load(string path) {

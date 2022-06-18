@@ -78,6 +78,7 @@ public class Main : VBoxContainer
         Project pr = inst.projectScene.Instance<Project>();
         pr.Name = name;
         inst.projectTabs.AddChild(pr);
+        inst.projectTabs.SetTabTitle(pr.GetIndex(), name);
         inst.projectTabs.CurrentTab = inst.projectTabs.GetChildCount()-1;
         Main.inst.currentProject = pr;
         return pr;
@@ -99,12 +100,11 @@ public class Main : VBoxContainer
         }
         else {
             List<Tuple<bool, string>> l = new List<Tuple<bool, string>>();
-            currentProject.FileStacks.Stacks = new List<List<Tuple<bool, string>>>(); //TODO support multiple Stacks
-            currentProject.FileStacks.Stacks.Add(new List<Tuple<bool, string>>());
+            int selectedStack = currentProject.FileStacks.CurrentTab;
             foreach (string f in files) {
-                currentProject.FileStacks.Stacks[0].Add(new Tuple<bool, string>(false, f));
+                currentProject.FileStacks.AddFile(f, selectedStack);
             }
-            currentProject.FileStacks.OnUpdateUI(0);
+            currentProject.FileStacks.OnUpdateUI(selectedStack);
         }
     }
 

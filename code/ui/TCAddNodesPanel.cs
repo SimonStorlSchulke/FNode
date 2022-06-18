@@ -20,7 +20,6 @@ public class TCAddNodesPanel : TabContainer
         CreateAddButton<FNodeDateCompare>();
         CreateAddButton<FNodeCurrentDate>();
         CreateAddButton<FNodeGetParentPath>();
-        CreateAddButton<FNodeGetFilesFromStack>();
         CreateAddButton<FNodeIndexInfo>();
         CreateAddButton<FNodeMath>();
         CreateAddButton<FNodeAccumulateNumber>();
@@ -40,6 +39,12 @@ public class TCAddNodesPanel : TabContainer
         CreateAddButton<FNodeListToText>();
     }
 
+    Resource cursorDragNode;
+
+    public override void _Ready() {
+        cursorDragNode =    ResourceLoader.Load("res://theme/icons/cursor_add_node.png");
+    }
+
     void CreateAddButton<fnType>() where fnType : FNode {
         Button AddNodeButton = new Button();
         AddNodeButton.Align = Button.TextAlign.Left;
@@ -56,6 +61,7 @@ public class TCAddNodesPanel : TabContainer
     public void StartDrag(FNode fn) {
         draggedFnode = fn;
         dragging = true;
+        Input.SetCustomMouseCursor(cursorDragNode);
     }
 
     public override void _Input(InputEvent e) {
@@ -70,6 +76,7 @@ public class TCAddNodesPanel : TabContainer
                     Main.inst.OnAddNodeFromUI(draggedFnode, true);
                 }
                 dragging = false;
+                Input.SetCustomMouseCursor(null);
             }
         }
     }
@@ -81,7 +88,7 @@ public class TCAddNodesPanel : TabContainer
         }
         if(e.IsActionPressed("add_get_files")) {
             Main.inst.OnAddNodeFromUI(
-                (FNode)Activator.CreateInstance(typeof(FNodeGetFilesFromStack)));
+                (FNode)Activator.CreateInstance(typeof(FNodeGetFiles)));
         }
         if(e.IsActionPressed("add_fileinfo")) {
             Main.inst.OnAddNodeFromUI(
