@@ -7,8 +7,10 @@ This project aims to be a feature rich file management system. Common file opera
 *In this example, all Files with the JPG extension would be renamed to the following:*
 
 ![rename example](doc/rename_preview.png)
+*Critical File operations can bei previewed before actually running the Nodetree.*
 
 ## Currently supported operations
+The individual nodes functionality is documented in the Software itself (Tooltipps)
 
 ![all nodes](doc/nodes_file.png)
 ![all nodes](doc/nodes_text.png)
