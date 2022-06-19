@@ -70,8 +70,7 @@ public static class FileUtil
         }
     }
 
-    public static bool IsAbsolutePath(string path)
-        {
+    public static bool IsAbsolutePath(string path) {
             if (path == null) throw new ArgumentNullException(nameof(path));
             if (path.Length < 2) return false; //There is no way to specify a fixed path with one character (or less).
             if (path.Length == 2 && IsValidDriveChar(path[0]) && path[1] == System.IO.Path.VolumeSeparatorChar) return true; //Drive Root C:
@@ -80,7 +79,7 @@ public static class FileUtil
             return false; //Default
         }
 
-        private static bool IsDirectorySeperator(char c) => c == System.IO.Path.DirectorySeparatorChar | c == System.IO.Path.AltDirectorySeparatorChar;
-        private static bool IsValidDriveChar(char c) => c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z';
+    private static bool IsDirectorySeperator(char c) => c == System.IO.Path.DirectorySeparatorChar | c == System.IO.Path.AltDirectorySeparatorChar;
+    private static bool IsValidDriveChar(char c) => c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z';
 
 }

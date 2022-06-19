@@ -101,10 +101,12 @@ public class Main : VBoxContainer
         else {
             List<Tuple<bool, string>> l = new List<Tuple<bool, string>>();
             int selectedStack = currentProject.FileStacks.CurrentTab;
+            /*
             foreach (string f in files) {
                 currentProject.FileStacks.AddFile(f, selectedStack);
-            }
-            currentProject.FileStacks.OnUpdateUI(selectedStack);
+            }*/
+            currentProject.FileStacks.GetChild<FileList>(selectedStack).AddFiles(files);
+            //currentProject.FileStacks.OnUpdateUI(selectedStack);
         }
     }
 

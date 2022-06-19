@@ -2,8 +2,8 @@
 
 [ext_resource path="res://code/ui/TCFilestacks.cs" type="Script" id=1]
 [ext_resource path="res://code/core/NodeTree.cs" type="Script" id=2]
-[ext_resource path="res://theme/fileStackBG.tres" type="StyleBox" id=3]
 [ext_resource path="res://code/core/Project.cs" type="Script" id=4]
+[ext_resource path="res://ui/FileList.tscn" type="PackedScene" id=5]
 
 [node name="Project 1" type="HBoxContainer"]
 anchor_right = 1.0
@@ -20,161 +20,53 @@ rect_min_size = Vector2( 360, 0 )
 [node name="TCFilestacks" type="TabContainer" parent="VBSideBar"]
 margin_right = 360.0
 margin_bottom = 822.0
-rect_min_size = Vector2( 320, 0 )
+rect_min_size = Vector2( 350, 0 )
 hint_tooltip = "Drag & drop files or folders to add them to the stack"
 size_flags_vertical = 3
 custom_constants/side_margin = 5
 tab_align = 0
 script = ExtResource( 1 )
 
-[node name="0" type="ItemList" parent="VBSideBar/TCFilestacks"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="0" parent="VBSideBar/TCFilestacks" instance=ExtResource( 5 )]
 margin_left = 5.0
 margin_top = 40.0
 margin_right = -5.0
 margin_bottom = -5.0
-hint_tooltip = "Drag & drop files or folders to add them to the stack"
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/bg = ExtResource( 3 )
-select_mode = 1
 
-[node name="Label" type="Label" parent="VBSideBar/TCFilestacks/0"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -126.5
-margin_top = -16.5
-margin_right = 126.5
-margin_bottom = 16.5
-text = "Drag & Drop Files here"
-
-[node name="1" type="ItemList" parent="VBSideBar/TCFilestacks"]
+[node name="1" parent="VBSideBar/TCFilestacks" instance=ExtResource( 5 )]
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
 margin_left = 5.0
 margin_top = 40.0
 margin_right = -5.0
 margin_bottom = -5.0
-hint_tooltip = "Drag & drop files or folders to add them to the stack"
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/bg = ExtResource( 3 )
-select_mode = 1
 
-[node name="Label" type="Label" parent="VBSideBar/TCFilestacks/1"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -126.5
-margin_top = -16.5
-margin_right = 126.5
-margin_bottom = 16.5
-text = "Drag & Drop Files here"
-
-[node name="2" type="ItemList" parent="VBSideBar/TCFilestacks"]
+[node name="2" parent="VBSideBar/TCFilestacks" instance=ExtResource( 5 )]
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
 margin_left = 5.0
 margin_top = 40.0
 margin_right = -5.0
 margin_bottom = -5.0
-hint_tooltip = "Drag & drop files or folders to add them to the stack"
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/bg = ExtResource( 3 )
-select_mode = 1
 
-[node name="Label" type="Label" parent="VBSideBar/TCFilestacks/2"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -126.5
-margin_top = -16.5
-margin_right = 126.5
-margin_bottom = 16.5
-text = "Drag & Drop Files here"
-
-[node name="3" type="ItemList" parent="VBSideBar/TCFilestacks"]
+[node name="3" parent="VBSideBar/TCFilestacks" instance=ExtResource( 5 )]
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
 margin_left = 5.0
 margin_top = 40.0
 margin_right = -5.0
 margin_bottom = -5.0
-hint_tooltip = "Drag & drop files or folders to add them to the stack"
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/bg = ExtResource( 3 )
-select_mode = 1
 
-[node name="Label" type="Label" parent="VBSideBar/TCFilestacks/3"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -126.5
-margin_top = -16.5
-margin_right = 126.5
-margin_bottom = 16.5
-text = "Drag & Drop Files here"
-
-[node name="4" type="ItemList" parent="VBSideBar/TCFilestacks"]
+[node name="4" parent="VBSideBar/TCFilestacks" instance=ExtResource( 5 )]
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
 margin_left = 5.0
 margin_top = 40.0
 margin_right = -5.0
 margin_bottom = -5.0
-hint_tooltip = "Drag & drop files or folders to add them to the stack"
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/bg = ExtResource( 3 )
-select_mode = 1
 
-[node name="Label" type="Label" parent="VBSideBar/TCFilestacks/4"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -126.5
-margin_top = -16.5
-margin_right = 126.5
-margin_bottom = 16.5
-text = "Drag & Drop Files here"
-
-[node name="5" type="ItemList" parent="VBSideBar/TCFilestacks"]
+[node name="5" parent="VBSideBar/TCFilestacks" instance=ExtResource( 5 )]
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
 margin_left = 5.0
 margin_top = 40.0
 margin_right = -5.0
 margin_bottom = -5.0
-hint_tooltip = "Drag & drop files or folders to add them to the stack"
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/bg = ExtResource( 3 )
-select_mode = 1
-
-[node name="Label" type="Label" parent="VBSideBar/TCFilestacks/5"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -126.5
-margin_top = -16.5
-margin_right = 126.5
-margin_bottom = 16.5
-text = "Drag & Drop Files here"
 
 [node name="VBProjectSettings" type="VBoxContainer" parent="VBSideBar"]
 margin_top = 826.0
@@ -223,7 +115,7 @@ margin_right = 1700.0
 margin_bottom = 900.0
 size_flags_horizontal = 3
 right_disconnects = true
-scroll_offset = Vector2( -21, 0 )
+scroll_offset = Vector2( -30, 0 )
 zoom_step = 1.1
 minimap_enabled = false
 script = ExtResource( 2 )

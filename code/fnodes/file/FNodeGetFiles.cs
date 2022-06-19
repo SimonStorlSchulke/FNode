@@ -19,13 +19,9 @@ public class FNodeGetFiles : FNode
             {
             "File", new FOutputFile(this, delegate() {
             int stack = (int)inputs["Stack"].Get();
-            string path = Main.inst.currentProject.FileStacks.Stacks[stack][Project.idxEval].Item2;
+            //string path = Main.inst.currentProject.FileStacks.GetChild<FileList>() Stacks[stack][Project.idxEval].Item2;
             try {
-                if (FileUtil.IsAbsolutePath(path)) return new FileInfo(path);
-                else {
-                    Errorlog.Log(this, "Only absolute Paths are allowed");
-                    return null;
-                };
+                return currentFile;
             } catch (System.Exception e) {
                 Errorlog.Log(this, e.Message);
                 return null;
@@ -116,7 +112,7 @@ public class FNodeGetFiles : FNode
     public override void OnNextIteration() {
         string path;
         try {
-            path = Main.inst.currentProject.FileStacks.Stacks[(int)inputs["Stack"].Get()][Project.idxEval].Item2;
+            path = "";//Main.inst.currentProject.FileStacks.GetFileList((int)inputs["Stack"].Get()).GetAllFiles()[Project.idxEval];
         } catch(System.Exception e) {
             currentFile = null;
             return;

@@ -45,10 +45,10 @@ public class NodeTree : GraphEdit
         Project.idxEval = 0;
         Project.maxNumFiles = 1;
 
-        foreach (var fileList in Main.inst.currentProject.FileStacks.Stacks) {
+        /*foreach (var fileList in Main.inst.currentProject.FileStacks.Stacks) {
             if (fileList.Count > Project.maxNumFiles)
                 Project.maxNumFiles = fileList.Count;
-        }
+        }*/
         
         GetTree().CallGroupFlags((int)SceneTree.GroupCallFlags.Realtime, FNode.RunBeforeEvaluationGroup, nameof(FNode.OnBeforeEvaluation));
 
