@@ -18,6 +18,7 @@ public class FolderSection : VBoxContainer
         btnReload = GetNode<TextureButton>("HBFolder/BTNReload");
         cb.Connect("toggled", this, nameof(OnToggleList));
         cbRecursive.Connect("pressed", this, nameof(OnToggleRecursive));
+        btnReload.Connect("pressed", this, nameof(OnToggleRecursive));
     }
 
     public void AddFile(string path) {
@@ -31,15 +32,17 @@ public class FolderSection : VBoxContainer
     }
 
     public void AddFiles(System.Collections.Generic.List<string> paths) {
+        int i = 0;
         foreach (string file in paths) {
             list.AddItem(file.GetFile());
+            list.SetItemTooltip(i, file);
+            i++;
         }
     }
 
     public void OnToggleRecursive() {
         bool recursive = cbRecursive.Pressed;
         int idx = GetIndex();
-        GD.Print(idx);
         FileList fl = GetParent().GetParent().GetParent<FileList>(); //TODO  dangerous. Will break when reordering FolderSection Scene
         string path = fl.fileStack.ElementAt(idx).Key;
         fl.fileStack.ElementAt(idx).Value.Clear();

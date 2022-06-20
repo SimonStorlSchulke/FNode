@@ -329,7 +329,7 @@ margin_top = 1.0
 margin_right = 95.0
 margin_bottom = 43.0
 text = "Menu"
-items = [ "Save", null, 0, false, false, 0, 0, null, "", false, "Load", null, 0, false, false, 1, 0, null, "", false ]
+items = [ "Save", null, 0, false, false, 0, 0, null, "", false, "Load", null, 0, false, false, 1, 0, null, "", false, "Report a Bug", null, 0, false, false, 2, 0, null, "", false ]
 script = ExtResource( 12 )
 NPIO = NodePath("../IO")
 

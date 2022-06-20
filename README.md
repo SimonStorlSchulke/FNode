@@ -18,6 +18,21 @@ The individual nodes functionality is documented in the Software itself (Tooltip
 ![all nodes](doc/nodes_list.png)
 ![all nodes](doc/nodes_other.png)
 
+## Auto slot conversions
+
+When slots of different Types are connected, the following happens:
+- n means the conversion is nonsensical (like turning a date into a file) or not supported yet so it returns an empty value.
+
+| to Slot > <br>v from Slot |File |Text   |Bool   |Int    |Float   |Date   |List| 
+|-|-|-|-|-|-|-|-| 
+|File|-|filepath as Text|true if File exists|1 if File exists else 0|1 if File exists else 0|n|n| 
+|Text|file at path|-|true if Text not empty|trying to parse to int|trying to parse to float|n|List with 1 Element of given value| 
+|Bool|n|false → "false" |-|false -> 0, true -> 1|false -> 0.0, true -> 1.0|n|List with 1 Element of given value| 
+|Int|n|125  -> "125"|true if > 0|-|1 -> 1.0|n|List with 1 Element of given value| 
+|Float|n|3.2031 -> "3.20"|true if >= 1|rounded int (0.4->0)<br>(0.6->1)|-|n|List with 1 Element of given value| 
+|Date|n|30.|a|a|a|-|n| 
+|List|n|List -> "[val1, val2...]"|true if List is not empty|List Count|List Count|n|-|
+
 ## Why use Godot for UI?
 This Project uses Godot for it's UI, but why use Godot over any other C# GUI library?
 - Since Godots Editor is also using the UI of the Engine itself, Godot has a very good set of tools for GUI development. Especially drawing and managing Node Editors is very accessible.

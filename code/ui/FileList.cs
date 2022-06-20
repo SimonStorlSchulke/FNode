@@ -62,9 +62,7 @@ public class FileList : Control
         foreach (FolderSection fs in vbFileLists.GetChildren()) {
             if (fs.connecedFolder == key) {
                 fs.list.Clear();
-                foreach (var file in fileStack[key]) {
-                    fs.list.AddItem(file.GetFile());
-                }
+                fs.AddFiles(fileStack[key]);
                 }
         }
     }
@@ -89,6 +87,7 @@ public class FileList : Control
             fs.connecedFolder = dirPath;
             vbFileLists.AddChild(fs);
             fs.cb.Text = dirPath.GetFile();
+            fs.cb.HintTooltip = dirPath;
             fs.AddFiles(dictItem.Value);
 
             if (collapsed.Contains(i)) {
@@ -97,9 +96,11 @@ public class FileList : Control
             }
 
             //Hide Recusrive Button from Loose Files Section
-            fs.cbRecursive.Visible = i != 0;
+            bool notLoosFiles = i != 0;
+            fs.cbRecursive.Visible = notLoosFiles;
+            fs.btnReload.Visible = notLoosFiles;
 
-            if (i != 0) {
+            if (notLoosFiles) {
                 fs.cbRecursive.Pressed = !nonRecursive.Contains(i);
             }
             i++;

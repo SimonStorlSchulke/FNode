@@ -19,6 +19,9 @@ public class MenuButton : Godot.MenuButton
             case "Load":
                 io.OnPopupLoad();
                 break;
+            case "Report a Bug":
+                System.Diagnostics.Process.Start("https://github.com/SimonStorlSchulke/FNode/issues/new/choose");
+                break;
             default:
                 break;
         }
