@@ -58,11 +58,26 @@ public class FileList : Control
         //UpdateUIList();
     }
 
+    public void UpdateUIListAtKey(string key) {
+        foreach (FolderSection fs in vbFileLists.GetChildren()) {
+            if (fs.connecedFolder == key) {
+                fs.list.Clear();
+                foreach (var file in fileStack[key]) {
+                    fs.list.AddItem(file.GetFile());
+                }
+                }
+        }
+    }
+
     public void UpdateUIList() {
         List<int> collapsed = new List<int>{};
+        List<int> nonRecursive = new List<int>{};
         foreach (FolderSection fs in vbFileLists.GetChildren()) {
             if (!fs.cb.Pressed) {
                 collapsed.Add(fs.GetIndex());
+            }
+            if (!fs.cbRecursive.Pressed) {
+                nonRecursive.Add(fs.GetIndex());
             }
             fs.QueueFree();
         }
@@ -80,11 +95,18 @@ public class FileList : Control
                 fs.cb.Pressed = false;
                 fs.list.Visible = false;
             }
+
+            //Hide Recusrive Button from Loose Files Section
+            fs.cbRecursive.Visible = i != 0;
+
+            if (i != 0) {
+                fs.cbRecursive.Pressed = !nonRecursive.Contains(i);
+            }
             i++;
         }
     }
 
-    public void AddFiles(string [] paths) {
+    public void AddFiles(string [] paths, bool recursive = true) {
         foreach (string path in paths) {
             
             string baseDirAdded = "";
@@ -110,9 +132,12 @@ public class FileList : Control
             if (isDir) {
                 //Check if folder to add is a sub- or parentfolder of an already existed folder. If yes, don't allow adding it.
 
-                    
-
-                string[] dirFiles = System.IO.Directory.GetFiles(path, "*", System.IO.SearchOption.AllDirectories);
+                string[] dirFiles;
+                if (recursive) {
+                    dirFiles = System.IO.Directory.GetFiles(path, "*", System.IO.SearchOption.AllDirectories);
+                } else {
+                    dirFiles = System.IO.Directory.GetFiles(path);
+                }
                 fileStack.Add(path, dirFiles.ToList<string>());
             }
             
