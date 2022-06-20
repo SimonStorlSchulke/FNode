@@ -2,17 +2,18 @@ using Godot;
 using System;
 using System.IO;
 
-public class FNodeGetFiles : FNode
+public class FNodeFileAtIndex : FNode
 {
     FileInfo currentFile;
-    public FNodeGetFiles()
+    public FNodeFileAtIndex()
     {
         category = "File";
-        HintTooltip = "For each iteration, return the File at the current Evaluation index";
+        HintTooltip = "return the File at the given Evaluation index";
         
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
             {"Stack", new FInputInt(this, min: 0)},
+            {"Index", new FInputInt(this, min: 0)},
         };
 
         FNode.IdxReset();
@@ -113,7 +114,7 @@ public class FNodeGetFiles : FNode
     public override void OnNextIteration() {
         string path;
         try {
-            path = Main.inst.currentProject.FileStacks.GetChild<FileList>((int)inputs["Stack"].Get()).allFiles[Project.idxEval];
+            path = Main.inst.currentProject.FileStacks.GetChild<FileList>((int)inputs["Stack"].Get()).allFiles[(int)inputs["Index"].Get()];
         } catch(System.Exception e) {
             currentFile = null;
             return;

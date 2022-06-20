@@ -107,6 +107,7 @@ margin_left = 171.0
 margin_right = 359.0
 margin_bottom = 33.0
 min_value = 1.0
+max_value = 1000.0
 value = 1.0
 
 [node name="NodeTree" type="GraphEdit" parent="."]

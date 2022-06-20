@@ -7,12 +7,13 @@ public class FileList : Control
     [Export] PackedScene folderSection;
     VBoxContainer vbFileLists;
     FolderSection looseFilesList;
+    public List<string> allFiles {get; private set;}
 
     public Dictionary<string, List<string>> fileStack = new Dictionary<string, List<string>>() {
         {"Loose Files", new List<string>()}
     };
 
-    public List<string> GetAllFiles() {
+    List<string> GetAllFiles() {
         List<string> l = new List<string>();
         foreach (KeyValuePair<string, List<string>> fileLst in fileStack) {
             l.AddRange(fileLst.Value);
@@ -20,10 +21,19 @@ public class FileList : Control
         return l;
     }
 
+    
+    public void OnBeforeEvaluation() {
+        allFiles = GetAllFiles();
+        if (Project.maxNumFiles < allFiles.Count) {
+            Project.maxNumFiles = allFiles.Count;
+        }
+    }
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready() {
         vbFileLists = GetNode<VBoxContainer>("Scroll/VBFileList");
         looseFilesList = GetNode<FolderSection>("Scroll/VBFileList/FSLooseFilesList");
+        AddToGroup(FNode.RunBeforeEvaluationGroup);
     }
 
     public void ShowFolderDropdown(bool show) {
@@ -76,25 +86,37 @@ public class FileList : Control
 
     public void AddFiles(string [] paths) {
         foreach (string path in paths) {
+            
+            string baseDirAdded = "";
+            bool alreadyAdded = false;
             bool isDir = System.IO.Directory.Exists(path);
 
-            if (isDir && !fileStack.ContainsKey(path)) {
-                
+            string baseDirFile = isDir ? path : path.GetBaseDir();
+
+            //Check if folder to add is a sub- or parentfolder of an already existed folder. If yes, don't allow adding it.
+            foreach (var folder in fileStack) {
+                if (baseDirFile.Contains(folder.Key) || folder.Key.Contains(path)) { //Might be unsave (using / or \ etc..)
+                    baseDirAdded = folder.Key;
+                    InfoLine.Show($"Cannot add directory {path} as it (or a parent / subdirectory) is already added to the Stack");
+                    alreadyAdded = true;
+                    break;
+                }
+            }
+
+            if (alreadyAdded) {
+                    continue;
+            }
+
+            if (isDir) {
+                //Check if folder to add is a sub- or parentfolder of an already existed folder. If yes, don't allow adding it.
+
+                    
 
                 string[] dirFiles = System.IO.Directory.GetFiles(path, "*", System.IO.SearchOption.AllDirectories);
                 fileStack.Add(path, dirFiles.ToList<string>());
-            } 
+            }
             
-            else if (!isDir) {
-                string baseDir = path.GetBaseDir(); 
-
-                string baseDirAdded = "";
-                foreach (var folder in fileStack) {
-                    if (baseDir.Contains(folder.Key)) { //Might be unsave (using / or \ etc..)
-                        baseDirAdded = folder.Key;
-                        break;
-                    }
-                }
+            else {
 
                 if (baseDirAdded != "") { //TODO currently doesn't account for recursively loaded files...
                     if (fileStack[baseDirAdded].Contains(path)) {

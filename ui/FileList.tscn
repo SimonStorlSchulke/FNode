@@ -20,10 +20,11 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBFileList" type="VBoxContainer" parent="Scroll"]
-margin_right = 463.0
+margin_right = 340.0
 margin_bottom = 693.0
-size_flags_horizontal = 3
+rect_min_size = Vector2( 340, 0 )
 size_flags_vertical = 3
 
 [node name="FSLooseFilesList" parent="Scroll/VBFileList" instance=ExtResource( 1 )]
+margin_right = 340.0
 margin_bottom = 44.0

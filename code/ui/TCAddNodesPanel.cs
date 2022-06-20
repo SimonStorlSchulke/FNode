@@ -8,6 +8,7 @@ public class TCAddNodesPanel : TabContainer
     public void CreateButtons() {
         CreateAddButton<FNodeGetFiles>();
         CreateAddButton<FNodeFileInfo>();
+        CreateAddButton<FNodeFileAtIndex>();
         CreateAddButton<FNodeRename>();
         CreateAddButton<FNodeDelete>();
         CreateAddButton<FNodeFilterFiles>();

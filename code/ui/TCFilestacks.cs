@@ -12,4 +12,11 @@ public class TCFilestacks : TabContainer {
     public FileList GetCurrentFileList() {
         return GetChild<FileList>(CurrentTab);
     }
+
+    public void OnClearFilestack() {
+        GetCurrentFileList().fileStack = new Dictionary<string, List<string>>(){
+            {"Loose Files", new List<string>()},
+        };
+        GetCurrentFileList().UpdateUIList();
+    }
 }
