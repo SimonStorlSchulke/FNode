@@ -8,6 +8,7 @@ public class Project : Control
     public SpinBox spIterations;
     public static int idxEval = 0;
     public static int maxNumFiles = 0;
+    public static bool IsLastIteration = false;
 
     public override void _Ready() {
         NodeTree = GetNode<NodeTree>("NodeTree");   

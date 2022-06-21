@@ -20,7 +20,7 @@ public class FNodeMath : FNode
             "Result", new FOutputFloat(this, delegate() {
                 float val1 = (float)inputs["Val1"].Get();
                 float val2 = (float)inputs["Val2"].Get();
-                string selectedOption = GetSelectedOption("mathmode");
+                string selectedOption = GetSelectedOption("Mode");
                 switch (selectedOption)
                 {
                     case "Add":
@@ -56,7 +56,7 @@ public class FNodeMath : FNode
     {
         base._Ready();
         AddOptionEnum(
-            "mathmode",
+            "Mode",
 
             new string[] {
                 "Add",

@@ -15,7 +15,7 @@ public enum SlotType {
     OTHER
 }
 
-public abstract class FInput {
+public class FInput {
     public object defaultValue;
     public object initialValue;
     Control GetUI;
@@ -25,7 +25,7 @@ public abstract class FInput {
     public string description;
     public SlotType slotType = SlotType.OTHER;
 
-    public FInput(FNode owner, int idx, string description, object initialValue) {
+    public FInput(FNode owner, int idx=-1, string description="", object initialValue=null) {
         this.owner = owner;
         this.description = description;
         this.initialValue = initialValue;
@@ -82,6 +82,7 @@ public abstract class FInput {
 
         #region boolInput conversions
         {new Tuple<Type, Type>(typeof(FileInfo), typeof(FInputBool)), delegate(object outVal, FInput fIn) {
+            GD.Print("Is this the Real live?");
             return System.IO.File.Exists(((FileInfo)outVal).FullName);
         }},
         {new Tuple<Type, Type>(typeof(string), typeof(FInputBool)), delegate(object outVal, FInput fIn) {
@@ -155,11 +156,15 @@ public abstract class FInput {
     };
 
     protected object AutoSlotConversion(object value) {
-        if (value == null) {
+
+        var slotType = this.GetType();
+
+        if (value == null && slotType == typeof(FInputBool)) {
+            return false;
+        } else if (value == null) {
             return null;
         }
 
-        var slotType = this.GetType();
         var valueType = value.GetType();
 
         if (valueType == typeof(System.Double)) {
@@ -187,9 +192,9 @@ public abstract class FInput {
         }
     }
 
-    public abstract void UpdateDefaultValueFromUI(); // This updates the Nodes defaultValue parameter and sanitizes it
-    public abstract object GetDefaultValueFromUI(); // This returns the actual text etc the User has entered in the Input FIeld
-    public abstract void UpdateUIFromValue(object value); // This returns the actual text etc the User has entered in the Input FIeld
+    public virtual void UpdateDefaultValueFromUI(){} // This updates the Nodes defaultValue parameter and sanitizes it
+    public virtual object GetDefaultValueFromUI(){return null;} // This returns the actual text etc the User has entered in the Input FIeld
+    public virtual void UpdateUIFromValue(object value){} // This returns the actual text etc the User has entered in the Input FIeld
 }
 
 public class FInputFile : FInput {

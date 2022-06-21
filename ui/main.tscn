@@ -17,6 +17,9 @@
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="VBMain" type="VBoxContainer" parent="."]
 anchor_right = 1.0
@@ -35,7 +38,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ProjectTabs" type="TabContainer" parent="VBMain/HBMain"]
-margin_right = 1286.0
+margin_right = 1274.0
 margin_bottom = 848.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -53,10 +56,10 @@ margin_right = -5.0
 margin_bottom = -5.0
 
 [node name="TCAddNodesPanel" type="TabContainer" parent="VBMain/HBMain"]
-margin_left = 1290.0
+margin_left = 1278.0
 margin_right = 1700.0
 margin_bottom = 848.0
-rect_min_size = Vector2( 410, 0 )
+rect_min_size = Vector2( 422, 0 )
 tab_align = 0
 script = ExtResource( 5 )
 NPNodeTree = NodePath("../ProjectTabs/Project 1/NodeTree")
@@ -186,8 +189,8 @@ window_title = "Save"
 resizable = true
 access = 2
 filters = PoolStringArray( "*.fnode" )
-current_dir = "/dev/Godot/fnode"
-current_path = "/dev/Godot/fnode/"
+current_dir = "/Users/simon/Dev/nodefiler"
+current_path = "/Users/simon/Dev/nodefiler/"
 
 [node name="FDLoad" type="FileDialog" parent="."]
 margin_left = 522.0
@@ -201,8 +204,8 @@ resizable = true
 mode = 0
 access = 2
 filters = PoolStringArray( "*.fnode" )
-current_dir = "/dev/Godot/fnode"
-current_path = "/dev/Godot/fnode/"
+current_dir = "/Users/simon/Dev/nodefiler"
+current_path = "/Users/simon/Dev/nodefiler/"
 
 [node name="UIUtil" type="Node" parent="."]
 process_priority = -1

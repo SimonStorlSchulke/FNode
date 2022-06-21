@@ -6,6 +6,10 @@ public class FNodeTextViewer : FNode
 {
     string accumulatedString = "";
     public FNodeTextViewer() {
+
+        Resizable = true;
+        Connect("resize_request", this, nameof(OnResize));
+
         category = "Text";        
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
             {"Text", new FInputString(this, 0)},
@@ -16,12 +20,21 @@ public class FNodeTextViewer : FNode
         };
     }
 
+    public void OnResize(Vector2 newSize) {
+        RectSize = newSize;
+    }
+
     public override void ExecutiveMethod() {
 
         if ((bool)inputs["Accumulate"].Get()) {
-            accumulatedString += inputs["Text"].Get() as string + "\n";
-            GetNode<TextEdit>("Viewer").Text = accumulatedString;
-        } else {
+            string text = inputs["Text"].Get() as string;
+            if (text != "" && text != null) {
+                accumulatedString += text + "\n";
+            }
+            if (Project.IsLastIteration) {
+                GetNode<TextEdit>("Viewer").Text = accumulatedString;
+            }
+        } else if (Project.IsLastIteration){
             GetNode<TextEdit>("Viewer").Text = inputs["Text"].Get() as string;
         }
         base.ExecutiveMethod();
@@ -32,7 +45,8 @@ public class FNodeTextViewer : FNode
         TextEdit TEViewer = new TextEdit();
         TEViewer.Readonly = true;
         TEViewer.Name = "Viewer";
-        TEViewer.RectMinSize = new Vector2(400, 400);
+        TEViewer.RectMinSize = new Vector2(350, 300);
+        TEViewer.SizeFlagsHorizontal = TEViewer.SizeFlagsVertical =  (int)SizeFlags.ExpandFill;
         AddChild(TEViewer);
     }
 

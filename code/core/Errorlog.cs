@@ -21,7 +21,7 @@ public class Errorlog : Node
     }
 
     public static void Log(string str, System.Exception e) {
-        GD.Print($"Error: {str} | {e.Message}");
+        GD.Print($"Error: {str} | {e}");
         InfoLine.ShowColored($"Error: {str} | {e.Message}", errorColor);
     }
 

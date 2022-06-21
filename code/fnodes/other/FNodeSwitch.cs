@@ -50,6 +50,7 @@ public class FNodeSwitch : FNode
         ob.AddItem("Int");
         ob.AddItem("Float");
         ob.AddItem("Date");
+        ob.AddItem("List");
         AddChild(ob);
 
         ob.Connect("item_selected", this, nameof(OptionSelected));
@@ -124,6 +125,16 @@ public class FNodeSwitch : FNode
                         DateTime valFalse = (DateTime)inputs["False"].Get();
                         DateTime valTrue = (DateTime)inputs["True"].Get();
                         return (DateTime)((bool)inputs["Switch"].Get() ? valTrue : valFalse);
+                    }, 
+                    (FNode.FNodeSlotTypes)option);
+                break;
+            case (int)(FNodeSlotTypes.LIST):
+                ChangeSlotType(
+                    outputs["Result"], 
+                    delegate() {
+                        Godot.Collections.Array valFalse = (Godot.Collections.Array)inputs["False"].Get();
+                        Godot.Collections.Array valTrue = (Godot.Collections.Array)inputs["True"].Get();
+                        return (Godot.Collections.Array)((bool)inputs["Switch"].Get() ? valTrue : valFalse);
                     }, 
                     (FNode.FNodeSlotTypes)option);
                 break;

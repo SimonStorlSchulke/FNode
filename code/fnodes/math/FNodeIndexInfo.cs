@@ -20,8 +20,7 @@ public class FNodeIndexInfo : FNode
             })},
             {
             "Is last iteration", new FOutputBool(this, delegate() {
-                int iterations = (int)Math.Max(Main.inst.currentProject.spIterations.Value, Project.maxNumFiles);
-                return Project.idxEval > (iterations-2);
+                return Project.IsLastIteration;
             })},
         };
     }

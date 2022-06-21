@@ -22,7 +22,6 @@ public class Main : VBoxContainer
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready() {
-        inst = this;
         GetTree().Connect("files_dropped", this, nameof(OnFilesDropped));
         projectScene = GD.Load<PackedScene>("res://ui/Project.tscn");
         projectTabs = GetNode<TabContainer>(NPProjectTabs);
@@ -30,6 +29,14 @@ public class Main : VBoxContainer
         projectTabs.Connect("tab_selected", this, nameof(OnChangeProject));
         addNodeButtons = GetNode<TCAddNodesPanel>(NPAddNodeButtons);
         addNodeButtons.CreateButtons();
+    }
+
+    public override void _EnterTree() {
+        inst = this;
+        float UIScale = OS.GetScreenSize().x > 2000 ? 1.0f : 0.7f; // TODO better resolution options
+        OS.WindowSize = OS.GetScreenSize() * 0.7f; //Always start at 0.7% Resolution
+        OS.WindowPosition = OS.GetScreenSize() / 2 - OS.WindowSize / 2;
+        GetTree().SetScreenStretch(SceneTree.StretchMode.Disabled, SceneTree.StretchAspect.Ignore, new Vector2(128, 128), UIScale);
     }
 
     

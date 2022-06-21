@@ -40,7 +40,10 @@ _global_script_class_icons={
 
 config/name="fnode"
 run/main_scene="res://ui/main.tscn"
+boot_splash/image="res://theme/icons/boot.png"
+boot_splash/fullsize=false
 config/icon="res://icon.png"
+config/windows_native_icon="res://theme/icons/icon.ico"
 
 [display]
 

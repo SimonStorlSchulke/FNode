@@ -61,17 +61,19 @@ public abstract class FNode : GraphNode {
         BOOL,
         INT,
         FLOAT,
-        DATE
+        DATE,
+        LIST
     }
     
     public void AddOptionEnum(string name, string[] options, string callbackMethod="") {
-        // TODO handle case when child with given name already exists
         
         OptionButton ob = new OptionButton();
         foreach (var item in options) {
             ob.AddItem(item);
         }
         HbOption hb = new HbOption(name, ob);
+        hb.SizeFlagsHorizontal = (int)SizeFlags.ExpandFill;
+        ob.SizeFlagsHorizontal = (int)SizeFlags.ExpandFill;
         
         AddChild(hb);
         if (callbackMethod != "") {
@@ -119,6 +121,10 @@ public abstract class FNode : GraphNode {
                 finput = new FInputDate(this, idx, initialValue: initialValue);
                 UIUtil.AddInputUI(this, labelText, finput, childIdx);
                 break;
+            case FNodeSlotTypes.LIST:
+                finput = new FInputList(this, idx, initialValue: initialValue);
+                UIUtil.AddInputUI(this, labelText, finput, childIdx);
+                break;
         }
         finput.connectedTo = connectedSlot;
         inputs[inputs.ElementAt(finput.idx).Key] = finput;
@@ -157,6 +163,10 @@ public abstract class FNode : GraphNode {
                 break;
             case FNodeSlotTypes.DATE:
                 foutput = new FOutputDate(this, method, idx);
+                UIUtil.AddOutputUI(this, labelText, foutput, childIdx);
+                break;
+            case FNodeSlotTypes.LIST:
+                foutput = new FOutputList(this, method, idx);
                 UIUtil.AddOutputUI(this, labelText, foutput, childIdx);
                 break;
         }
@@ -269,6 +279,10 @@ public abstract class FNode : GraphNode {
 
         int i = 0;
         foreach (System.Collections.DictionaryEntry inputData in (Godot.Collections.Dictionary)nodeData["Inputs"]) {
+
+            if (inputData.Value == null) {
+                continue;
+            }
 
             // ugly hack #2 - see comment in Serialize()
             if(inputData.Value.GetType() == typeof(Godot.Collections.Array)) {

@@ -29,7 +29,6 @@ public class ListCreator : AcceptDialog {
         //GD.Print($"{connectedNodeName} slotname: {connectedSlotName}");
         connectedListInput = Main.inst.currentProject.NodeTree.GetNode<FNode>(connectedNode.Name).inputs[connectedSlotName] as FInputList; //Dangerous...
         if (connectedListInput.defaultValue == null) {
-            GD.Print(1);
             connectedListInput.defaultValue = new Godot.Collections.Array();
         }
         for (int i = 0; i < ((Godot.Collections.Array)connectedListInput.defaultValue).Count; i++) {
@@ -169,8 +168,8 @@ public class ListCreator : AcceptDialog {
                 break;
             case int fi:
                 SpinBox spI = new SpinBox();
-                spI.Value = (int)value;
                 spI.MinValue = -Mathf.Inf;
+                spI.Value = (int)value;
                 hbItem.AddToGroup("int");
                 hbItem.AddChild(spI);
                 break;

@@ -23,8 +23,9 @@ public class FileList : Control
 
     
     public void OnBeforeEvaluation() {
-        allFiles = GetAllFiles();
-        if (Project.maxNumFiles < allFiles.Count) {
+
+        if (GetParent<TabContainer>().CurrentTab == GetIndex()) {
+            allFiles = GetAllFiles();
             Project.maxNumFiles = allFiles.Count;
         }
     }

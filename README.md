@@ -1,12 +1,14 @@
 # FNode
 ## A Nodebased File Management System
 
-This project aims to be a feature rich file management system. Common file operations like renaming, copying and sorting files can be automated using a flow-graph.
+This project aims to be a feature rich file management system. FNode can be used to automate repetetive tasks that need to be executed often on a lot of files. Using a flow-graph, you can visually create complex behaviour and execute it on any collection of files and folders.
 
-![rename example](doc/rename_example_1.png)
+## Examples
+
+![rename example](doc/rename_example_1.png)  
 *In this example, all Files with the JPG extension would be renamed to the following:*
 
-![rename example](doc/rename_preview.png)
+![rename example](doc/rename_preview.png)  
 *Critical File operations can bei previewed before actually running the Nodetree.*
 
 ## Currently supported operations

@@ -43,13 +43,15 @@ public class NodeTree : GraphEdit
     public void EvaluateTree(bool previewMode) {
         this.previewMode = previewMode;
         Project.idxEval = 0;
-        Project.maxNumFiles = 1;
         
         GetTree().CallGroupFlags((int)SceneTree.GroupCallFlags.Realtime, FNode.RunBeforeEvaluationGroup, nameof(FNode.OnBeforeEvaluation));
+        GD.Print("BUT WHY");
 
         int iterations = (int)Math.Max(Main.inst.currentProject.spIterations.Value, Project.maxNumFiles);
         
         for (int i = 0; i < iterations; i++) {
+
+            Project.IsLastIteration = Project.idxEval > (iterations-2);
 
             EmitSignal(nameof(StartNextIteration));
             GetTree().CallGroupFlags((int)SceneTree.GroupCallFlags.Realtime, FNode.RunBeforeIterationGroup, nameof(FNode.OnNextIteration));
@@ -109,13 +111,19 @@ public class NodeTree : GraphEdit
     // Mainly used for Loading
     public FNode OnAddNode(string nodetype, Vector2? offset = null, string name="") {
         var t = System.Type.GetType(nodetype);
-        FNode fn = (FNode)Activator.CreateInstance(t);
-        fn.Offset = (offset == null) ? Vector2.Zero : (Vector2)offset;
-        AddChild(fn);
-        if (name != "") {
-            fn.Name = name;
+        try {
+            FNode fn = (FNode)Activator.CreateInstance(t);
+        
+            fn.Offset = (offset == null) ? Vector2.Zero : (Vector2)offset;
+            AddChild(fn);
+            if (name != "") {
+                fn.Name = name;
+            }
+            return fn;
+        } catch (System.Exception e) {
+            Errorlog.Log("cannot create instance of unknown Type "+ nodetype + "\n\n" + e);
         }
-        return fn;
+        return null;
     }
 
     public void DeleteNode(FNode fn) {

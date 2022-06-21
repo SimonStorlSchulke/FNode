@@ -202,7 +202,7 @@ public class UIUtil : Node
                 break;
 
             default:
-                ct = new LineEdit();
+                ct = new Control();
                 slotColor = Colors.White;
                 break;
         }

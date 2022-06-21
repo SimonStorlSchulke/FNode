@@ -27,6 +27,9 @@ public class FNodeListToText : FNode
                 sep = sep.Replace("[LINEBREAK]", "\n"); //TODO sanitize this...
 
                 int i = 0;
+                if (arr == null) {
+                    return "";
+                }
                 foreach (var item in arr) {
                     text += i < arr.Count-1 ? item.ToString() + sep : item.ToString();
                     i++;

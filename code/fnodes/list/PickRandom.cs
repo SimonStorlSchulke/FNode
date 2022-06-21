@@ -39,7 +39,7 @@ public class FNodePickRandom : FNode
                 if (arr == null) {
                     return null;
                 }
-                return arr[idx];
+                return arr.Count > 0 ? arr[idx] : null;
             })},
         };
     }
