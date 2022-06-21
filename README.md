@@ -51,7 +51,7 @@ This has the disadvantage of increasing the build size - although not more than 
     - Images: Magick.Net
 - zip Files
 - Read Text Files
-    Options: Whole Text, Only Line X, plit at string...
+    Options: Whole Text, Only Line X, split at string...
 - Image Nodes:
     - Crop (pixels / percent, t l b r)
     - Resize (pixels / percent, option: Keep Aspect)
@@ -68,5 +68,3 @@ This has the disadvantage of increasing the build size - although not more than 
 - by default, select everything (empty array)
 - perform text operation sonly on selected characters
 
-### General Ideas
-- Add Possibility to preview critical File Operaions (Delete, Move, Rename...)
