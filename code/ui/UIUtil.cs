@@ -80,7 +80,7 @@ public class UIUtil : Node
     }
 
     public static void AddOutputUI(FNode toNode, string labeltext, FOutput fOutp, int atIdx = -1) {
-        var hb = new HBoxContainer();
+        var hb = new HbOutput();
         var lb = new Label();
         lb.Text = labeltext;
         Godot.Color slotColor;
@@ -135,7 +135,7 @@ public class UIUtil : Node
     }
 
     public static void AddInputUI(FNode toNode, string labeltext, FInput fInp, int atIdx = -1) {
-        var hb = new HBoxContainer();
+        var hb = new HbInput();
         var lb = new Label();
         lb.Text = labeltext;
         lb.RectMinSize = new Vector2(130, 0);
@@ -230,5 +230,27 @@ public class UIUtil : Node
 class DateLabel : Label {
     public void SetDate(Godot.Reference date) {
         Text = (string)date.Call("date", new object[]{"DD.MM.YYYY"});
+    }
+}
+
+class HbInput : HBoxContainer {
+
+}
+
+class HbOutput : HBoxContainer {
+
+}
+
+class HbOption : HBoxContainer {
+    public OptionButton optionButton;
+    public Label label;
+    public HbOption(string name, OptionButton optionButton) {
+        Name = name;
+        this.optionButton = optionButton;
+        label = new Label();
+        label.Text = name + ": ";
+        AddChild(label);
+        AddChild(optionButton);
+        SizeFlagsHorizontal = (int)SizeFlags.ExpandFill;
     }
 }

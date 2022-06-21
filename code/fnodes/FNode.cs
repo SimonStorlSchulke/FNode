@@ -66,19 +66,21 @@ public abstract class FNode : GraphNode {
     
     public void AddOptionEnum(string name, string[] options, string callbackMethod="") {
         // TODO handle case when child with given name already exists
+        
         OptionButton ob = new OptionButton();
-        ob.Name = name;
         foreach (var item in options) {
             ob.AddItem(item);
         }
-        AddChild(ob);
+        HbOption hb = new HbOption(name, ob);
+        
+        AddChild(hb);
         if (callbackMethod != "") {
             ob.Connect("item_selected", this, callbackMethod);
         }
     }
 
     public string GetSelectedOption(string optionButtonName) {
-        OptionButton btn = GetNode<OptionButton>(optionButtonName);
+        OptionButton btn = GetNode<HbOption>(optionButtonName).optionButton;
         return btn.GetItemText(btn.Selected);
     }
 
@@ -238,6 +240,14 @@ public abstract class FNode : GraphNode {
             } 
             else {
                 saveDatInputs.Add(input.Key, input.Value.GetDefaultValueFromUI());
+            }
+        }
+
+        if (GetChildCount() > inputs.Count + outputs.Count) {
+            foreach (var item in GetChildren()) {
+                if (!(item is HbInput || item is HbOutput)) {
+                    GD.Print(item.GetType());
+                }
             }
         }
 
