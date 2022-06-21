@@ -20,6 +20,8 @@ public class Main : VBoxContainer
     [Export] NodePath NPAddNodeButtons;
     TCAddNodesPanel addNodeButtons;
 
+    public static bool preventRun = false;
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready() {
         GetTree().Connect("files_dropped", this, nameof(OnFilesDropped));
@@ -87,8 +89,16 @@ public class Main : VBoxContainer
         inst.projectTabs.AddChild(pr);
         inst.projectTabs.SetTabTitle(pr.GetIndex(), name);
         inst.projectTabs.CurrentTab = inst.projectTabs.GetChildCount()-1;
-        Main.inst.currentProject = pr;
+        //Main.inst.currentProject = pr;
         return pr;
+    }
+
+    public void CloseProject() {
+        int current = inst.projectTabs.CurrentTab;
+
+        //Going out of range will cause an error here that doesn't matter;
+        inst.projectTabs.CurrentTab = current-1;
+        projectTabs.GetChild(current).QueueFree();
     }
 
     public void OnFilesDropped(string[] files, int screen) {
@@ -128,8 +138,10 @@ public class Main : VBoxContainer
         RectSize = winSize * RectScale * (16f / 9f);// / RectScale;//(2f * RectScale);// * RectScale;
     }
 
-    public void OnParseTree(bool preview) {
+    public async void OnParseTree(bool preview) {
+        if (preventRun) return;
         EmitSignal(nameof(StartParsing));
-        currentProject.GetNode<NodeTree>("NodeTree").EvaluateTree(preview);
+        await currentProject.GetNode<NodeTree>("NodeTree").EvaluateTree(preview);
+        //...
     }
 }

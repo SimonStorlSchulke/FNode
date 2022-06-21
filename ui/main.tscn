@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://theme/default.theme" type="Theme" id=1]
 [ext_resource path="res://ui/Project.tscn" type="PackedScene" id=2]
@@ -12,14 +12,12 @@
 [ext_resource path="res://code/ui/UIInput.cs" type="Script" id=10]
 [ext_resource path="res://code/ui/PuPreviewOps.cs" type="Script" id=11]
 [ext_resource path="res://ui/MenuButton.cs" type="Script" id=12]
+[ext_resource path="res://ui/FProgressBar.cs" type="Script" id=13]
 
 [node name="Window" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="VBMain" type="VBoxContainer" parent="."]
 anchor_right = 1.0
@@ -126,9 +124,6 @@ rect_min_size = Vector2( 0, 32 )
 [node name="HBoxContainer" type="HBoxContainer" parent="VBMain/Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="InfoLine" type="Label" parent="VBMain/Panel/HBoxContainer"]
 margin_right = 8.0
@@ -144,6 +139,14 @@ margin_left = 12.0
 margin_right = 1392.0
 margin_bottom = 37.0
 size_flags_horizontal = 3
+
+[node name="ProgressBar" type="ProgressBar" parent="VBMain/Panel/HBoxContainer"]
+visible = false
+margin_left = 1092.0
+margin_right = 1392.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 300, 0 )
+script = ExtResource( 13 )
 
 [node name="Control2" type="Control" parent="VBMain/Panel/HBoxContainer"]
 margin_left = 1396.0
@@ -189,8 +192,8 @@ window_title = "Save"
 resizable = true
 access = 2
 filters = PoolStringArray( "*.fnode" )
-current_dir = "/Users/simon/Dev/nodefiler"
-current_path = "/Users/simon/Dev/nodefiler/"
+current_dir = "/dev/Godot/fnode"
+current_path = "/dev/Godot/fnode/"
 
 [node name="FDLoad" type="FileDialog" parent="."]
 margin_left = 522.0
@@ -204,8 +207,8 @@ resizable = true
 mode = 0
 access = 2
 filters = PoolStringArray( "*.fnode" )
-current_dir = "/Users/simon/Dev/nodefiler"
-current_path = "/Users/simon/Dev/nodefiler/"
+current_dir = "/dev/Godot/fnode"
+current_path = "/dev/Godot/fnode/"
 
 [node name="UIUtil" type="Node" parent="."]
 process_priority = -1
@@ -332,7 +335,7 @@ margin_top = 1.0
 margin_right = 95.0
 margin_bottom = 43.0
 text = "Menu"
-items = [ "Save", null, 0, false, false, 0, 0, null, "", false, "Load", null, 0, false, false, 1, 0, null, "", false, "Report a Bug", null, 0, false, false, 2, 0, null, "", false ]
+items = [ "Save", null, 0, false, false, 0, 0, null, "", false, "Load", null, 0, false, false, 1, 0, null, "", false, "Close Project", null, 0, false, false, 2, 0, null, "", false, "New Project", null, 0, false, false, 3, 0, null, "", false, "Report a Bug", null, 0, false, false, 4, 0, null, "", false ]
 script = ExtResource( 12 )
 NPIO = NodePath("../IO")
 

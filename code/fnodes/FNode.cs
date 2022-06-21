@@ -253,15 +253,26 @@ public abstract class FNode : GraphNode {
             }
         }
 
+        saveData.Add("Inputs", saveDatInputs);
+
+        Godot.Collections.Dictionary<string, object> saveDatOptionButtons = new Godot.Collections.Dictionary<string, object>() {
+        };
+
         if (GetChildCount() > inputs.Count + outputs.Count) {
             foreach (var item in GetChildren()) {
                 if (!(item is HbInput || item is HbOutput)) {
-                    GD.Print(item.GetType());
+                    switch(item) {
+                        case HbOption hbOpt:
+                            saveDatOptionButtons.Add(
+                                hbOpt.Name, 
+                                hbOpt.optionButton.Selected);
+                            break;
+                    }
                 }
             }
         }
 
-        saveData.Add("Inputs", saveDatInputs);
+        saveData.Add("OptionButtons", saveDatOptionButtons);
 
         return saveData;
     }
@@ -305,6 +316,14 @@ public abstract class FNode : GraphNode {
             }
             i++;
         }
+
+         foreach (System.Collections.DictionaryEntry optionButtonData in (Godot.Collections.Dictionary)nodeData["OptionButtons"]) {
+            try {
+                fn.GetNode<HbOption>((string)optionButtonData.Key).optionButton.Selected = (int)optionButtonData.Value;
+            } catch (System.Exception e) {
+                Errorlog.Log(fn, $"failed loading Optionbutton {optionButtonData.Key}");
+            }
+         }
     }
 
     ///<summary>This will be called before each NodeTree iteration (optimized via group CallGroup)</summary>

@@ -132,7 +132,7 @@ public class TCAddNodesPanel : TabContainer
         }
 
         if(e.IsActionPressed("evaluate_tree")) { //TODO put this somewhere else
-            Main.inst.currentProject.NodeTree.EvaluateTree(true);
+            Main.inst.OnParseTree(true);
         }
     }
 }

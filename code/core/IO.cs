@@ -40,12 +40,7 @@ public class IO : Node {
         FDSave.CurrentDir = FDSave.CurrentDir; //refresh files
     }
 
-
-    public static string serializeProject() {
-        return "";
-    }
-
-    public static Dictionary<string, object> serializeNodeTree(NodeTree nt) {
+    public static Dictionary<string, object> serializeProject(NodeTree nt) {
 
         Dictionary<string, object> saveData = new Dictionary<string, object>();
         Godot.Collections.Array<Dictionary<string, object>> nodesDict = new Godot.Collections.Array<Dictionary<string, object>>();
@@ -56,19 +51,21 @@ public class IO : Node {
 
         saveData.Add("Nodes", nodesDict);
         saveData.Add("Connections", nt.GetConnectionList());
+        saveData.Add("iterations", Main.inst.currentProject.spIterations.Value);
+        saveData.Add("ScrollOffsetX", Main.inst.currentProject.NodeTree.ScrollOffset.x);
+        saveData.Add("ScrollOffsetY", Main.inst.currentProject.NodeTree.ScrollOffset.y);
         return saveData;
     }
 
     public void Save(string path) {
+
+        var saveData = IO.serializeProject(Main.inst.currentProject.NodeTree);
+
         var saveGame = new File();
         saveGame.Open(path, File.ModeFlags.Write);
-
-        var saveData = IO.serializeNodeTree(Main.inst.currentProject.NodeTree);
-
-        saveData.Add("iterations", Main.inst.currentProject.spIterations.Value);
         saveGame.StoreLine(JSON.Print(saveData));
-
         saveGame.Close();
+
         InfoLine.Show($"Saved Project to {path}");
         Main.inst.projectTabs.SetTabTitle(Main.inst.projectTabs.CurrentTab, System.IO.Path.GetFileNameWithoutExtension(path));
     }
@@ -105,6 +102,8 @@ public class IO : Node {
                      (string)cData["to"],
                      (int)((System.Single)cData["to_port"]));
             }
+
+            pr.NodeTree.ScrollOffset = new Vector2((float)(System.Single)saveData["ScrollOffsetX"], (float)(System.Single)saveData["ScrollOffsetY"]);
 
             Main.inst.currentProject.spIterations.Value = (int)(System.Single)saveData["iterations"];
             InfoLine.Show($"Loaded Project {path}");

@@ -2,6 +2,7 @@ using System;
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 
 public class NodeTree : GraphEdit
@@ -40,14 +41,17 @@ public class NodeTree : GraphEdit
     }
 
     public bool previewMode = true;
-    public void EvaluateTree(bool previewMode) {
+    public async Task EvaluateTree(bool previewMode) {
         this.previewMode = previewMode;
         Project.idxEval = 0;
         
         GetTree().CallGroupFlags((int)SceneTree.GroupCallFlags.Realtime, FNode.RunBeforeEvaluationGroup, nameof(FNode.OnBeforeEvaluation));
-        GD.Print("BUT WHY");
 
         int iterations = (int)Math.Max(Main.inst.currentProject.spIterations.Value, Project.maxNumFiles);
+
+        FProgressBar.inst.StartProgress();
+        Main.preventRun = true;
+        await Task.Run(() => {
         
         for (int i = 0; i < iterations; i++) {
 
@@ -70,7 +74,12 @@ public class NodeTree : GraphEdit
                 }
             }
             Project.idxEval++;
+            //Task.Delay(1).Wait();
+            FProgressBar.inst.ShowProgress((float)i / iterations);
         }
+        });
+        FProgressBar.inst.EndProgress();
+        Main.preventRun = false;
         PuPreviewOps.ShowPreview();
     }
 

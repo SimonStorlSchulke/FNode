@@ -1,6 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 public class FileList : Control
 {
@@ -109,6 +110,14 @@ public class FileList : Control
     }
 
     public void AddFiles(string [] paths, bool recursive = true) {
+
+        if (Name=="0") {
+            GetNode<Label>("LblDragnDrop").Visible = false;
+        }
+        Main.preventRun = true;
+
+        FProgressBar.inst.StartProgress();
+        int i=0;
         foreach (string path in paths) {
             
             string baseDirAdded = "";
@@ -150,16 +159,23 @@ public class FileList : Control
                         continue;
                     }
                     fileStack[baseDirAdded].Add(path);
+                    i++;
+                    InfoLine.Show($"Loaded {i} files");
+                    //Task.Delay(1).Wait();
                 } 
                 else {
                     if (fileStack["Loose Files"].Contains(path)) {
                         continue;
                     }
                     fileStack["Loose Files"].Add(path);
+                    i++;
+                    InfoLine.Show($"Loaded {i} files");
+                    Task.Delay(1).Wait();
                 }
             }
         }
         UpdateUIList();
+        Main.preventRun = false;
+    
     }
 }
-    
