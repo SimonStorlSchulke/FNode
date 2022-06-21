@@ -24,6 +24,7 @@ public class FNodeAccumulateNumber : FNode
         };
     }
     public override void OnBeforeEvaluation() {
+        GD.Print("BFE");
         accumulatedFloat = 0;
     }
 }

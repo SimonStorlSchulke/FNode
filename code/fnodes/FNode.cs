@@ -319,9 +319,9 @@ public abstract class FNode : GraphNode {
 
          foreach (System.Collections.DictionaryEntry optionButtonData in (Godot.Collections.Dictionary)nodeData["OptionButtons"]) {
             try {
-                fn.GetNode<HbOption>((string)optionButtonData.Key).optionButton.Selected = (int)optionButtonData.Value;
+                fn.GetNode<HbOption>((string)optionButtonData.Key).optionButton.Selected = System.Convert.ToInt32(optionButtonData.Value);
             } catch (System.Exception e) {
-                Errorlog.Log(fn, $"failed loading Optionbutton {optionButtonData.Key}");
+                Errorlog.Log(fn, $"failed loading Optionbutton {optionButtonData.Key} {e}");
             }
          }
     }

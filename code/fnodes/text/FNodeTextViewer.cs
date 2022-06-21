@@ -31,10 +31,7 @@ public class FNodeTextViewer : FNode
             if (text != "" && text != null) {
                 accumulatedString += text + "\n";
             }
-            if (Project.IsLastIteration) {
-                GetNode<TextEdit>("Viewer").Text = accumulatedString;
-            }
-        } else if (Project.IsLastIteration){
+        } else {
             GetNode<TextEdit>("Viewer").Text = inputs["Text"].Get() as string;
         }
         base.ExecutiveMethod();

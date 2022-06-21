@@ -82,7 +82,6 @@ public class FInput {
 
         #region boolInput conversions
         {new Tuple<Type, Type>(typeof(FileInfo), typeof(FInputBool)), delegate(object outVal, FInput fIn) {
-            GD.Print("Is this the Real live?");
             return System.IO.File.Exists(((FileInfo)outVal).FullName);
         }},
         {new Tuple<Type, Type>(typeof(string), typeof(FInputBool)), delegate(object outVal, FInput fIn) {

@@ -132,9 +132,7 @@ public class Main : VBoxContainer
         Vector2 winSize = OS.WindowSize;
         float scale = Mathf.Min(winSize.x / 1920f, winSize.y / 1080f);
         scale /= scaleMul;
-        GD.PrintT(winSize);
         RectScale = new Vector2(1f * (1f / scale), 1f * (1f / scale));
-        GD.PrintT(RectScale);
         RectSize = winSize * RectScale * (16f / 9f);// / RectScale;//(2f * RectScale);// * RectScale;
     }
 

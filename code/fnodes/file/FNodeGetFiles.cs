@@ -125,13 +125,11 @@ public class FNodeGetFiles : FNode
                 }
                 else {
                     Errorlog.Log(this, "Only absolute Paths are allowed");
-                    GD.Print("NANNI2");
                     currentFile = null;
                     return;
                 };
             } catch (System.Exception e) {
                 Errorlog.Log(this, e.Message);
-                GD.Print("NANNI3");
                 currentFile = null;
             }
     }
