@@ -11,6 +11,22 @@ This project aims to be a feature rich file management system. FNode can be used
 ![rename example](doc/rename_preview.png)  
 *Critical File operations can bei previewed before actually running the Nodetree.*
 
+<br>
+
+![name-generator](doc/exp_name_generator.png)  
+*A simple name generator using random text parts from three lists*
+
+<br>
+
+![argest-file](doc/exp_get_largest_file.png)  
+*Get the largest File in a Folder. The Tree iterates through each File, adds it's size to a List and then gets the file at the index of the largest one*
+
+<br>
+
+![folderinfo](doc/exp_folderinfo.png)  
+*Creating a Textfile with information about a folder - in this case this Repository*
+
+<!--
 ## Currently supported operations
 The individual nodes functionality is documented in the Software itself (Tooltipps)
 
@@ -19,6 +35,7 @@ The individual nodes functionality is documented in the Software itself (Tooltip
 ![all nodes](doc/nodes_math.png)
 ![all nodes](doc/nodes_list.png)
 ![all nodes](doc/nodes_other.png)
+-->
 
 ## Auto slot conversions
 
