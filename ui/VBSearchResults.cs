@@ -11,18 +11,22 @@ public class VBSearchResults : VBoxContainer
 
     public void OnSearchNode(string str) {
         var childs = GetChildren();
+        bool hadResults = false;
         foreach (Button item in childs) {
             if (item.Text.Contains(str) && str != "") {
                 item.Visible = true;
+                hadResults = true;
             } else {
                 item.Visible = false;
             }
         }
+
+        GetParent<ScrollContainer>().Visible = hadResults;
     }
 
     FNode draggedFnode = null;
     bool dragging = false;
-    
+
     public void StartDrag(FNode fn) {
         draggedFnode = fn;
         dragging = true;

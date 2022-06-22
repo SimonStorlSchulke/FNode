@@ -67,21 +67,29 @@ margin_right = 422.0
 margin_bottom = 40.0
 placeholder_text = "Search Node..."
 
-[node name="VBSearchResults" type="VBoxContainer" parent="VBMain/HBMain/VBoxContainer"]
+[node name="SCSearchResults" type="ScrollContainer" parent="VBMain/HBMain/VBoxContainer"]
+visible = false
 margin_top = 44.0
 margin_right = 422.0
-margin_bottom = 44.0
+margin_bottom = 394.0
+rect_min_size = Vector2( 0, 300 )
+
+[node name="VBSearchResults" type="VBoxContainer" parent="VBMain/HBMain/VBoxContainer/SCSearchResults"]
+margin_right = 422.0
+margin_bottom = 350.0
+size_flags_horizontal = 3
+size_flags_vertical = 11
 script = ExtResource( 14 )
 
 [node name="TCAddNodesPanel" type="TabContainer" parent="VBMain/HBMain/VBoxContainer"]
-margin_top = 48.0
+margin_top = 44.0
 margin_right = 422.0
-margin_bottom = 97.0
+margin_bottom = 93.0
 rect_min_size = Vector2( 422, 0 )
 tab_align = 0
 script = ExtResource( 5 )
 NPNodeTree = NodePath("../../ProjectTabs/Project 1/NodeTree")
-NPSearchResults = NodePath("../VBSearchResults")
+NPSearchResults = NodePath("../SCSearchResults/VBSearchResults")
 
 [node name="File" type="VBoxContainer" parent="VBMain/HBMain/VBoxContainer/TCAddNodesPanel"]
 anchor_right = 1.0
@@ -360,7 +368,7 @@ items = [ "Save", null, 0, false, false, 0, 0, null, "", false, "Load", null, 0,
 script = ExtResource( 12 )
 NPIO = NodePath("../IO")
 
-[connection signal="text_changed" from="VBMain/HBMain/VBoxContainer/LESearch" to="VBMain/HBMain/VBoxContainer/VBSearchResults" method="OnSearchNode"]
+[connection signal="text_changed" from="VBMain/HBMain/VBoxContainer/LESearch" to="VBMain/HBMain/VBoxContainer/SCSearchResults/VBSearchResults" method="OnSearchNode"]
 [connection signal="timeout" from="VBMain/Panel/HBoxContainer/InfoLine/ClearTimer" to="VBMain/Panel/HBoxContainer/InfoLine" method="Clear"]
 [connection signal="pressed" from="VBMain/Panel/HBoxContainer/Button2" to="VBMain" method="OnParseTree" binds= [ true ]]
 [connection signal="pressed" from="VBMain/Panel/HBoxContainer/Button3" to="VBMain" method="OnParseTree" binds= [ false ]]
