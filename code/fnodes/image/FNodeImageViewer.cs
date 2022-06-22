@@ -16,7 +16,7 @@ public class FNodeImageViewer : FNode
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
             {"Image", new FInputImage(this)},
-            {"Width", new FInputInt(this, initialValue: 256)},
+            {"Resolution", new FInputInt(this, initialValue: 256)},
         };
 
         FNode.IdxReset();
@@ -35,7 +35,7 @@ public class FNodeImageViewer : FNode
             return;
         }
         MagickImage image = (MagickImage)inputs["Image"].Get();
-        Image im = ImageUtils.MagickImageToGDImage(image, width: (int)inputs["Width"].Get());
+        Image im = ImageUtils.MagickImageToGDImage(image, width: (int)inputs["Resolution"].Get());
         ImageTexture tex = new ImageTexture();
         tex.CreateFromImage(im);
 
