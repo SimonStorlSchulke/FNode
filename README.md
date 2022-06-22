@@ -13,8 +13,8 @@ This project aims to be a feature rich file management system. FNode can be used
 
 <br>
 
-![name-generator](doc/exp_name_generator.png)  
-*A simple name generator using random text parts from three lists*
+![image-convert](doc/exp_convert.png)  
+*Converting Image Files*
 
 <br>
 
@@ -25,6 +25,11 @@ This project aims to be a feature rich file management system. FNode can be used
 
 ![folderinfo](doc/exp_folderinfo.png)  
 *Creating a Textfile with information about a folder - in this case this Repository*
+
+<br>
+
+![name-generator](doc/exp_name_generator.png)  
+*A simple name generator using random text parts from three lists*
 
 <!--
 ## Currently supported operations
