@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://theme/default.theme" type="Theme" id=1]
 [ext_resource path="res://ui/Project.tscn" type="PackedScene" id=2]
@@ -13,7 +13,6 @@
 [ext_resource path="res://code/ui/PuPreviewOps.cs" type="Script" id=11]
 [ext_resource path="res://ui/MenuButton.cs" type="Script" id=12]
 [ext_resource path="res://ui/FProgressBar.cs" type="Script" id=13]
-[ext_resource path="res://ui/VBSearchResults.cs" type="Script" id=14]
 
 [node name="Window" type="Control"]
 anchor_right = 1.0
@@ -27,11 +26,6 @@ margin_top = 4.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-NPProjectTabs = NodePath("HBMain/ProjectTabs")
-NPAddNodeButtons = NodePath("HBMain/VBoxContainer/TCAddNodesPanel")
 
 [node name="HBMain" type="HBoxContainer" parent="VBMain"]
 margin_right = 1700.0
@@ -57,41 +51,29 @@ margin_top = 44.0
 margin_right = -5.0
 margin_bottom = -5.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBMain/HBMain"]
+[node name="TCAddNodesPanel" type="HBoxContainer" parent="VBMain/HBMain"]
 margin_left = 1278.0
 margin_right = 1700.0
 margin_bottom = 848.0
-
-[node name="LESearch" type="LineEdit" parent="VBMain/HBMain/VBoxContainer"]
-margin_right = 422.0
-margin_bottom = 40.0
-placeholder_text = "Search Node..."
-
-[node name="VBSearchResults" type="VBoxContainer" parent="VBMain/HBMain/VBoxContainer"]
-margin_top = 44.0
-margin_right = 422.0
-margin_bottom = 44.0
-script = ExtResource( 14 )
-
-[node name="TCAddNodesPanel" type="TabContainer" parent="VBMain/HBMain/VBoxContainer"]
-margin_top = 48.0
-margin_right = 422.0
-margin_bottom = 97.0
 rect_min_size = Vector2( 422, 0 )
-tab_align = 0
 script = ExtResource( 5 )
-NPNodeTree = NodePath("../../ProjectTabs/Project 1/NodeTree")
-NPSearchResults = NodePath("../VBSearchResults")
 
-[node name="File" type="VBoxContainer" parent="VBMain/HBMain/VBoxContainer/TCAddNodesPanel"]
+[node name="HBCategories" type="VBoxContainer" parent="VBMain/HBMain/TCAddNodesPanel"]
+margin_bottom = 848.0
+
+[node name="Control" type="Control" parent="VBMain/HBMain/TCAddNodesPanel/HBCategories"]
+
+[node name="Label" type="Label" parent="VBMain/HBMain/TCAddNodesPanel/HBCategories/Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 44.0
-margin_right = -5.0
-margin_bottom = -5.0
+text = "File"
 
-[node name="Text" type="VBoxContainer" parent="VBMain/HBMain/VBoxContainer/TCAddNodesPanel"]
+[node name="File" type="VBoxContainer" parent="VBMain/HBMain/TCAddNodesPanel"]
+margin_left = 4.0
+margin_right = 4.0
+margin_bottom = 848.0
+
+[node name="Text" type="VBoxContainer" parent="VBMain/HBMain/TCAddNodesPanel"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -100,7 +82,7 @@ margin_top = 44.0
 margin_right = -5.0
 margin_bottom = -5.0
 
-[node name="Date" type="VBoxContainer" parent="VBMain/HBMain/VBoxContainer/TCAddNodesPanel"]
+[node name="Date" type="VBoxContainer" parent="VBMain/HBMain/TCAddNodesPanel"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -109,7 +91,7 @@ margin_top = 44.0
 margin_right = -5.0
 margin_bottom = -5.0
 
-[node name="Math" type="VBoxContainer" parent="VBMain/HBMain/VBoxContainer/TCAddNodesPanel"]
+[node name="Math" type="VBoxContainer" parent="VBMain/HBMain/TCAddNodesPanel"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -118,7 +100,7 @@ margin_top = 44.0
 margin_right = -5.0
 margin_bottom = -5.0
 
-[node name="List" type="VBoxContainer" parent="VBMain/HBMain/VBoxContainer/TCAddNodesPanel"]
+[node name="List" type="VBoxContainer" parent="VBMain/HBMain/TCAddNodesPanel"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -127,7 +109,7 @@ margin_top = 44.0
 margin_right = -5.0
 margin_bottom = -5.0
 
-[node name="Img" type="VBoxContainer" parent="VBMain/HBMain/VBoxContainer/TCAddNodesPanel"]
+[node name="Img" type="VBoxContainer" parent="VBMain/HBMain/TCAddNodesPanel"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -360,7 +342,6 @@ items = [ "Save", null, 0, false, false, 0, 0, null, "", false, "Load", null, 0,
 script = ExtResource( 12 )
 NPIO = NodePath("../IO")
 
-[connection signal="text_changed" from="VBMain/HBMain/VBoxContainer/LESearch" to="VBMain/HBMain/VBoxContainer/VBSearchResults" method="OnSearchNode"]
 [connection signal="timeout" from="VBMain/Panel/HBoxContainer/InfoLine/ClearTimer" to="VBMain/Panel/HBoxContainer/InfoLine" method="Clear"]
 [connection signal="pressed" from="VBMain/Panel/HBoxContainer/Button2" to="VBMain" method="OnParseTree" binds= [ true ]]
 [connection signal="pressed" from="VBMain/Panel/HBoxContainer/Button3" to="VBMain" method="OnParseTree" binds= [ false ]]

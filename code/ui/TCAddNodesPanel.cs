@@ -4,6 +4,8 @@ using System;
 public class TCAddNodesPanel : TabContainer
 {
     [Export] NodePath NPNodeTree;
+    [Export] NodePath NPSearchResults;
+    VBSearchResults searchResults;
 
     public void CreateButtons() {
         CreateAddButton<FNodeGetFiles>();
@@ -42,7 +44,7 @@ public class TCAddNodesPanel : TabContainer
         CreateAddButton<FNodeAccumulateList>();
         CreateAddButton<FNodeListComparisons>();
         CreateAddButton<FNodeGetImage>();
-        CreateAddButton<FNodeConvertImage>();
+        CreateAddButton<FNodeSaveImageAs>();
         CreateAddButton<FNodeImageViewer>();
     }
 
@@ -50,6 +52,7 @@ public class TCAddNodesPanel : TabContainer
 
     public override void _Ready() {
         cursorDragNode =    ResourceLoader.Load("res://theme/icons/cursor_add_node.png");
+        searchResults = GetNode<VBSearchResults>(NPSearchResults);
     }
 
     void CreateAddButton<fnType>() where fnType : FNode {
@@ -61,6 +64,11 @@ public class TCAddNodesPanel : TabContainer
         //AddNodeButton.Connect("pressed", Main.inst, nameof(Main.OnAddNodeFromUI), new Godot.Collections.Array{fn});
         AddNodeButton.Connect("button_down", this, nameof(StartDrag), new Godot.Collections.Array{fn});
         GetNode(fn.category).AddChild(AddNodeButton);
+        Button searchResultButton = (Button)AddNodeButton.Duplicate();
+
+        searchResultButton.Connect("button_down", searchResults, nameof(StartDrag), new Godot.Collections.Array{fn});
+        searchResultButton.Visible = false;
+        searchResults.AddChild(searchResultButton);
     }
 
     FNode draggedFnode = null;
