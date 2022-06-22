@@ -73,9 +73,16 @@ This has the disadvantage of increasing the build size - although a lot less tha
     Options: Whole Text, Only Line X, split at string...
 - Image Nodes:
     - Crop (pixels / percent, t l b r)
+    - Set Background
+    - separate channels
+    - Comp
+        - Position (%)
+        - Blendmode
+        - Factor
     - Resize (pixels / percent, option: Keep Aspect)
 
 ### Wild Ideas:
+- Image Previewer
 - Parse JSON
 - Rest API Request
 - Create PDFs

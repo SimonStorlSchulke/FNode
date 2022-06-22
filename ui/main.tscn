@@ -26,6 +26,9 @@ margin_top = 4.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 NPProjectTabs = NodePath("HBMain/ProjectTabs")
 NPAddNodeButtons = NodePath("HBMain/TCAddNodesPanel")
 
@@ -106,7 +109,7 @@ margin_top = 44.0
 margin_right = -5.0
 margin_bottom = -5.0
 
-[node name="Other" type="VBoxContainer" parent="VBMain/HBMain/TCAddNodesPanel"]
+[node name="Img" type="VBoxContainer" parent="VBMain/HBMain/TCAddNodesPanel"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0

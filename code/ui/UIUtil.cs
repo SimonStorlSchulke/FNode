@@ -25,6 +25,8 @@ public class UIUtil : Node
         styleboxes.Add("NodeBool_Selected", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeBool_Selected.stylebox"));
         styleboxes.Add("NodeList", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeList.stylebox"));
         styleboxes.Add("NodeList_Selected", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeList_Selected.stylebox"));
+        styleboxes.Add("NodeImage", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeImage.stylebox"));
+        styleboxes.Add("NodeImage_Selected", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeImage_Selected.stylebox"));
         styleboxes.Add("NodeOther", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeOther.stylebox"));
         styleboxes.Add("NodeOther_Selected", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeOther_Selected.stylebox"));
     }
@@ -62,6 +64,11 @@ public class UIUtil : Node
         case "List":
             fn.AddStyleboxOverride("frame", styleboxes["NodeList"]);
             fn.AddStyleboxOverride("selectedframe", styleboxes["NodeList_Selected"]);
+            break;
+
+        case "Img":
+            fn.AddStyleboxOverride("frame", styleboxes["NodeImage"]);
+            fn.AddStyleboxOverride("selectedframe", styleboxes["NodeImage_Selected"]);
             break;
 
         default:
@@ -184,8 +191,7 @@ public class UIUtil : Node
                 break;
 
             case FInputImage inpImage:
-                ct = new LineEdit();
-                if(fInp.initialValue != null) (ct as LineEdit).Text = (string)fInp.initialValue;
+                ct = new Control();
                 slotColor = Colors.Blue;
                 break;
 

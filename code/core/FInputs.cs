@@ -356,21 +356,23 @@ public class FInputImage : FInput {
     }
 
     public override void UpdateDefaultValueFromUI() {
+        /*
         Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
         string path = (nd as LineEdit).Text;
         if (FileUtil.IsAbsolutePath(path))
             defaultValue = path;
         else
             defaultValue = null;
+            */
     }
 
     public override object GetDefaultValueFromUI() {
-        Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
-        return (nd as LineEdit).Text;
+        //Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
+        return null;
     }
 
     public override void UpdateUIFromValue(object value) {
-        ((LineEdit)owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1)).Text = (string)value;
+        //((LineEdit)owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1)).Text = (string)value;
     }
 }
 
