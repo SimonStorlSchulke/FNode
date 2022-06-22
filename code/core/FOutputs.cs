@@ -71,6 +71,12 @@ public class FOutputFile : FOutput {
     }
 }
 
+public class FOutputImage : FOutput {
+    public FOutputImage(FNode owner, GetOutputValue method, int idx=-1) : base(owner, method, idx) {
+        slotType = SlotType.FILE;
+    }
+}
+
 public class FOutputDate : FOutput {
     public FOutputDate(FNode owner, GetOutputValue method, int idx=-1) : base(owner, method, idx) {
         slotType = SlotType.DATE;

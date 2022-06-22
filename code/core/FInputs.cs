@@ -349,3 +349,28 @@ public class FInputDate : FInput {
     }
 }
 
+
+public class FInputImage : FInput {
+    public FInputImage(FNode owner, int idx = -1, string description = "", object initialValue = null) : base(owner, idx, description, initialValue) {
+        slotType = SlotType.FILE;
+    }
+
+    public override void UpdateDefaultValueFromUI() {
+        Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
+        string path = (nd as LineEdit).Text;
+        if (FileUtil.IsAbsolutePath(path))
+            defaultValue = path;
+        else
+            defaultValue = null;
+    }
+
+    public override object GetDefaultValueFromUI() {
+        Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
+        return (nd as LineEdit).Text;
+    }
+
+    public override void UpdateUIFromValue(object value) {
+        ((LineEdit)owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1)).Text = (string)value;
+    }
+}
+

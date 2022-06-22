@@ -62,7 +62,8 @@ public abstract class FNode : GraphNode {
         INT,
         FLOAT,
         DATE,
-        LIST
+        LIST,
+        IMAGE
     }
     
     public void AddOptionEnum(string name, string[] options, string callbackMethod="") {

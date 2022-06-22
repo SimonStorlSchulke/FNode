@@ -35,7 +35,7 @@ public class Main : VBoxContainer
 
     public override void _EnterTree() {
         inst = this;
-        float UIScale = OS.GetScreenSize().x > 2000 ? 1.0f : 0.7f; // TODO better resolution options
+        float UIScale = OS.GetScreenSize().x > 2000 ? 1.0f : 0.6f; // TODO better resolution options
         OS.WindowSize = OS.GetScreenSize() * 0.7f; //Always start at 0.7% Resolution
         OS.WindowPosition = OS.GetScreenSize() / 2 - OS.WindowSize / 2;
         GetTree().SetScreenStretch(SceneTree.StretchMode.Disabled, SceneTree.StretchAspect.Ignore, new Vector2(128, 128), UIScale);

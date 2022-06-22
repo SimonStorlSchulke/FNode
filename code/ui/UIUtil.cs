@@ -114,6 +114,10 @@ public class UIUtil : Node
                 slotColor = Colors.LightGreen;
                 break;
 
+            case FOutputImage t5:
+                slotColor = Colors.Blue;
+                break;
+
             default:
                 slotColor = Colors.White;
                 break;
@@ -144,39 +148,45 @@ public class UIUtil : Node
         Godot.Color slotColor;
         switch (fInp)
         {
-            case FInputInt t1:
+            case FInputInt inpInt:
                 ct = new SpinBox();
-                (ct as SpinBox).MinValue = (fInp as FInputInt).min;
-                (ct as SpinBox).MaxValue = (fInp as FInputInt).max;
+                (ct as SpinBox).MinValue = inpInt.min;
+                (ct as SpinBox).MaxValue = inpInt.max;
                 if(fInp.initialValue != null) (ct as SpinBox).Value = (int)fInp.initialValue;
                 slotColor = Colors.SeaGreen;
                 break;
                 
-            case FInputFloat t2:
+            case FInputFloat inpFloat:
                 ct = new SpinBox();
-                (ct as SpinBox).MinValue = (fInp as FInputFloat).min;
-                (ct as SpinBox).MaxValue = (fInp as FInputFloat).max;
+                (ct as SpinBox).MinValue = inpFloat.min;
+                (ct as SpinBox).MaxValue = inpFloat.max;
                 ((SpinBox)ct).Step = 0.01;
                 if(fInp.initialValue != null) (ct as SpinBox).Value = (float)fInp.initialValue;
                 slotColor = Colors.SkyBlue;
                 break;
 
-            case FInputBool t3:
+            case FInputBool inpBool:
                 ct = new CheckBox();
                 if(fInp.initialValue != null) (ct as CheckBox).Pressed = (bool)fInp.initialValue;
                 slotColor = Colors.LightPink;
                 break;
 
-            case FInputString t4:
+            case FInputString inpString:
                 ct = new LineEdit();
                 if(fInp.initialValue != null) (ct as LineEdit).Text = (string)fInp.initialValue;
                 slotColor = Colors.Orange;
                 break;
 
-            case FInputFile t5:
+            case FInputFile inpFile:
                 ct = new LineEdit();
                 if(fInp.initialValue != null) (ct as LineEdit).Text = (string)fInp.initialValue;
                 slotColor = Colors.Red;
+                break;
+
+            case FInputImage inpImage:
+                ct = new LineEdit();
+                if(fInp.initialValue != null) (ct as LineEdit).Text = (string)fInp.initialValue;
+                slotColor = Colors.Blue;
                 break;
 
             case FInputList t5:

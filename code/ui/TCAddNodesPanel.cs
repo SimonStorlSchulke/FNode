@@ -41,6 +41,7 @@ public class TCAddNodesPanel : TabContainer
         CreateAddButton<FNodeSplitTextToList>();
         CreateAddButton<FNodeAccumulateList>();
         CreateAddButton<FNodeListComparisons>();
+        CreateAddButton<FNodeGetImage>();
     }
 
     Resource cursorDragNode;
