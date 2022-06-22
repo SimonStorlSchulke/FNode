@@ -3,9 +3,9 @@ using Godot;
 using System;
 using ImageMagick;
 
-public class FNodeGetImage : FNode
+public class FNodeConvertImage : FNode
 {
-    public FNodeGetImage() {
+    public FNodeConvertImage() {
         HintTooltip = "Multiple Math Operations";
         category = "Math";
 

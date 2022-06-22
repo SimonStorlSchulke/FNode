@@ -21,7 +21,7 @@ public class FNodeRandomNumber : FNode
         FNode.IdxReset();
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
             {
-            "Number", new FOutput(this, delegate() {
+            "Number", new FOutputInt(this, delegate() {
                 int uiSeed = (int)inputs["Seed"].Get();
                 if (uiSeed == -1) {
                     rng.Seed = Convert.ToUInt64(DateTime.Now.Ticks);
@@ -32,7 +32,7 @@ public class FNodeRandomNumber : FNode
                 rng.Seed += seedAdds;
                 seedAdds++;
 
-                if (GetNode<OptionButton>("numbertype").Selected == 0) {
+                if (GetSelectedOption("numbertype") == "Int") {
                     return rng.RandiRange((int)inputs["Min"].Get(), (int)inputs["Max"].Get());
                 } else {
                     return rng.RandfRange((float)inputs["Min"].Get(), (float)inputs["Max"].Get());

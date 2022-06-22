@@ -66,13 +66,14 @@ public abstract class FNode : GraphNode {
         IMAGE
     }
     
-    public void AddOptionEnum(string name, string[] options, string callbackMethod="") {
+    public void AddOptionEnum(string name, string[] options, string callbackMethod="", string description="") {
         
         OptionButton ob = new OptionButton();
         foreach (var item in options) {
             ob.AddItem(item);
         }
         HbOption hb = new HbOption(name, ob);
+        hb.HintTooltip = description;
         hb.SizeFlagsHorizontal = (int)SizeFlags.ExpandFill;
         ob.SizeFlagsHorizontal = (int)SizeFlags.ExpandFill;
         

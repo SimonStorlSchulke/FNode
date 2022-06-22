@@ -352,7 +352,7 @@ public class FInputDate : FInput {
 
 public class FInputImage : FInput {
     public FInputImage(FNode owner, int idx = -1, string description = "", object initialValue = null) : base(owner, idx, description, initialValue) {
-        slotType = SlotType.FILE;
+        slotType = SlotType.IMAGE;
     }
 
     public override void UpdateDefaultValueFromUI() {
