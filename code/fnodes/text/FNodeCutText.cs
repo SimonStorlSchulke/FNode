@@ -19,14 +19,14 @@ public class FNodeCutText : FNode
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
             {
             "Text", new FOutputString(this, delegate() {
-                string str = (string)inputs["Text"].Get();
+                string str = (string)inputs["Text"].Get<object>();
 
-                if (!(bool)inputs["Filter"].Get()) {
+                if (!(bool)inputs["Filter"].Get<object>()) {
                     return str;
                 }
                 
-                int start = (int)inputs["Start"].Get();
-                int end = (int)inputs["End"].Get();
+                int start = (int)inputs["Start"].Get<object>();
+                int end = (int)inputs["End"].Get<object>();
                 if (start + end > str.Length) {
                     return str;
                 }

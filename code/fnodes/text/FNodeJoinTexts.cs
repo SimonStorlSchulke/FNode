@@ -22,16 +22,16 @@ public class FNodeJoinTexts : FNode, IFNodeVarInputSize
             {
                 string str = "";
 
-                if (!(bool)inputs["Filter"].Get()) {
-                    return inputs["Text1"].Get() as string;
+                if (!(bool)inputs["Filter"].Get<object>()) {
+                    return inputs["Text1"].Get<object>() as string;
                 }
 
-                string sep = inputs["Separator"].Get() as string;
+                string sep = inputs["Separator"].Get<object>() as string;
                 sep = sep.Replace("[LINEBREAK]", "\n"); //TODO sanitize this...
                 int i = 0;
                 foreach (var item in inputs) {
                     if (i>1) {
-                        str += i < inputs.Count-1 ? item.Value.Get() as string + sep : item.Value.Get() as string;
+                        str += i < inputs.Count-1 ? item.Value.Get<object>() as string + sep : item.Value.Get<object>() as string;
                     }
                     i++;
                 }

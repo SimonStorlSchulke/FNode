@@ -21,9 +21,9 @@ public class FNodeListToText : FNode
                 string text = "";
                 Godot.Collections.Array arr;
                 
-                arr = (Godot.Collections.Array)inputs["List"].Get();
+                arr = (Godot.Collections.Array)inputs["List"].Get<object>();
                 
-                string sep = inputs["Separator"].Get() as string;
+                string sep = inputs["Separator"].Get<object>() as string;
                 sep = sep.Replace("[LINEBREAK]", "\n"); //TODO sanitize this...
 
                 int i = 0;

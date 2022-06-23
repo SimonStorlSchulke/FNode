@@ -21,8 +21,8 @@ public class FNodeNumberToText : FNode
             "Text", new FOutputString(this, delegate() {
                 string str = "WRONG FORMAT";
                 try {
-                    str = ((float)inputs["Number"].Get()).ToString(
-                        (string)inputs["Format"].Get(),
+                    str = ((float)inputs["Number"].Get<object>()).ToString(
+                        (string)inputs["Format"].Get<object>(),
                         System.Globalization.CultureInfo.InvariantCulture);
                 } catch (System.Exception e) {
                     Errorlog.Log(this, e);

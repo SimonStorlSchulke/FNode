@@ -22,9 +22,9 @@ public abstract class FNodeMaskable : FNode {
 
     ///<summary> Passthrough Nodes must call base.OnBeforeEvaluation()</summary>
     public override void OnNextIteration() {
-        if ((bool)inputs["Mask"].Get()) {
+        if ((bool)inputs["Mask"].Get<object>()) {
             outputs.ElementAt(0).Value.Get = delegate() {
-                return passthrough.Get();
+                return passthrough.Get<object>();
             };
         }
     }

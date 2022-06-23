@@ -30,7 +30,7 @@ public class FNodeAccumulateList : FNode
 
     public override void OnNextIteration() {
         if (selectedOption == "Incremental") {
-            accumulatedList.Add(inputs["Value"].Get());
+            accumulatedList.Add(inputs["Value"].Get<object>());
         }
     }
 
@@ -39,12 +39,12 @@ public class FNodeAccumulateList : FNode
         selectedOption = GetSelectedOption("Mode");
         if (selectedOption == "Instant") {
             int iterations = (int)Math.Max(Main.inst.currentProject.spIterations.Value, Project.maxNumFiles);
-            int customIts = (int)inputs["Custom Iterations"].Get();
+            int customIts = (int)inputs["Custom Iterations"].Get<object>();
             if (customIts != 0) {
                 iterations = customIts;
             }
             for (int i = 0; i < iterations; i++) {
-                accumulatedList.Add(inputs["Value"].Get());
+                accumulatedList.Add(inputs["Value"].Get<object>());
                 Project.idxEval++;;
             }
             Project.idxEval = 0;

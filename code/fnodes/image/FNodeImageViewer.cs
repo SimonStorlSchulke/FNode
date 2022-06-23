@@ -39,8 +39,8 @@ public class FNodeImageViewer : FNode
         if (!Project.IsLastIteration) {
             return;
         }
-        MagickImage image = (MagickImage)inputs["Image"].Get();
-        Image im = ImageUtils.MagickImageToGDImage(image, width: (int)inputs["Resolution"].Get());
+        MagickImage image = (MagickImage)inputs["Image"].Get<object>();
+        Image im = ImageUtils.MagickImageToGDImage(image, width: (int)inputs["Resolution"].Get<object>());
         tex = new ImageTexture();
         tex.CreateFromImage(im);
 

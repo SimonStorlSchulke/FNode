@@ -182,12 +182,12 @@ public class FInput {
         }
     }
 
-    public virtual object Get() {
+    public virtual T Get<T>() {
         if (connectedTo != null) {
-            return AutoSlotConversion(connectedTo.Get());
+            return (T)AutoSlotConversion(connectedTo.Get());
         } else {
             UpdateDefaultValueFromUI();
-            return AutoSlotConversion(defaultValue); //TODO - maybe not necessary
+            return (T)AutoSlotConversion(defaultValue); //TODO - maybe not necessary
         }
     }
 

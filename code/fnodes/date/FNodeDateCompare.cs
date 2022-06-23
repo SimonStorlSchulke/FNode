@@ -20,7 +20,7 @@ public class FNodeDateCompare : FNode
             {
             "Before", new FOutputBool(this, delegate()
             {   try {
-                int compar = ((DateTime)inputs["Date"].Get()).CompareTo(((DateTime)inputs["CmpTo"].Get()));
+                int compar = inputs["Date"].Get<DateTime>().CompareTo(inputs["CmpTo"].Get<DateTime>());
                 return compar > 0;
             } catch(System.Exception e) {
                 return 0;
@@ -30,7 +30,7 @@ public class FNodeDateCompare : FNode
             "After", new FOutputBool(this, delegate()
             {   try {
 
-                int compar = ((DateTime)inputs["Date"].Get()).CompareTo(((DateTime)inputs["CmpTo"].Get()));
+                int compar = (inputs["Date"].Get<DateTime>()).CompareTo(((DateTime)inputs["CmpTo"].Get<DateTime>()));
                 return compar <= 0;
             } catch(System.Exception e) {
                 return 0;
@@ -40,7 +40,7 @@ public class FNodeDateCompare : FNode
             "Difference", new FOutputFloat(this, delegate()
             {   try {
 
-                TimeSpan ts = ((DateTime)inputs["CmpTo"].Get()) - ((DateTime)inputs["Date"].Get());
+                TimeSpan ts = inputs["CmpTo"].Get<DateTime>() - inputs["Date"].Get<DateTime>();
                 return (float)ts.TotalDays;
             } catch(System.Exception e) {
                 return 0;

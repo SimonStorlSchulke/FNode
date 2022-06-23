@@ -221,8 +221,8 @@ window_title = "Save"
 resizable = true
 access = 2
 filters = PoolStringArray( "*.fnode" )
-current_dir = "/dev/Godot/fnode"
-current_path = "/dev/Godot/fnode/"
+current_dir = "/Users/simon/Dev/nodefiler"
+current_path = "/Users/simon/Dev/nodefiler/"
 
 [node name="FDLoad" type="FileDialog" parent="."]
 margin_left = 522.0
@@ -236,8 +236,8 @@ resizable = true
 mode = 0
 access = 2
 filters = PoolStringArray( "*.fnode" )
-current_dir = "/dev/Godot/fnode"
-current_path = "/dev/Godot/fnode/"
+current_dir = "/Users/simon/Dev/nodefiler"
+current_path = "/Users/simon/Dev/nodefiler/"
 
 [node name="UIUtil" type="Node" parent="."]
 process_priority = -1

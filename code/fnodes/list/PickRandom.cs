@@ -22,17 +22,17 @@ public class FNodePickRandom : FNode
             {
             "Item", new FOutput(this, delegate() {
 
-                int uiSeed = (int)inputs["Seed"].Get();
+                int uiSeed = (int)inputs["Seed"].Get<object>();
                 if (uiSeed == -1) {
                     rng.Seed = Convert.ToUInt64(DateTime.Now.Ticks);
                 } else {
-                    rng.Seed = Convert.ToUInt64((int)inputs["Seed"].Get());
+                    rng.Seed = Convert.ToUInt64((int)inputs["Seed"].Get<object>());
                 }
 
                 rng.Seed += seedAdds;
                 seedAdds++;
 
-                var arr = (Godot.Collections.Array)inputs["List"].Get();
+                var arr = (Godot.Collections.Array)inputs["List"].Get<object>();
 
                 int idx = rng.RandiRange(0, arr.Count - 1);
 

@@ -23,16 +23,29 @@ public class FNodeSaveImageAs : FNode
     }
 
     public override void ExecutiveMethod() {
-        MagickImage image = (MagickImage)inputs["Image"].Get();
+
+        MagickImage image = (MagickImage)inputs["Image"].Get<object>();
         if (image == null) {
             return;
         }
         string origPath = image.FileName;
-        string nPath = (string)inputs["Output Path"].Get();
+        string nPath = (string)inputs["Output Path"].Get<object>();
         string path = nPath == "" ? origPath.GetBaseDir() : nPath;
         FileUtil.CreateDirIfNotExisting(nPath);
-        image.Quality = (int)inputs["Quality"].Get();
-        image.Write(path + "\\" + System.IO.Path.GetFileNameWithoutExtension(origPath) + "." + GetSelectedOption("To Type"));
+        image.Quality = (int)inputs["Quality"].Get<object>();
+        string finalPath = path + "\\" + System.IO.Path.GetFileNameWithoutExtension(origPath) + "." + GetSelectedOption("To Type");
+
+        if (Main.inst.currentProject.NodeTree.previewMode) {
+            PuPreviewOps.AddFileCreated(finalPath);
+            base.ExecutiveMethod();
+            return;
+        }
+        try {
+            image.Write(finalPath);
+        } catch (ImageMagick.MagickException e) { //TODO test if there is any advantage over using System.Exception here
+            Errorlog.Log(this, "Could not write image - " + e.Message);
+        }
+
         base.ExecutiveMethod();
     }
 

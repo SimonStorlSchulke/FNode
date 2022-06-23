@@ -17,7 +17,7 @@ public class FNodeSubList : FNode
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
             {
             "List", new FOutputList(this, delegate() {
-                return (Godot.Collections.Array)inputs["List1"].Get() + (Godot.Collections.Array)inputs["List2"].Get();
+                return (Godot.Collections.Array)inputs["List1"].Get<object>() + (Godot.Collections.Array)inputs["List2"].Get<object>();
             })},
         };
     }

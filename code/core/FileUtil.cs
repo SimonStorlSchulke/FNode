@@ -14,9 +14,7 @@ public static class FileUtil
 
     public static void SecureRename(string path, string renameTo) {
         string fileName = renameTo == "" ? System.IO.Path.GetFileNameWithoutExtension(path).GetFile() : renameTo;
-        string newPath = FileUtil.JoinPaths(path.GetBaseDir(), fileName + System.IO.Path.GetExtension(path));
-        GD.Print(newPath);
-        
+        string newPath = FileUtil.JoinPaths(path.GetBaseDir(), fileName + System.IO.Path.GetExtension(path));        
         if (Main.inst.currentProject.NodeTree.previewMode) {
             PuPreviewOps.AddFileMoved(path, newPath);
             return;

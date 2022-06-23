@@ -19,7 +19,7 @@ public class FNodeDateToString : FNode
             {
             "Text", new FOutputString(this, delegate()  {
                 try {
-                    return ((DateTime)inputs["Date"].Get()).ToString(inputs["Format"].Get() as string);
+                    return ((DateTime)inputs["Date"].Get<object>()).ToString(inputs["Format"].Get<object>() as string);
                 } catch {
                     Errorlog.Log(this, "No Date was given");
                     return "";

@@ -22,20 +22,20 @@ public class FNodeRandomNumber : FNode
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
             {
             "Number", new FOutputInt(this, delegate() {
-                int uiSeed = (int)inputs["Seed"].Get();
+                int uiSeed = (int)inputs["Seed"].Get<object>();
                 if (uiSeed == -1) {
                     rng.Seed = Convert.ToUInt64(DateTime.Now.Ticks);
                 } else {
-                    rng.Seed = Convert.ToUInt64((int)inputs["Seed"].Get());
+                    rng.Seed = Convert.ToUInt64((int)inputs["Seed"].Get<object>());
                 }
                 
                 rng.Seed += seedAdds;
                 seedAdds++;
 
                 if (GetSelectedOption("numbertype") == "Int") {
-                    return rng.RandiRange((int)inputs["Min"].Get(), (int)inputs["Max"].Get());
+                    return rng.RandiRange((int)inputs["Min"].Get<object>(), (int)inputs["Max"].Get<object>());
                 } else {
-                    return rng.RandfRange((float)inputs["Min"].Get(), (float)inputs["Max"].Get());
+                    return rng.RandfRange((float)inputs["Min"].Get<object>(), (float)inputs["Max"].Get<object>());
                 }
             })},
         };

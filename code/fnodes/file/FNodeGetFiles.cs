@@ -19,7 +19,7 @@ public class FNodeGetFiles : FNode
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
             {
             "File", new FOutputFile(this, delegate() {
-            int stack = (int)inputs["Stack"].Get();
+            int stack = (int)inputs["Stack"].Get<object>();
             //string path = Main.inst.currentProject.FileStacks.GetChild<FileList>() Stacks[stack][Project.idxEval].Item2;
             try {
                 return currentFile;
@@ -113,7 +113,7 @@ public class FNodeGetFiles : FNode
     public override void OnNextIteration() {
         string path;
         try {
-            path = Main.inst.currentProject.FileStacks.GetChild<FileList>((int)inputs["Stack"].Get()).allFiles[Project.idxEval];
+            path = Main.inst.currentProject.FileStacks.GetChild<FileList>((int)inputs["Stack"].Get<object>()).allFiles[Project.idxEval];
         } catch(System.Exception e) {
             currentFile = null;
             return;

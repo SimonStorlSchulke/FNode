@@ -19,29 +19,29 @@ public class FNodeCreateTextFile : FNode
             {
             "File", new FOutputFile(this, delegate() 
             {
-                return ((FileInfo)inputs["File"].Get()).Name;
+                return ((FileInfo)inputs["File"].Get<object>()).Name;
             })},
         };
     }
 
     public override void ExecutiveMethod()
     {
-        if (!(bool)inputs["Filter"].Get()) {
+        if (!(bool)inputs["Filter"].Get<object>()) {
             base.ExecutiveMethod();
             return;
         }
         if (GetParent<NodeTree>().previewMode) {
-            string p = FileUtil.JoinPaths((string)inputs["Path"].Get(), (string)inputs["Name"].Get());
+            string p = FileUtil.JoinPaths((string)inputs["Path"].Get<object>(), (string)inputs["Name"].Get<object>());
             PuPreviewOps.AddFileCreated(p);
             base.ExecutiveMethod();
             return;
         }
 
-        FileUtil.CreateDirIfNotExisting((string)inputs["Path"].Get());
+        FileUtil.CreateDirIfNotExisting((string)inputs["Path"].Get<object>());
 
         try {
-            string path = FileUtil.JoinPaths((string)inputs["Path"].Get(), (string)inputs["Name"].Get());
-            System.IO.File.WriteAllText(path, (string)inputs["Text"].Get()); // Todo - Replaye with faster Method
+            string path = FileUtil.JoinPaths((string)inputs["Path"].Get<object>(), (string)inputs["Name"].Get<object>());
+            System.IO.File.WriteAllText(path, (string)inputs["Text"].Get<object>()); // Todo - Replaye with faster Method
         } catch {
             base.ExecutiveMethod();
             return;

@@ -26,8 +26,8 @@ public class FNodeTextViewer : FNode
 
     public override void ExecutiveMethod() {
 
-        if ((bool)inputs["Accumulate"].Get()) {
-            string text = inputs["Text"].Get() as string;
+        if ((bool)inputs["Accumulate"].Get<object>()) {
+            string text = inputs["Text"].Get<object>() as string;
             if (text != "" && text != null) {
                 accumulatedString += text + "\n";
             }
@@ -36,7 +36,7 @@ public class FNodeTextViewer : FNode
             }
         } else {
             GD.Print("WHY?");
-            GetNode<TextEdit>("Viewer").Text = inputs["Text"].Get() as string;
+            GetNode<TextEdit>("Viewer").Text = inputs["Text"].Get<object>() as string;
         }
         base.ExecutiveMethod();
     }

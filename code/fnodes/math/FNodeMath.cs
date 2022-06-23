@@ -18,8 +18,8 @@ public class FNodeMath : FNode
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
             {
             "Result", new FOutputFloat(this, delegate() {
-                float val1 = (float)inputs["Val1"].Get();
-                float val2 = (float)inputs["Val2"].Get();
+                float val1 = (float)inputs["Val1"].Get<object>();
+                float val2 = (float)inputs["Val2"].Get<object>();
                 string selectedOption = GetSelectedOption("Mode");
                 switch (selectedOption)
                 {

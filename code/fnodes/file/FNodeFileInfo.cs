@@ -15,12 +15,12 @@ public class FNodeFileInfo : FNode {
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
             {
             "File", new FOutputFile(this, delegate() {
-                return (FileInfo)inputs["File"].Get();
+                return (FileInfo)inputs["File"].Get<object>();
             })},
             {
             "Name", new FOutputString(this, delegate() {
                 try {
-                    return (System.IO.Path.GetFileNameWithoutExtension(((FileInfo)inputs["File"].Get()).FullName));
+                    return (System.IO.Path.GetFileNameWithoutExtension(((FileInfo)inputs["File"].Get<object>()).FullName));
                 } catch {
                     return "";
                 }
@@ -28,14 +28,14 @@ public class FNodeFileInfo : FNode {
             {
             "Extension", new FOutputString(this, delegate() {
                 try {
-                    return ((FileInfo)inputs["File"].Get()).Extension;
+                    return ((FileInfo)inputs["File"].Get<object>()).Extension;
                 } catch {
                     return "";
                 }
             })},{
             "Name with Extension", new FOutputString(this, delegate() {
                 try {
-                    return ((FileInfo)inputs["File"].Get()).Name;
+                    return ((FileInfo)inputs["File"].Get<object>()).Name;
                 } catch {
                     return "";
                 }
@@ -43,7 +43,7 @@ public class FNodeFileInfo : FNode {
             {
             "Base Dir", new FOutputString(this, delegate() {
                 try {
-                    return ((FileInfo)inputs["File"].Get()).Directory.ToString(); //TODO - Add DirectoryInfo Slot Type??
+                    return ((FileInfo)inputs["File"].Get<object>()).Directory.ToString(); //TODO - Add DirectoryInfo Slot Type??
                 } catch {
                     return "";
                 }
@@ -51,7 +51,7 @@ public class FNodeFileInfo : FNode {
             {
             "Creation Time", new FOutputDate(this, delegate() {
                 try {
-                    return ((FileInfo)inputs["File"].Get()).CreationTime;
+                    return ((FileInfo)inputs["File"].Get<object>()).CreationTime;
                 } catch {
                     return null; // Maybe Null here instead?
                 }
@@ -59,7 +59,7 @@ public class FNodeFileInfo : FNode {
             {
             "Last Access Time", new FOutputDate(this, delegate() {
                 try {
-                    return ((FileInfo)inputs["File"].Get()).LastAccessTime;
+                    return ((FileInfo)inputs["File"].Get<object>()).LastAccessTime;
                 } catch {
                     return null;
                 }
@@ -67,7 +67,7 @@ public class FNodeFileInfo : FNode {
             {
             "Last Write Time", new FOutputDate(this, delegate() {
                 try {
-                    return ((FileInfo)inputs["File"].Get()).LastWriteTime;
+                    return ((FileInfo)inputs["File"].Get<object>()).LastWriteTime;
                 } catch {
                     return null;
                 }
@@ -75,7 +75,7 @@ public class FNodeFileInfo : FNode {
             {
             "Size", new FOutputInt(this, delegate() {
                 try {
-                    return (int)((FileInfo)inputs["File"].Get()).Length;
+                    return (int)((FileInfo)inputs["File"].Get<object>()).Length;
                 } catch {
                     return 0;
                 }
@@ -83,7 +83,7 @@ public class FNodeFileInfo : FNode {
             {
             "Readonly", new FOutputBool(this, delegate() {
                 try {
-                    return ((FileInfo)inputs["File"].Get()).IsReadOnly;
+                    return ((FileInfo)inputs["File"].Get<object>()).IsReadOnly;
                 } catch {
                     return true;
                 }

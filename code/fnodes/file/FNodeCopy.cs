@@ -17,7 +17,7 @@ public class FNodeCopy : FNode
             /*{"Creation Time", new FOutput(this, 0, delegate() {
                 FOutput connTo = inputs["File"].ConnectedTo();
                 if (connTo != null) {
-                    return System.IO.File.GetCreationTime(connTo.Get() as string);
+                    return System.IO.File.GetCreationTime(connTo.Get<object>() as string);
                 } else {
                     return "TODO DEFAULT VALUES";
                 }
@@ -27,9 +27,9 @@ public class FNodeCopy : FNode
 
     public override void ExecutiveMethod()
     {
-        string dest = ((FileInfo)inputs["File"].Get()).DirectoryName + "\\" + ((string)inputs["To"].Get());
+        string dest = ((FileInfo)inputs["File"].Get<object>()).DirectoryName + "\\" + ((string)inputs["To"].Get<object>());
         try {
-            System.IO.File.Move(((FileInfo)inputs["File"].Get()).FullName, dest);
+            System.IO.File.Move(((FileInfo)inputs["File"].Get<object>()).FullName, dest);
         } catch {
             // TODO Exception handling
         }

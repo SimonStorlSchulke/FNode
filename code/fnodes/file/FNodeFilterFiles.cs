@@ -17,8 +17,8 @@ public class FNodeFilterFiles : FNode
             {
             "Matching File", new FOutputFile(this, delegate() 
             {
-                if ((bool)inputs["Filter"].Get()) {
-                    return ((FileInfo)inputs["File"].Get());
+                if ((bool)inputs["Filter"].Get<object>()) {
+                    return ((FileInfo)inputs["File"].Get<object>());
                 }
                 else {
                     return null;
