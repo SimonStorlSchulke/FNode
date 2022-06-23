@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using System.IO;
 using Godot;
 using System;
@@ -6,8 +7,8 @@ using ImageMagick;
 public class FNodeImageViewer : FNode
 {
     TextureButton tx;
-    AcceptDialog wd;
     ImageTexture tex;
+    MagickImage image;
 
 
     public FNodeImageViewer() {
@@ -21,7 +22,6 @@ public class FNodeImageViewer : FNode
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
             {"Image", new FInputImage(this)},
-            {"Resolution", new FInputInt(this, initialValue: 256)},
         };
 
         FNode.IdxReset();
@@ -39,8 +39,11 @@ public class FNodeImageViewer : FNode
         if (!Project.IsLastIteration) {
             return;
         }
-        MagickImage image = inputs["Image"].Get<MagickImage>();
-        Image im = ImageUtils.MagickImageToGDImage(image, width: inputs["Resolution"].Get<int>());
+        image = inputs["Image"].Get<MagickImage>();
+        if (image == null) {
+            return;
+        }
+        Image im = ImageUtils.MagickImageToGDImage(image);
         tex = new ImageTexture();
         tex.CreateFromImage(im);
 
@@ -58,23 +61,13 @@ public class FNodeImageViewer : FNode
         tx.Expand = true;
         AddChild(tx);
         tx.Connect("pressed", this, nameof(Enlarge));
-        wd = new AcceptDialog();
-        AddChild(wd);
-
-        wd.Resizable = true;
-        TextureRect tr = new TextureRect();
-        tr.Name = "TR";
-        tr.SizeFlagsHorizontal = (int)SizeFlags.ExpandFill;
-        tr.SizeFlagsVertical = (int)SizeFlags.ExpandFill;
-        tr.Expand = true;
-        tr.StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered;
-        wd.AddChild(tr);
     }
 
     public void Enlarge() {
-        wd.RectMinSize = GetTree().Root.Size;
-        var tr = wd.GetNode<TextureRect>("TR");
-        tr.Texture = tex;
-        wd.PopupCentered();
+        if (image == null) {
+            return;
+        }
+        ImageViewerFullscreen.inst.SetImage(tex, image);
+        ImageViewerFullscreen.inst.ShowViewer();
     }
 }

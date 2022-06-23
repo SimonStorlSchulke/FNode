@@ -122,8 +122,8 @@ public class FNodeSwitch : FNode
                 ChangeSlotType(
                     outputs["Result"], 
                     delegate() {
-                        DateTime valFalse = (DateTime)inputs["False"].Get<object>();
-                        DateTime valTrue = (DateTime)inputs["True"].Get<object>();
+                        DateTime valFalse = inputs["False"].Get<DateTime>();
+                        DateTime valTrue = inputs["True"].Get<DateTime>();
                         return (DateTime)(inputs["Switch"].Get<bool>() ? valTrue : valFalse);
                     }, 
                     (FNode.FNodeSlotTypes)option);

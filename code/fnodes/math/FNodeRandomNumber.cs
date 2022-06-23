@@ -22,7 +22,7 @@ public class FNodeRandomNumber : FNode
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
             {
             "Number", new FOutputInt(this, delegate() {
-                int uiSeed = (int)inputs["Seed"].Get<object>();
+                int uiSeed = inputs["Seed"].Get<int>();
                 if (uiSeed == -1) {
                     rng.Seed = Convert.ToUInt64(DateTime.Now.Ticks);
                 } else {

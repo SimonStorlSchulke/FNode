@@ -18,7 +18,7 @@ public class FNodeJoinPaths : FNode
             {
             "Path", new FOutputString(this, delegate() 
             {
-                string str = "";// FileUtil.JoinPaths((string)inputs["Path1"].Get<object>(), (string)inputs["Path2"].Get<object>());
+                string str = "";
                 int i = 0;
                 foreach (var item in inputs) {
                         str = FileUtil.JoinPaths(str, item.Value.Get<string>());

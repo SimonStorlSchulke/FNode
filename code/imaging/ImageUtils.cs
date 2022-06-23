@@ -1,28 +1,16 @@
 using Godot;
-using System;
 using ImageMagick;
 
 public static class ImageUtils {
     
-    public static Image MagickImageToGDImage(MagickImage mImg, int width=0) {
+    public static Image MagickImageToGDImage(MagickImage mImg) {
 
-        string viewerDir = FileUtil.JoinPaths(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), "FNode/temp");
-        FileUtil.CreateDirIfNotExisting(viewerDir);
+        mImg.Depth = 8;
+        byte[] b = mImg.ToByteArray(MagickFormat.Rgba);
 
-        string imgPath = FileUtil.JoinPaths(viewerDir, "fnViewerTempImg-"+Guid.NewGuid() + ".webp");
-
-        if (width != 0 && width < mImg.Width) {
-            mImg.Scale(width, width);
-        }
-        mImg.Write(imgPath);
-
-        Godot.Image testImage = new Godot.Image();
-        testImage.Load(imgPath);
-        try {
-            System.IO.File.Delete(imgPath);
-        } catch(System.Exception e) {
-            Errorlog.Log("Failed deleting temporary Image-Viewer File", e);
-        }
-        return testImage;
+        Godot.Image im = new Godot.Image();
+        im.CreateFromData(mImg.Width, mImg.Height, false, Image.Format.Rgba8, b);
+        return im; //that was... easier than expected
     }
 }
+

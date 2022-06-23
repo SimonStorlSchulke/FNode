@@ -11,36 +11,36 @@ public class FNodeResizeImage : FNode
 
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
-            {"Img", new FInputImage(this)},
-            {"Width", new FInputInt(this)},
-            {"Height", new FInputInt(this)},
-            {"Downscale Only", new FInputBool(this)},
+            {"Image", new FInputImage(this)},
+            {"Width", new FInputInt(this, min: 0, initialValue: 512)},
+            {"Height", new FInputInt(this, min: 0, initialValue: 512)},
+            {"Downscale Only", new FInputBool(this, initialValue: true)},
+            {"Ignore Aspect", new FInputBool(this, initialValue: false)},
         };
 
         FNode.IdxReset();
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
             {
             "Image", new FOutputImage(this, delegate() {
-                                    
-                var img = inputs["Img"].Get<MagickImage>();
+                var img = inputs["Image"].Get<MagickImage>();
                 int width = inputs["Width"].Get<int>();
+                int height = inputs["Height"].Get<int>();
 
-                switch (GetSelectedOption("Mode")) {
-                    case "Keep Aspect Width":
-                    //if (geometry.Width > maxWidth) {
-                    //    img.Resize(maxWidth, maxHeight);
-                    //}
-                        break;
-                    case "Keep Aspect Height":
-                        break;
-                    case "Squish":
-                        break;
+                if (GetSelectedOption("Mode") == "Percent") {
+                    width = (int)(img.Width * ((float)width / 100));
+                    height = (int)(img.Height * ((float)height / 100));
                 }
 
+                var size = new MagickGeometry(width, height);
+
+                size.Greater = !inputs["Downscale Only"].Get<bool>();
+                size.IgnoreAspectRatio = inputs["Ignore Aspect"].Get<bool>();
+                
                 try {
-                    //img.res
-                    return new MagickImage(inputs["File"].Get<FileInfo>());
-                } catch {
+                    img.Resize(size);
+                    return img;
+                } catch (MagickException e) {
+                    Errorlog.Log(e);
                     return null;
                 }
             })},
@@ -49,11 +49,9 @@ public class FNodeResizeImage : FNode
 
     public override void _Ready() {
         base._Ready();
-        AddOptionEnum("Mode", new string[] {
-            "Keep Aspect Width",
-            "Keep Aspect Height",
-            "Squish",
-        },
-        description: "'Keep Aspect Width' uses the width Value and sets the Height accurding to the Aspect Ratio.\n'Keep Aspect Height' uses the Height Value\nSquish uses both values and ignores the Aspect Ratio");
+        AddOptionEnum("Mode", new string[] { 
+            "Pixel",
+            "Percent"
+        });
     }
 }

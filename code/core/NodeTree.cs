@@ -84,6 +84,10 @@ public class NodeTree : GraphEdit
     }
 
     public void OnConnectionRequest(string from, int fromSlot, string to, int toSlot) {
+
+        if (from == to) {
+            return;
+        }
                 
         FNode fnTo = GetNode<FNode>(to);
         FNode fnFrom = GetNode<FNode>(from);

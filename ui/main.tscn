@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://theme/default.theme" type="Theme" id=1]
 [ext_resource path="res://ui/Project.tscn" type="PackedScene" id=2]
@@ -14,11 +14,15 @@
 [ext_resource path="res://ui/MenuButton.cs" type="Script" id=12]
 [ext_resource path="res://ui/FProgressBar.cs" type="Script" id=13]
 [ext_resource path="res://ui/VBSearchResults.cs" type="Script" id=14]
+[ext_resource path="res://ui/ImageViewerFullscreen.tscn" type="PackedScene" id=15]
 
 [node name="Window" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="VBMain" type="VBoxContainer" parent="."]
 anchor_right = 1.0
@@ -367,6 +371,9 @@ text = "Menu"
 items = [ "Save", null, 0, false, false, 0, 0, null, "", false, "Load", null, 0, false, false, 1, 0, null, "", false, "Close Project", null, 0, false, false, 2, 0, null, "", false, "New Project", null, 0, false, false, 3, 0, null, "", false, "Report a Bug", null, 0, false, false, 4, 0, null, "", false ]
 script = ExtResource( 12 )
 NPIO = NodePath("../IO")
+
+[node name="ImageViewerFullscreen" parent="." instance=ExtResource( 15 )]
+visible = false
 
 [connection signal="text_changed" from="VBMain/HBMain/VBoxContainer/LESearch" to="VBMain/HBMain/VBoxContainer/SCSearchResults/VBSearchResults" method="OnSearchNode"]
 [connection signal="timeout" from="VBMain/Panel/HBoxContainer/InfoLine/ClearTimer" to="VBMain/Panel/HBoxContainer/InfoLine" method="Clear"]

@@ -46,6 +46,7 @@ public class TCAddNodesPanel : TabContainer
         CreateAddButton<FNodeGetImage>();
         CreateAddButton<FNodeSaveImageAs>();
         CreateAddButton<FNodeImageViewer>();
+        CreateAddButton<FNodeResizeImage>();
     }
 
     Resource cursorDragNode;

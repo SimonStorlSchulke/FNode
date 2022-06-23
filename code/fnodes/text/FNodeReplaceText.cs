@@ -21,7 +21,7 @@ public class FNodeReplaceText : FNode, IFNodeVarInputSize
             {
                 string str = inputs["Text"].Get<string>();
 
-                if (!inputs["Filter"].Get<bool>()) {
+                if (!(bool)inputs["Filter"].Get<bool>()) {
                     return str;
                 }
 
