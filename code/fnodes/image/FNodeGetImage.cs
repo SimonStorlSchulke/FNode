@@ -19,7 +19,7 @@ public class FNodeGetImage : FNode
             {
             "Image", new FOutputImage(this, delegate() {
                 try {
-                    return new MagickImage((FileInfo)inputs["File"].Get<object>());
+                    return new MagickImage(inputs["File"].Get<FileInfo>());
                 } catch {
                     return null;
                 }

@@ -18,7 +18,7 @@ public class FNodeGetParentPath : FNode
             {
             "Path", new FOutputString(this, delegate() 
             {
-                string path = inputs["Path"].Get<object>() as string;
+                string path = inputs["Path"].Get<string>();
                 string parentPath;
                 try {
                     parentPath = System.IO.Directory.GetParent(path).FullName;

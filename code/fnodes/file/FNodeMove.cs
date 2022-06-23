@@ -22,20 +22,20 @@ public class FNodeMove : FNode
 
     public override void ExecutiveMethod()
     {
-        if (!(bool)inputs["Filter"].Get<object>()) {
+        if (!inputs["Filter"].Get<bool>()) {
             base.ExecutiveMethod();
             return;
         }
         
-        FileInfo fi = ((FileInfo)inputs["File"].Get<object>());
+        FileInfo fi = inputs["File"].Get<FileInfo>();
         if (fi == null) {
             Errorlog.Log(this, "Illegal Filepath");
             return;
         }
-        string newName = (string)inputs["Rename?"].Get<object>();
+        string newName = inputs["Rename?"].Get<string>();
         string oldpath = fi.FullName;
         string fileName = newName == "" ? System.IO.Path.GetFileNameWithoutExtension(oldpath) : newName;
-        string path = (string)inputs["To Path"].Get<object>();
+        string path = inputs["To Path"].Get<string>();
         FileUtil.CreateDirIfNotExisting(path);
         string newPath = FileUtil.JoinPaths(path, fileName + fi.Extension);
         if (newPath == "") {

@@ -19,15 +19,15 @@ public class FNodeReplaceText : FNode, IFNodeVarInputSize
             {
             "Text", new FOutputString(this, delegate() 
             {
-                string str = inputs["Text"].Get<object>() as string;
+                string str = inputs["Text"].Get<string>();
 
-                if (!(bool)inputs["Filter"].Get<object>()) {
+                if (!inputs["Filter"].Get<bool>()) {
                     return str;
                 }
 
                 for (int i = 0; i < ((inputs.Count-1) / 2); i++) {
-                    string replaceStr = (string)inputs["Replace"+(i+1)].Get<object>();
-                    string withStr = (string)inputs["With"+(i+1)].Get<object>();
+                    string replaceStr = inputs["Replace"+(i+1)].Get<string>();
+                    string withStr = inputs["With"+(i+1)].Get<string>();
                     str = str.Replace(replaceStr, withStr);
                 }
 

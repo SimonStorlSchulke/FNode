@@ -20,17 +20,17 @@ public class FNodeRename : FNode
 
     public override void ExecutiveMethod() {
 
-        if (!(bool)inputs["Filter"].Get<object>()) {
+        if (!inputs["Filter"].Get<bool>()) {
             base.ExecutiveMethod();
             return;
         }
 
-        if (inputs["File"].Get<object>() == null) {
+        if (inputs["File"].Get<FileInfo>() == null) {
             base.ExecutiveMethod();
             return;
         }
 
-        FileUtil.SecureRename(((FileInfo)inputs["File"].Get<object>()).FullName, (string)inputs["To"].Get<object>());
+        FileUtil.SecureRename(inputs["File"].Get<FileInfo>().FullName, inputs["To"].Get<string>());
 
         base.ExecutiveMethod();
     }

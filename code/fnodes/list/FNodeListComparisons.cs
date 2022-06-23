@@ -61,7 +61,7 @@ public class FNodeListComparisons : FNode
     public override void OnNextIteration() {
 
         int i = 0;
-        foreach (var item in (Godot.Collections.Array)inputs["List"].Get<object>()) {
+        foreach (var item in inputs["List"].Get<Godot.Collections.Array>()) {
             try {
                 if (((string)item).Length > longestString.Length) {
                     longestString = (string)item;
@@ -72,7 +72,7 @@ public class FNodeListComparisons : FNode
         }
 
         i = 0;
-        foreach (var item in (Godot.Collections.Array)inputs["List"].Get<object>()) {
+        foreach (var item in inputs["List"].Get<Godot.Collections.Array>()) {
             try {
                 if (((string)item).Length < shortesstString.Length || shortesstString == "") {
                     shortesstString = (string)item;
@@ -82,8 +82,8 @@ public class FNodeListComparisons : FNode
             catch {}
             i++;
         }
-        var smallestNumTup = MathUtil.VarMin((Godot.Collections.Array)inputs["List"].Get<object>());
-        var biggestNumTup = MathUtil.VarMax((Godot.Collections.Array)inputs["List"].Get<object>());
+        var smallestNumTup = MathUtil.VarMin(inputs["List"].Get<Godot.Collections.Array>());
+        var biggestNumTup = MathUtil.VarMax(inputs["List"].Get<Godot.Collections.Array>());
 
         smallestNumer = smallestNumTup.Item1;
         smallestNumerIdx = smallestNumTup.Item2;

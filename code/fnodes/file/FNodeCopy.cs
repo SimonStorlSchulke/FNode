@@ -27,9 +27,9 @@ public class FNodeCopy : FNode
 
     public override void ExecutiveMethod()
     {
-        string dest = ((FileInfo)inputs["File"].Get<object>()).DirectoryName + "\\" + ((string)inputs["To"].Get<object>());
+        string dest = (inputs["File"].Get<FileInfo>()).DirectoryName + "\\" + (inputs["To"].Get<string>());
         try {
-            System.IO.File.Move(((FileInfo)inputs["File"].Get<object>()).FullName, dest);
+            System.IO.File.Move(inputs["File"].Get<FileInfo>().FullName, dest);
         } catch {
             // TODO Exception handling
         }

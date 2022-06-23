@@ -24,9 +24,9 @@ public class FNodeSwitch : FNode
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
             {"Result", 
             new FOutputFile(this, delegate() {
-                FileInfo valFalse = (FileInfo)inputs["False"].Get<object>();
-                FileInfo valTrue = (FileInfo)inputs["True"].Get<object>();
-                return (FileInfo)((bool)inputs["Switch"].Get<object>() ? valTrue : valFalse);
+                FileInfo valFalse = inputs["False"].Get<FileInfo>();
+                FileInfo valTrue = inputs["True"].Get<FileInfo>();
+                return (FileInfo)(inputs["Switch"].Get<bool>() ? valTrue : valFalse);
             })},
         };
     }
@@ -72,9 +72,9 @@ public class FNodeSwitch : FNode
                 ChangeSlotType(
                     outputs["Result"], 
                     delegate() {
-                        FileInfo valFalse = (FileInfo)inputs["False"].Get<object>();
-                        FileInfo valTrue = (FileInfo)inputs["True"].Get<object>();
-                        return (FileInfo)((bool)inputs["Switch"].Get<object>() ? valTrue : valFalse);
+                        FileInfo valFalse = inputs["False"].Get<FileInfo>();
+                        FileInfo valTrue = inputs["True"].Get<FileInfo>();
+                        return (FileInfo)(inputs["Switch"].Get<bool>() ? valTrue : valFalse);
                     }, 
                     (FNode.FNodeSlotTypes)option);
                 break;
@@ -82,9 +82,9 @@ public class FNodeSwitch : FNode
                 ChangeSlotType(
                     outputs["Result"], 
                     delegate() {
-                        string valFalse = (string)inputs["False"].Get<object>();
-                        string valTrue = (string)inputs["True"].Get<object>();
-                        return (string)((bool)inputs["Switch"].Get<object>() ? valTrue : valFalse);
+                        string valFalse = inputs["False"].Get<string>();
+                        string valTrue = inputs["True"].Get<string>();
+                        return (string)(inputs["Switch"].Get<bool>() ? valTrue : valFalse);
                     }, 
                     (FNode.FNodeSlotTypes)option);
                 break;
@@ -92,9 +92,9 @@ public class FNodeSwitch : FNode
                 ChangeSlotType(
                     outputs["Result"], 
                     delegate() {
-                        bool valFalse = (bool)inputs["False"].Get<object>();
-                        bool valTrue = (bool)inputs["True"].Get<object>();
-                        return (bool)((bool)inputs["Switch"].Get<object>() ? valTrue : valFalse);
+                        bool valFalse = inputs["False"].Get<bool>();
+                        bool valTrue = inputs["True"].Get<bool>();
+                        return (bool)(inputs["Switch"].Get<bool>() ? valTrue : valFalse);
                     }, 
                     (FNode.FNodeSlotTypes)option);
                 break;
@@ -102,9 +102,9 @@ public class FNodeSwitch : FNode
                 ChangeSlotType(
                     outputs["Result"], 
                     delegate() {
-                        int valFalse = (int)inputs["False"].Get<object>();
-                        int valTrue = (int)inputs["True"].Get<object>();
-                        return (int)((bool)inputs["Switch"].Get<object>() ? valTrue : valFalse);
+                        int valFalse = inputs["False"].Get<int>();
+                        int valTrue = inputs["True"].Get<int>();
+                        return (int)(inputs["Switch"].Get<bool>() ? valTrue : valFalse);
                     }, 
                     (FNode.FNodeSlotTypes)option);
                 break;
@@ -112,9 +112,9 @@ public class FNodeSwitch : FNode
                 ChangeSlotType(
                     outputs["Result"], 
                     delegate() {
-                        float valFalse = (float)inputs["False"].Get<object>();
-                        float valTrue = (float)inputs["True"].Get<object>();
-                        return (float)((bool)inputs["Switch"].Get<object>() ? valTrue : valFalse);
+                        float valFalse = inputs["False"].Get<float>();
+                        float valTrue = inputs["True"].Get<float>();
+                        return (float)(inputs["Switch"].Get<bool>() ? valTrue : valFalse);
                     }, 
                     (FNode.FNodeSlotTypes)option);
                 break;
@@ -124,7 +124,7 @@ public class FNodeSwitch : FNode
                     delegate() {
                         DateTime valFalse = (DateTime)inputs["False"].Get<object>();
                         DateTime valTrue = (DateTime)inputs["True"].Get<object>();
-                        return (DateTime)((bool)inputs["Switch"].Get<object>() ? valTrue : valFalse);
+                        return (DateTime)(inputs["Switch"].Get<bool>() ? valTrue : valFalse);
                     }, 
                     (FNode.FNodeSlotTypes)option);
                 break;
@@ -132,9 +132,9 @@ public class FNodeSwitch : FNode
                 ChangeSlotType(
                     outputs["Result"], 
                     delegate() {
-                        Godot.Collections.Array valFalse = (Godot.Collections.Array)inputs["False"].Get<object>();
-                        Godot.Collections.Array valTrue = (Godot.Collections.Array)inputs["True"].Get<object>();
-                        return (Godot.Collections.Array)((bool)inputs["Switch"].Get<object>() ? valTrue : valFalse);
+                        Godot.Collections.Array valFalse = inputs["False"].Get<Godot.Collections.Array>();
+                        Godot.Collections.Array valTrue = inputs["True"].Get<Godot.Collections.Array>();
+                        return (Godot.Collections.Array)(inputs["Switch"].Get<bool>() ? valTrue : valFalse);
                     }, 
                     (FNode.FNodeSlotTypes)option);
                 break;

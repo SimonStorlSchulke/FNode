@@ -17,8 +17,8 @@ public class FNodeGetListItem : FNode
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
             {
             "Result", new FOutput(this, delegate() {
-                int idx = (int)inputs["Index"].Get<object>();
-                Godot.Collections.Array arr = (Godot.Collections.Array)inputs["List"].Get<object>();
+                int idx = inputs["Index"].Get<int>();
+                var arr = inputs["List"].Get<Godot.Collections.Array>();
                 if (arr == null) {
                     return null;
                 }

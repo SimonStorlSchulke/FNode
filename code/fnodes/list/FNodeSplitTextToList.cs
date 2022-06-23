@@ -16,7 +16,7 @@ public class FNodeSplitTextToList : FNode
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
             {
             "List", new FOutputList(this, delegate() {
-                string[] arr = ((string)inputs["Text"].Get<object>()).Split((string)inputs["Split at"].Get<object>());
+                string[] arr = inputs["Text"].Get<string>().Split(inputs["Split at"].Get<string>());
                 Godot.Collections.Array gdArr = new Godot.Collections.Array(arr);
                 return gdArr;
             })},

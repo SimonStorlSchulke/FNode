@@ -20,7 +20,7 @@ public class FNodeFileAtIndex : FNode
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
             {
             "File", new FOutputFile(this, delegate() {
-            int stack = (int)inputs["Stack"].Get<object>();
+            int stack = inputs["Stack"].Get<int>();
             //string path = Main.inst.currentProject.FileStacks.GetChild<FileList>() Stacks[stack][Project.idxEval].Item2;
             try {
                 return currentFile;
@@ -114,7 +114,7 @@ public class FNodeFileAtIndex : FNode
     public override void OnNextIteration() {
         string path;
         try {
-            path = Main.inst.currentProject.FileStacks.GetChild<FileList>((int)inputs["Stack"].Get<object>()).allFiles[(int)inputs["Index"].Get<object>()];
+            path = Main.inst.currentProject.FileStacks.GetChild<FileList>(inputs["Stack"].Get<int>()).allFiles[inputs["Index"].Get<int>()];
         } catch(System.Exception e) {
             currentFile = null;
             return;
@@ -126,13 +126,11 @@ public class FNodeFileAtIndex : FNode
                 }
                 else {
                     Errorlog.Log(this, "Only absolute Paths are allowed");
-                    GD.Print("NANNI2");
                     currentFile = null;
                     return;
                 };
             } catch (System.Exception e) {
                 Errorlog.Log(this, e.Message);
-                GD.Print("NANNI3");
                 currentFile = null;
             }
     }

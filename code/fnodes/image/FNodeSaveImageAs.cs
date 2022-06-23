@@ -24,15 +24,15 @@ public class FNodeSaveImageAs : FNode
 
     public override void ExecutiveMethod() {
 
-        MagickImage image = (MagickImage)inputs["Image"].Get<object>();
+        MagickImage image = inputs["Image"].Get<MagickImage>();
         if (image == null) {
             return;
         }
         string origPath = image.FileName;
-        string nPath = (string)inputs["Output Path"].Get<object>();
+        string nPath = inputs["Output Path"].Get<string>();
         string path = nPath == "" ? origPath.GetBaseDir() : nPath;
         FileUtil.CreateDirIfNotExisting(nPath);
-        image.Quality = (int)inputs["Quality"].Get<object>();
+        image.Quality = inputs["Quality"].Get<int>();
         string finalPath = path + "\\" + System.IO.Path.GetFileNameWithoutExtension(origPath) + "." + GetSelectedOption("To Type");
 
         if (Main.inst.currentProject.NodeTree.previewMode) {

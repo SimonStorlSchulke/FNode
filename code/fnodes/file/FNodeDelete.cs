@@ -20,12 +20,12 @@ public class FNodeDelete : FNode
 
     public override void ExecutiveMethod()
     {
-        if (!(bool)inputs["Filter"].Get<object>()) {
+        if (!inputs["Filter"].Get<bool>()) {
             base.ExecutiveMethod();
             return;
         }
 
-        string path = ((FileInfo)inputs["File"].Get<object>()).FullName;
+        string path = inputs["File"].Get<FileInfo>().FullName;
 
         FileUtil.SecureDelete(path);
         base.ExecutiveMethod();

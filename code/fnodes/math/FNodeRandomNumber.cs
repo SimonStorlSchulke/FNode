@@ -26,16 +26,16 @@ public class FNodeRandomNumber : FNode
                 if (uiSeed == -1) {
                     rng.Seed = Convert.ToUInt64(DateTime.Now.Ticks);
                 } else {
-                    rng.Seed = Convert.ToUInt64((int)inputs["Seed"].Get<object>());
+                    rng.Seed = Convert.ToUInt64(inputs["Seed"].Get<int>());
                 }
                 
                 rng.Seed += seedAdds;
                 seedAdds++;
 
                 if (GetSelectedOption("numbertype") == "Int") {
-                    return rng.RandiRange((int)inputs["Min"].Get<object>(), (int)inputs["Max"].Get<object>());
+                    return rng.RandiRange(inputs["Min"].Get<int>(), inputs["Max"].Get<int>());
                 } else {
-                    return rng.RandfRange((float)inputs["Min"].Get<object>(), (float)inputs["Max"].Get<object>());
+                    return rng.RandfRange(inputs["Min"].Get<float>(), inputs["Max"].Get<float>());
                 }
             })},
         };

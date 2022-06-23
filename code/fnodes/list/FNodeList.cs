@@ -16,11 +16,11 @@ public class FNodeList : FNode
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
             {
             "List", new FOutputList(this, delegate() {
-                return (Godot.Collections.Array)inputs["List"].Get<object>();
+                return inputs["List"].Get<Godot.Collections.Array>();
             })},
             {
             "List Count", new FOutputInt(this, delegate() {
-                return ((Godot.Collections.Array)inputs["List"].Get<object>()).Count;
+                return inputs["List"].Get<Godot.Collections.Array>().Count;
             })},
         };
     }

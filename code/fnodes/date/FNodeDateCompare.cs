@@ -30,7 +30,7 @@ public class FNodeDateCompare : FNode
             "After", new FOutputBool(this, delegate()
             {   try {
 
-                int compar = (inputs["Date"].Get<DateTime>()).CompareTo(((DateTime)inputs["CmpTo"].Get<DateTime>()));
+                int compar = inputs["Date"].Get<DateTime>().CompareTo(inputs["CmpTo"].Get<DateTime>());
                 return compar <= 0;
             } catch(System.Exception e) {
                 return 0;

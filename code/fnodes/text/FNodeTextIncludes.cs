@@ -20,12 +20,12 @@ public class FNodeTextIncludes : FNode
             {
             "Includes", new FOutputBool(this, delegate() 
             {
-                string str = (string)inputs["Text"].Get<object>();
+                string str = inputs["Text"].Get<string>();
                 int i = 0;
                 bool includesAll = true;
                 foreach (var item in inputs) {
                     if (i!=0) {
-                        bool contains = str.Contains((string)item.Value.Get<object>());
+                        bool contains = str.Contains(item.Value.Get<string>());
                         if (contains) {
                             if (ob.Selected == 0)  {
                                 return true;

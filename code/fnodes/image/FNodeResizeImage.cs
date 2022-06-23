@@ -22,8 +22,8 @@ public class FNodeResizeImage : FNode
             {
             "Image", new FOutputImage(this, delegate() {
                                     
-                var img = (MagickImage)inputs["Img"].Get<object>();
-                int width = (int)inputs["Width"].Get<object>();
+                var img = inputs["Img"].Get<MagickImage>();
+                int width = inputs["Width"].Get<int>();
 
                 switch (GetSelectedOption("Mode")) {
                     case "Keep Aspect Width":
@@ -39,7 +39,7 @@ public class FNodeResizeImage : FNode
 
                 try {
                     //img.res
-                    return new MagickImage((FileInfo)inputs["File"].Get<object>());
+                    return new MagickImage(inputs["File"].Get<FileInfo>());
                 } catch {
                     return null;
                 }

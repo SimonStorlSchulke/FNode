@@ -18,7 +18,7 @@ public class FNodeAccumulateNumber : FNode
             {
             "Number", new FOutputFloat(this, delegate() {
                                 
-                accumulatedFloat += (float)inputs["Number"].Get<object>(); //TODO Use String.Join;
+                accumulatedFloat += inputs["Number"].Get<float>(); //TODO Use String.Join;
                 return accumulatedFloat;
             })},
         };

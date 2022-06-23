@@ -39,7 +39,7 @@ public class FNodeAccumulateList : FNode
         selectedOption = GetSelectedOption("Mode");
         if (selectedOption == "Instant") {
             int iterations = (int)Math.Max(Main.inst.currentProject.spIterations.Value, Project.maxNumFiles);
-            int customIts = (int)inputs["Custom Iterations"].Get<object>();
+            int customIts = inputs["Custom Iterations"].Get<int>();
             if (customIts != 0) {
                 iterations = customIts;
             }

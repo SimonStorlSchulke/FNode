@@ -19,12 +19,12 @@ public class FNodeAccumulateText : FNode
             {
             "Text", new FOutputString(this, delegate() {
         
-                string sep = inputs["Separator"].Get<object>() as string;
+                string sep = inputs["Separator"].Get<string>();
                 sep = sep.Replace("[LINEBREAK]", "\n"); //TODO sanitize this...
 
                 int iterations = (int)Math.Max(Main.inst.currentProject.spIterations.Value, Project.maxNumFiles);
                 
-                accumulatedString += Project.idxEval < iterations-1 ? inputs["Text"].Get<object>() as string + sep : inputs["Text"].Get<object>() as string; //TODO Use String.Join;
+                accumulatedString += Project.idxEval < iterations-1 ? inputs["Text"].Get<string>() + sep : inputs["Text"].Get<string>(); //TODO Use String.Join;
                 
                 return accumulatedString;
             })},
