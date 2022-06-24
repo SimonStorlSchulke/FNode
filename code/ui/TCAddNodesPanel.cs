@@ -2,9 +2,8 @@ using System.Collections.Generic;
 using Godot;
 using System;
 
-public class TCAddNodesPanel : TabContainer
+public class TCAddNodesPanel : Control
 {
-    [Export] NodePath NPNodeTree;
     [Export] NodePath NPSearchResults;
     VBSearchResults searchResults;
 
@@ -70,11 +69,38 @@ public class TCAddNodesPanel : TabContainer
             sb.BgColor = new Color(0.25f,0.25f,0.25f);
             buttonColorStyles.Add(col.Key, sb);
         }
+
+        foreach (CheckButton tab in GetNode("VBTabs").GetChildren()) {
+            tab.Connect("pressed", this, nameof(OnChangeTab), new Godot.Collections.Array(){tab.GetIndex()});
+        }
+    }
+
+    void OnChangeTab(int TabIndex) {
+        int i = 0;
+        foreach (CheckButton tab in GetNode("VBTabs").GetChildren()) {
+            if (TabIndex != i) {
+                tab.Pressed = false;
+            } else {
+                GD.Print("A");
+            }
+            i++;
+        }
+
+        i = 0;
+        foreach (Control tabPanel in GetNode("Panels").GetChildren()) {
+            if (TabIndex == i) {
+                tabPanel.Visible = true;
+            } else {
+                tabPanel.Visible = false;
+            }
+            i++;
+        }
     }
 
 
     void CreateAddButton<fnType>() where fnType : FNode {
         Button AddNodeButton = new Button();
+        AddNodeButton.SizeFlagsHorizontal = (int)SizeFlags.ExpandFill;
         AddNodeButton.Align = Button.TextAlign.Left;
         FNode fn = (FNode)Activator.CreateInstance(typeof(fnType));
         AddNodeButton.Text = UIUtil.SnakeCaseToWords(typeof(fnType).Name.Replace("FNode", ""));
@@ -88,7 +114,7 @@ public class TCAddNodesPanel : TabContainer
         AddNodeButton.AddStyleboxOverride("pressed", buttonColorStyles[fn.category]);
         AddNodeButton.AddStyleboxOverride("focus", buttonColorStyles[fn.category]);
 
-        GetNode(fn.category).AddChild(AddNodeButton);
+        GetNode("Panels/" + fn.category).AddChild(AddNodeButton);
         Button searchResultButton = (Button)AddNodeButton.Duplicate();
 
         searchResultButton.Connect("button_down", searchResults, nameof(StartDrag), new Godot.Collections.Array{fn});
