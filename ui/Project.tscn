@@ -12,26 +12,22 @@ anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="VBSideBar" type="VBoxContainer" parent="."]
-margin_right = 360.0
+margin_right = 359.0
 margin_bottom = 900.0
-rect_min_size = Vector2( 360, 0 )
+rect_min_size = Vector2( 355, 0 )
 
 [node name="Label" type="Label" parent="VBSideBar"]
-margin_right = 360.0
+margin_right = 359.0
 margin_bottom = 37.0
 custom_fonts/font = ExtResource( 3 )
 text = "File Stacks"
 
 [node name="TCFilestacks" type="TabContainer" parent="VBSideBar"]
 margin_top = 41.0
-margin_right = 360.0
+margin_right = 359.0
 margin_bottom = 822.0
-rect_min_size = Vector2( 350, 0 )
 hint_tooltip = "Drag & drop files or folders to add them to the stack"
 size_flags_vertical = 3
 custom_constants/side_margin = 5
@@ -92,12 +88,12 @@ margin_bottom = -5.0
 
 [node name="VBProjectSettings" type="VBoxContainer" parent="VBSideBar"]
 margin_top = 826.0
-margin_right = 360.0
+margin_right = 359.0
 margin_bottom = 900.0
 custom_constants/separation = 8
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBSideBar/VBProjectSettings"]
-margin_right = 360.0
+margin_right = 359.0
 margin_bottom = 33.0
 size_flags_horizontal = 3
 
@@ -109,15 +105,16 @@ size_flags_horizontal = 3
 text = "Add Files"
 
 [node name="Button2" type="Button" parent="VBSideBar/VBProjectSettings/HBoxContainer"]
-margin_right = 360.0
+margin_right = 359.0
 margin_bottom = 33.0
 size_flags_horizontal = 3
 text = "Clear Files"
 
 [node name="HBIterations" type="HBoxContainer" parent="VBSideBar/VBProjectSettings"]
 margin_top = 41.0
-margin_right = 360.0
+margin_right = 359.0
 margin_bottom = 74.0
+hint_tooltip = "Usually, the Nodetree as often as the maximum number of files in the Filestacks. If this number is higher, it gets used instead-"
 
 [node name="Label" type="Label" parent="VBSideBar/VBProjectSettings/HBIterations"]
 margin_right = 167.0
@@ -133,7 +130,7 @@ max_value = 1000.0
 value = 1.0
 
 [node name="NodeTree" type="GraphEdit" parent="."]
-margin_left = 364.0
+margin_left = 363.0
 margin_right = 1700.0
 margin_bottom = 900.0
 size_flags_horizontal = 3

@@ -48,8 +48,8 @@ expand_icon = true
 
 [node name="BTNReload" type="TextureButton" parent="HBFolder"]
 visible = false
-margin_left = 403.0
-margin_right = 463.0
+margin_left = 339.0
+margin_right = 399.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 60, 0 )
 size_flags_vertical = 3

@@ -12,8 +12,9 @@ public class FOutput {
     public string description;
     public SlotType slotType = SlotType.OTHER;
 
-    public FOutput(FNode owner, GetOutputValue method, int idx=-1) {
+    public FOutput(FNode owner, GetOutputValue method, int idx=-1, string description = "") {
         this.owner = owner;
+        this.description = description;
         this.idx = idx == -1 ? this.idx = FNode.IdxNext() : idx;
         Get = method;
     }
@@ -36,49 +37,49 @@ public class FOutput {
 }
 
 public class FOutputInt : FOutput {
-    public FOutputInt(FNode owner, GetOutputValue method, int idx=-1) : base(owner, method, idx) {
+    public FOutputInt(FNode owner, GetOutputValue method, int idx=-1, string description = "") : base(owner, method, idx, description) {
         slotType = SlotType.INT;
     }
 }
 
 public class FOutputFloat : FOutput {
-    public FOutputFloat(FNode owner, GetOutputValue method, int idx=-1) : base(owner, method, idx) {
+    public FOutputFloat(FNode owner, GetOutputValue method, int idx=-1, string description = "") : base(owner, method, idx, description) {
         slotType = SlotType.FLOAT;
     }
 }
 
 public class FOutputBool : FOutput {
-    public FOutputBool(FNode owner, GetOutputValue method, int idx=-1) : base(owner, method, idx) {
+    public FOutputBool(FNode owner, GetOutputValue method, int idx=-1, string description = "") : base(owner, method, idx, description) {
         slotType = SlotType.BOOL;
     }
 }
 
 public class FOutputString : FOutput {
-    public FOutputString(FNode owner, GetOutputValue method, int idx=-1) : base(owner, method, idx) {
+    public FOutputString(FNode owner, GetOutputValue method, int idx=-1, string description = "") : base(owner, method, idx, description) {
         slotType = SlotType.STRING;
     }
 }
 
 public class FOutputList : FOutput {
-    public FOutputList(FNode owner, GetOutputValue method, int idx=-1) : base(owner, method, idx) {
+    public FOutputList(FNode owner, GetOutputValue method, int idx=-1, string description = "") : base(owner, method, idx, description) {
         slotType = SlotType.LIST;
     }
 }
 
 public class FOutputFile : FOutput {
-    public FOutputFile(FNode owner, GetOutputValue method, int idx=-1) : base(owner, method, idx) {
+    public FOutputFile(FNode owner, GetOutputValue method, int idx=-1, string description = "") : base(owner, method, idx, description) {
         slotType = SlotType.FILE;
     }
 }
 
 public class FOutputImage : FOutput {
-    public FOutputImage(FNode owner, GetOutputValue method, int idx=-1) : base(owner, method, idx) {
+    public FOutputImage(FNode owner, GetOutputValue method, int idx=-1, string description = "") : base(owner, method, idx, description) {
         slotType = SlotType.FILE;
     }
 }
 
 public class FOutputDate : FOutput {
-    public FOutputDate(FNode owner, GetOutputValue method, int idx=-1) : base(owner, method, idx) {
+    public FOutputDate(FNode owner, GetOutputValue method, int idx=-1, string description = "") : base(owner, method, idx, description) {
         slotType = SlotType.DATE;
     }
 }

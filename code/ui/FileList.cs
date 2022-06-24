@@ -17,7 +17,9 @@ public class FileList : Control
     List<string> GetAllFiles() {
         List<string> l = new List<string>();
         foreach (KeyValuePair<string, List<string>> fileLst in fileStack) {
-            l.AddRange(fileLst.Value);
+            foreach (string file in fileLst.Value) {
+                l.Add($"{fileLst.Key}>{file}"); // string before > is the rootpath, after it the filepath"
+            }
         }
         return l;
     }
@@ -88,7 +90,7 @@ public class FileList : Control
             FolderSection fs = folderSection.Instance<FolderSection>();
             fs.connecedFolder = dirPath;
             vbFileLists.AddChild(fs);
-            fs.cb.Text = dirPath.GetFile();
+            fs.cb.Text = UIUtil.GetOverflowDots(dirPath.GetFile(), fs.cb.GetFont("normal"), 170);
             fs.cb.HintTooltip = dirPath;
             fs.AddFiles(dictItem.Value);
 

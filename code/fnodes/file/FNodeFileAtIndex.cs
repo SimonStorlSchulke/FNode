@@ -5,6 +5,7 @@ using System.IO;
 public class FNodeFileAtIndex : FNode
 {
     FileInfo currentFile;
+    string currentFileRoot;
     public FNodeFileAtIndex()
     {
         category = "File";
@@ -64,6 +65,16 @@ public class FNodeFileAtIndex : FNode
                 }
             })},
             {
+            "Stack Dir", new FOutputString(this, delegate() {
+                try {
+                    return currentFileRoot;
+                    }
+                catch {
+                    return "";
+                }
+            }, description: "The Directory you dropped onto the Filestack - not always the same as Base Dir if files are recursively loaded (from subfolders)"
+            )},
+            {
             "Creation Time", new FOutputDate(this, delegate() {
                 try {
                     return currentFile.CreationTime;
@@ -114,7 +125,9 @@ public class FNodeFileAtIndex : FNode
     public override void OnNextIteration() {
         string path;
         try {
-            path = Main.inst.currentProject.FileStacks.GetChild<FileList>(inputs["Stack"].Get<int>()).allFiles[inputs["Index"].Get<int>()];
+            string[] rootAndPath = Main.inst.currentProject.FileStacks.GetChild<FileList>(inputs["Stack"].Get<int>()).allFiles[inputs["Index"].Get<int>()].Split(">");
+            currentFileRoot = rootAndPath[0];
+            path = rootAndPath[1];
         } catch(System.Exception e) {
             currentFile = null;
             return;

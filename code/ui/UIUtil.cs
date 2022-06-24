@@ -9,6 +9,18 @@ public class UIUtil : Node
         return System.Text.RegularExpressions.Regex.Replace(str, "([A-Z0-9]+)", " $1").Trim();
     }
 
+    ///<summary>Turns "I am a looong string" into "I am a looong st.." based on the font and given width</summary>
+    public static string GetOverflowDots(string str, Godot.Font font, float width) {
+        string dotString = str;
+        bool removed = false;
+        while (width - font.GetStringSize(dotString).x < 0) {
+            GD.Print(width - font.GetStringSize(str).x);
+            dotString = dotString.Substring(0, dotString.Length-1);
+            removed = true;
+        }
+        return removed ? dotString + ".." : dotString;
+    }
+
     static Dictionary<string, StyleBox> styleboxes = new Dictionary<string, StyleBox>();
     
     // Called when the node enters the scene tree for the first time.
@@ -88,6 +100,7 @@ public class UIUtil : Node
 
     public static void AddOutputUI(FNode toNode, string labeltext, FOutput fOutp, int atIdx = -1) {
         var hb = new HbOutput();
+        hb.HintTooltip = fOutp.description;
         var lb = new Label();
         lb.Text = labeltext;
         Godot.Color slotColor;

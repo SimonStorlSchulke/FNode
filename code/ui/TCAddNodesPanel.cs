@@ -80,8 +80,6 @@ public class TCAddNodesPanel : Control
         foreach (CheckButton tab in GetNode("VBTabs").GetChildren()) {
             if (TabIndex != i) {
                 tab.Pressed = false;
-            } else {
-                GD.Print("A");
             }
             i++;
         }

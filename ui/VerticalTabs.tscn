@@ -19,13 +19,14 @@ size_flags_vertical = 3
 custom_constants/separation = 0
 
 [node name="VBTabs" type="VBoxContainer" parent="."]
-margin_right = 125.0
+margin_right = 135.0
 margin_bottom = 392.0
+rect_min_size = Vector2( 135, 0 )
 size_flags_vertical = 3
 custom_constants/separation = 0
 
 [node name="File" type="CheckButton" parent="VBTabs"]
-margin_right = 125.0
+margin_right = 135.0
 margin_bottom = 56.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
@@ -40,7 +41,7 @@ icon = ExtResource( 1 )
 
 [node name="Text" type="CheckButton" parent="VBTabs"]
 margin_top = 56.0
-margin_right = 125.0
+margin_right = 135.0
 margin_bottom = 112.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
@@ -54,7 +55,7 @@ icon = ExtResource( 2 )
 
 [node name="Date" type="CheckButton" parent="VBTabs"]
 margin_top = 112.0
-margin_right = 125.0
+margin_right = 135.0
 margin_bottom = 168.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
@@ -68,7 +69,7 @@ icon = ExtResource( 7 )
 
 [node name="Math" type="CheckButton" parent="VBTabs"]
 margin_top = 168.0
-margin_right = 125.0
+margin_right = 135.0
 margin_bottom = 224.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
@@ -82,7 +83,7 @@ icon = ExtResource( 6 )
 
 [node name="List" type="CheckButton" parent="VBTabs"]
 margin_top = 224.0
-margin_right = 125.0
+margin_right = 135.0
 margin_bottom = 280.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
@@ -96,7 +97,7 @@ icon = ExtResource( 3 )
 
 [node name="Img" type="CheckButton" parent="VBTabs"]
 margin_top = 280.0
-margin_right = 125.0
+margin_right = 135.0
 margin_bottom = 336.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
@@ -110,7 +111,7 @@ icon = ExtResource( 5 )
 
 [node name="Misc" type="CheckButton" parent="VBTabs"]
 margin_top = 336.0
-margin_right = 125.0
+margin_right = 135.0
 margin_bottom = 392.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
@@ -123,8 +124,8 @@ text = "Misc"
 icon = ExtResource( 4 )
 
 [node name="Panels" type="Panel" parent="."]
-margin_left = 125.0
-margin_right = 325.0
+margin_left = 135.0
+margin_right = 335.0
 margin_bottom = 392.0
 rect_min_size = Vector2( 200, 0 )
 size_flags_horizontal = 3
