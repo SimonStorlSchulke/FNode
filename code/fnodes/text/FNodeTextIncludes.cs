@@ -56,6 +56,7 @@ public class FNodeTextIncludes : FNode, IFNodeVarInputSize
         Button minusButton = new Button();
         plusButton.Name = "PlusButton";
         minusButton.Name = "MinusButton";
+        plusButton.SizeFlagsHorizontal = minusButton.SizeFlagsHorizontal = (int)SizeFlags.ExpandFill;
         HBPlusMinus.AddChildren(plusButton, minusButton);
         plusButton.Text = "+";
         minusButton.Text = "-";

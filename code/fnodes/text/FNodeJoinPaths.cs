@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class FNodeJoinPaths : FNode
+public class FNodeJoinPaths : FNode, IFNodeVarInputSize
 {
     public FNodeJoinPaths() {
         HintTooltip = "Join multiple Strings separated by the a Separator String.\nTo Split Lines, instert [LINEBREAK] somwhere in the Separator String";
@@ -34,8 +34,7 @@ public class FNodeJoinPaths : FNode
         HBoxContainer HBButtons = new HBoxContainer();
         Button plusButton = new Button();
         Button minusButton = new Button();
-        plusButton.SizeFlagsHorizontal = (int)SizeFlags.ExpandFill;
-        minusButton.SizeFlagsHorizontal = (int)SizeFlags.ExpandFill;
+        plusButton.SizeFlagsHorizontal = minusButton.SizeFlagsHorizontal = (int)SizeFlags.ExpandFill;
         HBButtons.Name = "HBButtons";
         plusButton.Name = "PlusButton";
         minusButton.Name = "MinusButton";
@@ -66,5 +65,13 @@ public class FNodeJoinPaths : FNode
         rmNode.QueueFree();
         RectSize = RectMinSize;
         SetSlot(GetChildCount()-1, false, 0, Colors.Red, false, 0, Colors.Red, null, null);
+    }
+
+    public void SetInputSize(int size) {
+        if (size > inputs.Count) {
+            for (int i = 0; i < (size+1)-(inputs.Count-1); i++) {
+                AddLine();
+            }
+        }
     }
 }

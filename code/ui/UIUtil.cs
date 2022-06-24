@@ -14,7 +14,6 @@ public class UIUtil : Node
         string dotString = str;
         bool removed = false;
         while (width - font.GetStringSize(dotString).x < 0) {
-            GD.Print(width - font.GetStringSize(str).x);
             dotString = dotString.Substring(0, dotString.Length-1);
             removed = true;
         }
@@ -193,6 +192,11 @@ public class UIUtil : Node
 
             case FInputString inpString:
                 ct = new LineEdit();
+                Button btnTextEditor = new Button();
+                btnTextEditor.Text = " ^ ";
+                btnTextEditor.Connect("pressed", TextEditor.inst, nameof(TextEditor.ShowEditor), 
+                    new Godot.Collections.Array(){fInp.owner, labeltext});
+                hb.AddChild(btnTextEditor);
                 if(fInp.initialValue != null) (ct as LineEdit).Text = (string)fInp.initialValue;
                 slotColor = Colors.Orange;
                 break;

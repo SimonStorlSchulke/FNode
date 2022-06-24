@@ -19,10 +19,10 @@ public class TCAddNodesPanel : Control
         CreateAddButton<FNodeDelete>();
         CreateAddButton<FNodeFilterFiles>();
         CreateAddButton<FNodeCreateTextFile>();
+        CreateAddButton<FNodeText>();
         CreateAddButton<FNodeJoinTexts>();
         CreateAddButton<FNodeAccumulateText>();
         CreateAddButton<FNodeTextViewer>();
-        CreateAddButton<FNodeTextField>();
         CreateAddButton<FNodeDateToString>();
         CreateAddButton<FNodeDateCompare>();
         CreateAddButton<FNodeCurrentDate>();
@@ -34,7 +34,7 @@ public class TCAddNodesPanel : Control
         CreateAddButton<FNodeReplaceText>();
         CreateAddButton<FNodeSwitch>();
         CreateAddButton<FNodeNumberToText>();
-        CreateAddButton<FNodeMove>();
+        CreateAddButton<FNodeMoveFile>();
         CreateAddButton<FNodeJoinPaths>();
         CreateAddButton<FNodeCutText>();
         CreateAddButton<FNodeList>();
@@ -168,7 +168,7 @@ public class TCAddNodesPanel : Control
         }
         if(e.IsActionPressed("add_move")) {
             Main.inst.OnAddNodeFromUI(
-                (FNode)Activator.CreateInstance(typeof(FNodeMove)));
+                (FNode)Activator.CreateInstance(typeof(FNodeMoveFile)));
         }
         if(e.IsActionPressed("add_rename")) {
             Main.inst.OnAddNodeFromUI(

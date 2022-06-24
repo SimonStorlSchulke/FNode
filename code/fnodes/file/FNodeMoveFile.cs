@@ -2,9 +2,9 @@ using System.IO;
 using Godot;
 using System;
 
-public class FNodeMove : FNode
+public class FNodeMoveFile : FNode
 {
-    public FNodeMove() {
+    public FNodeMoveFile() {
         HintTooltip = "Moves a File to the given folder and creates a Folder if the path doesn't exist";
         category = "File";
         FNode.IdxReset();

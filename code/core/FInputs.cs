@@ -231,17 +231,17 @@ public class FInputString : FInput {
     }
 
     public override void UpdateDefaultValueFromUI() {
-        Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
+        Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(2);
         defaultValue = (nd as LineEdit).Text.Replace("[LINEBREAK]", "\n");
     }
 
     public override object GetDefaultValueFromUI() {
-        Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
+        Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(2);
         return (nd as LineEdit).Text;
     }
 
     public override void UpdateUIFromValue(object value) {
-        ((LineEdit)owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1)).Text = (string)value;
+        ((LineEdit)owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(2)).Text = (string)value;
     }
 }
 
