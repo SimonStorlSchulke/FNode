@@ -9,7 +9,7 @@ public class FNodeJoinTexts : FNode, IFNodeVarInputSize
 
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
-            {"Filter", new FInputBool(this, initialValue: true)},
+            {"Toggle", new FInputBool(this, initialValue: true)},
             {"Separator", new FInputString(this, initialValue: "[LINEBREAK]")},
             {"Text1", new FInputString(this)},
             {"Text2", new FInputString(this)},
@@ -22,7 +22,7 @@ public class FNodeJoinTexts : FNode, IFNodeVarInputSize
             {
                 string str = "";
 
-                if (!inputs["Filter"].Get<bool>()) {
+                if (!inputs["Toggle"].Get<bool>()) {
                     return inputs["Text1"].Get<string>();
                 }
 

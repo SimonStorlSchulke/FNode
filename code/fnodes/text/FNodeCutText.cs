@@ -10,7 +10,7 @@ public class FNodeCutText : FNode
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
             {"Text", new FInputString(this)},
-            {"Filter", new FInputBool(this, initialValue: true)},
+            {"Toggle", new FInputBool(this, initialValue: true)},
             {"Start", new FInputInt(this, min: 0)},
             {"End", new FInputInt(this, min: 0)},
         };
@@ -21,7 +21,7 @@ public class FNodeCutText : FNode
             "Text", new FOutputString(this, delegate() {
                 string str = inputs["Text"].Get<string>();
 
-                if (!inputs["Filter"].Get<bool>()) {
+                if (!inputs["Toggle"].Get<bool>()) {
                     return str;
                 }
                 

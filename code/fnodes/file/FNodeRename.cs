@@ -10,7 +10,7 @@ public class FNodeRename : FNode
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
             {"File", new FInputFile(this)},
             {"To", new FInputString(this)},
-            {"Filter", new FInputBool(this, initialValue: true)},
+            {"Toggle", new FInputBool(this, initialValue: true)},
         };
         
         FNode.IdxReset();
@@ -20,7 +20,7 @@ public class FNodeRename : FNode
 
     public override void ExecutiveMethod() {
 
-        if (!inputs["Filter"].Get<bool>()) {
+        if (!inputs["Toggle"].Get<bool>()) {
             base.ExecutiveMethod();
             return;
         }

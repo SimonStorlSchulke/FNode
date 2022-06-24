@@ -190,9 +190,11 @@ public class TCAddNodesPanel : Control
             Main.inst.OnAddNodeFromUI(
                 (FNode)Activator.CreateInstance(typeof(FNodeAccumulateText)));
         }
-
-        if(e.IsActionPressed("evaluate_tree")) { //TODO put this somewhere else
+        if(e.IsActionPressed("evaluate_tree_preview")) { //TODO put this somewhere else
             Main.inst.OnParseTree(true);
+        }
+        if(e.IsActionPressed("evaluate_tree")) { //TODO put this somewhere else
+            Main.inst.OnParseTree(false);
         }
     }
 }

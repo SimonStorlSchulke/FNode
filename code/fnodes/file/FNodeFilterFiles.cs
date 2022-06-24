@@ -9,7 +9,7 @@ public class FNodeFilterFiles : FNode
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
             {"File", new FInputFile(this)},
-            {"Filter", new FInputBool(this)},
+            {"Toggle", new FInputBool(this)},
         };
 
         FNode.IdxReset();
@@ -17,7 +17,7 @@ public class FNodeFilterFiles : FNode
             {
             "Matching File", new FOutputFile(this, delegate() 
             {
-                if ((bool)inputs["Filter"].Get<object>()) {
+                if ((bool)inputs["Toggle"].Get<object>()) {
                     return inputs["File"].Get<FileInfo>();
                 }
                 else {

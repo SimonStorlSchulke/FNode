@@ -12,7 +12,7 @@ public class FNodeMoveFile : FNode
             {"File", new FInputFile(this)},
             {"To Path", new FInputString(this)},
             {"Rename?", new FInputString(this, description: "If this is not empty, the File will be renamed (not changing the Extension)")},
-            {"Filter", new FInputBool(this, initialValue: true)},
+            {"Toggle", new FInputBool(this, initialValue: true)},
         };
         
         FNode.IdxReset();
@@ -22,7 +22,7 @@ public class FNodeMoveFile : FNode
 
     public override void ExecutiveMethod()
     {
-        if (!inputs["Filter"].Get<bool>()) {
+        if (!inputs["Toggle"].Get<bool>()) {
             base.ExecutiveMethod();
             return;
         }

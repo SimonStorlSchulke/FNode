@@ -9,7 +9,7 @@ public class FNodeDelete : FNode
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
             {"File", new FInputFile(this)},
-            {"Filter", new FInputBool(this, initialValue: true)},
+            {"Toggle", new FInputBool(this, initialValue: true)},
             //{"Permanently", new FInputBool(this, description: "if this is true, the File will be deleted permanently, else it will be moved to the recycle bin")},
         };
         
@@ -20,7 +20,7 @@ public class FNodeDelete : FNode
 
     public override void ExecutiveMethod()
     {
-        if (!inputs["Filter"].Get<bool>()) {
+        if (!inputs["Toggle"].Get<bool>()) {
             base.ExecutiveMethod();
             return;
         }

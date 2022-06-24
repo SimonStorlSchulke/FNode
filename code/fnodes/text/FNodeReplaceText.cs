@@ -9,7 +9,7 @@ public class FNodeReplaceText : FNode, IFNodeVarInputSize
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
             {"Text", new FInputString(this)},
-            {"Filter", new FInputBool(this, initialValue: true)},
+            {"Toggle", new FInputBool(this, initialValue: true)},
             {"Replace1", new FInputString(this)},
             {"With1", new FInputString(this)},
         };
@@ -21,7 +21,7 @@ public class FNodeReplaceText : FNode, IFNodeVarInputSize
             {
                 string str = inputs["Text"].Get<string>();
 
-                if (!(bool)inputs["Filter"].Get<bool>()) {
+                if (!(bool)inputs["Toggle"].Get<bool>()) {
                     return str;
                 }
 

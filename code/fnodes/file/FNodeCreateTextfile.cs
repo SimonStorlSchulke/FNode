@@ -11,37 +11,41 @@ public class FNodeCreateTextFile : FNode
             {"Text", new FInputString(this)},
             {"Name", new FInputString(this)},
             {"Path", new FInputString(this)},
-            {"Filter", new FInputBool(this, initialValue: true)},
+            {"Toggle", new FInputBool(this, initialValue: true)},
         };
 
         FNode.IdxReset();
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
-            {
-            "File", new FOutputFile(this, delegate() 
-            {
-                return inputs["File"].Get<FileInfo>().Name;
-            })},
         };
     }
 
     public override void ExecutiveMethod()
     {
-        if (!inputs["Filter"].Get<bool>()) {
+        if (!inputs["Toggle"].Get<bool>()) {
             base.ExecutiveMethod();
             return;
         }
+
+        string path = inputs["Path"].Get<string>();
+
+        if (!FileUtil.IsAbsolutePath(path)) {
+            Errorlog.Log(this, "Filepath is not an absolute Path: " + path);
+            base.ExecutiveMethod();
+            return;
+        }
+
         if (GetParent<NodeTree>().previewMode) {
-            string p = FileUtil.JoinPaths(inputs["Path"].Get<string>(), inputs["Name"].Get<string>());
+            string p = FileUtil.JoinPaths(path, inputs["Name"].Get<string>());
             PuPreviewOps.AddFileCreated(p);
             base.ExecutiveMethod();
             return;
         }
 
-        FileUtil.CreateDirIfNotExisting((string)inputs["Path"].Get<string>());
+        FileUtil.CreateDirIfNotExisting(path);
 
         try {
-            string path = FileUtil.JoinPaths(inputs["Path"].Get<string>(), inputs["Name"].Get<string>());
-            System.IO.File.WriteAllText(path, inputs["Text"].Get<string>()); // Todo - Replaye with faster Method
+            string writePath = FileUtil.JoinPaths(path, inputs["Name"].Get<string>());
+            System.IO.File.WriteAllText(writePath, inputs["Text"].Get<string>()); // Todo - Replaye with faster Method
         } catch {
             base.ExecutiveMethod();
             return;
