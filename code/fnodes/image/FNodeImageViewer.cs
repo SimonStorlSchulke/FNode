@@ -41,6 +41,7 @@ public class FNodeImageViewer : FNode
         }
         image = inputs["Image"].Get<MagickImage>();
         if (image == null) {
+            tx.TextureNormal = null;
             return;
         }
         Image im = ImageUtils.MagickImageToGDImage(image);
@@ -60,6 +61,9 @@ public class FNodeImageViewer : FNode
         tx.RectMinSize = new Vector2(300, 300);
         tx.Expand = true;
         AddChild(tx);
+        Label lbl = new Label();
+        lbl.Text = "Click to enlarge";
+        AddChild(lbl);
         tx.Connect("pressed", this, nameof(Enlarge));
     }
 

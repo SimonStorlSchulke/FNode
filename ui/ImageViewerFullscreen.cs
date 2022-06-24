@@ -35,12 +35,17 @@ public class ImageViewerFullscreen : Panel
 
     public override void _Input(InputEvent e) {
         if (e.IsActionPressed("ui_cancel")) {
-            Visible = false;
+            Close();
         }
+    }
+
+    public void Close() {
+        Visible = false;
     }
 
     public void ShowViewer() {
         viewer.RectScale = new Vector2(1, 1);
+        viewer.RectSize = OS.WindowSize * 0.8f;
         viewer.RectPosition = RectSize / 2 - viewer.RectSize / 2;
         Show();
     }

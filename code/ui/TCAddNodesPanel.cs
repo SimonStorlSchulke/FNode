@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 using System;
 
@@ -6,6 +7,10 @@ public class TCAddNodesPanel : TabContainer
     [Export] NodePath NPNodeTree;
     [Export] NodePath NPSearchResults;
     VBSearchResults searchResults;
+
+    [Export] Godot.Collections.Dictionary<string, Color> buttonColors;
+    Godot.Collections.Dictionary<string, StyleBoxFlat> buttonColorStyles = new Godot.Collections.Dictionary<string, StyleBoxFlat>();
+    //Godot.Collections.Dictionary<string, StyleBoxFlat> buttonColorStyles = new Godot.Collections.Dictionary<string, StyleBoxFlat>();
 
     public void CreateButtons() {
         CreateAddButton<FNodeGetFiles>();
@@ -47,6 +52,7 @@ public class TCAddNodesPanel : TabContainer
         CreateAddButton<FNodeSaveImageAs>();
         CreateAddButton<FNodeImageViewer>();
         CreateAddButton<FNodeResizeImage>();
+        CreateAddButton<FNodeImageInfo>();
     }
 
     Resource cursorDragNode;
@@ -54,7 +60,18 @@ public class TCAddNodesPanel : TabContainer
     public override void _Ready() {
         cursorDragNode =    ResourceLoader.Load("res://theme/icons/cursor_add_node.png");
         searchResults = GetNode<VBSearchResults>(NPSearchResults);
+
+        // Create Styleboxes for Button Categories
+        foreach (var col in buttonColors) {
+            var sb = new StyleBoxFlat();
+            sb.BorderWidthLeft = 12;
+            sb.ContentMarginLeft = 33;
+            sb.BorderColor = col.Value;
+            sb.BgColor = new Color(0.25f,0.25f,0.25f);
+            buttonColorStyles.Add(col.Key, sb);
+        }
     }
+
 
     void CreateAddButton<fnType>() where fnType : FNode {
         Button AddNodeButton = new Button();
@@ -64,6 +81,13 @@ public class TCAddNodesPanel : TabContainer
         AddNodeButton.HintTooltip = fn.HintTooltip;
         //AddNodeButton.Connect("pressed", Main.inst, nameof(Main.OnAddNodeFromUI), new Godot.Collections.Array{fn});
         AddNodeButton.Connect("button_down", this, nameof(StartDrag), new Godot.Collections.Array{fn});
+
+        AddNodeButton.RectMinSize = new Vector2(0, 50);
+        AddNodeButton.AddStyleboxOverride("normal", buttonColorStyles[fn.category]);
+        AddNodeButton.AddStyleboxOverride("hover", buttonColorStyles[fn.category]);
+        AddNodeButton.AddStyleboxOverride("pressed", buttonColorStyles[fn.category]);
+        AddNodeButton.AddStyleboxOverride("focus", buttonColorStyles[fn.category]);
+
         GetNode(fn.category).AddChild(AddNodeButton);
         Button searchResultButton = (Button)AddNodeButton.Duplicate();
 

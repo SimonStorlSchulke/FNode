@@ -16,4 +16,9 @@ public static class DevUtil
         }
         return s;
     }
+
+    
+    public static bool StringContains(string source, string toCheck, StringComparison comp) {
+        return source?.IndexOf(toCheck, comp) >= 0;
+    }
 }

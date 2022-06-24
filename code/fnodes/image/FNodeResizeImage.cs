@@ -23,6 +23,11 @@ public class FNodeResizeImage : FNode
             {
             "Image", new FOutputImage(this, delegate() {
                 var img = inputs["Image"].Get<MagickImage>();
+
+                if (img == null) {
+                    return null;
+                }
+
                 int width = inputs["Width"].Get<int>();
                 int height = inputs["Height"].Get<int>();
 

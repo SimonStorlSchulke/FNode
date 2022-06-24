@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://theme/default.theme" type="Theme" id=1]
 [ext_resource path="res://ui/Project.tscn" type="PackedScene" id=2]
@@ -15,6 +15,12 @@
 [ext_resource path="res://ui/FProgressBar.cs" type="Script" id=13]
 [ext_resource path="res://ui/VBSearchResults.cs" type="Script" id=14]
 [ext_resource path="res://ui/ImageViewerFullscreen.tscn" type="PackedScene" id=15]
+[ext_resource path="res://theme/icons/ic_pp.png" type="Texture" id=16]
+[ext_resource path="res://theme/icons/ic_p.png" type="Texture" id=17]
+[ext_resource path="res://theme/SBButtonRun.tres" type="StyleBox" id=18]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.176471, 0.176471, 0.176471, 1 )
 
 [node name="Window" type="Control"]
 anchor_right = 1.0
@@ -39,13 +45,13 @@ NPAddNodeButtons = NodePath("HBMain/VBoxContainer/TCAddNodesPanel")
 
 [node name="HBMain" type="HBoxContainer" parent="VBMain"]
 margin_right = 1700.0
-margin_bottom = 848.0
+margin_bottom = 846.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ProjectTabs" type="TabContainer" parent="VBMain/HBMain"]
 margin_right = 1274.0
-margin_bottom = 848.0
+margin_bottom = 846.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/side_margin = 100
@@ -64,12 +70,12 @@ margin_bottom = -5.0
 [node name="VBoxContainer" type="VBoxContainer" parent="VBMain/HBMain"]
 margin_left = 1278.0
 margin_right = 1700.0
-margin_bottom = 848.0
+margin_bottom = 846.0
 
 [node name="LESearch" type="LineEdit" parent="VBMain/HBMain/VBoxContainer"]
 margin_right = 422.0
 margin_bottom = 40.0
-placeholder_text = "Search Node..."
+placeholder_text = "Search Node... (Ctrl + F)"
 
 [node name="SCSearchResults" type="ScrollContainer" parent="VBMain/HBMain/VBoxContainer"]
 visible = false
@@ -88,79 +94,71 @@ script = ExtResource( 14 )
 [node name="TCAddNodesPanel" type="TabContainer" parent="VBMain/HBMain/VBoxContainer"]
 margin_top = 44.0
 margin_right = 422.0
-margin_bottom = 93.0
+margin_bottom = 83.0
 rect_min_size = Vector2( 422, 0 )
+custom_styles/panel = SubResource( 2 )
 tab_align = 0
 script = ExtResource( 5 )
 NPNodeTree = NodePath("../../ProjectTabs/Project 1/NodeTree")
 NPSearchResults = NodePath("../SCSearchResults/VBSearchResults")
+buttonColors = {
+"Date": Color( 0.054902, 0.517647, 0.419608, 1 ),
+"File": Color( 0.380392, 0.145098, 0.145098, 1 ),
+"Img": Color( 0.145098, 0.152941, 0.415686, 1 ),
+"List": Color( 0.278431, 0.0352941, 0.301961, 1 ),
+"Math": Color( 0.290196, 0.521569, 0.67451, 1 ),
+"Text": Color( 0.447059, 0.290196, 0.0509804, 1 )
+}
 
 [node name="File" type="VBoxContainer" parent="VBMain/HBMain/VBoxContainer/TCAddNodesPanel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 44.0
-margin_right = -5.0
-margin_bottom = -5.0
+margin_top = 39.0
 
 [node name="Text" type="VBoxContainer" parent="VBMain/HBMain/VBoxContainer/TCAddNodesPanel"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 44.0
-margin_right = -5.0
-margin_bottom = -5.0
+margin_top = 39.0
 
 [node name="Date" type="VBoxContainer" parent="VBMain/HBMain/VBoxContainer/TCAddNodesPanel"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 44.0
-margin_right = -5.0
-margin_bottom = -5.0
+margin_top = 39.0
 
 [node name="Math" type="VBoxContainer" parent="VBMain/HBMain/VBoxContainer/TCAddNodesPanel"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 44.0
-margin_right = -5.0
-margin_bottom = -5.0
+margin_top = 39.0
 
 [node name="List" type="VBoxContainer" parent="VBMain/HBMain/VBoxContainer/TCAddNodesPanel"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 44.0
-margin_right = -5.0
-margin_bottom = -5.0
+margin_top = 39.0
 
 [node name="Img" type="VBoxContainer" parent="VBMain/HBMain/VBoxContainer/TCAddNodesPanel"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 44.0
-margin_right = -5.0
-margin_bottom = -5.0
+margin_top = 39.0
 
 [node name="Panel" type="Panel" parent="VBMain"]
-margin_top = 852.0
+margin_top = 850.0
 margin_right = 1700.0
 margin_bottom = 884.0
-rect_min_size = Vector2( 0, 32 )
+rect_min_size = Vector2( 0, 34 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBMain/Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="InfoLine" type="Label" parent="VBMain/Panel/HBoxContainer"]
+margin_top = 1.0
 margin_right = 8.0
-margin_bottom = 37.0
+margin_bottom = 38.0
 script = ExtResource( 8 )
 
 [node name="ClearTimer" type="Timer" parent="VBMain/Panel/HBoxContainer/InfoLine"]
@@ -169,8 +167,8 @@ one_shot = true
 
 [node name="Control" type="Control" parent="VBMain/Panel/HBoxContainer"]
 margin_left = 12.0
-margin_right = 1392.0
-margin_bottom = 37.0
+margin_right = 1253.0
+margin_bottom = 40.0
 size_flags_horizontal = 3
 
 [node name="ProgressBar" type="ProgressBar" parent="VBMain/Panel/HBoxContainer"]
@@ -182,25 +180,31 @@ rect_min_size = Vector2( 300, 0 )
 script = ExtResource( 13 )
 
 [node name="Control2" type="Control" parent="VBMain/Panel/HBoxContainer"]
-margin_left = 1396.0
-margin_right = 1436.0
-margin_bottom = 37.0
+margin_left = 1257.0
+margin_right = 1297.0
+margin_bottom = 40.0
 rect_min_size = Vector2( 40, 0 )
 
-[node name="Button2" type="Button" parent="VBMain/Panel/HBoxContainer"]
-margin_left = 1440.0
-margin_right = 1537.0
-margin_bottom = 37.0
-text = "Preview"
+[node name="BTNPreview" type="Button" parent="VBMain/Panel/HBoxContainer"]
+margin_left = 1301.0
+margin_right = 1489.0
+margin_bottom = 40.0
+custom_styles/focus = ExtResource( 18 )
+custom_styles/normal = ExtResource( 18 )
+text = "Preview  (F5)"
+icon = ExtResource( 16 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button3" type="Button" parent="VBMain/Panel/HBoxContainer"]
-margin_left = 1541.0
+[node name="BTNRun" type="Button" parent="VBMain/Panel/HBoxContainer"]
+margin_left = 1493.0
 margin_right = 1700.0
-margin_bottom = 37.0
-text = "Run Nodetree"
+margin_bottom = 40.0
+custom_styles/focus = ExtResource( 18 )
+custom_styles/normal = ExtResource( 18 )
+text = "Run Nodetree  "
+icon = ExtResource( 17 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -377,5 +381,5 @@ visible = false
 
 [connection signal="text_changed" from="VBMain/HBMain/VBoxContainer/LESearch" to="VBMain/HBMain/VBoxContainer/SCSearchResults/VBSearchResults" method="OnSearchNode"]
 [connection signal="timeout" from="VBMain/Panel/HBoxContainer/InfoLine/ClearTimer" to="VBMain/Panel/HBoxContainer/InfoLine" method="Clear"]
-[connection signal="pressed" from="VBMain/Panel/HBoxContainer/Button2" to="VBMain" method="OnParseTree" binds= [ true ]]
-[connection signal="pressed" from="VBMain/Panel/HBoxContainer/Button3" to="VBMain" method="OnParseTree" binds= [ false ]]
+[connection signal="pressed" from="VBMain/Panel/HBoxContainer/BTNPreview" to="VBMain" method="OnParseTree" binds= [ true ]]
+[connection signal="pressed" from="VBMain/Panel/HBoxContainer/BTNRun" to="VBMain" method="OnParseTree" binds= [ false ]]

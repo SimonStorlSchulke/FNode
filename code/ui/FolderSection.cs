@@ -17,8 +17,8 @@ public class FolderSection : VBoxContainer
         cbRecursive = GetNode<CheckButton>("HBFolder/CBRecursive");
         btnReload = GetNode<TextureButton>("HBFolder/BTNReload");
         cb.Connect("toggled", this, nameof(OnToggleList));
-        cbRecursive.Connect("pressed", this, nameof(OnToggleRecursive));
-        btnReload.Connect("pressed", this, nameof(OnToggleRecursive));
+        cbRecursive.Connect("pressed", this, nameof(OnReloadFiles));
+        btnReload.Connect("pressed", this, nameof(OnReloadFiles));
     }
 
     public void AddFile(string path) {
@@ -40,7 +40,7 @@ public class FolderSection : VBoxContainer
         }
     }
 
-    public void OnToggleRecursive() {
+    public void OnReloadFiles() {
         bool recursive = cbRecursive.Pressed;
         int idx = GetIndex();
         FileList fl = GetParent().GetParent().GetParent<FileList>(); //TODO  dangerous. Will break when reordering FolderSection Scene

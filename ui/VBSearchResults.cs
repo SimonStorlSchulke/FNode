@@ -7,13 +7,21 @@ public class VBSearchResults : VBoxContainer
 
     public override void _Ready() {
         cursorDragNode = ResourceLoader.Load("res://theme/icons/cursor_add_node.png");
+        GetParent().GetParent().GetChild<LineEdit>(0).FocusMode = FocusModeEnum.All;
     }
+
+    public override void _UnhandledInput(InputEvent e) {
+        if(e.IsActionPressed("ui_search")) {
+            GetParent().GetParent().GetChild<LineEdit>(0).GrabFocus();
+        }
+    }
+
 
     public void OnSearchNode(string str) {
         var childs = GetChildren();
         bool hadResults = false;
         foreach (Button item in childs) {
-            if (item.Text.Contains(str) && str != "") {
+            if (DevUtil.StringContains(item.Text, str, StringComparison.OrdinalIgnoreCase) && str != "") {
                 item.Visible = true;
                 hadResults = true;
             } else {

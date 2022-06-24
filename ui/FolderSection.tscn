@@ -15,6 +15,9 @@ bg_color = Color( 0.301961, 0.301961, 0.301961, 1 )
 margin_right = 463.0
 margin_bottom = 137.0
 script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="HBFolder" type="HBoxContainer" parent="."]
 margin_right = 463.0
