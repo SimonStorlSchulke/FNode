@@ -40,8 +40,17 @@ public class NodeTree : GraphEdit
         return mPos.x > 0 && mPos.x < RectSize.x && mPos.y > 0 && mPos.y < RectSize.y;
     }
 
+    public override void _Input(InputEvent e) {
+        if (e.IsActionPressed("ui_cancel")) {
+            cancel = true;
+        }
+    }
+
     public bool previewMode = true;
+    bool cancel = false;
     public async Task EvaluateTree(bool previewMode) {
+        cancel = false;
+
         this.previewMode = previewMode;
         Project.idxEval = 0;
         
@@ -54,6 +63,13 @@ public class NodeTree : GraphEdit
         await Task.Run(() => {
         
         for (int i = 0; i < iterations; i++) {
+            if (cancel) {
+                FProgressBar.inst.EndProgress();
+                Project.idxEval = 0;
+                Main.preventRun = false;
+                GD.Print("Test");
+                return;
+            }
 
             Project.IsLastIteration = Project.idxEval > (iterations-2);
 
@@ -104,14 +120,24 @@ public class NodeTree : GraphEdit
         ConnectNode(from, fromSlot, to, toSlot);
 
         fnTo.inputs.ElementAt(toSlot).Value.connectedTo = fnFrom.outputs.ElementAt(fromSlot).Value;
-        fnTo.GetChild(toSlot + fnTo.outputs.Count).GetChild<Control>(1).Visible = false;
+        Node inp = fnTo.GetChild(toSlot + fnTo.outputs.Count);
+        inp.GetChild<Control>(1).Visible = false;
+        if (inp.GetChildCount() > 2) {
+            // Text and Date inputs for example have three children - all except the label need to be hidden;
+            inp.GetChild<Control>(2).Visible = false;
+        }
+        
     }
 
     public void OnDisconnectionRequest(string from, int fromSlot, string to, int toSlot) {
         DisconnectNode(from, fromSlot, to, toSlot);
         FNode fnTo = GetNode<FNode>(to);
         fnTo.inputs.ElementAt(toSlot).Value.connectedTo = null;
-        fnTo.GetChild(toSlot + fnTo.outputs.Count).GetChild<Control>(1).Visible = true;
+        Node inp = fnTo.GetChild(toSlot + fnTo.outputs.Count);
+        inp.GetChild<Control>(1).Visible = true;
+        if (inp.GetChildCount() > 2) {
+            inp.GetChild<Control>(2).Visible = true;
+        }
     }
 
     public void OnAddNode(FNode fn, Vector2? offset = null) {

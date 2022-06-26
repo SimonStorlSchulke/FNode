@@ -1,6 +1,3 @@
-using System.IO;
-using Godot;
-using System;
 using ImageMagick;
 
 public class FNodeResizeImage : FNode

@@ -1,6 +1,4 @@
-using System.IO;
 using Godot;
-using System;
 using ImageMagick;
 
 public class FNodeSaveImageAs : FNode

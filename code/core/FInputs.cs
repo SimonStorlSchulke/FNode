@@ -170,6 +170,10 @@ public class FInput {
         if (valueType != typeof(ImageMagick.MagickImage) && slotType == typeof(FInputImage)) {
             return null;
         }
+        
+        if (valueType == typeof(ImageMagick.MagickImage) && slotType != typeof(FInputImage)) {
+            return null;
+        }
 
         if (valueType == typeof(System.Double)) {
             value = (float)value;

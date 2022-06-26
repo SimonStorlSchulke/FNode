@@ -43,19 +43,10 @@ public class FNodeJoinTexts : FNode, IFNodeVarInputSize
     public override void _Ready() {
         base._Ready();
         HBoxContainer HBButtons = new HBoxContainer();
-        Button plusButton = new Button();
-        Button minusButton = new Button();
-        plusButton.SizeFlagsHorizontal = (int)SizeFlags.ExpandFill;
-        minusButton.SizeFlagsHorizontal = (int)SizeFlags.ExpandFill;
-        HBButtons.Name = "HBButtons";
-        plusButton.Name = "PlusButton";
-        minusButton.Name = "MinusButton";
-        plusButton.Text = "+";
-        minusButton.Text = "-";
-        plusButton.Connect("pressed", this, nameof(AddInput));
-        minusButton.Connect("pressed", this, nameof(RemoveInput));
-        HBButtons.AddChild(plusButton);
-        HBButtons.AddChild(minusButton);
+        nButton plusButton = new nButton("+", this, nameof(AddInput), name: "PlusButton");
+        nButton minusButton = new nButton("-", this, nameof(RemoveInput), name: "MinusButton");
+        plusButton.SizeFlagsHorizontal = minusButton.SizeFlagsHorizontal = (int)SizeFlags.ExpandFill;
+        HBButtons.AddChildren(plusButton, minusButton);
         AddChild(HBButtons);
     }
 

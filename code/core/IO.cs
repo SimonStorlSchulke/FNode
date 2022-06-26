@@ -17,7 +17,9 @@ public class IO : Node {
     }
 
     public string GetDefaultSaveDir() {
-        string path = FileUtil.JoinPaths(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), "FNode");
+        //Using Appdata for APPLICATION DATA... not littering the users Documents Folder like every goddamn other App does!
+        string path = FileUtil.JoinPaths(
+            System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), "FNode/saves");
         FileUtil.CreateDirIfNotExisting(path);
         return path;
     }
