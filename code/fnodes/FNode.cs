@@ -10,6 +10,7 @@ public abstract class FNode : GraphNode {
     public string category = "other";
     public const string RunBeforeEvaluationGroup = "run_before_evaluation_group";
     public const string RunBeforeIterationGroup = "run_before_iteration_group";
+    public const string AwaiterNodesGroup = "awaiter_nodes_group";
 
     public override void _EnterTree() {
         Name = "FNode_" + Guid.NewGuid();

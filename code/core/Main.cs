@@ -35,7 +35,7 @@ public class Main : VBoxContainer
 
     public override void _EnterTree() {
         inst = this;
-        float UIScale = OS.GetScreenSize().x > 2000 ? 1.0f : 0.6f; // TODO better resolution options
+        float UIScale = OS.GetScreenSize().x > 2000 ? 0.85f : 0.6f; // TODO better resolution options
         OS.WindowSize = OS.GetScreenSize() * 0.7f; //Always start at 0.7% Resolution
         OS.WindowPosition = OS.GetScreenSize() / 2 - OS.WindowSize / 2;
         GetTree().SetScreenStretch(SceneTree.StretchMode.Disabled, SceneTree.StretchAspect.Ignore, new Vector2(128, 128), UIScale);
@@ -135,11 +135,17 @@ public class Main : VBoxContainer
         RectScale = new Vector2(1f * (1f / scale), 1f * (1f / scale));
         RectSize = winSize * RectScale * (16f / 9f);// / RectScale;//(2f * RectScale);// * RectScale;
     }
+    
 
-    public async void OnParseTree(bool preview) {
+    public async void OnParseTree(bool preview, bool async = false) {
+
         if (preventRun) return;
+
         EmitSignal(nameof(StartParsing));
-        await currentProject.GetNode<NodeTree>("NodeTree").EvaluateTree(preview);
-        //...
+
+        //This starts all Nodes that need to be waited for before evaluation (like REST API calls). Each AwaiterNode then checks, if it was the last one finished and starts the NodeTreeEvaluation if so.
+        GetTree().CallGroupFlags((int)SceneTree.GroupCallFlags.Realtime, FNode.AwaiterNodesGroup, nameof(FNodeAwait.WaitFor));
+
+        currentProject.GetNode<NodeTree>("NodeTree").CheckAwaitersFinished();
     }
 }

@@ -8,6 +8,17 @@ using System.Threading.Tasks;
 public class NodeTree : GraphEdit
 {
     [Signal] public delegate void StartNextIteration();
+    public List<FNodeAwait> awaiterNodes = new List<FNodeAwait>();
+
+    public void CheckAwaitersFinished() {
+        foreach (var awaiterNode in awaiterNodes) {
+            if (awaiterNode.finished == false) {
+                return;
+            }
+        }
+        // Run the Nodetree when all awaiternodes have finished ther thing
+        EvaluateTree(true);
+    }
 
     public override void _Ready() {
         //CallDeferred(nameof(HideControle));
