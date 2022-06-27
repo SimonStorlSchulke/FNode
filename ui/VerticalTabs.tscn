@@ -109,7 +109,7 @@ custom_styles/hover_pressed = ExtResource( 9 )
 text = "Img"
 icon = ExtResource( 5 )
 
-[node name="Misc" type="CheckButton" parent="VBTabs"]
+[node name="Other" type="CheckButton" parent="VBTabs"]
 margin_top = 336.0
 margin_right = 135.0
 margin_bottom = 392.0
@@ -120,7 +120,7 @@ custom_icons/on = ExtResource( 8 )
 custom_styles/pressed = ExtResource( 9 )
 custom_styles/focus = ExtResource( 9 )
 custom_styles/hover_pressed = ExtResource( 9 )
-text = "Misc"
+text = "Other"
 icon = ExtResource( 4 )
 
 [node name="Panels" type="Panel" parent="."]
@@ -179,7 +179,7 @@ rect_min_size = Vector2( 200, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Misc" type="VBoxContainer" parent="Panels"]
+[node name="Other" type="VBoxContainer" parent="Panels"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0

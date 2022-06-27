@@ -34,7 +34,7 @@ public class FNodeCreateTextFile : FNode
             return;
         }
 
-        if (GetParent<NodeTree>().previewMode) {
+        if (Main.inst.preview) {
             string p = FileUtil.JoinPaths(path, inputs["Name"].Get<string>());
             PuPreviewOps.AddFileCreated(p);
             base.ExecutiveMethod();

@@ -136,9 +136,9 @@ public class Main : VBoxContainer
         RectSize = winSize * RectScale * (16f / 9f);// / RectScale;//(2f * RectScale);// * RectScale;
     }
     
-
-    public async void OnParseTree(bool preview, bool async = false) {
-
+    public bool preview {get; private set;}
+    public void OnParseTree(bool preview) {
+        this.preview = preview;
         if (preventRun) return;
 
         EmitSignal(nameof(StartParsing));

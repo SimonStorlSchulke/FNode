@@ -15,7 +15,7 @@ public static class FileUtil
     public static void SecureRename(string path, string renameTo) {
         string fileName = renameTo == "" ? System.IO.Path.GetFileNameWithoutExtension(path).GetFile() : renameTo;
         string newPath = FileUtil.JoinPaths(path.GetBaseDir(), fileName + System.IO.Path.GetExtension(path));        
-        if (Main.inst.currentProject.NodeTree.previewMode) {
+        if (Main.inst.preview) {
             PuPreviewOps.AddFileMoved(path, newPath);
             return;
         }
@@ -28,7 +28,7 @@ public static class FileUtil
     }
 
     public static void SecureDelete(string path) {
-        if (Main.inst.currentProject.NodeTree.previewMode) {
+        if (Main.inst.preview) {
             PuPreviewOps.AddFileDeleted(path);
             return;
         }
@@ -41,7 +41,7 @@ public static class FileUtil
 
     public static void SecureMove(string fromPath, string toPath) {
 
-        if (Main.inst.currentProject.NodeTree.previewMode) {
+        if (Main.inst.preview) {
             PuPreviewOps.AddFileMoved(fromPath, toPath);
             return;
         }

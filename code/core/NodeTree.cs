@@ -10,14 +10,19 @@ public class NodeTree : GraphEdit
     [Signal] public delegate void StartNextIteration();
     public List<FNodeAwait> awaiterNodes = new List<FNodeAwait>();
 
-    public void CheckAwaitersFinished() {
+    public async void CheckAwaitersFinished() {
+        if (awaiterNodes.Count == 0) {
+            await EvaluateTree();
+            return;
+        }
+
         foreach (var awaiterNode in awaiterNodes) {
             if (awaiterNode.finished == false) {
                 return;
             }
         }
         // Run the Nodetree when all awaiternodes have finished ther thing
-        EvaluateTree(true);
+        await EvaluateTree();
     }
 
     public override void _Ready() {
@@ -57,12 +62,10 @@ public class NodeTree : GraphEdit
         }
     }
 
-    public bool previewMode = true;
     bool cancel = false;
-    public async Task EvaluateTree(bool previewMode) {
+    public async Task EvaluateTree() {
         cancel = false;
 
-        this.previewMode = previewMode;
         Project.idxEval = 0;
         
         GetTree().CallGroupFlags((int)SceneTree.GroupCallFlags.Realtime, FNode.RunBeforeEvaluationGroup, nameof(FNode.OnBeforeEvaluation));

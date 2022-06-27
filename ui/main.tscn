@@ -101,6 +101,7 @@ buttonColors = {
 "Img": Color( 0.196078, 0.2, 0.588235, 1 ),
 "List": Color( 0.486275, 0.164706, 0.576471, 1 ),
 "Math": Color( 0.196078, 0.486275, 0.545098, 1 ),
+"Other": Color( 0.694118, 0.694118, 0.694118, 1 ),
 "Text": Color( 0.462745, 0.396078, 0.027451, 1 )
 }
 
@@ -200,8 +201,8 @@ window_title = "Save"
 resizable = true
 access = 2
 filters = PoolStringArray( "*.fnode" )
-current_dir = "/Users/simon/Dev/nodefiler"
-current_path = "/Users/simon/Dev/nodefiler/"
+current_dir = "/dev/Godot/fnode"
+current_path = "/dev/Godot/fnode/"
 
 [node name="FDLoad" type="FileDialog" parent="."]
 margin_left = 522.0
@@ -215,8 +216,8 @@ resizable = true
 mode = 0
 access = 2
 filters = PoolStringArray( "*.fnode" )
-current_dir = "/Users/simon/Dev/nodefiler"
-current_path = "/Users/simon/Dev/nodefiler/"
+current_dir = "/dev/Godot/fnode"
+current_path = "/dev/Godot/fnode/"
 
 [node name="UIUtil" type="Node" parent="."]
 process_priority = -1

@@ -88,9 +88,7 @@ public class IO : Node {
             var saveData = new Dictionary<string, object>((Dictionary)JSON.Parse(saveGame.GetLine()).Result);
 
             try {
-
-
-            Godot.Collections.Array nodesData = saveData["Nodes"] as Godot.Collections.Array;
+                Godot.Collections.Array nodesData = saveData["Nodes"] as Godot.Collections.Array;
             foreach (Dictionary nodeData in nodesData) {
                 FNode.Deserialize(nodeData, pr);
             }
