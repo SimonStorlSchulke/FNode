@@ -4,7 +4,7 @@ using System;
 public class FNodeList : FNode
 {
     public FNodeList() {
-        HintTooltip = "Retrieve an Item from a List. The output is of a variable Type.";
+        HintTooltip = "Generate list of values";
         category = "List";
 
         FNode.IdxReset();

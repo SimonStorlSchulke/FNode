@@ -3,7 +3,6 @@ using System;
 
 public class PuPreviewOps : WindowDialog
 {
-
     [Export] NodePath NPFilesDeleted;
     static RichTextLabel filesDeleted;
 

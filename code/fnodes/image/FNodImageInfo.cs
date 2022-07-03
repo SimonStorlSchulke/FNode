@@ -7,7 +7,7 @@ public class FNodeImageInfo : FNode
     MagickImage currentImage;
 
     public FNodeImageInfo() {
-        HintTooltip = "Multiple Math Operations";
+        HintTooltip = "Get information about the connected Image";
         category = "Img";
 
         FNode.IdxReset();

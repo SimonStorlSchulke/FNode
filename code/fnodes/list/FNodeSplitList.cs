@@ -4,7 +4,7 @@ using System;
 public class FNodeSplitList : FNode
 {
     public FNodeSplitList() {
-        HintTooltip = "Retrieve an Item from a List. The output is of a variable Type.";
+        HintTooltip = "Split a list into two at a given index.";
         category = "List";
 
         FNode.IdxReset();

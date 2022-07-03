@@ -7,8 +7,8 @@ public class UIInput : Node
 
     public override void _UnhandledInput(InputEvent e) {
         if(e.IsActionPressed("ui_delete")) {
-            TCFilestacks fileStacks = Main.inst.currentProject.FileStacks;
-            int selectedStack = Main.inst.currentProject.FileStacks.CurrentTab;
+            TCFilestacks fileStacks = Main.Inst.CurrentProject.FileStacks;
+            int selectedStack = Main.Inst.CurrentProject.FileStacks.CurrentTab;
             fileStacks.GetCurrentFileList().RemoveSelectedItems();
         } else if (e.IsActionPressed("ui_help")) {
             GetNode<Popup>(NPHelpPanel).PopupCentered();

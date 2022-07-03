@@ -1,4 +1,3 @@
-using System.IO;
 using Godot;
 using System;
 
@@ -22,9 +21,9 @@ public class FNodeAccumulateText : FNode
                 string sep = inputs["Separator"].Get<string>();
                 sep = sep.Replace("[LINEBREAK]", "\n"); //TODO sanitize this...
 
-                int iterations = (int)Math.Max(Main.inst.currentProject.spIterations.Value, Project.maxNumFiles);
+                int iterations = (int)Math.Max(Main.Inst.CurrentProject.spIterations.Value, Project.MaxNumFiles);
                 
-                accumulatedString += Project.idxEval < iterations-1 ? inputs["Text"].Get<string>() + sep : inputs["Text"].Get<string>(); //TODO Use String.Join;
+                accumulatedString += Project.IdxEval < iterations-1 ? inputs["Text"].Get<string>() + sep : inputs["Text"].Get<string>(); //TODO Use String.Join;
                 
                 return accumulatedString;
             })},

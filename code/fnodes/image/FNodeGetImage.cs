@@ -4,7 +4,7 @@ using ImageMagick;
 public class FNodeGetImage : FNode
 {
     public FNodeGetImage() {
-        HintTooltip = "Multiple Math Operations";
+        HintTooltip = "Get Image Data if the incoming file is an image";
         category = "Img";
 
         FNode.IdxReset();

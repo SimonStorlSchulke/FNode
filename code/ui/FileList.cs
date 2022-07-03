@@ -8,7 +8,7 @@ public class FileList : Control
     [Export] PackedScene folderSection;
     VBoxContainer vbFileLists;
     FolderSection looseFilesList;
-    public List<string> allFiles {get; private set;}
+    public List<string> AllFiles {get; private set;}
 
     public Dictionary<string, List<string>> fileStack = new Dictionary<string, List<string>>() {
         {"Loose Files", new List<string>()}
@@ -28,8 +28,8 @@ public class FileList : Control
     public void OnBeforeEvaluation() {
 
         if (GetParent<TabContainer>().CurrentTab == GetIndex()) {
-            allFiles = GetAllFiles();
-            Project.maxNumFiles = allFiles.Count;
+            AllFiles = GetAllFiles();
+            Project.MaxNumFiles = AllFiles.Count;
         }
     }
 
@@ -46,12 +46,12 @@ public class FileList : Control
 
     public void RemoveSelectedItems() {
         foreach (FolderSection fs in vbFileLists.GetChildren()) {
-            int[] selItems = fs.list.GetSelectedItems();
+            int[] selItems = fs.FileList.GetSelectedItems();
             int i=0;
             foreach (int item in selItems) {
-                fs.list.RemoveItem(item-i);
+                fs.FileList.RemoveItem(item-i);
                 try {
-                    fileStack[fs.connecedFolder].RemoveAt(item-i);
+                    fileStack[fs.ConnecedFolder].RemoveAt(item-i);
                 } catch (System.Exception e) {
                     Errorlog.Log(e);
                 }
@@ -65,8 +65,8 @@ public class FileList : Control
 
     public void UpdateUIListAtKey(string key) {
         foreach (FolderSection fs in vbFileLists.GetChildren()) {
-            if (fs.connecedFolder == key) {
-                fs.list.Clear();
+            if (fs.ConnecedFolder == key) {
+                fs.FileList.Clear();
                 fs.AddFiles(fileStack[key]);
                 }
         }
@@ -76,10 +76,10 @@ public class FileList : Control
         List<int> collapsed = new List<int>{};
         List<int> nonRecursive = new List<int>{};
         foreach (FolderSection fs in vbFileLists.GetChildren()) {
-            if (!fs.cb.Pressed) {
+            if (!fs.Cb.Pressed) {
                 collapsed.Add(fs.GetIndex());
             }
-            if (!fs.cbRecursive.Pressed) {
+            if (!fs.CbRecursive.Pressed) {
                 nonRecursive.Add(fs.GetIndex());
             }
             fs.QueueFree();
@@ -89,24 +89,24 @@ public class FileList : Control
         foreach (var dictItem in fileStack) {
             string dirPath = dictItem.Key;
             FolderSection fs = folderSection.Instance<FolderSection>();
-            fs.connecedFolder = dirPath;
+            fs.ConnecedFolder = dirPath;
             vbFileLists.AddChild(fs);
-            fs.cb.Text = UIUtil.GetOverflowDots(dirPath.GetFile(), fs.cb.GetFont("normal"), 170);
-            fs.cb.HintTooltip = dirPath;
+            fs.Cb.Text = UIUtil.GetOverflowDots(dirPath.GetFile(), fs.Cb.GetFont("normal"), 170);
+            fs.Cb.HintTooltip = dirPath;
             fs.AddFiles(dictItem.Value);
 
             if (collapsed.Contains(i)) {
-                fs.cb.Pressed = false;
-                fs.list.Visible = false;
+                fs.Cb.Pressed = false;
+                fs.FileList.Visible = false;
             }
 
             //Hide Recusrive Button from Loose Files Section
             bool notLoosFiles = i != 0;
-            fs.cbRecursive.Visible = notLoosFiles;
-            fs.btnReload.Visible = notLoosFiles;
+            fs.CbRecursive.Visible = notLoosFiles;
+            fs.BtnReload.Visible = notLoosFiles;
 
             if (notLoosFiles) {
-                fs.cbRecursive.Pressed = !nonRecursive.Contains(i);
+                fs.CbRecursive.Pressed = !nonRecursive.Contains(i);
             }
             i++;
         }

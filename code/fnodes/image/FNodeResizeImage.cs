@@ -3,7 +3,7 @@ using ImageMagick;
 public class FNodeResizeImage : FNode
 {
     public FNodeResizeImage() {
-        HintTooltip = "Multiple Math Operations";
+        HintTooltip = "Resize an Image to a given size";
         category = "Img";
 
         FNode.IdxReset();

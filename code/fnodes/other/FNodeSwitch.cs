@@ -9,7 +9,7 @@ public class FNodeSwitch : FNode
     OptionButton ob;
 
     public FNodeSwitch() {
-        HintTooltip = "Multiple Math Operations";
+        HintTooltip = "Switch between the values of the False and True inputs depending on the state of the Switch input.";
         category = "Math";
 
 
@@ -59,7 +59,7 @@ public class FNodeSwitch : FNode
 
     public void OptionSelected(int option) {
 
-        var oldConList = outputs["Result"].ConnectedTo();
+        var oldConList = outputs["Result"].GetConnectedInputs();
 
         //This is a monstrosity- is there a better way?
 

@@ -1,4 +1,3 @@
-using System.Drawing;
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -218,7 +217,7 @@ public class UIUtil : Node
                 ct = new Button();
                 ((Button)ct).Text = "Edit List";
                 ct.Connect("pressed", ListCreator.inst, nameof(ListCreator.ShowCreator), 
-                    new Godot.Collections.Array(){fInp.defaultValue, fInp.owner, labeltext}); //This might break...
+                    new Godot.Collections.Array(){fInp.DefaultValue, fInp.owner, labeltext}); //This might break...
                 slotColor = Colors.Purple;
                 break;
 

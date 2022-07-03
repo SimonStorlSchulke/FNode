@@ -141,7 +141,7 @@ public abstract class FNode : GraphNode {
         RemoveChild(n);
         n.QueueFree();
         int idx = foutput.idx;
-        var oldConnectionList = foutput.ConnectedTo();
+        var oldConnectionList = foutput.GetConnectedInputs();
 
         switch(toType) {
             case FNodeSlotTypes.FILE:
@@ -189,7 +189,7 @@ public abstract class FNode : GraphNode {
         n.QueueFree();
         GetOutputValue m = foutput.Get;
         int idx = foutput.idx;
-        var oldConnectionList = foutput.ConnectedTo();
+        var oldConnectionList = foutput.GetConnectedInputs();
 
         switch(toType) {
             case FNodeSlotTypes.FILE:
@@ -241,8 +241,8 @@ public abstract class FNode : GraphNode {
             // ugly hack to differentiate between ints and float in savefile-lists: If value is an Int, save as string "%FNODE-INT%value" instead (example: %FNODE-INT%10)
             if (input.Value is FInputList) {
 
-                var originalSaveArr = ((Godot.Collections.Array)input.Value.defaultValue);
-                var saveArr = ((Godot.Collections.Array)input.Value.defaultValue).Duplicate();
+                var originalSaveArr = ((Godot.Collections.Array)input.Value.DefaultValue);
+                var saveArr = ((Godot.Collections.Array)input.Value.DefaultValue).Duplicate();
 
                 for (int i = 0; i < saveArr.Count; i++) {
                     if (originalSaveArr[i] is System.Int32) {
@@ -313,7 +313,7 @@ public abstract class FNode : GraphNode {
                     }
                 }
 
-                fn.inputs[(string)inputData.Key].defaultValue = loadAr;
+                fn.inputs[(string)inputData.Key].DefaultValue = loadAr;
             } else {
                 fn.inputs[(string)inputData.Key].UpdateUIFromValue(inputData.Value);
             }

@@ -4,7 +4,7 @@ using System;
 public class FNodeGetJSONItem: FNode
 {
     public FNodeGetJSONItem() {
-        HintTooltip = "Cut Characters from Start and End of a Text";
+        HintTooltip = "";
         category = "Text";        
 
         FNode.IdxReset();

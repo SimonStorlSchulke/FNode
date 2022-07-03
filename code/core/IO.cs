@@ -53,15 +53,15 @@ public class IO : Node {
 
         saveData.Add("Nodes", nodesDict);
         saveData.Add("Connections", nt.GetConnectionList());
-        saveData.Add("iterations", Main.inst.currentProject.spIterations.Value);
-        saveData.Add("ScrollOffsetX", Main.inst.currentProject.NodeTree.ScrollOffset.x);
-        saveData.Add("ScrollOffsetY", Main.inst.currentProject.NodeTree.ScrollOffset.y);
+        saveData.Add("iterations", Main.Inst.CurrentProject.spIterations.Value);
+        saveData.Add("ScrollOffsetX", Main.Inst.CurrentProject.NodeTree.ScrollOffset.x);
+        saveData.Add("ScrollOffsetY", Main.Inst.CurrentProject.NodeTree.ScrollOffset.y);
         return saveData;
     }
 
     public void Save(string path) {
 
-        var saveData = IO.serializeProject(Main.inst.currentProject.NodeTree);
+        var saveData = IO.serializeProject(Main.Inst.CurrentProject.NodeTree);
 
         var saveGame = new File();
         saveGame.Open(path, File.ModeFlags.Write);
@@ -69,7 +69,7 @@ public class IO : Node {
         saveGame.Close();
 
         InfoLine.Show($"Saved Project to {path}");
-        Main.inst.projectTabs.SetTabTitle(Main.inst.projectTabs.CurrentTab, System.IO.Path.GetFileNameWithoutExtension(path));
+        Main.Inst.ProjectTabs.SetTabTitle(Main.Inst.ProjectTabs.CurrentTab, System.IO.Path.GetFileNameWithoutExtension(path));
     }
 
     public void Load(string path) {
@@ -105,7 +105,7 @@ public class IO : Node {
 
             pr.NodeTree.ScrollOffset = new Vector2((float)(System.Single)saveData["ScrollOffsetX"], (float)(System.Single)saveData["ScrollOffsetY"]);
 
-            Main.inst.currentProject.spIterations.Value = (int)(System.Single)saveData["iterations"];
+            Main.Inst.CurrentProject.spIterations.Value = (int)(System.Single)saveData["iterations"];
             InfoLine.Show($"Loaded Project {path}");
 
             } catch (System.Exception e) {

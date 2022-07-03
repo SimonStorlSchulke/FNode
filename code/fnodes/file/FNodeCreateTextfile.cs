@@ -34,7 +34,7 @@ public class FNodeCreateTextFile : FNode
             return;
         }
 
-        if (Main.inst.preview) {
+        if (Main.Inst.preview) {
             string p = FileUtil.JoinPaths(path, inputs["Name"].Get<string>());
             PuPreviewOps.AddFileCreated(p);
             base.ExecutiveMethod();

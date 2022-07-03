@@ -16,7 +16,7 @@ public enum SlotType {
 }
 
 public class FInput {
-    public object defaultValue;
+    public object DefaultValue;
     public object initialValue;
     Control GetUI;
     public FNode owner;
@@ -33,6 +33,8 @@ public class FInput {
     }
 
     protected delegate object SlotConversion(object outputVal, FInput inputType);
+
+    ///<summary> Dictionary of delegates handling conversions between different data (slot) types </summary>
     protected static Dictionary<Tuple<Type, Type>, SlotConversion> slotConversionsDict = new Dictionary<Tuple<Type, Type>, SlotConversion>() {
 
         #region fileInput conversions
@@ -154,6 +156,7 @@ public class FInput {
         #endregion
     };
 
+    ///<summary> uses the slotConversionsDict to convert incoming slot-connections that aren't the same type as the input </summar>
     protected object AutoSlotConversion(object value) {
 
         var slotType = this.GetType();
@@ -191,18 +194,24 @@ public class FInput {
         }
     }
 
+    ///<summary> Get the input value by either parsing the connected slot or using the user-entered defaultvalue if no slot is connected </summary>
     public virtual T Get<T>() {
         if (connectedTo != null) {
             return (T)AutoSlotConversion(connectedTo.Get());
         } else {
             UpdateDefaultValueFromUI();
-            return (T)AutoSlotConversion(defaultValue); //TODO - maybe not necessary
+            return (T)AutoSlotConversion(DefaultValue); //TODO - maybe not necessary
         }
     }
 
-    public virtual void UpdateDefaultValueFromUI(){} // This updates the Nodes defaultValue parameter and sanitizes it
-    public virtual object GetDefaultValueFromUI(){return null;} // This returns the actual text etc the User has entered in the Input FIeld
-    public virtual void UpdateUIFromValue(object value){} // This returns the actual text etc the User has entered in the Input FIeld
+    ///<summary> Updates the Nodes defaultValue parameter and sanitizes it </summary> 
+    public virtual void UpdateDefaultValueFromUI(){}
+    
+    ///<summary> Returns the actual text etc the User has entered in the Input FIeld </summary> 
+    public virtual object GetDefaultValueFromUI(){return null;}
+    
+    ///<summary> Returns the actual text etc the User has entered in the Input FIeld </summary> 
+    public virtual void UpdateUIFromValue(object value){}
 }
 
 public class FInputFile : FInput {
@@ -214,9 +223,9 @@ public class FInputFile : FInput {
         Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
         string path = (nd as LineEdit).Text;
         if (FileUtil.IsAbsolutePath(path))
-            defaultValue = new System.IO.FileInfo(path);
+            DefaultValue = new System.IO.FileInfo(path);
         else
-            defaultValue = null;
+            DefaultValue = null;
     }
 
     public override object GetDefaultValueFromUI() {
@@ -236,7 +245,7 @@ public class FInputString : FInput {
 
     public override void UpdateDefaultValueFromUI() {
         Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(2);
-        defaultValue = (nd as LineEdit).Text.Replace("[LINEBREAK]", "\n");
+        DefaultValue = (nd as LineEdit).Text.Replace("[LINEBREAK]", "\n");
     }
 
     public override object GetDefaultValueFromUI() {
@@ -252,7 +261,7 @@ public class FInputString : FInput {
 public class FInputList : FInput {
     public FInputList(FNode owner, int idx = -1, string description = "", object initialValue = null) : base(owner, idx, description, initialValue) {
         slotType = SlotType.LIST;
-        this.defaultValue = initialValue == null ? new Godot.Collections.Array() : initialValue;
+        this.DefaultValue = initialValue == null ? new Godot.Collections.Array() : initialValue;
     }
 
     public override void UpdateDefaultValueFromUI() {
@@ -261,7 +270,7 @@ public class FInputList : FInput {
 
     public override object GetDefaultValueFromUI() {
         Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
-        return defaultValue;
+        return DefaultValue;
     }
 
     public override void UpdateUIFromValue(object value) {
@@ -281,7 +290,7 @@ public class FInputInt : FInput {
 
     public override void UpdateDefaultValueFromUI() {
         Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
-        defaultValue = (int)(nd as SpinBox).Value;
+        DefaultValue = (int)(nd as SpinBox).Value;
     }
 
     public override object GetDefaultValueFromUI() {
@@ -305,7 +314,7 @@ public class FInputFloat : FInput {
 
     public override void UpdateDefaultValueFromUI() {
         Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
-        defaultValue = (float)(nd as SpinBox).Value;
+        DefaultValue = (float)(nd as SpinBox).Value;
     }
 
     public override object GetDefaultValueFromUI() {
@@ -325,7 +334,7 @@ public class FInputBool : FInput {
 
     public override void UpdateDefaultValueFromUI() {
         Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
-        defaultValue = (nd as CheckBox).Pressed;
+        DefaultValue = (nd as CheckBox).Pressed;
     }
 
     public override object GetDefaultValueFromUI() {
@@ -345,7 +354,7 @@ public class FInputDate : FInput {
 
     public override void UpdateDefaultValueFromUI() {
         Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
-        defaultValue = DateTime.Parse((nd as Label).Text);
+        DefaultValue = DateTime.Parse((nd as Label).Text);
     }
 
     public override object GetDefaultValueFromUI() {

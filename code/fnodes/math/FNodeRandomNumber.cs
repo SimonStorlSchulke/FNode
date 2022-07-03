@@ -6,7 +6,7 @@ public class FNodeRandomNumber : FNode
 {
     ulong seedAdds = 0;
     public FNodeRandomNumber() {
-        HintTooltip = "Multiple Math Operations";
+        HintTooltip = "Generate a random numbers";
         category = "Math";
         
         RandomNumberGenerator rng = new RandomNumberGenerator();

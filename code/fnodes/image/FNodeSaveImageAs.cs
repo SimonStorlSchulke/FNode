@@ -33,7 +33,7 @@ public class FNodeSaveImageAs : FNode
         image.Quality = inputs["Quality"].Get<int>();
         string finalPath = path + "\\" + System.IO.Path.GetFileNameWithoutExtension(origPath) + "." + GetSelectedOption("To Type");
 
-        if (Main.inst.preview) {
+        if (Main.Inst.preview) {
             PuPreviewOps.AddFileCreated(finalPath);
             base.ExecutiveMethod();
             return;

@@ -5,8 +5,8 @@ public class Project : Control
     public NodeTree NodeTree;
     public TCFilestacks FileStacks;
     public SpinBox spIterations;
-    public static int idxEval = 0;
-    public static int maxNumFiles = 0;
+    public static int IdxEval = 0;
+    public static int MaxNumFiles = 0;
     public static bool IsLastIteration = false;
 
     public override void _Ready() {

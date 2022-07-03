@@ -19,8 +19,8 @@ public class FOutput {
         Get = method;
     }
 
-    
-    public List<FInput> ConnectedTo() {
+
+    public List<FInput> GetConnectedInputs() {
         NodeTree nt = owner.GetParent<NodeTree>();
         Godot.Collections.Array links = nt.GetConnectionList();
         List<FInput> inpList = new List<FInput>();

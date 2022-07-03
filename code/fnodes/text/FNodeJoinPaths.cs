@@ -4,7 +4,7 @@ using System;
 public class FNodeJoinPaths : FNode, IFNodeVarInputSize
 {
     public FNodeJoinPaths() {
-        HintTooltip = "Join multiple Strings separated by the a Separator String.\nTo Split Lines, instert [LINEBREAK] somwhere in the Separator String";
+        HintTooltip = "Join multiple filepaths";
         category = "Text";        
 
         FNode.IdxReset();

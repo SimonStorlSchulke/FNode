@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public class TextEditor : AcceptDialog
 {
@@ -11,15 +10,15 @@ public class TextEditor : AcceptDialog
     }
 
     public void ShowEditor(FNode connectedNode, string connectedSlotName) {
-        connectedInput = Main.inst.currentProject.NodeTree.GetNode<FNode>(connectedNode.Name)
+        connectedInput = Main.Inst.CurrentProject.NodeTree.GetNode<FNode>(connectedNode.Name)
             .inputs[connectedSlotName] as FInputString; //Dangerous...
         connectedInput.UpdateDefaultValueFromUI();
-        GetNode<TextEdit>("TE").Text = connectedInput.defaultValue as string;
+        GetNode<TextEdit>("TE").Text = connectedInput.DefaultValue as string;
         PopupCentered();
     }
 
     public void OnPopupHide() {
-        connectedInput.defaultValue = GetNode<TextEdit>("TE").Text;
-        connectedInput.UpdateUIFromValue(connectedInput.defaultValue);
+        connectedInput.DefaultValue = GetNode<TextEdit>("TE").Text;
+        connectedInput.UpdateUIFromValue(connectedInput.DefaultValue);
     }
 }

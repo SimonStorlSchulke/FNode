@@ -4,7 +4,7 @@ using System;
 public class FNodeJoinList : FNode
 {
     public FNodeJoinList() {
-        HintTooltip = "Retrieve an Item from a List. The output is of a variable Type.";
+        HintTooltip = "Join two lists into one.";
         category = "List";
 
         FNode.IdxReset();

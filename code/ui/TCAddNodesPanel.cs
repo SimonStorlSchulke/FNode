@@ -137,10 +137,10 @@ public class TCAddNodesPanel : Control
         }
         if (e is InputEventMouseButton) {
             if (((InputEventMouseButton)e).ButtonIndex == (int)ButtonList.Left && ((InputEventMouseButton)e).Pressed == false) {
-                if (Main.inst.currentProject.NodeTree.MouseOver()) {
-                    Main.inst.OnAddNodeFromUI(draggedFnode, false);
+                if (Main.Inst.CurrentProject.NodeTree.MouseOver()) {
+                    Main.Inst.OnAddNodeFromUI(draggedFnode, false);
                 } else {
-                    Main.inst.OnAddNodeFromUI(draggedFnode, true);
+                    Main.Inst.OnAddNodeFromUI(draggedFnode, true);
                 }
                 dragging = false;
                 Input.SetCustomMouseCursor(null);
@@ -150,31 +150,31 @@ public class TCAddNodesPanel : Control
 
     public override void _UnhandledInput(InputEvent e) {
         if(e.IsActionPressed("add_viewer")) {
-            Main.inst.OnAddNodeFromUI(
+            Main.Inst.OnAddNodeFromUI(
                 (FNode)Activator.CreateInstance(typeof(FNodeTextViewer)));
         }
         if(e.IsActionPressed("add_get_files")) {
-            Main.inst.OnAddNodeFromUI(
+            Main.Inst.OnAddNodeFromUI(
                 (FNode)Activator.CreateInstance(typeof(FNodeGetFiles)));
         }
         if(e.IsActionPressed("add_fileinfo")) {
-            Main.inst.OnAddNodeFromUI(
+            Main.Inst.OnAddNodeFromUI(
                 (FNode)Activator.CreateInstance(typeof(FNodeFileInfo)));
         }
         if(e.IsActionPressed("add_switch")) {
-            Main.inst.OnAddNodeFromUI(
+            Main.Inst.OnAddNodeFromUI(
                 (FNode)Activator.CreateInstance(typeof(FNodeSwitch)));
         }
         if(e.IsActionPressed("add_math")) {
-            Main.inst.OnAddNodeFromUI(
+            Main.Inst.OnAddNodeFromUI(
                 (FNode)Activator.CreateInstance(typeof(FNodeMath)));
         }
         if(e.IsActionPressed("add_move")) {
-            Main.inst.OnAddNodeFromUI(
+            Main.Inst.OnAddNodeFromUI(
                 (FNode)Activator.CreateInstance(typeof(FNodeMoveFile)));
         }
         if(e.IsActionPressed("add_rename")) {
-            Main.inst.OnAddNodeFromUI(
+            Main.Inst.OnAddNodeFromUI(
                 (FNode)Activator.CreateInstance(typeof(FNodeRename)));
         }
         if(e.IsActionPressed("add_del")) {
@@ -182,22 +182,22 @@ public class TCAddNodesPanel : Control
                 (FNode)Activator.CreateInstance(typeof(FNodeTextViewer)));*/
         }
         if(e.IsActionPressed("add_join")) {
-            Main.inst.OnAddNodeFromUI(
+            Main.Inst.OnAddNodeFromUI(
                 (FNode)Activator.CreateInstance(typeof(FNodeJoinTexts)));
         }
         if(e.IsActionPressed("add_index")) {
-            Main.inst.OnAddNodeFromUI(
+            Main.Inst.OnAddNodeFromUI(
                 (FNode)Activator.CreateInstance(typeof(FNodeIndexInfo)));
         }
         if(e.IsActionPressed("add_accumulate_string")) {
-            Main.inst.OnAddNodeFromUI(
+            Main.Inst.OnAddNodeFromUI(
                 (FNode)Activator.CreateInstance(typeof(FNodeAccumulateText)));
         }
         if(e.IsActionPressed("evaluate_tree_preview")) { //TODO put this somewhere else
-            Main.inst.OnParseTree(true);
+            Main.Inst.OnParseTree(true);
         }
         if(e.IsActionPressed("evaluate_tree")) { //TODO put this somewhere else
-            Main.inst.OnParseTree(false);
+            Main.Inst.OnParseTree(false);
         }
     }
 }

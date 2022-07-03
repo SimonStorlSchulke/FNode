@@ -1,7 +1,5 @@
-using System.IO;
 using Godot;
 
-[AttribAsyncFNode]
 public class FNodeGetRestAPI : FNodeAwait
 {
     object jsonResult = "";

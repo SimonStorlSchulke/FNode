@@ -5,7 +5,7 @@ using System;
 public class FNodeMath : FNode
 {
     public FNodeMath() {
-        HintTooltip = "Multiple Math Operations";
+        HintTooltip = "Multiple nummerical math operations";
         category = "Math";      
 
         FNode.IdxReset();

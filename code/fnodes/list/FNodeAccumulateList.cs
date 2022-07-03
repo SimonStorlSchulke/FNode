@@ -38,16 +38,16 @@ public class FNodeAccumulateList : FNode
         accumulatedList = new Godot.Collections.Array();
         selectedOption = GetSelectedOption("Mode");
         if (selectedOption == "Instant") {
-            int iterations = (int)Math.Max(Main.inst.currentProject.spIterations.Value, Project.maxNumFiles);
+            int iterations = (int)Math.Max(Main.Inst.CurrentProject.spIterations.Value, Project.MaxNumFiles);
             int customIts = inputs["Custom Iterations"].Get<int>();
             if (customIts != 0) {
                 iterations = customIts;
             }
             for (int i = 0; i < iterations; i++) {
                 accumulatedList.Add(inputs["Value"].Get<object>());
-                Project.idxEval++;;
+                Project.IdxEval++;;
             }
-            Project.idxEval = 0;
+            Project.IdxEval = 0;
         }
     }
 

@@ -22,7 +22,7 @@ public class MenuButton : Godot.MenuButton
                 io.OnPopupLoad();
                 break;
             case "Close Project":
-                Main.inst.CloseProject();
+                Main.Inst.CloseProject();
                 break;
             case "New Project":
                 Main.NewProject("Untitled Project");

@@ -125,7 +125,7 @@ public class FNodeFileAtIndex : FNode
     public override void OnNextIteration() {
         string path;
         try {
-            string[] rootAndPath = Main.inst.currentProject.FileStacks.GetChild<FileList>(inputs["Stack"].Get<int>()).allFiles[inputs["Index"].Get<int>()].Split(">");
+            string[] rootAndPath = Main.Inst.CurrentProject.FileStacks.GetChild<FileList>(inputs["Stack"].Get<int>()).AllFiles[inputs["Index"].Get<int>()].Split(">");
             currentFileRoot = rootAndPath[0];
             path = rootAndPath[1];
         } catch(System.Exception e) {

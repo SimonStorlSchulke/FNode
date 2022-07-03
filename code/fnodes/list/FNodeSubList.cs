@@ -1,10 +1,10 @@
 using Godot;
 using System;
 
-public class FNodeSubList : FNode
+public class FNodeJoinLists : FNode
 {
-    public FNodeSubList() {
-        HintTooltip = "Retrieve an Item from a List. The output is of a variable Type.";
+    public FNodeJoinLists() {
+        HintTooltip = "Join two lists into one.";
         category = "List";
 
         FNode.IdxReset();

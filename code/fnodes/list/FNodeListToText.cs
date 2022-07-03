@@ -4,7 +4,7 @@ using System;
 public class FNodeListToText : FNode
 {
     public FNodeListToText() {
-        HintTooltip = "Retrieve an Item from a List. The output is of a variable Type.";
+        HintTooltip = "Outputs all list Items in a text with a given Separator";
         category = "List";
 
         FNode.IdxReset();

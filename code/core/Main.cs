@@ -11,43 +11,41 @@ public class Main : VBoxContainer
     [Signal]
     public delegate void MainReady();
 
-    public static Main inst;
-    public Project currentProject;
+    public static Main Inst;
+    public Project CurrentProject;
     PackedScene projectScene;
     [Export] NodePath NPProjectTabs;
-    public TabContainer projectTabs;
+    public TabContainer ProjectTabs;
 
     [Export] NodePath NPAddNodeButtons;
     TCAddNodesPanel addNodeButtons;
 
     public static bool preventRun = false;
 
-    // Called when the node enters the scene tree for the first time.
     public override void _Ready() {
         GetTree().Connect("files_dropped", this, nameof(OnFilesDropped));
         projectScene = GD.Load<PackedScene>("res://ui/Project.tscn");
-        projectTabs = GetNode<TabContainer>(NPProjectTabs);
-        currentProject = projectTabs.GetChild<Project>(projectTabs.CurrentTab);
-        projectTabs.Connect("tab_selected", this, nameof(OnChangeProject));
+        ProjectTabs = GetNode<TabContainer>(NPProjectTabs);
+        CurrentProject = ProjectTabs.GetChild<Project>(ProjectTabs.CurrentTab);
+        ProjectTabs.Connect("tab_selected", this, nameof(OnChangeProject));
         addNodeButtons = GetNode<TCAddNodesPanel>(NPAddNodeButtons);
         addNodeButtons.CreateButtons();
     }
 
     public override void _EnterTree() {
-        inst = this;
+        Inst = this;
         float UIScale = OS.GetScreenSize().x > 2000 ? 0.85f : 0.6f; // TODO better resolution options
         OS.WindowSize = OS.GetScreenSize() * 0.7f; //Always start at 0.7% Resolution
         OS.WindowPosition = OS.GetScreenSize() / 2 - OS.WindowSize / 2;
         GetTree().SetScreenStretch(SceneTree.StretchMode.Disabled, SceneTree.StretchAspect.Ignore, new Vector2(128, 128), UIScale);
     }
 
-    
     public void OnAddNodeFromUI(FNode fn, bool autoconnect = true) {
         
-        var fnSel = currentProject.NodeTree.GetFirstSelectedNode();
+        var fnSel = CurrentProject.NodeTree.GetFirstSelectedNode();
         if (fnSel == null) {
-            if (currentProject.NodeTree.MouseOver()) currentProject.NodeTree.OnAddNode(fn.Duplicate() as FNode, currentProject.NodeTree.GetMouseOffset());
-            else currentProject.NodeTree.OnAddNode(fn.Duplicate() as FNode);
+            if (CurrentProject.NodeTree.MouseOver()) CurrentProject.NodeTree.OnAddNode(fn.Duplicate() as FNode, CurrentProject.NodeTree.GetMouseOffset());
+            else CurrentProject.NodeTree.OnAddNode(fn.Duplicate() as FNode);
             return;
         }
 
@@ -55,61 +53,61 @@ public class Main : VBoxContainer
             FNode fnDup = (FNode)fn.Duplicate();
             fnDup.Offset = fnSel.Offset + new Vector2(fnSel.RectSize.x + 50, 0);
             
-            currentProject.NodeTree.AddChild(fnDup);
+            CurrentProject.NodeTree.AddChild(fnDup);
 
             // Search matching Slottypes and connect them if aviable
             foreach (var outp in fnSel.outputs) {
                 foreach (var inp in fnDup.inputs) {
                     if (inp.Value.slotType == outp.Value.slotType) {
-                        currentProject.NodeTree.SetSelected(fnDup);
-                        currentProject.NodeTree.OnConnectionRequest(fnSel.Name, outp.Value.idx, fnDup.Name, inp.Value.idx);
+                        CurrentProject.NodeTree.SetSelected(fnDup);
+                        CurrentProject.NodeTree.OnConnectionRequest(fnSel.Name, outp.Value.idx, fnDup.Name, inp.Value.idx);
                         return;
                     }
                 }
             }
             
-            currentProject.NodeTree.SetSelected(fnDup);
-            currentProject.NodeTree.OnConnectionRequest(fnSel.Name, 0, fnDup.Name, 0);
+            CurrentProject.NodeTree.SetSelected(fnDup);
+            CurrentProject.NodeTree.OnConnectionRequest(fnSel.Name, 0, fnDup.Name, 0);
             return;
         }
         
         else {
-            if (currentProject.NodeTree.MouseOver()) currentProject.NodeTree.OnAddNode(fn.Duplicate() as FNode, currentProject.NodeTree.GetMouseOffset());
-            else currentProject.NodeTree.OnAddNode(fn.Duplicate() as FNode);
+            if (CurrentProject.NodeTree.MouseOver()) CurrentProject.NodeTree.OnAddNode(fn.Duplicate() as FNode, CurrentProject.NodeTree.GetMouseOffset());
+            else CurrentProject.NodeTree.OnAddNode(fn.Duplicate() as FNode);
         }
     }
 
     void OnChangeProject(int idx) {
-        this.currentProject = projectTabs.GetChild<Project>(idx);
+        this.CurrentProject = ProjectTabs.GetChild<Project>(idx);
     }
 
     public static Project NewProject(string name) {
-        Project pr = inst.projectScene.Instance<Project>();
+        Project pr = Inst.projectScene.Instance<Project>();
         pr.Name = name;
-        inst.projectTabs.AddChild(pr);
-        inst.projectTabs.SetTabTitle(pr.GetIndex(), name);
-        inst.projectTabs.CurrentTab = inst.projectTabs.GetChildCount()-1;
+        Inst.ProjectTabs.AddChild(pr);
+        Inst.ProjectTabs.SetTabTitle(pr.GetIndex(), name);
+        Inst.ProjectTabs.CurrentTab = Inst.ProjectTabs.GetChildCount()-1;
         //Main.inst.currentProject = pr;
         return pr;
     }
 
     public void CloseProject() {
-        int current = inst.projectTabs.CurrentTab;
+        int current = Inst.ProjectTabs.CurrentTab;
 
         //Going out of range will cause an error here that doesn't matter;
-        inst.projectTabs.CurrentTab = current-1;
-        projectTabs.GetChild(current).QueueFree();
+        Inst.ProjectTabs.CurrentTab = current-1;
+        ProjectTabs.GetChild(current).QueueFree();
     }
 
     public void OnFilesDropped(string[] files, int screen) {
         int i = 0;
-        if (currentProject.NodeTree.MouseOver()) {
+        if (CurrentProject.NodeTree.MouseOver()) {
             foreach (string f in files) {
                 //Magic Numbers Bad
                 FNodeFileInfo fi = new FNodeFileInfo();
-                fi.Offset = currentProject.NodeTree.GetMouseOffset();
+                fi.Offset = CurrentProject.NodeTree.GetMouseOffset();
                 fi.Offset += new Vector2(i * 340, 0);
-                currentProject.NodeTree.AddChild(fi);
+                CurrentProject.NodeTree.AddChild(fi);
                 fi.GetChild(10).GetChild<LineEdit>(1).Text = f;
                 fi.Title = "FI " + new string(f.GetFile().Take(22).ToArray());;
                 i++;
@@ -117,12 +115,12 @@ public class Main : VBoxContainer
         }
         else {
             List<Tuple<bool, string>> l = new List<Tuple<bool, string>>();
-            int selectedStack = currentProject.FileStacks.CurrentTab;
+            int selectedStack = CurrentProject.FileStacks.CurrentTab;
             /*
             foreach (string f in files) {
                 currentProject.FileStacks.AddFile(f, selectedStack);
             }*/
-            currentProject.FileStacks.GetChild<FileList>(selectedStack).AddFiles(files);
+            CurrentProject.FileStacks.GetChild<FileList>(selectedStack).AddFiles(files);
             //currentProject.FileStacks.OnUpdateUI(selectedStack);
         }
     }
@@ -143,9 +141,9 @@ public class Main : VBoxContainer
 
         EmitSignal(nameof(StartParsing));
 
-        //This starts all Nodes that need to be waited for before evaluation (like REST API calls). Each AwaiterNode then checks, if it was the last one finished and starts the NodeTreeEvaluation if so.
+        // This starts all Nodes that need to be waited for before evaluation (like REST API calls). Each AwaiterNode then checks, if it was the last one finished and starts the NodeTree Evaluation if so.
         GetTree().CallGroupFlags((int)SceneTree.GroupCallFlags.Realtime, FNode.AwaiterNodesGroup, nameof(FNodeAwait.WaitFor));
 
-        currentProject.GetNode<NodeTree>("NodeTree").CheckAwaitersFinished();
+        CurrentProject.NodeTree.CheckAwaitersFinished();
     }
 }

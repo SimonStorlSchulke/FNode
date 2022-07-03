@@ -27,18 +27,18 @@ public class ListCreator : AcceptDialog {
     public void ShowCreator(Godot.Collections.Array listInput, FNode connectedNode, string connectedSlotName) {
         list = listInput;
         //GD.Print($"{connectedNodeName} slotname: {connectedSlotName}");
-        connectedListInput = Main.inst.currentProject.NodeTree.GetNode<FNode>(connectedNode.Name).inputs[connectedSlotName] as FInputList; //Dangerous...
-        if (connectedListInput.defaultValue == null) {
-            connectedListInput.defaultValue = new Godot.Collections.Array();
+        connectedListInput = Main.Inst.CurrentProject.NodeTree.GetNode<FNode>(connectedNode.Name).inputs[connectedSlotName] as FInputList; //Dangerous...
+        if (connectedListInput.DefaultValue == null) {
+            connectedListInput.DefaultValue = new Godot.Collections.Array();
         }
-        for (int i = 0; i < ((Godot.Collections.Array)connectedListInput.defaultValue).Count; i++) {
-            AddItem(((Godot.Collections.Array)connectedListInput.defaultValue)[i]);
+        for (int i = 0; i < ((Godot.Collections.Array)connectedListInput.DefaultValue).Count; i++) {
+            AddItem(((Godot.Collections.Array)connectedListInput.DefaultValue)[i]);
         }
         inst.PopupCentered();
     }
 
     public void OnPopupHide() {
-        connectedListInput.defaultValue = new Godot.Collections.Array();
+        connectedListInput.DefaultValue = new Godot.Collections.Array();
         foreach (Node item in itemsBox.GetChildren()) {
             Node itemCtl = item.GetChild(1);
             string itemType = (string)item.GetGroups()[0];
@@ -70,7 +70,7 @@ public class ListCreator : AcceptDialog {
                     itemValue = ((SpinBox)itemCtl).Value;
                     break;
             }
-            ((Godot.Collections.Array)connectedListInput.defaultValue).Add(itemValue);
+            ((Godot.Collections.Array)connectedListInput.DefaultValue).Add(itemValue);
             item.QueueFree();
         }
     }

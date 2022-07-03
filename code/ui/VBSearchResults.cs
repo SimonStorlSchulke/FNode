@@ -47,10 +47,10 @@ public class VBSearchResults : VBoxContainer
         }
         if (e is InputEventMouseButton) {
             if (((InputEventMouseButton)e).ButtonIndex == (int)ButtonList.Left && ((InputEventMouseButton)e).Pressed == false) {
-                if (Main.inst.currentProject.NodeTree.MouseOver()) {
-                    Main.inst.OnAddNodeFromUI(draggedFnode, false);
+                if (Main.Inst.CurrentProject.NodeTree.MouseOver()) {
+                    Main.Inst.OnAddNodeFromUI(draggedFnode, false);
                 } else {
-                    Main.inst.OnAddNodeFromUI(draggedFnode, true);
+                    Main.Inst.OnAddNodeFromUI(draggedFnode, true);
                 }
                 dragging = false;
                 Input.SetCustomMouseCursor(null);

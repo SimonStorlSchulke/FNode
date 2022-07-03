@@ -8,30 +8,31 @@ using System.Threading.Tasks;
 public class NodeTree : GraphEdit
 {
     [Signal] public delegate void StartNextIteration();
-    public List<FNodeAwait> awaiterNodes = new List<FNodeAwait>();
-
-    public async void CheckAwaitersFinished() {
-        if (awaiterNodes.Count == 0) {
-            await EvaluateTree();
-            return;
-        }
-
-        foreach (var awaiterNode in awaiterNodes) {
-            if (awaiterNode.finished == false) {
-                return;
-            }
-        }
-        // Run the Nodetree when all awaiternodes have finished ther thing
-        await EvaluateTree();
-    }
-
+    
     public override void _Ready() {
         //CallDeferred(nameof(HideControle));
     }
 
-
     public void HideControle() {
         (GetChild(1).GetChild(2) as Control).Visible = false;
+    }
+
+    public List<FNodeAwait> AwaiterNodes = new List<FNodeAwait>();
+
+    public async void CheckAwaitersFinished() {
+        if (AwaiterNodes.Count == 0) {
+            await EvaluateTree();
+            return;
+        }
+
+        foreach (var awaiterNode in AwaiterNodes) {
+            if (awaiterNode.finished == false) {
+                return;
+            }
+        }
+
+        // Run the Nodetree when all awaiternodes ran Finished()
+        await EvaluateTree();
     }
 
     public List<FNode> GetFNodes() {
@@ -47,30 +48,15 @@ public class NodeTree : GraphEdit
         return fNodes;
     }
 
-    public Vector2 GetMouseOffset() {
-        return (GetLocalMousePosition() + ScrollOffset) / Zoom;
-    }
-
-    public bool MouseOver() {
-        Vector2 mPos = GetLocalMousePosition();
-        return mPos.x > 0 && mPos.x < RectSize.x && mPos.y > 0 && mPos.y < RectSize.y;
-    }
-
-    public override void _Input(InputEvent e) {
-        if (e.IsActionPressed("ui_cancel")) {
-            cancel = true;
-        }
-    }
-
     bool cancel = false;
     public async Task EvaluateTree() {
         cancel = false;
 
-        Project.idxEval = 0;
+        Project.IdxEval = 0;
         
         GetTree().CallGroupFlags((int)SceneTree.GroupCallFlags.Realtime, FNode.RunBeforeEvaluationGroup, nameof(FNode.OnBeforeEvaluation));
 
-        int iterations = (int)Math.Max(Main.inst.currentProject.spIterations.Value, Project.maxNumFiles);
+        int iterations = (int)Math.Max(Main.Inst.CurrentProject.spIterations.Value, Project.MaxNumFiles);
 
         FProgressBar.inst.StartProgress();
         Main.preventRun = true;
@@ -79,13 +65,13 @@ public class NodeTree : GraphEdit
         for (int i = 0; i < iterations; i++) {
             if (cancel) {
                 FProgressBar.inst.EndProgress();
-                Project.idxEval = 0;
+                Project.IdxEval = 0;
                 Main.preventRun = false;
                 GD.Print("Test");
                 return;
             }
 
-            Project.IsLastIteration = Project.idxEval > (iterations-2);
+            Project.IsLastIteration = Project.IdxEval > (iterations-2);
 
             EmitSignal(nameof(StartNextIteration));
             GetTree().CallGroupFlags((int)SceneTree.GroupCallFlags.Realtime, FNode.RunBeforeIterationGroup, nameof(FNode.OnNextIteration));
@@ -103,7 +89,7 @@ public class NodeTree : GraphEdit
                     }
                 }
             }
-            Project.idxEval++;
+            Project.IdxEval++;
             //Task.Delay(1).Wait();
             FProgressBar.inst.ShowProgress((float)i / iterations);
         }
@@ -161,7 +147,7 @@ public class NodeTree : GraphEdit
         SetSelected(fn);
     }
 
-    // Mainly used for Loading
+    ///<summary> Mainly used for deserialization </summary> 
     public FNode OnAddNode(string nodetype, Vector2? offset = null, string name="") {
         var t = System.Type.GetType(nodetype);
         try {
@@ -184,7 +170,7 @@ public class NodeTree : GraphEdit
         int idxOutputs = 0;
         foreach (KeyValuePair<string, FOutput> outp in fn.outputs) {
             int idxConnectedInputs = 0;
-            foreach (var inp in outp.Value.ConnectedTo()) {
+            foreach (var inp in outp.Value.GetConnectedInputs()) {
                 DisconnectNode(fn.Name, idxOutputs, inp.owner.Name, inp.idx);
                 inp.connectedTo = null;
                 inp.owner.GetChild(inp.idx + inp.owner.outputs.Count).GetChild<Control>(1).Visible = true;
@@ -237,4 +223,21 @@ public class NodeTree : GraphEdit
         }
         return null;
     }
+
+    public Vector2 GetMouseOffset() {
+        return (GetLocalMousePosition() + ScrollOffset) / Zoom;
+    }
+
+    public bool MouseOver() {
+        Vector2 mPos = GetLocalMousePosition();
+        return mPos.x > 0 && mPos.x < RectSize.x && mPos.y > 0 && mPos.y < RectSize.y;
+    }
+
+    public override void _Input(InputEvent e) {
+        // Cancel tree evaluation 
+        if (e.IsActionPressed("ui_cancel")) {
+            cancel = true;
+        }
+    }
+
 }
