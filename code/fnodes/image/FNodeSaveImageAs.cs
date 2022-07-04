@@ -4,7 +4,7 @@ using ImageMagick;
 public class FNodeSaveImageAs : FNode
 {
     public FNodeSaveImageAs() {
-        HintTooltip = "Multiple Math Operations";
+        HintTooltip = "Save an Image to a certain path";
         category = "Img";
 
         FNode.IdxReset();

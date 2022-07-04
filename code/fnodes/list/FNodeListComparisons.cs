@@ -13,7 +13,7 @@ public class FNodeListComparisons : FNode
     int smallestNumerIdx;
     public FNodeListComparisons()
     {
-        HintTooltip = "Retrieve an Item from a List. The output is of a variable Type.";
+        HintTooltip = "Multiple comparison operations .";
         category = "List";
 
         FNode.IdxReset();

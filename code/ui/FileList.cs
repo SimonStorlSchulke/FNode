@@ -91,7 +91,7 @@ public class FileList : Control
             FolderSection fs = folderSection.Instance<FolderSection>();
             fs.ConnecedFolder = dirPath;
             vbFileLists.AddChild(fs);
-            fs.Cb.Text = UIUtil.GetOverflowDots(dirPath.GetFile(), fs.Cb.GetFont("normal"), 170);
+            fs.Cb.Text = UIUtil.GetOverflowDots(dirPath.GetFile(), fs.Cb.GetFont("normal"), 185);
             fs.Cb.HintTooltip = dirPath;
             fs.AddFiles(dictItem.Value);
 
@@ -119,7 +119,6 @@ public class FileList : Control
         }
         Main.preventRun = true;
 
-        FProgressBar.inst.StartProgress();
         int i=0;
         foreach (string path in paths) {
             
