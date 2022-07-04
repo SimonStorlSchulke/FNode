@@ -13,8 +13,8 @@ public class FNodeRandomNumber : FNode
 
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
-            {"Min", new FInputInt(this)},
-            {"Max", new FInputInt(this, initialValue: 100)},
+            {"Min", new FInputFloat(this)},
+            {"Max", new FInputFloat(this, initialValue: 1f)},
             {"Seed", new FInputInt(this, initialValue: -1, min: -1, description: "If you put -1 here, the seed will be randomized")},
         };
 
@@ -47,11 +47,11 @@ public class FNodeRandomNumber : FNode
 
 
     public void OptionChanged(int idx) {
-        if (idx == 0) {
+        if (idx == 1) {
             ChangeSlotType(inputs["Min"], FNodeSlotTypes.INT);
             ChangeSlotType(inputs["Max"], FNodeSlotTypes.INT, initialValue: 100);
             ChangeSlotType(outputs["Number"], FNodeSlotTypes.INT);
-        } else if (idx == 1) {
+        } else if (idx == 0) {
             ChangeSlotType(inputs["Min"], FNodeSlotTypes.FLOAT);
             ChangeSlotType(inputs["Max"], FNodeSlotTypes.FLOAT, initialValue: 1f);
             ChangeSlotType(outputs["Number"], FNodeSlotTypes.FLOAT);
@@ -65,8 +65,8 @@ public class FNodeRandomNumber : FNode
             "numbertype",
 
             new string[] {
-                "Int",
                 "Float",
+                "Int",
             },
             nameof(OptionChanged));
     }

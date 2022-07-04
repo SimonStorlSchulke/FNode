@@ -3,14 +3,14 @@ using Godot;
 using System;
 
 
-
+// TODO - unused for now because of problems with (De)serialization. How to save changed slottypes?
 public class FNodeSwitch : FNode
 {
     OptionButton ob;
 
     public FNodeSwitch() {
         HintTooltip = "Switch between the values of the False and True inputs depending on the state of the Switch input.";
-        category = "Math";
+        category = "Other";
 
 
         FNode.IdxReset();
@@ -34,27 +34,19 @@ public class FNodeSwitch : FNode
     public override void _Ready() {
         base._Ready();
 
-        ShowClose = true;
-        Title = this.GetType().Name.Replace("FNode", "");
-        this.RectMinSize = new Vector2(250, 0);
-        Connect(
-            "close_request", 
-            GetParent(), 
-            nameof(NodeTree.DeleteNode), 
-            new Godot.Collections.Array(){this});
+        AddOptionEnum(
+            "Mode",
 
-        ob = new OptionButton();
-        ob.AddItem("File");
-        ob.AddItem("Text");
-        ob.AddItem("Bool");
-        ob.AddItem("Int");
-        ob.AddItem("Float");
-        ob.AddItem("Date");
-        ob.AddItem("List");
-        AddChild(ob);
-
-        ob.Connect("item_selected", this, nameof(OptionSelected));
-
+            new string[] {
+                "File",
+                "Text",
+                "Bool",
+                "Int",
+                "Float",
+                "Date",
+                "List",
+                "Image",
+            }, nameof(OptionSelected));
     }
 
     public void OptionSelected(int option) {
@@ -135,6 +127,16 @@ public class FNodeSwitch : FNode
                         Godot.Collections.Array valFalse = inputs["False"].Get<Godot.Collections.Array>();
                         Godot.Collections.Array valTrue = inputs["True"].Get<Godot.Collections.Array>();
                         return (Godot.Collections.Array)(inputs["Switch"].Get<bool>() ? valTrue : valFalse);
+                    }, 
+                    (FNode.FNodeSlotTypes)option);
+                break;
+            case (int)(FNodeSlotTypes.IMAGE):
+                ChangeSlotType(
+                    outputs["Result"], 
+                    delegate() {
+                        ImageMagick.MagickImage valFalse = inputs["False"].Get<ImageMagick.MagickImage >();
+                        ImageMagick.MagickImage valTrue = inputs["True"].Get<ImageMagick.MagickImage >();
+                        return (ImageMagick.MagickImage )(inputs["Switch"].Get<bool>() ? valTrue : valFalse);
                     }, 
                     (FNode.FNodeSlotTypes)option);
                 break;

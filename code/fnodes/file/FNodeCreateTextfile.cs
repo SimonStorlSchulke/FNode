@@ -49,7 +49,6 @@ public class FNodeCreateTextFile : FNode
         } catch {
             base.ExecutiveMethod();
             return;
-
         }
         base.ExecutiveMethod();
     }

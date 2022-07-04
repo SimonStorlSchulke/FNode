@@ -13,6 +13,8 @@ public class TCAddNodesPanel : Control
 
     public void CreateButtons() {
         CreateAddButton<FNodeGetFiles>();
+        CreateAddButton<FNodeIntNumber>();
+        CreateAddButton<FNodeFloatNumber>();
         CreateAddButton<FNodeFileInfo>();
         CreateAddButton<FNodeFileAtIndex>();
         CreateAddButton<FNodeRename>();
@@ -32,7 +34,8 @@ public class TCAddNodesPanel : Control
         CreateAddButton<FNodeAccumulateNumber>();
         CreateAddButton<FNodeTextIncludes>();
         CreateAddButton<FNodeReplaceText>();
-        CreateAddButton<FNodeSwitch>();
+        //CreateAddButton<FNodeSwitch>();
+        CreateAddButton<FNodeValueSwitch>();
         CreateAddButton<FNodeNumberToText>();
         CreateAddButton<FNodeMoveFile>();
         CreateAddButton<FNodeJoinPaths>();
@@ -53,8 +56,8 @@ public class TCAddNodesPanel : Control
         CreateAddButton<FNodeResizeImage>();
         CreateAddButton<FNodeImageInfo>();
         CreateAddButton<FNodeTrimImage>();
-        CreateAddButton<FNodeGetRestAPI>();
-        CreateAddButton<FNodeGetJSONItem>();
+        //CreateAddButton<FNodeGetRestAPI>();
+        //CreateAddButton<FNodeGetJSONItem>();
     }
 
     Resource cursorDragNode;

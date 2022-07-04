@@ -15,10 +15,10 @@ public class MenuButton : Godot.MenuButton
     public void OnItemPressed(int idx) {
         string itemText = GetPopup().GetItemText(idx);
         switch (itemText) {
-            case "Save":
+            case "Save (Ctrl + S)":
                 io.OnPopupSave();
                 break;
-            case "Load":
+            case "Open (Ctrl + O)":
                 io.OnPopupLoad();
                 break;
             case "Close Project":
@@ -28,7 +28,7 @@ public class MenuButton : Godot.MenuButton
                 Main.NewProject("Untitled Project");
                 break;
             case "Report a Bug":
-                System.Diagnostics.Process.Start("https://github.com/SimonStorlSchulke/FNode/issues/new/choose");
+                System.Diagnostics.Process.Start("https://github.com/SimonStorlSchulke/FNode/issues/new?assignees=&labels=&template=bug_report.md&title=");
                 break;
             case "Help (F1)":
                 GetNode<Popup>(NPPUHotkey).PopupCentered();

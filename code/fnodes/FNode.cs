@@ -128,6 +128,10 @@ public abstract class FNode : GraphNode {
                 finput = new FInputList(this, idx, initialValue: initialValue);
                 UIUtil.AddInputUI(this, labelText, finput, childIdx);
                 break;
+            case FNodeSlotTypes.IMAGE:
+                finput = new FInputImage(this, idx, initialValue: initialValue);
+                UIUtil.AddInputUI(this, labelText, finput, childIdx);
+                break;
         }
         finput.connectedTo = connectedSlot;
         inputs[inputs.ElementAt(finput.idx).Key] = finput;
@@ -170,6 +174,10 @@ public abstract class FNode : GraphNode {
                 break;
             case FNodeSlotTypes.LIST:
                 foutput = new FOutputList(this, method, idx);
+                UIUtil.AddOutputUI(this, labelText, foutput, childIdx);
+                break;
+            case FNodeSlotTypes.IMAGE:
+                foutput = new FOutputImage(this, method, idx);
                 UIUtil.AddOutputUI(this, labelText, foutput, childIdx);
                 break;
         }

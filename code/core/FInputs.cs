@@ -37,6 +37,23 @@ public class FInput {
     ///<summary> Dictionary of delegates handling conversions between different data (slot) types </summary>
     protected static Dictionary<Tuple<Type, Type>, SlotConversion> slotConversionsDict = new Dictionary<Tuple<Type, Type>, SlotConversion>() {
 
+
+        {new Tuple<Type, Type>(typeof(FileInfo), typeof(FInputImage)), delegate(object outVal, FInput fIn) {
+        try {
+            return new ImageMagick.MagickImage(((FileInfo)outVal).FullName);
+        } catch {
+            return null;
+        }
+        }},
+
+        {new Tuple<Type, Type>(typeof(string), typeof(FInputImage)), delegate(object outVal, FInput fIn) {
+        try {
+            return new ImageMagick.MagickImage((string)outVal);
+        } catch {
+            return null;
+        }
+        }},
+
         #region fileInput conversions
         {new Tuple<Type, Type>(typeof(string), typeof(FInputFile)), delegate(object outVal, FInput fIn) {
             if (FileUtil.IsAbsolutePath(((string)outVal))) {
@@ -118,7 +135,7 @@ public class FInput {
             return (bool)outVal ? 1 : 0;
         }},
         {new Tuple<Type, Type>(typeof(float), typeof(FInputInt)), delegate(object outVal, FInput fIn) {
-            return (int)((float)outVal);
+            return (int)Mathf.Round(((float)outVal));
         }},
         {new Tuple<Type, Type>(typeof(DateTime), typeof(FInputInt)), delegate(object outVal, FInput fIn) {
             //nonsensical so return 0 - needs a converter Node to get days / years...
@@ -170,7 +187,13 @@ public class FInput {
         var valueType = value.GetType();
 
         
-        if (valueType != typeof(ImageMagick.MagickImage) && slotType == typeof(FInputImage)) {
+        bool invalidImageConversion = valueType != typeof(ImageMagick.MagickImage) && slotType == typeof(FInputImage);
+        
+        if (valueType == typeof(FileInfo) || valueType != typeof(string) || valueType != typeof(ImageMagick.MagickImage)) {
+            invalidImageConversion = false;
+        }
+
+        if (invalidImageConversion) {
             return null;
         }
         

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://theme/default.theme" type="Theme" id=1]
 [ext_resource path="res://ui/Project.tscn" type="PackedScene" id=2]
@@ -24,6 +24,9 @@
 [ext_resource path="res://code/ui/AboutInfo.cs" type="Script" id=22]
 [ext_resource path="res://theme/icons/boot.png" type="Texture" id=23]
 [ext_resource path="res://ui/HTTPHandler.cs" type="Script" id=24]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.164706, 0.470588, 0.337255, 1 )
 
 [node name="Window" type="Control"]
 anchor_right = 1.0
@@ -137,6 +140,7 @@ margin_left = 1092.0
 margin_right = 1392.0
 margin_bottom = 25.0
 rect_min_size = Vector2( 300, 0 )
+custom_styles/fg = SubResource( 1 )
 script = ExtResource( 13 )
 
 [node name="Control2" type="Control" parent="VBMain/Panel/HBoxContainer"]
@@ -184,7 +188,7 @@ margin_top = 1.0
 margin_right = 95.0
 margin_bottom = 43.0
 text = "Menu"
-items = [ "Save", null, 0, false, false, 0, 0, null, "", false, "Load", null, 0, false, false, 1, 0, null, "", false, "Close Project", null, 0, false, false, 2, 0, null, "", false, "New Project", null, 0, false, false, 3, 0, null, "", false, "Report a Bug", null, 0, false, false, 4, 0, null, "", false, "Help (F1)", null, 0, false, false, 5, 0, null, "", false, "About FNode", null, 0, false, false, 6, 0, null, "", false ]
+items = [ "Save (Ctrl + S)", null, 0, false, false, 0, 0, null, "", false, "Open (Ctrl + O)", null, 0, false, false, 1, 0, null, "", false, "Close Project", null, 0, false, false, 2, 0, null, "", false, "New Project", null, 0, false, false, 3, 0, null, "", false, "Report a Bug", null, 0, false, false, 4, 0, null, "", false, "Help (F1)", null, 0, false, false, 5, 0, null, "", false, "About FNode", null, 0, false, false, 6, 0, null, "", false ]
 script = ExtResource( 12 )
 NPIO = NodePath("../IO")
 NPPUHotkey = NodePath("../PUHelp")
@@ -230,6 +234,8 @@ NPFDLoad = NodePath("../FDLoad")
 
 [node name="UIInput" type="Node" parent="."]
 script = ExtResource( 10 )
+NPHelpPanel = NodePath("../PUHelp")
+NPIO = NodePath("../IO")
 
 [node name="ListCreatorPopup" parent="." instance=ExtResource( 9 )]
 anchor_left = 0.5
@@ -443,8 +449,8 @@ margin_bottom = -5.0
 size_flags_horizontal = 3
 
 [node name="RichTextLabel" type="RichTextLabel" parent="PUHelp/ScrollContainer/TabContainer/Online Help Links"]
-margin_right = 746.0
-margin_bottom = 480.0
+margin_right = 714.0
+margin_bottom = 552.0
 size_flags_horizontal = 3
 bbcode_enabled = true
 bbcode_text = "[url=https://github.com/SimonStorlSchulke/FNode/wiki]Wiki[/url]

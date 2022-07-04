@@ -26,7 +26,7 @@ public class FNodeTrimImage : FNode
 
                 int margin = inputs["Margin"].Get<int>();
                 if (margin > 0) {
-                    img.Extent(img.Width + margin*2, img.Height + margin*2, Gravity.Center);
+                    img.Extent(img.Width + margin*2, img.Height + margin*2, Gravity.Center, backgroundColor: MagickColors.Transparent);
                     img.RePage();
                 }
 
