@@ -187,7 +187,7 @@ public class FInput {
         var valueType = value.GetType();
 
         
-        bool invalidImageConversion = valueType != typeof(ImageMagick.MagickImage) && slotType == typeof(FInputImage);
+        bool invalidImageConversion = valueType != typeof(ImageMagick.MagickImage) && slotType == typeof(FInputImage) || valueType == typeof(ImageMagick.MagickImage) && slotType != typeof(FInputImage);
         
         if (valueType == typeof(FileInfo) || valueType != typeof(string) || valueType != typeof(ImageMagick.MagickImage)) {
             invalidImageConversion = false;

@@ -42,6 +42,30 @@ public class FNodeTextIncludes : FNode, IFNodeVarInputSize
                 }
                 return includesAll;
             })},
+            {
+            "Text", new FOutputString(this, delegate() 
+            {
+                string str = inputs["Text"].Get<string>();
+                int i = 0;
+                bool includesAll = true;
+                foreach (var item in inputs) {
+                    if (i>1) {
+                        bool contains = inputs["Case Sensitive"].Get<bool>() ? 
+                            DevUtil.StringContains(str, item.Value.Get<string>(), StringComparison.Ordinal) :
+                            DevUtil.StringContains(str, item.Value.Get<string>(), StringComparison.OrdinalIgnoreCase); 
+                        if (contains) {
+                            if (ob.Selected == 0)  {
+                                return inputs["Text"].Get<string>();
+                            }
+                        }
+                        if (!contains) {
+                            includesAll = false;
+                        }
+                    }
+                    i++;
+                }
+                return includesAll ? inputs["Text"].Get<string>() : null;
+            })},
         };
     }
 

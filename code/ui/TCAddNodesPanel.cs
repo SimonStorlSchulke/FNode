@@ -51,6 +51,7 @@ public class TCAddNodesPanel : Control
         CreateAddButton<FNodeAccumulateList>();
         CreateAddButton<FNodeListComparisons>();
         CreateAddButton<FNodeGetImage>();
+        CreateAddButton<FNodeFilterImages>();
         CreateAddButton<FNodeSaveImageAs>();
         CreateAddButton<FNodeImageViewer>();
         CreateAddButton<FNodeResizeImage>();

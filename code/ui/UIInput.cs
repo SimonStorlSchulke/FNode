@@ -17,6 +17,14 @@ public class UIInput : Node
             GetNode<IO>(NPIO).OnPopupSave();
         } else if (e.IsActionPressed("ui_load")) {
             GetNode<IO>(NPIO).OnPopupLoad();
+        } else if (e.IsActionPressed("background_black")) {
+            StyleBoxFlat sbBlack = new StyleBoxFlat();
+            sbBlack.BgColor = Colors.Black;
+            if (Main.Inst.CurrentProject.NodeTree.HasStyleboxOverride("bg")) {
+                Main.Inst.CurrentProject.NodeTree.AddStyleboxOverride("bg", null);
+            } else {
+                Main.Inst.CurrentProject.NodeTree.AddStyleboxOverride("bg", sbBlack);
+            }
         }
     }
 }
