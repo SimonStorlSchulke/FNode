@@ -127,6 +127,7 @@ public class FNodeGetFiles : FNode
             string[] rootAndPath = Main.Inst.CurrentProject.FileStacks.GetChild<FileList>(inputs["Stack"].Get<int>()).AllFiles[Project.IdxEval].Split(">");
             currentFileRoot = rootAndPath[0];
             path = rootAndPath[1];
+            //GD.Print("AA " + rootAndPath[1]);
         } catch {
             currentFile = null;
             return;
@@ -146,5 +147,4 @@ public class FNodeGetFiles : FNode
                 currentFile = null;
             }
     }
-
 }

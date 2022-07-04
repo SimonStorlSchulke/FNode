@@ -34,7 +34,6 @@ public class FNodeTextViewer : FNode
                 GetNode<TextEdit>("Viewer").Text = accumulatedString;
             }
         } else {
-            GD.Print("WHY?");
             GetNode<TextEdit>("Viewer").Text = inputs["Text"].Get<string>();
         }
         base.ExecutiveMethod();

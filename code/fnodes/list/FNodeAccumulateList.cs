@@ -44,8 +44,15 @@ public class FNodeAccumulateList : FNode
                 iterations = customIts;
             }
             for (int i = 0; i < iterations; i++) {
+
+                // Would be enough formost cases but doesn't guarantee all important nodes run OnNextIteration...
+                //inputs["Value"].connectedTo.owner.OnNextIteration();
+
+                // so we brute force all RunBeforeIterationGroup-Nodes instead...
+                GetTree().CallGroupFlags((int)SceneTree.GroupCallFlags.Realtime, FNode.RunBeforeIterationGroup, nameof(FNode.OnNextIteration));
+
                 accumulatedList.Add(inputs["Value"].Get<object>());
-                Project.IdxEval++;;
+                Project.IdxEval++;
             }
             Project.IdxEval = 0;
         }
