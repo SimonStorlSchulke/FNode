@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://theme/default.theme" type="Theme" id=1]
 [ext_resource path="res://ui/Project.tscn" type="PackedScene" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://code/core/Main.cs" type="Script" id=4]
 [ext_resource path="res://code/ui/TCAddNodesPanel.cs" type="Script" id=5]
 [ext_resource path="res://code/core/IO.cs" type="Script" id=6]
-[ext_resource path="res://code/ui/UIUtil.cs" type="Script" id=7]
 [ext_resource path="res://code/ui/InfoLine.cs" type="Script" id=8]
 [ext_resource path="res://ui/ListCreator.tscn" type="PackedScene" id=9]
 [ext_resource path="res://code/ui/UIInput.cs" type="Script" id=10]
@@ -205,8 +204,8 @@ window_title = "Save"
 resizable = true
 access = 2
 filters = PoolStringArray( "*.fnode" )
-current_dir = "/dev/Godot/fnode"
-current_path = "/dev/Godot/fnode/"
+current_dir = "/Users/simon/Dev/nodefiler"
+current_path = "/Users/simon/Dev/nodefiler/"
 
 [node name="FDLoad" type="FileDialog" parent="."]
 margin_left = 522.0
@@ -220,12 +219,8 @@ resizable = true
 mode = 0
 access = 2
 filters = PoolStringArray( "*.fnode" )
-current_dir = "/dev/Godot/fnode"
-current_path = "/dev/Godot/fnode/"
-
-[node name="UIUtil" type="Node" parent="."]
-process_priority = -1
-script = ExtResource( 7 )
+current_dir = "/Users/simon/Dev/nodefiler"
+current_path = "/Users/simon/Dev/nodefiler/"
 
 [node name="IO" type="Node" parent="."]
 script = ExtResource( 6 )
