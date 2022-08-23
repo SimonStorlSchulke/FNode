@@ -27,7 +27,10 @@ public class FNodeAccumulateText : FNode
 
     public override void OnNextIteration() {
         if (selectedOption == "Incremental") {
-            accumulatedString += Project.IdxEval < iterations-1 ? inputs["Text"].Get<string>() + separator : inputs["Text"].Get<string>();
+            string toAdd = inputs["Text"].Get<string>();
+            if (toAdd != "") {
+                accumulatedString += Project.IdxEval < iterations-1 ? toAdd + separator : toAdd;
+            }
         }
     }
 
@@ -48,7 +51,13 @@ public class FNodeAccumulateText : FNode
                 // so we brute force all RunBeforeIterationGroup-Nodes instead...
                 GetTree().CallGroupFlags((int)SceneTree.GroupCallFlags.Realtime, FNode.RunBeforeIterationGroup, nameof(FNode.OnNextIteration));
 
-                accumulatedString += Project.IdxEval < iterations-1 ? inputs["Text"].Get<string>() + separator : inputs["Text"].Get<string>();
+                string toAdd = inputs["Text"].Get<string>();
+            if (toAdd == "") {
+                GD.Print("AAyo");
+            }
+            if (toAdd != "") {
+                accumulatedString += Project.IdxEval < iterations-1 ? toAdd + separator : toAdd;
+            }
                 Project.IdxEval++;
             }
             Project.IdxEval = 0;

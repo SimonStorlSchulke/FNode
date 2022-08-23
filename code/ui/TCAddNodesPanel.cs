@@ -57,8 +57,8 @@ public class TCAddNodesPanel : Control
         CreateAddButton<FNodeResizeImage>();
         CreateAddButton<FNodeImageInfo>();
         CreateAddButton<FNodeTrimImage>();
-        //CreateAddButton<FNodeGetRestAPI>();
-        //CreateAddButton<FNodeGetJSONItem>();
+        CreateAddButton<FNodeGetRestAPI>();
+        CreateAddButton<FNodeGetJSONItem>();
     }
 
     Resource cursorDragNode;
