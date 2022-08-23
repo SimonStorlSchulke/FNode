@@ -24,7 +24,7 @@ This project aims to be a feature rich file management system. FNode can be used
 <br>
 
 ![image-convert](doc/chaining.png)  
-*chain JSON paths by separating keys with \*
+*chain JSON paths by separating keys with \\*
 
 <br>
 
