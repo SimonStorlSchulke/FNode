@@ -4,19 +4,18 @@ using System;
 
 public class FNodeGetJSONItem: FNode
 {
-
-    static object stringify(object jsonItem) {
-        var jsonType = jsonItem.GetType();
-
-        if (jsonType == typeof(System.String)) {
-            return jsonItem as string;
+    static object validate(object jsonItem) {
+        switch (jsonItem)
+        {
+            case System.String str:
+                return str;
+            case Godot.Collections.Array arr:
+                return arr;
+            case Godot.Collections.Dictionary dict:
+                return dict;
+            default:
+                return JSON.Print(jsonItem as Godot.Collections.Dictionary);
         }
-
-        if (jsonType == typeof(Godot.Collections.Array)) {
-            return ((Godot.Collections.Array)jsonItem);
-        }
-
-        return JSON.Print(jsonItem as Godot.Collections.Dictionary);
     }
 
     public FNodeGetJSONItem() {
@@ -25,8 +24,8 @@ public class FNodeGetJSONItem: FNode
 
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
-            {"JSON", new FInput(this)},
-            {"Key", new FInputString(this)},
+            {"JSON", new FInputString(this, description: "The JSON string to parse", initialValue: "{\"myjson\":{\"nestedprop\":[\"Hello\",\"World\"]}}")},
+            {"Key", new FInputString(this, description: "the key to get from the JSON.\nThis can be chained with \"\\\"", initialValue: "myjson\\nestedprop\\1")},
         };
 
         FNode.IdxReset();
@@ -36,29 +35,29 @@ public class FNodeGetJSONItem: FNode
 
                 string[] keychain = inputs["Key"].Get<string>().Split("\\");                
                 var cJsonResult = inputs["JSON"].Get<object>();
-                var cJsonType = cJsonResult.GetType();
 
                 foreach (string key in keychain) {
                     try {
-                        if (cJsonType == typeof(System.String)) {
-                            cJsonResult = JSON.Parse(cJsonResult as string).Result;
-                            if (!(cJsonResult as Dictionary).Contains(key)) {
-                                return "Invalid Key";
-                            }
-                            cJsonResult = stringify((cJsonResult as Dictionary)[key]);
-                            cJsonType = cJsonResult.GetType();
-                        }
 
-                        else if (cJsonType == typeof(Godot.Collections.Dictionary)) {
-                            if ((cJsonResult as Dictionary).Contains(key)) {
-                                cJsonResult = stringify((cJsonResult as Dictionary)[key]);
-                                cJsonType = cJsonResult.GetType();
-                            }
-                        }
-
-                        else if (cJsonType == typeof(Godot.Collections.Array)) {
-                            cJsonResult = stringify((cJsonResult as Godot.Collections.Array)[key.ToInt()]);
-                            cJsonType = cJsonResult.GetType();
+                        switch (cJsonResult)
+                        {
+                            case System.String str:
+                                cJsonResult = JSON.Parse(str).Result;
+                                if (!(cJsonResult as Dictionary).Contains(key)) {
+                                    return "Invalid Key";
+                                }
+                                cJsonResult = validate((cJsonResult as Dictionary)[key]);
+                                break;
+                                case Godot.Collections.Dictionary dict:
+                                    if ((cJsonResult as Dictionary).Contains(key)) {
+                                        cJsonResult = validate(dict[key]);
+                                    }
+                                break;
+                                case Godot.Collections.Array arr:
+                                    cJsonResult = validate(arr[key.ToInt()]);
+                                    break;
+                            default:
+                                break;
                         }
                     }
 
@@ -67,7 +66,7 @@ public class FNodeGetJSONItem: FNode
                         return "Invalid JSON";
                     }
                 }
-                return stringify(cJsonResult);
+                return validate(cJsonResult);
             })},
         };
     }

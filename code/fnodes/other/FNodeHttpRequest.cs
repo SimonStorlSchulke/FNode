@@ -6,6 +6,7 @@ public class FNodeHttpRequest : FNodeAwait
 
     public FNodeHttpRequest() {
         category = "Other";
+        HintTooltip = "Retrieve Data from the given URL.\nThis Node is evaluated only once before starting NodeTree evaluation and outputs the same data for each iteration";
 
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
