@@ -60,7 +60,7 @@ public class FNodeGetJSONItem: FNode
                             cJsonResult = stringify((cJsonResult as Godot.Collections.Array)[key.ToInt()]);
                             cJsonType = cJsonResult.GetType();
                         }
-                   }
+                    }
 
                     catch (System.Exception e) {
                         Errorlog.Log(e);

@@ -173,7 +173,11 @@ public class NodeTree : GraphEdit
             foreach (var inp in outp.Value.GetConnectedInputs()) {
                 DisconnectNode(fn.Name, idxOutputs, inp.owner.Name, inp.idx);
                 inp.connectedTo = null;
-                inp.owner.GetChild(inp.idx + inp.owner.outputs.Count).GetChild<Control>(1).Visible = true;
+                var hb = inp.owner.GetChild(inp.idx + inp.owner.outputs.Count);
+                hb.GetChild<Control>(1).Visible = true;
+                if (hb.GetChildCount() > 2) {
+                    hb.GetChild<Control>(2).Visible = true;
+                }
                 idxConnectedInputs++;
             }
             idxOutputs++;
