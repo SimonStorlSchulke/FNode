@@ -39,29 +39,33 @@ public class FNodeGetJSONItem: FNode
                 var cJsonType = cJsonResult.GetType();
 
                 foreach (string key in keychain) {
-                    try {
+                    //try {
                         if (cJsonType == typeof(System.String)) {
                             cJsonResult = JSON.Parse(cJsonResult as string).Result;
+                            if (!(cJsonResult as Dictionary).Contains(key)) {
+                                return "Invalid Key";
+                            }
                             cJsonResult = stringify((cJsonResult as Dictionary)[key]);
                             cJsonType = cJsonResult.GetType();
-                            GD.Print(cJsonType);
                         }
 
                         else if (cJsonType == typeof(Godot.Collections.Dictionary)) {
                             if ((cJsonResult as Dictionary).Contains(key)) {
                                 cJsonResult = stringify((cJsonResult as Dictionary)[key]);
+                                cJsonType = cJsonResult.GetType();
                             }
                         }
 
                         else if (cJsonType == typeof(Godot.Collections.Array)) {
                             cJsonResult = stringify((cJsonResult as Godot.Collections.Array)[key.ToInt()]);
+                            cJsonType = cJsonResult.GetType();
                         }
-                    }
+                   // }
 
-                    catch (System.Exception e) {
-                        Errorlog.Log(e);
-                        return "";
-                    }
+                    //catch (System.Exception e) {
+                    //    Errorlog.Log(e);
+                    //    return "Invalid JSON";
+                    //}
                 }
                 return stringify(cJsonResult);
             })},

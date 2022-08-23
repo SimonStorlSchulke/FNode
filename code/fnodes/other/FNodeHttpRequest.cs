@@ -1,10 +1,10 @@
 using Godot;
 
-public class FNodeGetRestAPI : FNodeAwait
+public class FNodeHttpRequest : FNodeAwait
 {
     object jsonResult = "";
 
-    public FNodeGetRestAPI() {
+    public FNodeHttpRequest() {
         category = "Other";
 
         FNode.IdxReset();
@@ -28,19 +28,7 @@ public class FNodeGetRestAPI : FNodeAwait
 
     public void OnRequestCompleted(int result, int response_code, string[] headers, byte[] body)
     {
-        JSONParseResult json = JSON.Parse(System.Text.Encoding.UTF8.GetString(body));
-        var jsonType = jsonResult.GetType();
-        jsonResult = json.Result;
-
-        if (jsonType == typeof(Godot.Collections.Dictionary)) {
-        }
-
-        if (jsonType == typeof(Godot.Collections.Array)) {
-
-        }
-
-        GD.Print(jsonResult.GetType());
-
+        jsonResult = System.Text.Encoding.UTF8.GetString(body);
         Finished();
     }
 
