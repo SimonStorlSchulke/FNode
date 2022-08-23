@@ -33,32 +33,37 @@ public class FNodeGetJSONItem: FNode
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
             {
             "Text", new FOutput(this, delegate() {
-                try {
-                    string key = inputs["Key"].Get<string>();
-                    var jsonResult = inputs["JSON"].Get<object>();
-                    var jsonType = jsonResult.GetType();
 
-                    if (jsonType == typeof(System.String)) {
-                        jsonResult = JSON.Parse(jsonResult as string).Result;
-                        jsonType = jsonResult.GetType();
-                    }
+                string[] keychain = inputs["Key"].Get<string>().Split("\\");                
+                var cJsonResult = inputs["JSON"].Get<object>();
+                var cJsonType = cJsonResult.GetType();
 
+                foreach (string key in keychain) {
+                    try {
+                        if (cJsonType == typeof(System.String)) {
+                            cJsonResult = JSON.Parse(cJsonResult as string).Result;
+                            cJsonResult = stringify((cJsonResult as Dictionary)[key]);
+                            cJsonType = cJsonResult.GetType();
+                            GD.Print(cJsonType);
+                        }
 
-                    if (jsonType == typeof(Godot.Collections.Dictionary)) {
-                        if ((jsonResult as Dictionary).Contains(key)) {
-                            return stringify((jsonResult as Dictionary)[key]);
+                        else if (cJsonType == typeof(Godot.Collections.Dictionary)) {
+                            if ((cJsonResult as Dictionary).Contains(key)) {
+                                cJsonResult = stringify((cJsonResult as Dictionary)[key]);
+                            }
+                        }
+
+                        else if (cJsonType == typeof(Godot.Collections.Array)) {
+                            cJsonResult = stringify((cJsonResult as Godot.Collections.Array)[key.ToInt()]);
                         }
                     }
 
-                    else if (jsonType == typeof(Godot.Collections.Array)) {
-                        return stringify((jsonResult as Godot.Collections.Array)[key.ToInt()]);
+                    catch (System.Exception e) {
+                        Errorlog.Log(e);
+                        return "";
                     }
-                    return "Unknown JSON Type";
-
-                } catch (System.Exception e) {
-                    Errorlog.Log(e);
-                    return "";
                 }
+                return stringify(cJsonResult);
             })},
         };
     }
