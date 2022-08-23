@@ -18,6 +18,16 @@ This project aims to be a feature rich file management system. FNode can be used
 
 <br>
 
+![image-convert](doc/json.png)  
+*Getting data from an online API and extracting JSON values*
+
+<br>
+
+![image-convert](doc/chaining.png)  
+*chain JSON paths by separating keys with \\*
+
+<br>
+
 ![argest-file](doc/exp_get_largest_file.png)  
 *Get the largest File in a Folder. The Tree iterates through each File, adds it's size to a List and then gets the file at the index of the largest one*
 

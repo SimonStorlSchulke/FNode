@@ -1,11 +1,12 @@
 using Godot;
 
-public class FNodeGetRestAPI : FNodeAwait
+public class FNodeHttpRequest : FNodeAwait
 {
     object jsonResult = "";
 
-    public FNodeGetRestAPI() {
+    public FNodeHttpRequest() {
         category = "Other";
+        HintTooltip = "Retrieve Data from the given URL.\nThis Node is evaluated only once before starting NodeTree evaluation and outputs the same data for each iteration";
 
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
@@ -28,8 +29,7 @@ public class FNodeGetRestAPI : FNodeAwait
 
     public void OnRequestCompleted(int result, int response_code, string[] headers, byte[] body)
     {
-        JSONParseResult json = JSON.Parse(System.Text.Encoding.UTF8.GetString(body));
-        jsonResult = json.Result;
+        jsonResult = System.Text.Encoding.UTF8.GetString(body);
         Finished();
     }
 

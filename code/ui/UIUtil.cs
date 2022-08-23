@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class UIUtil : Node
+public static class UIUtil
 {
     public static string SnakeCaseToWords(string str) {
         return System.Text.RegularExpressions.Regex.Replace(str, "([A-Z0-9]+)", " $1").Trim();
@@ -19,27 +19,40 @@ public class UIUtil : Node
         return removed ? dotString + ".." : dotString;
     }
 
-    static Dictionary<string, StyleBox> styleboxes = new Dictionary<string, StyleBox>();
-    
-    // Called when the node enters the scene tree for the first time.
-    public override void _EnterTree() {
-        styleboxes.Add("NodeFile", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeFile.stylebox"));
-        styleboxes.Add("NodeFile_Selected", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeFile_Selected.stylebox"));
-        styleboxes.Add("NodeString", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeString.stylebox"));
-        styleboxes.Add("NodeString_Selected", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeString_Selected.stylebox"));
-        styleboxes.Add("NodeDate", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeDate.stylebox"));
-        styleboxes.Add("NodeDate_Selected", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeDate_Selected.stylebox"));
-        styleboxes.Add("NodeMath", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeMath.stylebox"));
-        styleboxes.Add("NodeMath_Selected", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeMath_Selected.stylebox"));
-        styleboxes.Add("NodeBool", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeBool.stylebox"));
-        styleboxes.Add("NodeBool_Selected", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeBool_Selected.stylebox"));
-        styleboxes.Add("NodeList", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeList.stylebox"));
-        styleboxes.Add("NodeList_Selected", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeList_Selected.stylebox"));
-        styleboxes.Add("NodeImage", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeImage.stylebox"));
-        styleboxes.Add("NodeImage_Selected", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeImage_Selected.stylebox"));
-        styleboxes.Add("NodeOther", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeOther.stylebox"));
-        styleboxes.Add("NodeOther_Selected", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeOther_Selected.stylebox"));
+    ///<summary>Let tabs fill all aviable horizontal space. Possible to use as Extension Method</summary>
+    public static void ExpandTabs(this TabContainer tc) {
+        float tabNamesCombinedWidth = 0;
+
+        for (int i = 0; i < tc.GetTabCount(); i++) {
+            tabNamesCombinedWidth += tc.GetFont("font").GetStringSize(tc.GetTabTitle(i)).x; 
+        }
+
+        float tabMargin = (tc.RectSize.x - tabNamesCombinedWidth) / (tc.GetChildCount() * 2);
+
+        tc.GetStylebox("tab_fg").ContentMarginRight = 
+            tc.GetStylebox("tab_bg").ContentMarginRight = 
+            tc.GetStylebox("tab_fg").ContentMarginLeft = 
+            tc.GetStylebox("tab_bg").ContentMarginLeft = tabMargin;
     }
+
+    static Dictionary<string, StyleBox> styleboxes = new Dictionary<string, StyleBox>(){
+        {"NodeFile", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeFile.stylebox")},
+        {"NodeFile_Selected", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeFile_Selected.stylebox")},
+        {"NodeString", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeString.stylebox")},
+        {"NodeString_Selected", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeString_Selected.stylebox")},
+        {"NodeDate", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeDate.stylebox")},
+        {"NodeDate_Selected", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeDate_Selected.stylebox")},
+        {"NodeMath", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeMath.stylebox")},
+        {"NodeMath_Selected", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeMath_Selected.stylebox")},
+        {"NodeBool", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeBool.stylebox")},
+        {"NodeBool_Selected", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeBool_Selected.stylebox")},
+        {"NodeList", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeList.stylebox")},
+        {"NodeList_Selected", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeList_Selected.stylebox")},
+        {"NodeImage", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeImage.stylebox")},
+        {"NodeImage_Selected", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeImage_Selected.stylebox")},
+        {"NodeOther", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeOther.stylebox")},
+        {"NodeOther_Selected", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeOther_Selected.stylebox")},
+    };
 
     public static void CreateUI(FNode fn) {
 

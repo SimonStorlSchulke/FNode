@@ -185,6 +185,9 @@ public class FInput {
 
         var valueType = value.GetType();
 
+        if (valueType == typeof(Godot.Collections.Dictionary)) {
+            value = JSON.Print(value);
+        }
         
         bool invalidImageConversion = valueType != typeof(ImageMagick.MagickImage) && slotType == typeof(FInputImage) || valueType == typeof(ImageMagick.MagickImage) && slotType != typeof(FInputImage);
         
