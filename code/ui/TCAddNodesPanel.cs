@@ -17,6 +17,7 @@ public class TCAddNodesPanel : Control
         CreateAddButton<FNodeFloatNumber>();
         CreateAddButton<FNodeFileInfo>();
         CreateAddButton<FNodeFileAtIndex>();
+        CreateAddButton<FNodeFileExists>();
         CreateAddButton<FNodeRename>();
         CreateAddButton<FNodeDelete>();
         CreateAddButton<FNodeFilterFiles>();
