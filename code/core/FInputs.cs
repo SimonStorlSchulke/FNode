@@ -175,7 +175,6 @@ public class FInput {
 
     ///<summary> uses the slotConversionsDict to convert incoming slot-connections that aren't the same type as the input </summar>
     protected object AutoSlotConversion(object value) {
-
         var slotType = this.GetType();
 
         if (value == null && slotType == typeof(FInputBool)) {
