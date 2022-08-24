@@ -56,6 +56,7 @@ public class TCAddNodesPanel : Control
         CreateAddButton<FNodeSaveImageAs>();
         CreateAddButton<FNodeImageViewer>();
         CreateAddButton<FNodeResizeImage>();
+        CreateAddButton<FNodeRotateImage>();
         CreateAddButton<FNodeImageInfo>();
         CreateAddButton<FNodeTrimImage>();
         CreateAddButton<FNodeHttpRequest>();
