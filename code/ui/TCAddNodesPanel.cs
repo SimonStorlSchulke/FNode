@@ -24,7 +24,6 @@ public class TCAddNodesPanel : Control
         CreateAddButton<FNodeCreateTextFile>();
         CreateAddButton<FNodeText>();
         CreateAddButton<FNodeJoinTexts>();
-        CreateAddButton<FNodeAccumulateText>();
         CreateAddButton<FNodeTextViewer>();
         CreateAddButton<FNodeDateToString>();
         CreateAddButton<FNodeDateCompare>();
@@ -52,6 +51,7 @@ public class TCAddNodesPanel : Control
         CreateAddButton<FNodeAccumulateList>();
         CreateAddButton<FNodeListComparisons>();
         CreateAddButton<FNodeGetImage>();
+        CreateAddButton<FNodeMergeImages>();
         CreateAddButton<FNodeFilterImages>();
         CreateAddButton<FNodeSaveImageAs>();
         CreateAddButton<FNodeImageViewer>();
@@ -194,10 +194,6 @@ public class TCAddNodesPanel : Control
         if(e.IsActionPressed("add_index")) {
             Main.Inst.OnAddNodeFromUI(
                 (FNode)Activator.CreateInstance(typeof(FNodeIndexInfo)));
-        }
-        if(e.IsActionPressed("add_accumulate_string")) {
-            Main.Inst.OnAddNodeFromUI(
-                (FNode)Activator.CreateInstance(typeof(FNodeAccumulateText)));
         }
         if(e.IsActionPressed("evaluate_tree_preview")) { //TODO put this somewhere else
             Main.Inst.OnParseTree(true);

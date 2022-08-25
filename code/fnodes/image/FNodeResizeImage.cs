@@ -35,7 +35,7 @@ public class FNodeResizeImage : FNode
 
                 var size = new MagickGeometry(width, height);
 
-                size.Greater = !inputs["Downscale Only"].Get<bool>();
+                size.Greater = inputs["Downscale Only"].Get<bool>();
                 size.IgnoreAspectRatio = inputs["Ignore Aspect"].Get<bool>();
                 
                 try {

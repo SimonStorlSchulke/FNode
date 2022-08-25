@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://code/ui/ImageViewerFullscreen.cs" type="Script" id=1]
 [ext_resource path="res://code/ui/ImageViewer.cs" type="Script" id=2]
+[ext_resource path="res://theme/roboto.tres" type="DynamicFont" id=3]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.0941176, 0.0941176, 0.0941176, 0.686275 )
@@ -18,9 +19,6 @@ NPLblDepth = NodePath("HBoxContainer/Panel/VBoxContainer/GridContainer/LBLDepth"
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Control" type="Control" parent="HBoxContainer"]
 margin_right = 1274.0
@@ -37,6 +35,16 @@ size_flags_vertical = 3
 expand = true
 stretch_mode = 6
 script = ExtResource( 2 )
+
+[node name="BTNClose" type="Button" parent="HBoxContainer/Control"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+custom_fonts/font = ExtResource( 3 )
+text = " X "
+expand_icon = true
 
 [node name="Panel" type="Panel" parent="HBoxContainer"]
 margin_left = 1278.0
@@ -55,27 +63,18 @@ __meta__ = {
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Panel/VBoxContainer"]
 margin_right = 422.0
-margin_bottom = 33.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Control" type="Control" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer"]
-margin_right = 381.0
-margin_bottom = 33.0
+margin_right = 422.0
 size_flags_horizontal = 3
 
-[node name="BTNClose" type="Button" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer"]
-margin_left = 385.0
-margin_right = 422.0
-margin_bottom = 33.0
-text = " X "
-expand_icon = true
-
 [node name="GridContainer" type="GridContainer" parent="HBoxContainer/Panel/VBoxContainer"]
-margin_top = 37.0
+margin_top = 4.0
 margin_right = 422.0
-margin_bottom = 107.0
+margin_bottom = 74.0
 columns = 2
 
 [node name="Label3" type="Label" parent="HBoxContainer/Panel/VBoxContainer/GridContainer"]
@@ -103,7 +102,7 @@ margin_bottom = 70.0
 text = "x"
 
 [node name="spacer" type="Control" parent="HBoxContainer/Panel/VBoxContainer"]
-margin_top = 111.0
+margin_top = 78.0
 margin_right = 422.0
 margin_bottom = 900.0
 size_flags_vertical = 3
@@ -118,4 +117,4 @@ text = "ECS to close
 "
 align = 1
 
-[connection signal="pressed" from="HBoxContainer/Panel/VBoxContainer/HBoxContainer/BTNClose" to="." method="Close"]
+[connection signal="pressed" from="HBoxContainer/Control/BTNClose" to="." method="Close"]
