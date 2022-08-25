@@ -1,3 +1,4 @@
+using System.Collections;
 using Godot;
 using Godot.Collections;
 
@@ -57,6 +58,50 @@ public class IO : Node {
         saveData.Add("ScrollOffsetX", Main.Inst.CurrentProject.NodeTree.ScrollOffset.x);
         saveData.Add("ScrollOffsetY", Main.Inst.CurrentProject.NodeTree.ScrollOffset.y);
         return saveData;
+    }
+
+    public static Dictionary<string, object> CopySelectedNodes(NodeTree nt) {
+        Dictionary<string, object> copyData = new Dictionary<string, object>();
+        Godot.Collections.Dictionary<string, object> nodesDict = new Godot.Collections.Dictionary<string, object>();
+
+        foreach (FNode fnd in nt.GetSelectedNodes()) {
+            nodesDict.Add(fnd.Name, fnd.Serialize());
+        }
+
+        copyData.Add("Nodes", nodesDict);
+
+        var connectionList = nt.GetConnectionList();
+
+        foreach (Dictionary connection in nt.GetConnectionList()) {
+            
+            // If a connection is links to an unconnected node, remove it from the connectionList
+            if (!nodesDict.ContainsKey(connection["from"] as string) || !nodesDict.ContainsKey(connection["to"] as string)) {
+                connectionList.Remove(connection);
+            }
+        }
+        copyData.Add("Connections", connectionList);
+        OS.Clipboard = JSON.Print(copyData);
+        return copyData;
+    }
+
+    public static void PasteNodes() {
+
+        var pastedData = new Dictionary<string, object>((Dictionary)JSON.Parse(OS.Clipboard).Result);
+        Godot.Collections.Dictionary nodesData = pastedData["Nodes"] as Dictionary;
+
+        foreach (DictionaryEntry nodeData in nodesData) {
+            FNode.Deserialize(nodeData.Value as Godot.Collections.Dictionary, Main.Inst.CurrentProject);
+        }
+
+        Godot.Collections.Array connectionsData = pastedData["Connections"] as Godot.Collections.Array;
+
+        foreach (Godot.Collections.Dictionary cData in connectionsData) {
+                Main.Inst.CurrentProject.NodeTree.OnConnectionRequest(
+                     (string)cData["from"],
+                     (int)((System.Single)cData["from_port"]),
+                     (string)cData["to"],
+                     (int)((System.Single)cData["to_port"]));
+            }
     }
 
     public void Save(string path) {

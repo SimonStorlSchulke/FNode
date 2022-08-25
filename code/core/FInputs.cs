@@ -211,7 +211,6 @@ public class FInput {
             return new Godot.Collections.Array() {value};
         }
 
-
         try {
             return slotConversionsDict[new Tuple<Type, Type>(valueType, slotType)](value, this);
         } catch {

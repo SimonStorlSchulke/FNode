@@ -117,7 +117,11 @@ public class NodeTree : GraphEdit
                     toSlot);
             } catch {/*Nothing Connected - just trying and catching is probably cheaper than checking if a connection exists first.*/}
 
-        ConnectNode(from, fromSlot, to, toSlot);
+        Error err = ConnectNode(from, fromSlot, to, toSlot);
+
+        if (err != 0) {
+            return;
+        }
 
         fnTo.inputs.ElementAt(toSlot).Value.connectedTo = fnFrom.outputs.ElementAt(fromSlot).Value;
         Node inp = fnTo.GetChild(toSlot + fnTo.outputs.Count);
