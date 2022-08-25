@@ -149,6 +149,10 @@ public static class UIUtil
                 slotColor = Colors.Blue;
                 break;
 
+            case FOutputColor t6:
+                slotColor = Colors.BlueViolet;
+                break;
+
             default:
                 slotColor = Colors.White;
                 break;
@@ -244,6 +248,12 @@ public static class UIUtil
                 ct.Name = "clButton";
                 ct.Connect("date_selected", lblDate, nameof(DateLabel.SetDate));
                 slotColor = Colors.LightGreen;
+                break;
+
+            case FInputColor t6:
+                ct = new ColorPickerButton();
+                if(fInp.initialValue != null) (ct as ColorPickerButton).Color = (Color)fInp.initialValue;
+                slotColor = Colors.BlueViolet;
                 break;
 
             default:

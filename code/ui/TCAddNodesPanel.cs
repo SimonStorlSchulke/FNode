@@ -12,6 +12,8 @@ public class TCAddNodesPanel : Control
     //Godot.Collections.Dictionary<string, StyleBoxFlat> buttonColorStyles = new Godot.Collections.Dictionary<string, StyleBoxFlat>();
 
     public void CreateButtons() {
+        /*Could be automated by looping over classes that extend FNode...
+        but for now keep the choice of not making Nodes aviable in the UI*/
         CreateAddButton<FNodeGetFiles>();
         CreateAddButton<FNodeIntNumber>();
         CreateAddButton<FNodeFloatNumber>();
@@ -34,7 +36,6 @@ public class TCAddNodesPanel : Control
         CreateAddButton<FNodeAccumulateNumber>();
         CreateAddButton<FNodeTextIncludes>();
         CreateAddButton<FNodeReplaceText>();
-        //CreateAddButton<FNodeSwitch>();
         CreateAddButton<FNodeValueSwitch>();
         CreateAddButton<FNodeNumberToText>();
         CreateAddButton<FNodeMoveFile>();
@@ -61,6 +62,7 @@ public class TCAddNodesPanel : Control
         CreateAddButton<FNodeTrimImage>();
         CreateAddButton<FNodeHttpRequest>();
         CreateAddButton<FNodeGetJSONItem>();
+        CreateAddButton<FNodeAddBackground>();
     }
 
     Resource cursorDragNode;
@@ -112,7 +114,6 @@ public class TCAddNodesPanel : Control
         FNode fn = (FNode)Activator.CreateInstance(typeof(fnType));
         AddNodeButton.Text = UIUtil.SnakeCaseToWords(typeof(fnType).Name.Replace("FNode", ""));
         AddNodeButton.HintTooltip = fn.HintTooltip;
-        //AddNodeButton.Connect("pressed", Main.inst, nameof(Main.OnAddNodeFromUI), new Godot.Collections.Array{fn});
         AddNodeButton.Connect("button_down", this, nameof(StartDrag), new Godot.Collections.Array{fn});
 
         AddNodeButton.RectMinSize = new Vector2(0, 50);

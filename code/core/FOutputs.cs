@@ -78,6 +78,12 @@ public class FOutputImage : FOutput {
     }
 }
 
+public class FOutputColor : FOutput {
+    public FOutputColor(FNode owner, GetOutputValue method, int idx=-1, string description = "") : base(owner, method, idx, description) {
+        slotType = SlotType.COLOR;
+    }
+}
+
 public class FOutputDate : FOutput {
     public FOutputDate(FNode owner, GetOutputValue method, int idx=-1, string description = "") : base(owner, method, idx, description) {
         slotType = SlotType.DATE;

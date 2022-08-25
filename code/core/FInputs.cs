@@ -12,6 +12,7 @@ public enum SlotType {
     DATE,
     IMAGE,
     LIST,
+    COLOR,
     OTHER
 }
 
@@ -238,6 +239,7 @@ public class FInput {
     public virtual void UpdateUIFromValue(object value){}
 }
 
+
 public class FInputFile : FInput {
     public FInputFile(FNode owner, int idx = -1, string description = "", object initialValue = null) : base(owner, idx, description, initialValue) {
         slotType = SlotType.FILE;
@@ -262,6 +264,7 @@ public class FInputFile : FInput {
     }
 }
 
+
 public class FInputString : FInput {
     public FInputString(FNode owner, int idx = -1, string description = "", object initialValue = null) : base(owner, idx, description, initialValue) {
         slotType = SlotType.STRING;
@@ -281,6 +284,7 @@ public class FInputString : FInput {
         ((LineEdit)owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(2)).Text = (string)value;
     }
 }
+
 
 public class FInputList : FInput {
     public FInputList(FNode owner, int idx = -1, string description = "", object initialValue = null) : base(owner, idx, description, initialValue) {
@@ -327,6 +331,39 @@ public class FInputInt : FInput {
     }
 }
 
+
+public class FInputColor : FInput {
+    public int min;
+    public int max;
+    public FInputColor(FNode owner, int idx = -1, string description = "", object initialValue = null, int min = int.MinValue, int max = int.MaxValue) : base(owner, idx, description, initialValue) {
+        this.min = min;
+        this.max = max;
+        slotType = SlotType.COLOR;
+    }
+
+    public override void UpdateDefaultValueFromUI() {
+        Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
+        DefaultValue = (Color)(nd as ColorPickerButton).Color;
+    }
+
+    public override object GetDefaultValueFromUI() {
+        Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
+        return (Color)(nd as ColorPickerButton).Color;
+    }
+
+    public override void UpdateUIFromValue(object value) {
+        string[] rgba = ((string)value).Split(",");
+        GD.Print(rgba[0]);
+        GD.Print(rgba[0].ToFloat());
+        ((ColorPickerButton)owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1)).Color = new Color(
+            Convert.ToSingle(rgba[0], System.Globalization.CultureInfo.InvariantCulture), 
+            Convert.ToSingle(rgba[1], System.Globalization.CultureInfo.InvariantCulture), 
+            Convert.ToSingle(rgba[2], System.Globalization.CultureInfo.InvariantCulture), 
+            Convert.ToSingle(rgba[3], System.Globalization.CultureInfo.InvariantCulture));
+    }
+}
+
+
 public class FInputFloat : FInput {
     public float min;
     public float max;
@@ -351,6 +388,7 @@ public class FInputFloat : FInput {
     }
 }
 
+
 public class FInputBool : FInput {
     public FInputBool(FNode owner, int idx = -1, string description = "", object initialValue = null) : base(owner, idx, description, initialValue) {
         slotType = SlotType.BOOL;
@@ -370,6 +408,7 @@ public class FInputBool : FInput {
         ((CheckBox)owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1)).Pressed = (bool)value;
     }
 }
+
 
 public class FInputDate : FInput {
     public FInputDate(FNode owner, int idx = -1, string description = "", object initialValue = null) : base(owner, idx, description, initialValue) {

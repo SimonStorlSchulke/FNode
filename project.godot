@@ -51,6 +51,7 @@ config/windows_native_icon="res://theme/icons/icon.ico"
 window/size/width=1700
 window/size/height=900
 window/dpi/allow_hidpi=true
+mouse_cursor/tooltip_position_offset=Vector2( 20, 20 )
 window/stretch/shrink=0.65
 
 [editor_plugins]
@@ -66,6 +67,7 @@ shrin=false
 
 theme/use_hidpi=true
 theme/custom="res://theme/default.theme"
+timers/tooltip_delay_sec=0.3
 
 [input]
 
