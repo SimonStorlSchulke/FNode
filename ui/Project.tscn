@@ -38,7 +38,7 @@ script = ExtResource( 1 )
 [node name="0" parent="VBSideBar/TCFilestacks" instance=ExtResource( 5 )]
 margin_left = 5.0
 margin_top = 40.0
-margin_right = -5.0
+margin_right = 0.0
 margin_bottom = -5.0
 theme = ExtResource( 6 )
 

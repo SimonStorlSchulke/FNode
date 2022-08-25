@@ -42,6 +42,7 @@ config/name="fnode"
 run/main_scene="res://ui/main.tscn"
 boot_splash/image="res://theme/icons/boot.png"
 boot_splash/fullsize=false
+boot_splash/bg_color=Color( 0.160784, 0.176471, 0.184314, 1 )
 config/icon="res://icon.png"
 config/windows_native_icon="res://theme/icons/icon.ico"
 
@@ -185,5 +186,5 @@ quality/driver/driver_name="GLES2"
 quality/intended_usage/framebuffer_allocation=1
 quality/intended_usage/framebuffer_allocation.mobile=0
 2d/snapping/use_gpu_pixel_snap=true
-environment/default_clear_color=Color( 0.176471, 0.176471, 0.176471, 1 )
+environment/default_clear_color=Color( 0.156863, 0.172549, 0.184314, 1 )
 quality/depth/hdr=false

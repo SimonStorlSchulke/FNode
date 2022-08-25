@@ -75,7 +75,7 @@ public class TCAddNodesPanel : Control
             sb.BorderWidthLeft = 12;
             sb.ContentMarginLeft = 33;
             sb.BorderColor = col.Value;
-            sb.BgColor = new Color(0.25f,0.25f,0.25f);
+            sb.BgColor = new Color("#363e42");
             buttonColorStyles.Add(col.Key, sb);
         }
 

@@ -38,20 +38,21 @@ anchor_bottom = 1.0
 margin_top = 4.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_constants/separation = 0
 script = ExtResource( 4 )
 NPProjectTabs = NodePath("HBMain/ProjectTabs")
 NPAddNodeButtons = NodePath("HBMain/VBoxContainer/VerticalTabs")
 
 [node name="HBMain" type="HBoxContainer" parent="VBMain"]
 margin_right = 1700.0
-margin_bottom = 846.0
+margin_bottom = 848.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 0
 
 [node name="ProjectTabs" type="TabContainer" parent="VBMain/HBMain"]
 margin_right = 1320.0
-margin_bottom = 846.0
+margin_bottom = 848.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/side_margin = 100
@@ -69,7 +70,7 @@ margin_bottom = -5.0
 [node name="VBoxContainer" type="VBoxContainer" parent="VBMain/HBMain"]
 margin_left = 1320.0
 margin_right = 1700.0
-margin_bottom = 846.0
+margin_bottom = 848.0
 
 [node name="LESearch" type="LineEdit" parent="VBMain/HBMain/VBoxContainer"]
 margin_right = 380.0
@@ -93,7 +94,7 @@ script = ExtResource( 14 )
 [node name="VerticalTabs" parent="VBMain/HBMain/VBoxContainer" instance=ExtResource( 19 )]
 margin_top = 44.0
 margin_right = 380.0
-margin_bottom = 846.0
+margin_bottom = 848.0
 rect_min_size = Vector2( 380, 0 )
 script = ExtResource( 5 )
 NPSearchResults = NodePath("../SCSearchResults/VBSearchResults")
@@ -108,19 +109,19 @@ buttonColors = {
 }
 
 [node name="Panel" type="Panel" parent="VBMain"]
-margin_top = 850.0
+margin_top = 848.0
 margin_right = 1700.0
-margin_bottom = 884.0
-rect_min_size = Vector2( 0, 34 )
+margin_bottom = 896.0
+rect_min_size = Vector2( 0, 48 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBMain/Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="InfoLine" type="Label" parent="VBMain/Panel/HBoxContainer"]
-margin_top = 1.0
+margin_top = 5.0
 margin_right = 8.0
-margin_bottom = 38.0
+margin_bottom = 42.0
 script = ExtResource( 8 )
 
 [node name="ClearTimer" type="Timer" parent="VBMain/Panel/HBoxContainer/InfoLine"]
@@ -130,7 +131,7 @@ one_shot = true
 [node name="Control" type="Control" parent="VBMain/Panel/HBoxContainer"]
 margin_left = 12.0
 margin_right = 1302.0
-margin_bottom = 40.0
+margin_bottom = 48.0
 size_flags_horizontal = 3
 
 [node name="ProgressBar" type="ProgressBar" parent="VBMain/Panel/HBoxContainer"]
@@ -145,13 +146,13 @@ script = ExtResource( 13 )
 [node name="Control2" type="Control" parent="VBMain/Panel/HBoxContainer"]
 margin_left = 1306.0
 margin_right = 1346.0
-margin_bottom = 40.0
+margin_bottom = 48.0
 rect_min_size = Vector2( 40, 0 )
 
 [node name="BTNPreview2" type="Button" parent="VBMain/Panel/HBoxContainer"]
 margin_left = 1350.0
 margin_right = 1489.0
-margin_bottom = 40.0
+margin_bottom = 48.0
 custom_styles/focus = ExtResource( 18 )
 custom_styles/normal = ExtResource( 18 )
 text = "Preview "
@@ -163,7 +164,7 @@ __meta__ = {
 [node name="BTNRun" type="Button" parent="VBMain/Panel/HBoxContainer"]
 margin_left = 1493.0
 margin_right = 1700.0
-margin_bottom = 40.0
+margin_bottom = 48.0
 custom_styles/focus = ExtResource( 18 )
 custom_styles/normal = ExtResource( 18 )
 text = "Run Nodetree  "
@@ -171,15 +172,6 @@ icon = ExtResource( 17 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="TextEdit" type="TextEdit" parent="VBMain"]
-margin_top = 888.0
-margin_right = 1700.0
-margin_bottom = 896.0
-text = "aa
-dd
-ss"
-readonly = true
 
 [node name="MenuButton" type="MenuButton" parent="."]
 margin_left = 1.0
@@ -484,11 +476,11 @@ text = "FNode"
 margin_top = 41.0
 margin_right = 350.0
 margin_bottom = 110.0
-custom_colors/font_color = Color( 0.52549, 0.52549, 0.52549, 1 )
-text = "Alpha 1.2
-Date: 2022-07-04"
+custom_colors/font_color = Color( 0.4539, 0.48569, 0.51, 1 )
+text = "Alpha 1.4
+Date: 2022-08-25"
 script = ExtResource( 22 )
-Version = "Alpha 1.2"
+Version = "Alpha 1.4"
 
 [node name="spacer" type="Control" parent="PUAbout/HB/VB"]
 margin_top = 114.0

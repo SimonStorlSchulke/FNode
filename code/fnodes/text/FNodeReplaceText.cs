@@ -28,7 +28,9 @@ public class FNodeReplaceText : FNode, IFNodeVarInputSize
                 for (int i = 0; i < ((inputs.Count-1) / 2); i++) {
                     string replaceStr = inputs["Replace"+(i+1)].Get<string>();
                     string withStr = inputs["With"+(i+1)].Get<string>();
-                    str = str.Replace(replaceStr, withStr);
+                    if (replaceStr != "") {
+                        str = str.Replace(replaceStr, withStr);
+                    }
                 }
 
                 return str;
