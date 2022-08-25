@@ -31,7 +31,7 @@ public class FNodeMergeImages : FNode
                 try {
                     float px = inputs["Position X"].Get<float>();
                     float py = inputs["Position Y"].Get<float>();
-
+                    
                     img1.Composite(
                         img2,
                         (int)(ImageUtils.MapRange(px, 0, 1, img2.Width / 2, img1.Width - img2.Width / 2) - img2.Width / 2),
