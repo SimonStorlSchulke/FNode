@@ -1,6 +1,6 @@
 using Godot;
-using System;
 
+///<summary>Popup to list all File operations that would be done if the Nodetree was run in non-preview mode</summary>
 public class PuPreviewOps : WindowDialog
 {
     [Export] NodePath NPFilesDeleted;
@@ -14,7 +14,6 @@ public class PuPreviewOps : WindowDialog
 
     public static PuPreviewOps inst;
 
-    // Called when the node enters the scene tree for the first time.
     public override void _Ready() {
         filesDeleted = GetNode<RichTextLabel>(NPFilesDeleted);
         filesMoved = GetNode<RichTextLabel>(NPFilesMoved);

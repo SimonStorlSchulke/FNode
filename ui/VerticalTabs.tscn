@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://theme/icons/file.png" type="Texture" id=1]
 [ext_resource path="res://theme/icons/text.png" type="Texture" id=2]
@@ -9,6 +9,13 @@
 [ext_resource path="res://theme/icons/date.png" type="Texture" id=7]
 [ext_resource path="res://theme/icons/empty.png" type="Texture" id=8]
 [ext_resource path="res://theme/VerticalTabPressed.tres" type="StyleBox" id=9]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 6.0
+content_margin_right = 6.0
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+bg_color = Color( 0.223529, 0.239216, 0.25098, 1 )
 
 [node name="VerticalTabs" type="HBoxContainer"]
 margin_right = 125.0
@@ -30,6 +37,8 @@ margin_right = 135.0
 margin_bottom = 56.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
+custom_colors/font_color = Color( 0.529412, 0.529412, 0.529412, 1 )
+custom_colors/font_color_pressed = Color( 0.811765, 0.811765, 0.811765, 1 )
 custom_icons/off = ExtResource( 8 )
 custom_icons/on = ExtResource( 8 )
 custom_styles/pressed = ExtResource( 9 )
@@ -45,6 +54,8 @@ margin_right = 135.0
 margin_bottom = 112.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
+custom_colors/font_color = Color( 0.529412, 0.529412, 0.529412, 1 )
+custom_colors/font_color_pressed = Color( 0.811765, 0.811765, 0.811765, 1 )
 custom_icons/off = ExtResource( 8 )
 custom_icons/on = ExtResource( 8 )
 custom_styles/pressed = ExtResource( 9 )
@@ -59,6 +70,8 @@ margin_right = 135.0
 margin_bottom = 168.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
+custom_colors/font_color = Color( 0.529412, 0.529412, 0.529412, 1 )
+custom_colors/font_color_pressed = Color( 0.811765, 0.811765, 0.811765, 1 )
 custom_icons/off = ExtResource( 8 )
 custom_icons/on = ExtResource( 8 )
 custom_styles/pressed = ExtResource( 9 )
@@ -73,6 +86,8 @@ margin_right = 135.0
 margin_bottom = 224.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
+custom_colors/font_color = Color( 0.529412, 0.529412, 0.529412, 1 )
+custom_colors/font_color_pressed = Color( 0.811765, 0.811765, 0.811765, 1 )
 custom_icons/off = ExtResource( 8 )
 custom_icons/on = ExtResource( 8 )
 custom_styles/pressed = ExtResource( 9 )
@@ -87,6 +102,8 @@ margin_right = 135.0
 margin_bottom = 280.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
+custom_colors/font_color = Color( 0.529412, 0.529412, 0.529412, 1 )
+custom_colors/font_color_pressed = Color( 0.811765, 0.811765, 0.811765, 1 )
 custom_icons/off = ExtResource( 8 )
 custom_icons/on = ExtResource( 8 )
 custom_styles/pressed = ExtResource( 9 )
@@ -101,6 +118,8 @@ margin_right = 135.0
 margin_bottom = 336.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
+custom_colors/font_color = Color( 0.529412, 0.529412, 0.529412, 1 )
+custom_colors/font_color_pressed = Color( 0.811765, 0.811765, 0.811765, 1 )
 custom_icons/off = ExtResource( 8 )
 custom_icons/on = ExtResource( 8 )
 custom_styles/pressed = ExtResource( 9 )
@@ -115,6 +134,8 @@ margin_right = 135.0
 margin_bottom = 392.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
+custom_colors/font_color = Color( 0.529412, 0.529412, 0.529412, 1 )
+custom_colors/font_color_pressed = Color( 0.811765, 0.811765, 0.811765, 1 )
 custom_icons/off = ExtResource( 8 )
 custom_icons/on = ExtResource( 8 )
 custom_styles/pressed = ExtResource( 9 )
@@ -130,7 +151,7 @@ margin_bottom = 392.0
 rect_min_size = Vector2( 200, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/panel = ExtResource( 9 )
+custom_styles/panel = SubResource( 1 )
 
 [node name="File" type="VBoxContainer" parent="Panels"]
 anchor_right = 1.0

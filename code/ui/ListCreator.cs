@@ -1,6 +1,7 @@
 using Godot;
 using System;
 
+///<summary>Editor for Lists-Inputs on FNodes</summary>
 public class ListCreator : AcceptDialog {
 
     static Godot.Collections.Array list;
@@ -63,6 +64,9 @@ public class ListCreator : AcceptDialog {
                 case "float":
                     itemValue = ((SpinBox)itemCtl).Value;
                     break;
+                case "color":
+                    itemValue = ((ColorPickerButton)itemCtl).Color;
+                    break;
                 case "date":
                     itemValue = ((SpinBox)itemCtl).Value;
                     break;
@@ -81,6 +85,7 @@ public class ListCreator : AcceptDialog {
             {"System.Boolean", "bool"},
             {"System.Int32", "int"},
             {"System.Single", "float"},
+            {"Godot.Color", "color"},
         };
 
     public void AddItem(string type) {
@@ -110,6 +115,10 @@ public class ListCreator : AcceptDialog {
                 spF.MinValue = -Mathf.Inf;
                 spF.Step = 0.01;
                 hbItem.AddChild(spF);
+                break;
+            case "color":
+                ColorPickerButton cpb = new ColorPickerButton();
+                hbItem.AddChild(cpb);
                 break;
             case "date":
                 SpinBox spT = new SpinBox(); //TODO
@@ -180,6 +189,12 @@ public class ListCreator : AcceptDialog {
                 spF.Value = (float)value;
                 hbItem.AddToGroup("float");
                 hbItem.AddChild(spF);
+                break;
+            case Color fi:
+                ColorPickerButton cpb = new ColorPickerButton();
+                cpb.Color = (Color)value;
+                hbItem.AddToGroup("color");
+                hbItem.AddChild(cpb);
                 break;
             case DateTime fi:
                 SpinBox spT = new SpinBox(); //TODO

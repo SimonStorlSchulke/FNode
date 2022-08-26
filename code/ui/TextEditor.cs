@@ -1,5 +1,6 @@
 using Godot;
 
+///<summary>Editor for Text-inputs on FNodes</summary>
 public class TextEditor : AcceptDialog
 {
     public static TextEditor inst;

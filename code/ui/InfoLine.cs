@@ -1,6 +1,6 @@
 using Godot;
-using System;
 
+///<summary>Displays text for a short time</summary>
 public class InfoLine : Label
 {
     public static InfoLine inst;

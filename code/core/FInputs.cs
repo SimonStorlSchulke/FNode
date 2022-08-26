@@ -180,6 +180,8 @@ public class FInput {
 
         if (value == null && slotType == typeof(FInputBool)) {
             return false;
+        } else if (value == null && slotType == typeof(FInputColor)) {
+            return Colors.Transparent;
         } else if (value == null) {
             return null;
         }
@@ -188,6 +190,10 @@ public class FInput {
 
         if (valueType == typeof(Godot.Collections.Dictionary)) {
             value = JSON.Print(value);
+        }
+
+        if (slotType == typeof(FInputColor) && valueType != typeof(Color)) {
+            value = Colors.Transparent;
         }
         
         bool invalidImageConversion = valueType != typeof(ImageMagick.MagickImage) && slotType == typeof(FInputImage) || valueType == typeof(ImageMagick.MagickImage) && slotType != typeof(FInputImage);
@@ -353,8 +359,6 @@ public class FInputColor : FInput {
 
     public override void UpdateUIFromValue(object value) {
         string[] rgba = ((string)value).Split(",");
-        GD.Print(rgba[0]);
-        GD.Print(rgba[0].ToFloat());
         ((ColorPickerButton)owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1)).Color = new Color(
             Convert.ToSingle(rgba[0], System.Globalization.CultureInfo.InvariantCulture), 
             Convert.ToSingle(rgba[1], System.Globalization.CultureInfo.InvariantCulture), 

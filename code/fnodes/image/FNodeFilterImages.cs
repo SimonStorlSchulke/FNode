@@ -5,7 +5,9 @@ using System;
 public class FNodeFilterImages : FNode
 {
     public FNodeFilterImages() {
+        HintTooltip = "Filter Image files by the given Toggle input";
         category = "Img";
+
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
             {"File", new FInputImage(this)},

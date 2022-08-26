@@ -4,7 +4,7 @@ using ImageMagick;
 public class FNodeAddBackground : FNode
 {
     public FNodeAddBackground() {
-        HintTooltip = "Remplace transparent parts of the Image with a color";
+        HintTooltip = "Replace transparent parts of the Image with a color";
         category = "Img";
 
         FNode.IdxReset();
@@ -27,7 +27,6 @@ public class FNodeAddBackground : FNode
                     var c = inputs["Color"].Get<Color>();
                     img.BackgroundColor = c.ToMagickColor();;
                     img.Alpha(AlphaOption.Remove);
-                    GD.Print(c.ToMagickColor());
                     return img;
                 } catch (MagickException e) {
                     Errorlog.Log(e);

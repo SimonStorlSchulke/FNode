@@ -9,7 +9,7 @@ public class FNodeImageViewer : FNode
 
 
     public FNodeImageViewer() {
-        HintTooltip = "";
+        HintTooltip = "Displays the connected Image on the Node itself when running the NodeTree. Click to enlarge.";
         category = "Img";
 
         Connect("resize_request", this, nameof(OnResize));

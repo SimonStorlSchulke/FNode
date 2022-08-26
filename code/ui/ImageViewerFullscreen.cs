@@ -1,6 +1,4 @@
-using System.Net.Mime;
 using Godot;
-using System;
 
 public class ImageViewerFullscreen : Panel
 {

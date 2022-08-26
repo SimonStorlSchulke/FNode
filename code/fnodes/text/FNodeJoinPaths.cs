@@ -42,7 +42,7 @@ public class FNodeJoinPaths : FNode, IFNodeVarInputSize
 
     void AddLine() {
         inputs.Add("Path" + (inputs.Count+1), new FInputString(this, inputs.Count));
-        UIUtil.AddInputUI(this, "Path"+(inputs.Count), inputs["Path" + (inputs.Count)]);
+        UIBuilder.AddInputUI(this, "Path"+(inputs.Count), inputs["Path" + (inputs.Count)]);
         MoveChild(GetNode("HBButtons"), GetChildCount()-1);
         SetSlot(GetChildCount()-2, true, 0, Colors.Orange, false, 0, Colors.Orange, null, null);
         SetSlot(GetChildCount()-1, false, 0, Colors.Red, false, 0, Colors.Red, null, null);

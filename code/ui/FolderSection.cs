@@ -1,7 +1,7 @@
 using Godot;
 using System.Linq;
-using System.Collections.Generic;
 
+///<summary>Lists files contained in a folder - used by FileList></summary>
 public class FolderSection : VBoxContainer
 {
     public ItemList FileList;
