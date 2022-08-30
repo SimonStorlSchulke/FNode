@@ -36,11 +36,13 @@ public class FOutput {
 
 }
 
+
 public class FOutputInt : FOutput {
     public FOutputInt(FNode owner, GetOutputValue method, int idx=-1, string description = "") : base(owner, method, idx, description) {
         slotType = SlotType.INT;
     }
 }
+
 
 public class FOutputFloat : FOutput {
     public FOutputFloat(FNode owner, GetOutputValue method, int idx=-1, string description = "") : base(owner, method, idx, description) {
@@ -48,11 +50,13 @@ public class FOutputFloat : FOutput {
     }
 }
 
+
 public class FOutputBool : FOutput {
     public FOutputBool(FNode owner, GetOutputValue method, int idx=-1, string description = "") : base(owner, method, idx, description) {
         slotType = SlotType.BOOL;
     }
 }
+
 
 public class FOutputString : FOutput {
     public FOutputString(FNode owner, GetOutputValue method, int idx=-1, string description = "") : base(owner, method, idx, description) {
@@ -60,11 +64,13 @@ public class FOutputString : FOutput {
     }
 }
 
+
 public class FOutputList : FOutput {
     public FOutputList(FNode owner, GetOutputValue method, int idx=-1, string description = "") : base(owner, method, idx, description) {
         slotType = SlotType.LIST;
     }
 }
+
 
 public class FOutputFile : FOutput {
     public FOutputFile(FNode owner, GetOutputValue method, int idx=-1, string description = "") : base(owner, method, idx, description) {
@@ -72,17 +78,20 @@ public class FOutputFile : FOutput {
     }
 }
 
+
 public class FOutputImage : FOutput {
     public FOutputImage(FNode owner, GetOutputValue method, int idx=-1, string description = "") : base(owner, method, idx, description) {
         slotType = SlotType.FILE;
     }
 }
 
+
 public class FOutputColor : FOutput {
     public FOutputColor(FNode owner, GetOutputValue method, int idx=-1, string description = "") : base(owner, method, idx, description) {
         slotType = SlotType.COLOR;
     }
 }
+
 
 public class FOutputDate : FOutput {
     public FOutputDate(FNode owner, GetOutputValue method, int idx=-1, string description = "") : base(owner, method, idx, description) {

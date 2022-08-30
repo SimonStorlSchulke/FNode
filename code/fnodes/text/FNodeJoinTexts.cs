@@ -53,7 +53,7 @@ public class FNodeJoinTexts : FNode, IFNodeVarInputSize
 
     void AddInput() {
         inputs.Add("Text" + (inputs.Count-1), new FInputString(this, inputs.Count));
-        UIUtil.AddInputUI(this, "Text"+(inputs.Count-2), inputs["Text" + (inputs.Count-2)]);
+        UIBuilder.AddInputUI(this, "Text"+(inputs.Count-2), inputs["Text" + (inputs.Count-2)]);
         MoveChild(GetNode("HBButtons"), GetChildCount()-1);
         SetSlot(GetChildCount()-2, true, 0, Colors.Orange, false, 0, Colors.Orange, null, null);
         SetSlot(GetChildCount()-1, false, 0, Colors.Red, false, 0, Colors.Red, null, null);

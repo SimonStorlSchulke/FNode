@@ -97,7 +97,7 @@ public class FNodeTextIncludes : FNode, IFNodeVarInputSize
     void AddLine() {
         string inpName = "Includes" + (inputs.Count-1);
         inputs.Add(inpName, new FInputString(this, inputs.Count));
-        UIUtil.AddInputUI(this, inpName, inputs[inpName]);
+        UIBuilder.AddInputUI(this, inpName, inputs[inpName]);
         MoveChild(GetNode("ob"), GetChildCount()-1);
         MoveChild(GetNode("HBPlusMinus"), GetChildCount()-2);
 

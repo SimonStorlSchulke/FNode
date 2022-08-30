@@ -6,7 +6,7 @@ public class MenuButton : Godot.MenuButton
     [Export] NodePath NPPUHotkey;
     [Export] NodePath NPPUAbout;
     IO io;
-    // Called when the node enters the scene tree for the first time.
+
     public override void _Ready() {
         io = GetNode<IO>(NPIO);
         GetPopup().Connect("id_pressed", this, nameof(OnItemPressed));

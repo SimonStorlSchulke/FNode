@@ -9,6 +9,7 @@ public static class GdExtensions
         }
     }
 
+    ///<summary>Shorthand to set common UI layout parameters</summary>
     public static void Layout(this Control ctl, int minSizeX = 0, int minSizeY=0, bool expandHor = true, bool expandVert = true) {
         if (expandHor) ctl.SizeFlagsHorizontal = (int)Control.SizeFlags.ExpandFill;
         if (expandVert) ctl.SizeFlagsVertical = (int)Control.SizeFlags.ExpandFill;
@@ -17,6 +18,7 @@ public static class GdExtensions
 }
 
 
+///<summary>Shorthand for creating Buttons</summary>
 public class nButton : Button {
     public nButton(string text, Node target, string methodName, Godot.Collections.Array methodParams = null, string name = "") {
         Text = text;

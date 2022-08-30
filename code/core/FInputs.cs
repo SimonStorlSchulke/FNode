@@ -180,6 +180,8 @@ public class FInput {
 
         if (value == null && slotType == typeof(FInputBool)) {
             return false;
+        } else if (value == null && slotType == typeof(FInputColor)) {
+            return Colors.Transparent;
         } else if (value == null) {
             return null;
         }
@@ -188,6 +190,10 @@ public class FInput {
 
         if (valueType == typeof(Godot.Collections.Dictionary)) {
             value = JSON.Print(value);
+        }
+
+        if (slotType == typeof(FInputColor) && valueType != typeof(Color)) {
+            value = Colors.Transparent;
         }
         
         bool invalidImageConversion = valueType != typeof(ImageMagick.MagickImage) && slotType == typeof(FInputImage) || valueType == typeof(ImageMagick.MagickImage) && slotType != typeof(FInputImage);

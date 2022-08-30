@@ -8,9 +8,10 @@ content_margin_left = 8.0
 content_margin_right = 8.0
 content_margin_top = 16.0
 content_margin_bottom = 8.0
-bg_color = Color( 0.211765, 0.211765, 0.211765, 1 )
+bg_color = Color( 0.1869, 0.19999, 0.21, 1 )
 
 [node name="ListCreatorPopup" type="AcceptDialog"]
+visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -1252.0
@@ -43,16 +44,16 @@ margin_bottom = 38.0
 text = "Items Type"
 
 [node name="SbType" type="OptionButton" parent="VBoxContainer/HBoxContainer"]
-margin_left = 133.0
-margin_right = 218.0
+margin_left = 129.0
+margin_right = 214.0
 margin_bottom = 40.0
 text = "Text"
 items = [ "File", null, false, 0, null, "Text", null, false, 1, null, "Boolean", null, false, 2, null, "Integer", null, false, 3, null, "Float", null, false, 4, null, "Date", null, false, 5, null ]
 selected = 1
 
 [node name="Control" type="Control" parent="VBoxContainer/HBoxContainer"]
-margin_left = 222.0
-margin_right = 323.0
+margin_left = 214.0
+margin_right = 327.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 
@@ -82,32 +83,39 @@ size_flags_horizontal = 3
 text = "File"
 
 [node name="BtnAddText" type="Button" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 111.0
-margin_right = 184.0
+margin_left = 107.0
+margin_right = 167.0
 margin_bottom = 37.0
 size_flags_horizontal = 3
 text = "Text"
 
 [node name="BtnAddBool" type="Button" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 188.0
-margin_right = 261.0
+margin_left = 167.0
+margin_right = 228.0
 margin_bottom = 37.0
 size_flags_horizontal = 3
 text = "Bool"
 
 [node name="BtnAddInt" type="Button" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 265.0
-margin_right = 338.0
+margin_left = 228.0
+margin_right = 280.0
 margin_bottom = 37.0
 size_flags_horizontal = 3
 text = "Int"
 
 [node name="BtnAddFloat" type="Button" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 342.0
-margin_right = 416.0
+margin_left = 280.0
+margin_right = 346.0
 margin_bottom = 37.0
 size_flags_horizontal = 3
 text = "Float"
+
+[node name="BtnAddColor" type="Button" parent="VBoxContainer/HBoxContainer2"]
+margin_left = 346.0
+margin_right = 416.0
+margin_bottom = 37.0
+size_flags_horizontal = 3
+text = "Color"
 
 [node name="BtnAddDate" type="Button" parent="VBoxContainer/HBoxContainer2"]
 visible = false
@@ -143,4 +151,5 @@ custom_constants/separation = 10
 [connection signal="pressed" from="VBoxContainer/HBoxContainer2/BtnAddBool" to="." method="AddItem" binds= [ "bool" ]]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer2/BtnAddInt" to="." method="AddItem" binds= [ "int" ]]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer2/BtnAddFloat" to="." method="AddItem" binds= [ "float" ]]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer2/BtnAddColor" to="." method="AddItem" binds= [ "color" ]]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer2/BtnAddDate" to="." method="AddItem" binds= [ "date" ]]

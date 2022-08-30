@@ -129,8 +129,8 @@ wait_time = 5.0
 one_shot = true
 
 [node name="Control" type="Control" parent="VBMain/Panel/HBoxContainer"]
-margin_left = 12.0
-margin_right = 1302.0
+margin_left = 8.0
+margin_right = 1314.0
 margin_bottom = 48.0
 size_flags_horizontal = 3
 
@@ -144,14 +144,14 @@ custom_styles/fg = SubResource( 1 )
 script = ExtResource( 13 )
 
 [node name="Control2" type="Control" parent="VBMain/Panel/HBoxContainer"]
-margin_left = 1306.0
-margin_right = 1346.0
+margin_left = 1314.0
+margin_right = 1354.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 40, 0 )
 
 [node name="BTNPreview2" type="Button" parent="VBMain/Panel/HBoxContainer"]
-margin_left = 1350.0
-margin_right = 1489.0
+margin_left = 1354.0
+margin_right = 1493.0
 margin_bottom = 48.0
 custom_styles/focus = ExtResource( 18 )
 custom_styles/normal = ExtResource( 18 )
@@ -196,8 +196,8 @@ window_title = "Save"
 resizable = true
 access = 2
 filters = PoolStringArray( "*.fnode" )
-current_dir = "/dev/Godot/fnode"
-current_path = "/dev/Godot/fnode/"
+current_dir = "/Users/simon/Dev/nodefiler"
+current_path = "/Users/simon/Dev/nodefiler/"
 
 [node name="FDLoad" type="FileDialog" parent="."]
 margin_left = 522.0
@@ -211,8 +211,8 @@ resizable = true
 mode = 0
 access = 2
 filters = PoolStringArray( "*.fnode" )
-current_dir = "/dev/Godot/fnode"
-current_path = "/dev/Godot/fnode/"
+current_dir = "/Users/simon/Dev/nodefiler"
+current_path = "/Users/simon/Dev/nodefiler/"
 
 [node name="IO" type="Node" parent="."]
 script = ExtResource( 6 )

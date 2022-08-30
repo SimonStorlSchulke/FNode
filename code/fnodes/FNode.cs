@@ -1,7 +1,9 @@
+using System.Security.AccessControl;
 using System.Collections.Generic;
 using Godot;
 using System.Linq;
 using System;
+using System.Globalization;
 
 public abstract class FNode : GraphNode {
 
@@ -20,7 +22,7 @@ public abstract class FNode : GraphNode {
         ShowClose = true;
         Title = UIUtil.SnakeCaseToWords(this.GetType().Name.Replace("FNode", ""));
         this.RectMinSize = new Vector2(250, 0);
-        UIUtil.CreateUI(this);
+        UIBuilder.CreateUI(this);
         Connect(
             "close_request", 
             GetParent(),
@@ -102,35 +104,35 @@ public abstract class FNode : GraphNode {
         switch(toType) {
             case FNodeSlotTypes.FILE:
                 finput = new FInputFile(this, idx);
-                UIUtil.AddInputUI(this, labelText, finput, childIdx);
+                UIBuilder.AddInputUI(this, labelText, finput, childIdx);
                 break;
             case FNodeSlotTypes.STRING:
                 finput = new FInputString(this, idx, initialValue: initialValue);
-                UIUtil.AddInputUI(this, labelText, finput, childIdx);
+                UIBuilder.AddInputUI(this, labelText, finput, childIdx);
                 break;
             case FNodeSlotTypes.BOOL:
                 finput = new FInputBool(this, idx, initialValue: initialValue);
-                UIUtil.AddInputUI(this, labelText, finput, childIdx);
+                UIBuilder.AddInputUI(this, labelText, finput, childIdx);
                 break;
             case FNodeSlotTypes.INT:
                 finput = new FInputInt(this, idx, initialValue: initialValue);
-                UIUtil.AddInputUI(this, labelText, finput, childIdx);
+                UIBuilder.AddInputUI(this, labelText, finput, childIdx);
                 break;
             case FNodeSlotTypes.FLOAT:
                 finput = new FInputFloat(this, idx, initialValue: initialValue);
-                UIUtil.AddInputUI(this, labelText, finput, childIdx);
+                UIBuilder.AddInputUI(this, labelText, finput, childIdx);
                 break;
             case FNodeSlotTypes.DATE:
                 finput = new FInputDate(this, idx, initialValue: initialValue);
-                UIUtil.AddInputUI(this, labelText, finput, childIdx);
+                UIBuilder.AddInputUI(this, labelText, finput, childIdx);
                 break;
             case FNodeSlotTypes.LIST:
                 finput = new FInputList(this, idx, initialValue: initialValue);
-                UIUtil.AddInputUI(this, labelText, finput, childIdx);
+                UIBuilder.AddInputUI(this, labelText, finput, childIdx);
                 break;
             case FNodeSlotTypes.IMAGE:
                 finput = new FInputImage(this, idx, initialValue: initialValue);
-                UIUtil.AddInputUI(this, labelText, finput, childIdx);
+                UIBuilder.AddInputUI(this, labelText, finput, childIdx);
                 break;
         }
         finput.connectedTo = connectedSlot;
@@ -150,35 +152,35 @@ public abstract class FNode : GraphNode {
         switch(toType) {
             case FNodeSlotTypes.FILE:
                 foutput = new FOutputFile(this, method, idx);
-                UIUtil.AddOutputUI(this, labelText, foutput, childIdx);
+                UIBuilder.AddOutputUI(this, labelText, foutput, childIdx);
                 break;
             case FNodeSlotTypes.STRING:
                 foutput = new FOutputString(this, method, idx);
-                UIUtil.AddOutputUI(this, labelText, foutput, childIdx);
+                UIBuilder.AddOutputUI(this, labelText, foutput, childIdx);
                 break;
             case FNodeSlotTypes.BOOL:
                 foutput = new FOutputBool(this, method, idx);
-                UIUtil.AddOutputUI(this, labelText, foutput, childIdx);
+                UIBuilder.AddOutputUI(this, labelText, foutput, childIdx);
                 break;
             case FNodeSlotTypes.INT:
                 foutput = new FOutputInt(this, method, idx);
-                UIUtil.AddOutputUI(this, labelText, foutput, childIdx);
+                UIBuilder.AddOutputUI(this, labelText, foutput, childIdx);
                 break;
             case FNodeSlotTypes.FLOAT:
                 foutput = new FOutputFloat(this, method, idx);
-                UIUtil.AddOutputUI(this, labelText, foutput, childIdx);
+                UIBuilder.AddOutputUI(this, labelText, foutput, childIdx);
                 break;
             case FNodeSlotTypes.DATE:
                 foutput = new FOutputDate(this, method, idx);
-                UIUtil.AddOutputUI(this, labelText, foutput, childIdx);
+                UIBuilder.AddOutputUI(this, labelText, foutput, childIdx);
                 break;
             case FNodeSlotTypes.LIST:
                 foutput = new FOutputList(this, method, idx);
-                UIUtil.AddOutputUI(this, labelText, foutput, childIdx);
+                UIBuilder.AddOutputUI(this, labelText, foutput, childIdx);
                 break;
             case FNodeSlotTypes.IMAGE:
                 foutput = new FOutputImage(this, method, idx);
-                UIUtil.AddOutputUI(this, labelText, foutput, childIdx);
+                UIBuilder.AddOutputUI(this, labelText, foutput, childIdx);
                 break;
         }
         foreach (var conSlot in oldConnectionList) {
@@ -202,27 +204,27 @@ public abstract class FNode : GraphNode {
         switch(toType) {
             case FNodeSlotTypes.FILE:
                 foutput = new FOutputFile(this, m, idx);
-                UIUtil.AddOutputUI(this, labelText, foutput, childIdx);
+                UIBuilder.AddOutputUI(this, labelText, foutput, childIdx);
                 break;
             case FNodeSlotTypes.STRING:
                 foutput = new FOutputString(this, m, idx);
-                UIUtil.AddOutputUI(this, labelText, foutput, childIdx);
+                UIBuilder.AddOutputUI(this, labelText, foutput, childIdx);
                 break;
             case FNodeSlotTypes.BOOL:
                 foutput = new FOutputBool(this, m, idx);
-                UIUtil.AddOutputUI(this, labelText, foutput, childIdx);
+                UIBuilder.AddOutputUI(this, labelText, foutput, childIdx);
                 break;
             case FNodeSlotTypes.INT:
                 foutput = new FOutputInt(this, m, idx);
-                UIUtil.AddOutputUI(this, labelText, foutput, childIdx);
+                UIBuilder.AddOutputUI(this, labelText, foutput, childIdx);
                 break;
             case FNodeSlotTypes.FLOAT:
                 foutput = new FOutputFloat(this, m, idx);
-                UIUtil.AddOutputUI(this, labelText, foutput, childIdx);
+                UIBuilder.AddOutputUI(this, labelText, foutput, childIdx);
                 break;
             case FNodeSlotTypes.DATE:
                 foutput = new FOutputDate(this, m, idx);
-                UIUtil.AddOutputUI(this, labelText, foutput, childIdx);
+                UIBuilder.AddOutputUI(this, labelText, foutput, childIdx);
                 break;
         }
         foreach (var conSlot in oldConnectionList) {
@@ -254,7 +256,14 @@ public abstract class FNode : GraphNode {
 
                 for (int i = 0; i < saveArr.Count; i++) {
                     if (originalSaveArr[i] is System.Int32) {
-                        saveArr[i] = "%FNODE-INT%"+saveArr[i];
+                        saveArr[i] = "%FNODE-INT%" + saveArr[i];
+                    }
+                    if (originalSaveArr[i] is Color) {
+                        string r = Convert.ToString(((Color)originalSaveArr[i]).r, CultureInfo.InvariantCulture);
+                        string g = Convert.ToString(((Color)originalSaveArr[i]).g, CultureInfo.InvariantCulture);
+                        string b = Convert.ToString(((Color)originalSaveArr[i]).b, CultureInfo.InvariantCulture);
+                        string a = Convert.ToString(((Color)originalSaveArr[i]).a, CultureInfo.InvariantCulture);
+                        saveArr[i] = $"%FNODE-COLOR%{r},{g},{b},{a}" ;
                     }
                 }
                 saveDatInputs.Add(input.Key, saveArr);
@@ -315,8 +324,15 @@ public abstract class FNode : GraphNode {
                     if (loadAr[j] is System.String) {
                         string str = (string)loadAr[j];
                         if(str.StartsWith("%FNODE-INT%")) {
-                            GD.Print(str.Substring(11));
                             loadAr[j] = System.Convert.ToInt32(str.Substring(11));
+                        }else if(str.StartsWith("%FNODE-COLOR%")) {
+                            string[] rgba = str.Split(",");
+                            GD.Print(rgba[1]);
+                            loadAr[j] = new Color(
+                                float.Parse(rgba[0], CultureInfo.InvariantCulture.NumberFormat), 
+                                float.Parse(rgba[1], CultureInfo.InvariantCulture.NumberFormat), 
+                                float.Parse(rgba[2], CultureInfo.InvariantCulture.NumberFormat), 
+                                float.Parse(rgba[3], CultureInfo.InvariantCulture.NumberFormat));
                         }
                     }
                 }

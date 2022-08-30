@@ -5,7 +5,7 @@ public class FNodeCreateList : FNode, IFNodeVarInputSize
 
 {
     public FNodeCreateList() {
-        HintTooltip = "Join multiple items to a List";
+        HintTooltip = "Join multiple items of variable type to a List";
         category = "List";        
 
         FNode.IdxReset();
@@ -41,7 +41,7 @@ public class FNodeCreateList : FNode, IFNodeVarInputSize
 
     void AddInput() {
         inputs.Add("Item " + (inputs.Count+1), new FInput(this, inputs.Count));
-        UIUtil.AddInputUI(this, "Item "+(inputs.Count), inputs["Item " + (inputs.Count-2)]);
+        UIBuilder.AddInputUI(this, "Item "+(inputs.Count), inputs["Item " + (inputs.Count-2)]);
         MoveChild(GetNode("HBButtons"), GetChildCount()-1);
         SetSlot(GetChildCount()-2, true, 0, Colors.White, false, 0, Colors.White, null, null);
         SetSlot(GetChildCount()-1, false, 0, Colors.Red, false, 0, Colors.Red, null, null);

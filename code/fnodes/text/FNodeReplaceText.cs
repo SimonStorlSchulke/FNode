@@ -52,10 +52,10 @@ public class FNodeReplaceText : FNode, IFNodeVarInputSize
         FNode.IdxReset(inputs.Count);
         int count = (inputs.Count - 1) / 2 + 1;
         inputs.Add("Replace" + count, new FInputString(this));
-        UIUtil.AddInputUI(this, "Replace"+count, inputs["Replace" + count]);
+        UIBuilder.AddInputUI(this, "Replace"+count, inputs["Replace" + count]);
         
         inputs.Add("With" + count, new FInputString(this));
-        UIUtil.AddInputUI(this, "With"+count, inputs["With" + count]);
+        UIBuilder.AddInputUI(this, "With"+count, inputs["With" + count]);
 
         MoveChild(GetNode("PlusButton"), GetChildCount()-1);
         SetSlot(GetChildCount()-2, true, 0, Colors.Orange, false, 0, Colors.Orange, null, null);

@@ -40,6 +40,7 @@ public static class FileUtil
         }
     }
 
+    ///<summary>Move File to another path and create the necessary directory if it doesn't exist</summary>
     public static void SecureMove(string fromPath, string toPath) {
 
         if (Main.Inst.preview) {
@@ -60,6 +61,7 @@ public static class FileUtil
         }
     }
 
+    ///<summary>Joins two paths or logs the resulting error</summary>
     public static string JoinPaths(string path1, string path2) {
         try {
             return System.IO.Path.Combine(path1, path2);

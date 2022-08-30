@@ -1,6 +1,5 @@
 using Godot;
 
-
 public class UIInput : Node
 {
     [Export] NodePath NPHelpPanel;
