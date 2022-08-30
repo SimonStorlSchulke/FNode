@@ -162,7 +162,7 @@ public class FileList : Control
                     }
                     fileStack[baseDirAdded].Add(path);
                     i++;
-                    InfoLine.Show($"Loaded {i} files");
+                    InfoLine.Show($"Added {i} files");
                     //Task.Delay(1).Wait();
                 } 
                 else {
@@ -171,7 +171,7 @@ public class FileList : Control
                     }
                     fileStack["Loose Files"].Add(path);
                     i++;
-                    InfoLine.Show($"Loaded {i} files");
+                    InfoLine.Show($"Added {i} files");
                     Task.Delay(1).Wait();
                 }
             }

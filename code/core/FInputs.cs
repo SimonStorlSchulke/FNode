@@ -335,9 +335,7 @@ public class FInputInt : FInput {
 public class FInputColor : FInput {
     public int min;
     public int max;
-    public FInputColor(FNode owner, int idx = -1, string description = "", object initialValue = null, int min = int.MinValue, int max = int.MaxValue) : base(owner, idx, description, initialValue) {
-        this.min = min;
-        this.max = max;
+    public FInputColor(FNode owner, int idx = -1, string description = "", object initialValue = null) : base(owner, idx, description, initialValue) {
         slotType = SlotType.COLOR;
     }
 
@@ -353,12 +351,10 @@ public class FInputColor : FInput {
 
     public override void UpdateUIFromValue(object value) {
         string[] rgba = ((string)value).Split(",");
-        GD.Print(rgba[0]);
-        GD.Print(rgba[0].ToFloat());
         ((ColorPickerButton)owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1)).Color = new Color(
-            Convert.ToSingle(rgba[0], System.Globalization.CultureInfo.InvariantCulture), 
-            Convert.ToSingle(rgba[1], System.Globalization.CultureInfo.InvariantCulture), 
-            Convert.ToSingle(rgba[2], System.Globalization.CultureInfo.InvariantCulture), 
+            Convert.ToSingle(rgba[0], System.Globalization.CultureInfo.InvariantCulture),
+            Convert.ToSingle(rgba[1], System.Globalization.CultureInfo.InvariantCulture),
+            Convert.ToSingle(rgba[2], System.Globalization.CultureInfo.InvariantCulture),
             Convert.ToSingle(rgba[3], System.Globalization.CultureInfo.InvariantCulture));
     }
 }

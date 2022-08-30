@@ -31,11 +31,12 @@ public static class FileUtil
         if (Main.Inst.preview) {
             PuPreviewOps.AddFileDeleted(path);
             return;
-        }
-        try {
-            System.IO.File.Delete(path);
-        } catch (System.Exception e) {
-            Errorlog.Log(e);
+        } else {
+            try {
+                System.IO.File.Delete(path);
+            } catch (System.Exception e) {
+                Errorlog.Log(e);
+            }
         }
     }
 

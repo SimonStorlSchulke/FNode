@@ -25,7 +25,12 @@ public class FNodeDelete : FNode
             return;
         }
 
-        string path = inputs["File"].Get<FileInfo>().FullName;
+        string path = "";
+        try {
+            path = inputs["File"].Get<FileInfo>().FullName;
+        } catch {
+            GD.Print("not a file");
+        }
 
         FileUtil.SecureDelete(path);
         base.ExecutiveMethod();

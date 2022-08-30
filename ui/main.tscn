@@ -450,6 +450,7 @@ My Website"
 script = ExtResource( 20 )
 
 [node name="PUAbout" type="WindowDialog" parent="."]
+visible = true
 margin_left = 566.0
 margin_top = 259.0
 margin_right = 1291.0

@@ -19,6 +19,7 @@ public class FNodeImageInfo : FNode
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
             {
             "Width", new FOutputInt(this, delegate() {
+                GD.Print(currentImage);
                 if (currentImage == null) {
                     return null;
                 }
