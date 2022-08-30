@@ -116,12 +116,7 @@ public class Main : VBoxContainer
         else {
             List<Tuple<bool, string>> l = new List<Tuple<bool, string>>();
             int selectedStack = CurrentProject.FileStacks.CurrentTab;
-            /*
-            foreach (string f in files) {
-                currentProject.FileStacks.AddFile(f, selectedStack);
-            }*/
             CurrentProject.FileStacks.GetChild<FileList>(selectedStack).AddFiles(files);
-            //currentProject.FileStacks.OnUpdateUI(selectedStack);
         }
     }
 
@@ -131,7 +126,7 @@ public class Main : VBoxContainer
         float scale = Mathf.Min(winSize.x / 1920f, winSize.y / 1080f);
         scale /= scaleMul;
         RectScale = new Vector2(1f * (1f / scale), 1f * (1f / scale));
-        RectSize = winSize * RectScale * (16f / 9f);// / RectScale;//(2f * RectScale);// * RectScale;
+        RectSize = winSize * RectScale * (16f / 9f);
     }
     
     public bool preview {get; private set;}
@@ -141,7 +136,8 @@ public class Main : VBoxContainer
 
         EmitSignal(nameof(StartParsing));
 
-        // This starts all Nodes that need to be waited for before evaluation (like REST API calls). Each AwaiterNode then checks, if it was the last one finished and starts the NodeTree Evaluation if so.
+        /* This starts all Nodes that need to be waited for before evaluation (like REST API calls). 
+        Each AwaiterNode then checks, if it was the last one finished and starts the NodeTree Evaluation if so.*/
         GetTree().CallGroupFlags((int)SceneTree.GroupCallFlags.Realtime, FNode.AwaiterNodesGroup, nameof(FNodeAwait.WaitFor));
 
         CurrentProject.NodeTree.CheckAwaitersFinished();
