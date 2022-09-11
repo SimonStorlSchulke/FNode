@@ -19,11 +19,13 @@ public class Errorlog : Node
 
     public static void Log(FNode thrower, string text) {
         GD.Print($"Error on {thrower.GetType()}: {text}");
+        WriteLog($"{thrower.GetType()}: {text}\n\n");
         InfoLine.ShowColored($"Error on {thrower.GetType()}: {text}", errorColor);
     }
 
     public static void Log(string text) {
         GD.Print($"Error: {text}");
+        WriteLog(text);
         InfoLine.ShowColored($"Error: {text}", errorColor);
     }
 
@@ -33,10 +35,10 @@ public class Errorlog : Node
         InfoLine.ShowColored($"Error: {e.Message}", errorColor);
     }
 
-    public static void Log(string str, System.Exception e) {
-        GD.Print($"Error: {str} | {e}");
-        WriteLog(str + "\n\n" + e.ToString());
-        InfoLine.ShowColored($"Error: {str} | {e.Message}", errorColor);
+    public static void Log(string text, System.Exception e) {
+        GD.Print($"Error: {text} | {e}");
+        WriteLog(text + "\n\n" + e.ToString());
+        InfoLine.ShowColored($"Error: {text} | {e.Message}", errorColor);
     }
 
     public static void Log(object thrower, System.Exception e) {

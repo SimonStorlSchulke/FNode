@@ -20,18 +20,21 @@ public class NodeTree : GraphEdit
     public List<FNodeAwait> AwaiterNodes = new List<FNodeAwait>();
 
     public async void CheckAwaitersFinished() {
+
+        // If there are no Awaiternodes in the tree, just start the evaluation...
         if (AwaiterNodes.Count == 0) {
             await EvaluateTree();
             return;
         }
 
+        // ...If there are, this method is called for each awaiternode that has finished and checks if it was the last one
         foreach (var awaiterNode in AwaiterNodes) {
             if (awaiterNode.finished == false) {
                 return;
             }
         }
 
-        // Run the Nodetree when all awaiternodes ran Finished()
+        // ... If yes, tun the Nodetree (next iteration)
         await EvaluateTree();
     }
 
@@ -54,7 +57,10 @@ public class NodeTree : GraphEdit
 
         Project.IdxEval = 0;
         
-        GetTree().CallGroupFlags((int)SceneTree.GroupCallFlags.Realtime, FNode.RunBeforeEvaluationGroup, nameof(FNode.OnBeforeEvaluation));
+        GetTree().CallGroupFlags(
+            (int)SceneTree.GroupCallFlags.Realtime,
+            FNode.RunBeforeEvaluationGroup, 
+            nameof(FNode.OnBeforeEvaluation));
 
         int iterations = (int)Math.Max(Main.Inst.CurrentProject.spIterations.Value, Project.MaxNumFiles);
 
@@ -67,7 +73,6 @@ public class NodeTree : GraphEdit
                 FProgressBar.inst.EndProgress();
                 Project.IdxEval = 0;
                 Main.preventRun = false;
-                GD.Print("Test");
                 return;
             }
 
@@ -151,7 +156,7 @@ public class NodeTree : GraphEdit
         SetSelected(fn);
     }
 
-    ///<summary> Mainly used for deserialization </summary> 
+    ///<summary>Creates a node by it's given typename. Mainly used for deserialization </summary> 
     public FNode OnAddNode(string nodetype, Vector2? offset = null, string name="") {
         var t = System.Type.GetType(nodetype);
         try {
@@ -177,6 +182,8 @@ public class NodeTree : GraphEdit
             foreach (var inp in outp.Value.GetConnectedInputs()) {
                 DisconnectNode(fn.Name, idxOutputs, inp.owner.Name, inp.idx);
                 inp.connectedTo = null;
+
+                // unhide input-sockets that were previously connected to the now deleted node.
                 var hb = inp.owner.GetChild(inp.idx + inp.owner.outputs.Count);
                 hb.GetChild<Control>(1).Visible = true;
                 if (hb.GetChildCount() > 2) {
@@ -188,7 +195,6 @@ public class NodeTree : GraphEdit
         }
         
         foreach (KeyValuePair<string, FInput> inp in fn.inputs) {
-
             if (inp.Value.connectedTo != null) {
                 DisconnectNode(
                     inp.Value.connectedTo.owner.Name,
