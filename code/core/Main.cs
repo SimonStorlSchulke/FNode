@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
-public class Main : VBoxContainer
+public class Main : Control
 {
     [Signal]
     public delegate void StartParsing();
@@ -35,11 +35,12 @@ public class Main : VBoxContainer
     public override void _EnterTree() {
         Inst = this;
         float UIScale = OS.GetScreenSize().x > 2000 ? 0.85f : 0.6f;
-        OS.WindowSize = OS.GetScreenSize() * 0.7f; //Always start at 0.7% Resolution
+        OS.WindowSize = OS.GetScreenSize() * 0.7f; //Always open window at 0.7% screen size
         OS.WindowPosition = OS.GetScreenSize() / 2 - OS.WindowSize / 2;
         GetTree().SetScreenStretch(SceneTree.StretchMode.Disabled, SceneTree.StretchAspect.Ignore, new Vector2(128, 128), UIScale);
     }
 
+    /// <summary>  </summary>
     public void OnAddNodeFromUI(FNode fn, bool autoconnect = true) {
         
         var fnSel = CurrentProject.NodeTree.GetFirstSelectedNode();
@@ -49,13 +50,16 @@ public class Main : VBoxContainer
             return;
         }
 
+        // If a fnode is currently selected, try to connect matching slottypes to the new fNode
         if (fnSel.outputs.Count > 0 && fn.inputs.Count > 0 && autoconnect) {
             FNode fnDup = (FNode)fn.Duplicate();
+
+            // place new fnode right to the selected one
             fnDup.Offset = fnSel.Offset + new Vector2(fnSel.RectSize.x + 50, 0);
             
             CurrentProject.NodeTree.AddChild(fnDup);
 
-            // Search matching Slottypes and connect them if aviable
+            // search matching Slottypes and connect them if aviable
             foreach (var outp in fnSel.outputs) {
                 foreach (var inp in fnDup.inputs) {
                     if (inp.Value.slotType == outp.Value.slotType) {
@@ -72,7 +76,10 @@ public class Main : VBoxContainer
         }
         
         else {
+            // if no fnode is selected, ad it at the dragged location...
             if (CurrentProject.NodeTree.MouseOver()) CurrentProject.NodeTree.OnAddNode(fn.Duplicate() as FNode, CurrentProject.NodeTree.GetMouseOffset());
+
+            // or at the default location if it's just clicked
             else CurrentProject.NodeTree.OnAddNode(fn.Duplicate() as FNode);
         }
     }
@@ -87,14 +94,11 @@ public class Main : VBoxContainer
         Inst.ProjectTabs.AddChild(pr);
         Inst.ProjectTabs.SetTabTitle(pr.GetIndex(), name);
         Inst.ProjectTabs.CurrentTab = Inst.ProjectTabs.GetChildCount()-1;
-        //Main.inst.currentProject = pr;
         return pr;
     }
 
     public void CloseProject() {
         int current = Inst.ProjectTabs.CurrentTab;
-
-        //Going out of range will cause an error here that doesn't matter;
         Inst.ProjectTabs.CurrentTab = current-1;
         ProjectTabs.GetChild(current).QueueFree();
     }
@@ -116,12 +120,7 @@ public class Main : VBoxContainer
         else {
             List<Tuple<bool, string>> l = new List<Tuple<bool, string>>();
             int selectedStack = CurrentProject.FileStacks.CurrentTab;
-            /*
-            foreach (string f in files) {
-                currentProject.FileStacks.AddFile(f, selectedStack);
-            }*/
             CurrentProject.FileStacks.GetChild<FileList>(selectedStack).AddFiles(files);
-            //currentProject.FileStacks.OnUpdateUI(selectedStack);
         }
     }
 

@@ -3,13 +3,14 @@
     "tasks": [
         {
             "label": "build",
-            "command": "dotnet",
+            "command": "A:/software/windows/Godot_v3.4.4-stable_mono_win64/Godot_v3.4.4-stable_mono_win64.exe\r",
             "type": "process",
             "args": [
-                "build",
-                "${workspaceFolder}/fnode.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
+                "--build-solutions",
+                "--path",
+                "${workspaceRoot}",
+                "--no-window",
+                "-q"
             ],
             "problemMatcher": "$msCompile"
         },

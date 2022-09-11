@@ -10,8 +10,8 @@ public class FNodeSaveImageAs : FNode
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
             {"Image", new FInputImage(this)},
-            {"Output Path", new FInputString(this, description: "if this is left empty, the file will be saved at the original files path")},
-            //{"Remove original", new FInputBool(this, initialValue: true)},
+            {"Output Folder", new FInputString(this, description: "if this is left empty, the file will be saved at the original files path")},
+            {"Output Name", new FInputString(this, description: "if this is left empty, the file will be saved with the original files name")},
             {"Quality", new FInputInt(this, initialValue: 75, min: 16, max: 100, description: "The less Quality, the larger the file Size. Not used by all filetypes.")},
         };
 
@@ -23,22 +23,28 @@ public class FNodeSaveImageAs : FNode
     public override void ExecutiveMethod() {
 
         MagickImage image = inputs["Image"].Get<MagickImage>();
+
         if (image == null) {
             return;
         }
+
         string origPath = image.FileName;
-        string nPath = inputs["Output Path"].Get<string>();
-        string path = nPath == "" ? origPath.GetBaseDir() : nPath;
-        FileUtil.CreateDirIfNotExisting(nPath);
+        string nFolder = inputs["Output Folder"].Get<string>();
+        string nName = inputs["Output Name"].Get<string>();
+        string filename = nName == "" ? System.IO.Path.GetFileNameWithoutExtension(origPath) : nName;
+        string path = nFolder == "" ? origPath.GetBaseDir() : nFolder;
+        string finalPath = path + "\\" + filename + "." + GetSelectedOption("To Type");
         image.Quality = inputs["Quality"].Get<int>();
-        string finalPath = path + "\\" + System.IO.Path.GetFileNameWithoutExtension(origPath) + "." + GetSelectedOption("To Type");
 
         if (Main.Inst.preview) {
             PuPreviewOps.AddFileCreated(finalPath);
             base.ExecutiveMethod();
             return;
         }
+        
+
         try {
+            FileUtil.CreateDirIfNotExisting(nFolder);
             image.Write(finalPath);
         } catch (ImageMagick.MagickException e) { //TODO test if there is any advantage over using System.Exception here
             Errorlog.Log(this, "Could not write image - " + e.Message);
