@@ -19,7 +19,8 @@ public class TextEditor : AcceptDialog
     }
 
     public void OnPopupHide() {
-        connectedInput.DefaultValue = GetNode<TextEdit>("TE").Text;
-        connectedInput.UpdateUIFromValue(connectedInput.DefaultValue);
+        // COMMENTING THIS MIGHT HAVE HAD SIDE EFFECTS
+        // connectedInput.DefaultValue = GetNode<TextEdit>("TE").Text;
+        connectedInput.UpdateUIFromValue(GetNode<TextEdit>("TE").Text);
     }
 }

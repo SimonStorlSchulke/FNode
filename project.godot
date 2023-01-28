@@ -25,6 +25,16 @@ _global_script_classes=[ {
 "path": "res://addons/calendar_button/class/Date.gd"
 }, {
 "base": "Reference",
+"class": "WAT",
+"language": "GDScript",
+"path": "res://addons/WAT/namespace.gd"
+}, {
+"base": "Node",
+"class": "WATTest",
+"language": "GDScript",
+"path": "res://addons/WAT/test/test.gd"
+}, {
+"base": "Reference",
 "class": "WindowRestrictor",
 "language": "GDScript",
 "path": "res://addons/calendar_button/scripts/window_restrictor.gd"
@@ -33,8 +43,22 @@ _global_script_class_icons={
 "Calendar": "",
 "CalendarButtons": "",
 "Date": "",
+"WAT": "",
+"WATTest": "",
 "WindowRestrictor": ""
 }
+
+[WAT]
+
+Test_Directory="res://test"
+Results_Directory="res://"
+Test_Metadata_Directory="res://"
+Tags=PoolStringArray(  )
+Cache_Tests=true
+Window_Size=Vector2( 1280, 720 )
+Minimize_Window_When_Running_Tests=false
+Port=6008
+Display=8
 
 [application]
 
@@ -56,7 +80,7 @@ window/stretch/shrink=0.65
 
 [editor_plugins]
 
-enabled=PoolStringArray(  )
+enabled=PoolStringArray( "res://addons/WAT/plugin.cfg" )
 
 [global]
 
@@ -176,6 +200,10 @@ ui_paste={
 "deadzone": 0.5,
 "events": [  ]
 }
+
+[mono]
+
+project/assembly_name="fnode"
 
 [physics]
 

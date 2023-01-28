@@ -196,8 +196,6 @@ window_title = "Save"
 resizable = true
 access = 2
 filters = PoolStringArray( "*.fnode" )
-current_dir = "/dev/Godot/fnode"
-current_path = "/dev/Godot/fnode/"
 
 [node name="FDLoad" type="FileDialog" parent="."]
 margin_left = 522.0
@@ -211,8 +209,6 @@ resizable = true
 mode = 0
 access = 2
 filters = PoolStringArray( "*.fnode" )
-current_dir = "/dev/Godot/fnode"
-current_path = "/dev/Godot/fnode/"
 
 [node name="IO" type="Node" parent="."]
 script = ExtResource( 6 )
@@ -478,8 +474,8 @@ margin_top = 41.0
 margin_right = 350.0
 margin_bottom = 110.0
 custom_colors/font_color = Color( 0.4539, 0.48569, 0.51, 1 )
-text = "Alpha 1.4
-Date: 2022-08-25"
+text = "
+Date: 2023-01-28"
 script = ExtResource( 22 )
 Version = "Alpha 1.4"
 
