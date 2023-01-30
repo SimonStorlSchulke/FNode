@@ -1,7 +1,6 @@
 using Godot;
 using System;
 
-namespace Tests.FNode.Math {
 
 
 // Developers may use the [Title] attribute on a Test which will then use..
@@ -32,4 +31,3 @@ public class TestFNodeMath : WAT.Test
 
 }
 
-}
