@@ -2,10 +2,10 @@ using System.IO;
 using Godot;
 using System;
 
-public class FNodeNumberToText : FNode
+public partial class FNodeNumberToText : FNode
 {
     public FNodeNumberToText() {
-        HintTooltip = "Convert Numbers to text. The input number can als be an int. if you want 7 to be 007, enter 000 as Format.\nIf you want four decimals, enter 0.0000";
+        TooltipText = "Convert Numbers to text. The input number can als be an int. if you want 7 to be 007, enter 000 as Format.\nIf you want four decimals, enter 0.0000";
         category = "Math";
 
         FNode.IdxReset();

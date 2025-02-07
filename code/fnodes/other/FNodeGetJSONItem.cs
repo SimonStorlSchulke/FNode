@@ -1,8 +1,9 @@
 using Godot;
-using Godot.Collections;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
-public class FNodeGetJSONItem: FNode
+public partial class FNodeGetJSONItem: FNode
 {
     static object validate(object jsonItem) {
         switch (jsonItem)
@@ -14,12 +15,13 @@ public class FNodeGetJSONItem: FNode
             case Godot.Collections.Dictionary dict:
                 return dict;
             default:
-                return JSON.Print(jsonItem as Godot.Collections.Dictionary);
+                return jsonItem; //TODO migration
+                //return JSON.Print(jsonItem as Godot.Collections.Dictionary);
         }
     }
 
     public FNodeGetJSONItem() {
-        HintTooltip = "";
+        TooltipText = "";
         category = "Other";        
 
         FNode.IdxReset();
@@ -42,14 +44,14 @@ public class FNodeGetJSONItem: FNode
                         switch (cJsonResult)
                         {
                             case System.String str:
-                                cJsonResult = JSON.Parse(str).Result;
-                                if (!(cJsonResult as Dictionary).Contains(key)) {
+                                //cJsonResult = JSON.Parse(str).Result; //TODO migration
+                                if (!(cJsonResult as Dictionary<string, object>).ContainsKey(key)) {
                                     return "Invalid Key";
                                 }
-                                cJsonResult = validate((cJsonResult as Dictionary)[key]);
+                                cJsonResult = validate((cJsonResult as Dictionary<string, object>)[key]);
                                 break;
                                 case Godot.Collections.Dictionary dict:
-                                    if ((cJsonResult as Dictionary).Contains(key)) {
+                                    if ((cJsonResult as Dictionary<string, object>).ContainsKey(key)) {
                                         cJsonResult = validate(dict[key]);
                                     }
                                 break;

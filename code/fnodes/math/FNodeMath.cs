@@ -2,10 +2,10 @@ using System.IO;
 using Godot;
 using System;
 
-public class FNodeMath : FNode
+public partial class FNodeMath : FNode
 {
     public FNodeMath() {
-        HintTooltip = "Multiple nummerical math operations";
+        TooltipText = "Multiple nummerical math operations";
         category = "Math";      
 
         FNode.IdxReset();

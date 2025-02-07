@@ -2,10 +2,10 @@ using System.IO;
 using Godot;
 using System;
 
-public class FNodeIntNumber : FNode
+public partial class FNodeIntNumber : FNode
 {
     public FNodeIntNumber() {
-        HintTooltip = "An int (whole) Number";
+        TooltipText = "An int (whole) Number";
         category = "Math";      
 
         FNode.IdxReset();

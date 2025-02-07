@@ -1,10 +1,10 @@
 using Godot;
 using System;
 
-public class FNodeJoinLists : FNode
+public partial class FNodeJoinLists : FNode
 {
     public FNodeJoinLists() {
-        HintTooltip = "Join two lists into one.";
+        TooltipText = "Join two lists into one.";
         category = "List";
 
         FNode.IdxReset();

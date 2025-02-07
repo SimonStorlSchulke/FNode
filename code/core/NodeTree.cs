@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-public class NodeTree : GraphEdit
+public partial class NodeTree : GraphEdit
 {
-    [Signal] public delegate void StartNextIteration();
+    [Signal] public delegate void StartNextIterationEventHandler();
     
     public override void _Ready() {
         //CallDeferred(nameof(HideControle));
@@ -58,7 +58,7 @@ public class NodeTree : GraphEdit
         Project.IdxEval = 0;
         
         GetTree().CallGroupFlags(
-            (int)SceneTree.GroupCallFlags.Realtime,
+            (int)SceneTree.GroupCallFlags.Default, //TODO migration - was .Realtime before. that's gone now. is Default correct?
             FNode.RunBeforeEvaluationGroup, 
             nameof(FNode.OnBeforeEvaluation));
 
@@ -78,8 +78,8 @@ public class NodeTree : GraphEdit
 
             Project.IsLastIteration = Project.IdxEval > (iterations-2);
 
-            EmitSignal(nameof(StartNextIteration));
-            GetTree().CallGroupFlags((int)SceneTree.GroupCallFlags.Realtime, FNode.RunBeforeIterationGroup, nameof(FNode.OnNextIteration));
+            EmitSignal(nameof(StartNextIterationEventHandler));
+            GetTree().CallGroupFlags((int)SceneTree.GroupCallFlags.Default, FNode.RunBeforeIterationGroup, nameof(FNode.OnNextIteration));
 
             foreach (Node fn in GetChildren()) {
                 if (fn is FNode)
@@ -151,7 +151,10 @@ public class NodeTree : GraphEdit
 
     public void OnAddNode(FNode fn, Vector2? offset = null) {
 
-        fn.Offset = (offset == null) ? (ScrollOffset + new Vector2(100, 100)) / Zoom : (Vector2)offset;
+        var nodeOffset = (offset == null) ? (ScrollOffset + new Vector2(100, 100)) / Zoom : (Vector2)offset;
+        fn.OffsetLeft = nodeOffset.X;
+        fn.OffsetTop = nodeOffset.Y;
+        
         AddChild(fn);
         SetSelected(fn);
     }
@@ -161,8 +164,9 @@ public class NodeTree : GraphEdit
         var t = System.Type.GetType(nodetype);
         try {
             FNode fn = (FNode)Activator.CreateInstance(t);
-        
-            fn.Offset = (offset == null) ? Vector2.Zero : (Vector2)offset;
+            var nodeOffset = (offset == null) ? Vector2.Zero : (Vector2)offset;
+            fn.OffsetLeft = nodeOffset.X;
+            fn.OffsetTop = nodeOffset.Y;
             AddChild(fn);
             if (name != "") {
                 fn.Name = name;
@@ -244,7 +248,7 @@ public class NodeTree : GraphEdit
 
     public bool MouseOver() {
         Vector2 mPos = GetLocalMousePosition();
-        return mPos.x > 0 && mPos.x < RectSize.x && mPos.y > 0 && mPos.y < RectSize.y;
+        return mPos.X > 0 && mPos.X < Size.X && mPos.Y > 0 && mPos.Y < Size.Y;
     }
 
     public override void _Input(InputEvent e) {

@@ -1,6 +1,6 @@
 using Godot;
 
-public class OnlineHelpLinks : RichTextLabel
+public partial class OnlineHelpLinks : RichTextLabel
 {
     public void OnMetaClicked(object meta) {
         try {

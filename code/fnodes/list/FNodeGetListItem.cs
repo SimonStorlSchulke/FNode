@@ -1,10 +1,10 @@
 using Godot;
 using System;
 
-public class FNodeGetListItem : FNode
+public partial class FNodeGetListItem : FNode
 {
     public FNodeGetListItem() {
-        HintTooltip = "Retrieve an Item from a List. The output is of a variable Type.";
+        TooltipText = "Retrieve an Item from a List. The output is of a variable Type.";
         category = "List";
 
         FNode.IdxReset();

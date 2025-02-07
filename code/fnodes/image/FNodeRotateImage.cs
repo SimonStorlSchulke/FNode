@@ -1,9 +1,9 @@
 using ImageMagick;
 
-public class FNodeRotateImage : FNode
+public partial class FNodeRotateImage : FNode
 {
     public FNodeRotateImage() {
-        HintTooltip = "Rotate an Image clockwise by the given degrees (negative values for counterclockwise rotation)";
+        TooltipText = "Rotate an Image clockwise by the given degrees (negative values for counterclockwise rotation)";
         category = "Img";
 
         FNode.IdxReset();

@@ -2,7 +2,7 @@ using System.IO;
 using Godot;
 using System;
 
-public class FNodeCurrentDate : FNode
+public partial class FNodeCurrentDate : FNode
 {
     public FNodeCurrentDate() {
         category = "Date";

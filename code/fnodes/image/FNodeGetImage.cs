@@ -1,10 +1,10 @@
 using System.IO;
 using ImageMagick;
 
-public class FNodeGetImage : FNode
+public partial class FNodeGetImage : FNode
 {
     public FNodeGetImage() {
-        HintTooltip = "Get Image Data if the incoming file is an image";
+        TooltipText = "Get Image Data if the incoming file is an image";
         category = "Img";
 
         FNode.IdxReset();

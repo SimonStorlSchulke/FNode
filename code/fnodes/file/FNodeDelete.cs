@@ -2,7 +2,7 @@ using System.IO;
 using Godot;
 using System;
 
-public class FNodeDelete : FNode
+public partial class FNodeDelete : FNode
 {
     public FNodeDelete() {
         category = "File";

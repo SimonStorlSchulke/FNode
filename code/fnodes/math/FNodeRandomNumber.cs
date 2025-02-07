@@ -2,11 +2,11 @@ using System.IO;
 using Godot;
 using System;
 
-public class FNodeRandomNumber : FNode
+public partial class FNodeRandomNumber : FNode
 {
     ulong seedAdds = 0;
     public FNodeRandomNumber() {
-        HintTooltip = "Generate a random numbers";
+        TooltipText = "Generate a random numbers";
         category = "Math";
         
         RandomNumberGenerator rng = new RandomNumberGenerator();

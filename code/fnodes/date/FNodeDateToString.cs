@@ -2,10 +2,10 @@ using System.IO;
 using Godot;
 using System;
 
-public class FNodeDateToString : FNode
+public partial class FNodeDateToString : FNode
 {
     public FNodeDateToString() {
-        HintTooltip = "Converts a Date to a string.\nFor Formating Examples, see docs.microsoft.com/de-de/dotnet/api/system.datetime.tostring"; //TODO better doc
+        TooltipText = "Converts a Date to a string.\nFor Formating Examples, see docs.microsoft.com/de-de/dotnet/api/system.datetime.tostring"; //TODO better doc
         category = "Date";        
 
         FNode.IdxReset();

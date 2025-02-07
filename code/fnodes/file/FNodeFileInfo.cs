@@ -2,7 +2,7 @@ using System.IO;
 using Godot;
 using System;
 
-public class FNodeFileInfo : FNode {
+public partial class FNodeFileInfo : FNode {
     // TODO check if File exists
     public FNodeFileInfo() {
         category = "File";

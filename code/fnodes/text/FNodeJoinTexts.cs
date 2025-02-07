@@ -1,10 +1,10 @@
 using Godot;
 using System;
 
-public class FNodeJoinTexts : FNode, IFNodeVarInputSize
+public partial class FNodeJoinTexts : FNode, IFNodeVarInputSize
 {
     public FNodeJoinTexts() {
-        HintTooltip = "Join multiple Strings separated by the a Separator String.\nTo Split Lines, instert [LINEBREAK] somwhere in the Separator String";
+        TooltipText = "Join multiple Strings separated by the a Separator String.\nTo Split Lines, instert [LINEBREAK] somwhere in the Separator String";
         category = "Text";        
 
         FNode.IdxReset();
@@ -44,9 +44,9 @@ public class FNodeJoinTexts : FNode, IFNodeVarInputSize
         base._Ready();
         HBoxContainer HBButtons = new HBoxContainer();
         HBButtons.Name = "HBButtons";
-        nButton plusButton = new nButton("+", this, nameof(AddInput), name: "PlusButton");
-        nButton minusButton = new nButton("-", this, nameof(RemoveInput), name: "MinusButton");
-        plusButton.SizeFlagsHorizontal = minusButton.SizeFlagsHorizontal = (int)SizeFlags.ExpandFill;
+        nButton plusButton = new nButton("+", this, AddInput, name: "PlusButton");
+        nButton minusButton = new nButton("-", this, RemoveInput, name: "MinusButton");
+        plusButton.SizeFlagsHorizontal = minusButton.SizeFlagsHorizontal = SizeFlags.ExpandFill;
         HBButtons.AddChildren(plusButton, minusButton);
         AddChild(HBButtons);
     }
@@ -68,7 +68,7 @@ public class FNodeJoinTexts : FNode, IFNodeVarInputSize
         Node rmNode = GetChild(GetChildCount()-2);
         RemoveChild(rmNode);
         rmNode.QueueFree();
-        RectSize = RectMinSize;
+        Size = CustomMinimumSize;
         SetSlot(GetChildCount()-1, false, 0, Colors.Red, false, 0, Colors.Red, null, null);
     }
 

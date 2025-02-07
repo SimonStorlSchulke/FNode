@@ -1,4 +1,4 @@
-tool
+@tool
 extends TextureButton
 
 signal date_selected(date_obj)
@@ -25,7 +25,7 @@ func setup_calendar_icon():
 	var pressed_texture := create_button_texture("btn_32x32_04.png")
 	set_pressed_texture(pressed_texture)
 
-func create_button_texture(var image_name : String) -> ImageTexture:
+func create_button_texture(image_name : String) -> ImageTexture:
 	var image_normal := Image.new()
 	image_normal.load("res://addons/calendar_button/btn_img/" + image_name)
 	var image_texture_normal := ImageTexture.new()
@@ -33,7 +33,7 @@ func create_button_texture(var image_name : String) -> ImageTexture:
 	return image_texture_normal
 	
 func create_popup_scene() -> Popup:
-	return preload("res://addons/calendar_button/popup.tscn").instance() as Popup
+	return preload("res://addons/calendar_button/popup.tscn").instantiate() as Popup
 
 func create_calendar_buttons() -> CalendarButtons:
 	var calendar_container : GridContainer = popup.get_node("PanelContainer/vbox/hbox_days")
@@ -41,10 +41,10 @@ func create_calendar_buttons() -> CalendarButtons:
 
 func setup_month_and_year_signals(popup : Popup):
 	var month_year_path = "PanelContainer/vbox/hbox_month_year/"
-	popup.get_node(month_year_path + "button_prev_month").connect("pressed",self,"go_prev_month")
-	popup.get_node(month_year_path + "button_next_month").connect("pressed",self,"go_next_month")
-	popup.get_node(month_year_path + "button_prev_year").connect("pressed",self,"go_prev_year")
-	popup.get_node(month_year_path + "button_next_year").connect("pressed",self,"go_next_year")
+	popup.get_node(month_year_path + "button_prev_month").connect("pressed", Callable(self, "go_prev_month"))
+	popup.get_node(month_year_path + "button_next_month").connect("pressed", Callable(self, "go_next_month"))
+	popup.get_node(month_year_path + "button_prev_year").connect("pressed", Callable(self, "go_prev_year"))
+	popup.get_node(month_year_path + "button_next_year").connect("pressed", Callable(self, "go_next_year"))
 
 func set_popup_title(title : String):
 	var label_month_year_node := popup.get_node("PanelContainer/vbox/hbox_month_year/label_month_year") as Label

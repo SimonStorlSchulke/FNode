@@ -2,7 +2,7 @@ using Godot;
 using System;
 
 /// <summary> parent class of all Nodes that implement an operation that needs to be waited for at the start of NodeTree evaluation. </summary>
-public abstract class FNodeAwait : FNode {
+public abstract partial class FNodeAwait : FNode {
 
     public bool finished;
     public override void _Ready() {

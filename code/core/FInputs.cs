@@ -16,7 +16,7 @@ public enum SlotType {
     OTHER
 }
 
-public class FInput {
+public partial class FInput {
     public object DefaultValue;
     public object initialValue;
     Control GetUI;
@@ -189,7 +189,7 @@ public class FInput {
         var valueType = value.GetType();
 
         if (valueType == typeof(Godot.Collections.Dictionary)) {
-            value = JSON.Print(value);
+           // value = JSON.Print(value); //TODO migration
         }
 
         if (slotType == typeof(FInputColor) && valueType != typeof(Color)) {
@@ -215,7 +215,7 @@ public class FInput {
         }
 
         if (slotType == typeof(FInputList) && valueType != typeof(Godot.Collections.Array)) {
-            return new Godot.Collections.Array() {value};
+            return new List<object>{value};
         }
 
         try {
@@ -246,7 +246,7 @@ public class FInput {
 }
 
 
-public class FInputFile : FInput {
+public partial class FInputFile : FInput {
     public FInputFile(FNode owner, int idx = -1, string description = "", object initialValue = null) : base(owner, idx, description, initialValue) {
         slotType = SlotType.FILE;
     }
@@ -271,7 +271,7 @@ public class FInputFile : FInput {
 }
 
 
-public class FInputString : FInput {
+public partial class FInputString : FInput {
     public FInputString(FNode owner, int idx = -1, string description = "", object initialValue = null) : base(owner, idx, description, initialValue) {
         slotType = SlotType.STRING;
     }
@@ -292,10 +292,10 @@ public class FInputString : FInput {
 }
 
 
-public class FInputList : FInput {
+public partial class FInputList : FInput {
     public FInputList(FNode owner, int idx = -1, string description = "", object initialValue = null) : base(owner, idx, description, initialValue) {
         slotType = SlotType.LIST;
-        this.DefaultValue = initialValue == null ? new Godot.Collections.Array() : initialValue;
+        DefaultValue = initialValue == null ? new List<object>() : initialValue;
     }
 
     public override void UpdateDefaultValueFromUI() {
@@ -313,7 +313,7 @@ public class FInputList : FInput {
 }
 
 
-public class FInputInt : FInput {
+public partial class FInputInt : FInput {
     public int min;
     public int max;
     public FInputInt(FNode owner, int idx = -1, string description = "", object initialValue = null, int min = int.MinValue, int max = int.MaxValue) : base(owner, idx, description, initialValue) {
@@ -338,7 +338,7 @@ public class FInputInt : FInput {
 }
 
 
-public class FInputColor : FInput {
+public partial class FInputColor : FInput {
     public int min;
     public int max;
     public FInputColor(FNode owner, int idx = -1, string description = "", object initialValue = null) : base(owner, idx, description, initialValue) {
@@ -366,7 +366,7 @@ public class FInputColor : FInput {
 }
 
 
-public class FInputFloat : FInput {
+public partial class FInputFloat : FInput {
     public float min;
     public float max;
     public FInputFloat(FNode owner, int idx = -1, string description = "", object initialValue = null, float min = -Mathf.Inf, float max = Mathf.Inf) : base(owner, idx, description, initialValue) {
@@ -391,28 +391,28 @@ public class FInputFloat : FInput {
 }
 
 
-public class FInputBool : FInput {
+public partial class FInputBool : FInput {
     public FInputBool(FNode owner, int idx = -1, string description = "", object initialValue = null) : base(owner, idx, description, initialValue) {
         slotType = SlotType.BOOL;
     }
 
     public override void UpdateDefaultValueFromUI() {
         Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
-        DefaultValue = (nd as CheckBox).Pressed;
+        DefaultValue = (nd as CheckBox).IsPressed();
     }
 
     public override object GetDefaultValueFromUI() {
         Node nd = owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1);
-        return (nd as CheckBox).Pressed;
+        return (nd as CheckBox).IsPressed();
     }
 
     public override void UpdateUIFromValue(object value) {
-        ((CheckBox)owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1)).Pressed = (bool)value;
+        ((CheckBox)owner.GetChild<HBoxContainer>(owner.outputs.Count + idx).GetChild(1)).SetPressed((bool)value);
     }
 }
 
 
-public class FInputDate : FInput {
+public partial class FInputDate : FInput {
     public FInputDate(FNode owner, int idx = -1, string description = "", object initialValue = null) : base(owner, idx, description, initialValue) {
         slotType = SlotType.DATE;
     }
@@ -433,7 +433,7 @@ public class FInputDate : FInput {
 }
 
 
-public class FInputImage : FInput {
+public partial class FInputImage : FInput {
     public FInputImage(FNode owner, int idx = -1, string description = "", object initialValue = null) : base(owner, idx, description, initialValue) {
         slotType = SlotType.IMAGE;
     }

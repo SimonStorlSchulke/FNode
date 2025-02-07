@@ -1,10 +1,10 @@
 using Godot;
 using ImageMagick;
 
-public class FNodeSaveImageAs : FNode
+public partial class FNodeSaveImageAs : FNode
 {
     public FNodeSaveImageAs() {
-        HintTooltip = "Save an Image to a certain path";
+        TooltipText = "Save an Image to a certain path";
         category = "Img";
 
         FNode.IdxReset();

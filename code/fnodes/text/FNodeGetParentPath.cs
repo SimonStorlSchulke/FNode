@@ -1,23 +1,23 @@
 using Godot;
 using System;
 
-public class FNodeGetParentPath : FNode
+public partial class FNodeGetParentPath : FNode
 {
     public FNodeGetParentPath() {
-        HintTooltip = "Returns the Parent Path of the given string.\nIf this fails, it returns the original path instead.";
+        TooltipText = "Returns the Parent Path3D of the given string.\nIf this fails, it returns the original path instead.";
         category = "Text";        
 
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
-            {"Path", new FInputString(this)},
+            {"Path3D", new FInputString(this)},
         };
 
         FNode.IdxReset();
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
             {
-            "Path", new FOutputString(this, delegate() 
+            "Path3D", new FOutputString(this, delegate() 
             {
-                string path = inputs["Path"].Get<string>();
+                string path = inputs["Path3D"].Get<string>();
                 string parentPath;
                 try {
                     parentPath = System.IO.Directory.GetParent(path).FullName;

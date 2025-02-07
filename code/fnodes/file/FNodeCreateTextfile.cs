@@ -2,7 +2,7 @@ using System.IO;
 using Godot;
 using System;
 
-public class FNodeCreateTextFile : FNode
+public partial class FNodeCreateTextFile : FNode
 {
     public FNodeCreateTextFile() {
         category = "File";
@@ -10,7 +10,7 @@ public class FNodeCreateTextFile : FNode
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
             {"Text", new FInputString(this)},
             {"Name", new FInputString(this)},
-            {"Path", new FInputString(this)},
+            {"Path3D", new FInputString(this)},
             {"Toggle", new FInputBool(this, initialValue: true)},
         };
 
@@ -26,10 +26,10 @@ public class FNodeCreateTextFile : FNode
             return;
         }
 
-        string path = inputs["Path"].Get<string>();
+        string path = inputs["Path3D"].Get<string>();
 
         if (!FileUtil.IsAbsolutePath(path)) {
-            Errorlog.Log(this, "Filepath is not an absolute Path: " + path);
+            Errorlog.Log(this, "Filepath is not an absolute Path3D: " + path);
             base.ExecutiveMethod();
             return;
         }

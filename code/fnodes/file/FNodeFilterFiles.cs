@@ -2,7 +2,7 @@ using System.IO;
 using Godot;
 using System;
 
-public class FNodeFilterFiles : FNode
+public partial class FNodeFilterFiles : FNode
 {
     public FNodeFilterFiles() {
         category = "File";

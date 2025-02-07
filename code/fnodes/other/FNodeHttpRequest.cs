@@ -1,12 +1,12 @@
 using Godot;
 
-public class FNodeHttpRequest : FNodeAwait
+public partial class FNodeHttpRequest : FNodeAwait
 {
     object jsonResult = "";
 
     public FNodeHttpRequest() {
         category = "Other";
-        HintTooltip = "Retrieve Data from the given URL.\nThis Node is evaluated only once before starting NodeTree evaluation and outputs the same data for each iteration";
+        TooltipText = "Retrieve Data from the given URL.\nThis Node is evaluated only once before starting NodeTree evaluation and outputs the same data for each iteration";
 
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
@@ -36,7 +36,7 @@ public class FNodeHttpRequest : FNodeAwait
     public override void _Ready()
     {
         base._Ready();
-        HTTPHandler.inst.Connect("request_completed", this, nameof(OnRequestCompleted));
+        HTTPHandler.inst.Connect("request_completed", new Callable(this, nameof(OnRequestCompleted)));
     }
 
     public override void WaitFor() {

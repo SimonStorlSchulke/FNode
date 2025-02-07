@@ -1,9 +1,9 @@
 using ImageMagick;
 
-public class FNodeMergeImages : FNode
+public partial class FNodeMergeImages : FNode
 {
     public FNodeMergeImages() {
-        HintTooltip = "Composite Image 2 ontop of Image 1. For positional values of 0 or 1, Image 2 will be positioned in the corners.";
+        TooltipText = "Composite Image 2 ontop of Image 1. For positional values of 0 or 1, Image 2 will be positioned in the corners.";
         category = "Img";
 
         FNode.IdxReset();

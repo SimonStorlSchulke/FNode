@@ -1,10 +1,10 @@
 using Godot;
 using System;
 
-public class FNodeList : FNode
+public partial class FNodeList : FNode
 {
     public FNodeList() {
-        HintTooltip = "Generate list of values";
+        TooltipText = "Generate list of values";
         category = "List";
 
         FNode.IdxReset();

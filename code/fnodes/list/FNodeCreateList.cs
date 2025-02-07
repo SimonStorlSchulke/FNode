@@ -1,25 +1,26 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
-public class FNodeCreateList : FNode, IFNodeVarInputSize
+public partial class FNodeCreateList : FNode, IFNodeVarInputSize
 
 {
     public FNodeCreateList() {
-        HintTooltip = "Join multiple items of variable type to a List";
+        TooltipText = "Join multiple items of variable type to a List";
         category = "List";        
 
-        FNode.IdxReset();
-        inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
+        IdxReset();
+        inputs = new Dictionary<string, FInput>() {
             {"Item 1", new FInput(this)},
             {"Item 2", new FInput(this)},
         };
 
-        FNode.IdxReset();
-        outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
+        IdxReset();
+        outputs = new Dictionary<string, FOutput>() {
             {
             "List", new FOutputList(this, delegate() 
             {
-                var list = new Godot.Collections.Array();
+                List<object> list = new();
                 foreach (var item in inputs) {
                     list.Add(item.Value.Get<object>());
                 }
@@ -32,9 +33,9 @@ public class FNodeCreateList : FNode, IFNodeVarInputSize
         base._Ready();
         HBoxContainer HBButtons = new HBoxContainer();
         HBButtons.Name = "HBButtons";
-        nButton plusButton = new nButton("+", this, nameof(AddInput), name: "PlusButton");
-        nButton minusButton = new nButton("-", this, nameof(RemoveInput), name: "MinusButton");
-        plusButton.SizeFlagsHorizontal = minusButton.SizeFlagsHorizontal = (int)SizeFlags.ExpandFill;
+        nButton plusButton = new nButton("+", this, AddInput, name: "PlusButton");
+        nButton minusButton = new nButton("-", this, RemoveInput, name: "MinusButton");
+        plusButton.SizeFlagsHorizontal = minusButton.SizeFlagsHorizontal = SizeFlags.ExpandFill;
         HBButtons.AddChildren(plusButton, minusButton);
         AddChild(HBButtons);
     }
@@ -56,7 +57,7 @@ public class FNodeCreateList : FNode, IFNodeVarInputSize
         Node rmNode = GetChild(GetChildCount()-2);
         RemoveChild(rmNode);
         rmNode.QueueFree();
-        RectSize = RectMinSize;
+        Size = CustomMinimumSize;
         SetSlot(GetChildCount()-1, false, 0, Colors.Red, false, 0, Colors.Red, null, null);
     }
 

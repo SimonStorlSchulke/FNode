@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 
 
-public class UIBuilder : Node
+public partial class UIBuilder : Node
 {
         static Dictionary<string, StyleBox> styleboxes = new Dictionary<string, StyleBox>(){
         {"NodeFile", ResourceLoader.Load<StyleBox>("res://theme/NodeStyles/NodeFile.stylebox")},
@@ -29,44 +29,44 @@ public class UIBuilder : Node
     switch (fn.category)
     {
         case "File":
-            fn.AddStyleboxOverride("frame", styleboxes["NodeFile"]);
-            fn.AddStyleboxOverride("selectedframe", styleboxes["NodeFile_Selected"]);
+            fn.AddThemeStyleboxOverride("frame", styleboxes["NodeFile"]);
+            fn.AddThemeStyleboxOverride("selectedframe", styleboxes["NodeFile_Selected"]);
             break;
 
         case "Text":
-            fn.AddStyleboxOverride("frame", styleboxes["NodeString"]);
-            fn.AddStyleboxOverride("selectedframe", styleboxes["NodeString_Selected"]);
+            fn.AddThemeStyleboxOverride("frame", styleboxes["NodeString"]);
+            fn.AddThemeStyleboxOverride("selectedframe", styleboxes["NodeString_Selected"]);
             break;
 
         case "Date":
-            fn.AddStyleboxOverride("frame", styleboxes["NodeDate"]);
-            fn.AddStyleboxOverride("selectedframe", styleboxes["NodeDate_Selected"]);
+            fn.AddThemeStyleboxOverride("frame", styleboxes["NodeDate"]);
+            fn.AddThemeStyleboxOverride("selectedframe", styleboxes["NodeDate_Selected"]);
             break;
 
         case "Math":
-            fn.AddStyleboxOverride("frame", styleboxes["NodeMath"]);
-            fn.AddStyleboxOverride("selectedframe", styleboxes["NodeMath_Selected"]);
+            fn.AddThemeStyleboxOverride("frame", styleboxes["NodeMath"]);
+            fn.AddThemeStyleboxOverride("selectedframe", styleboxes["NodeMath_Selected"]);
             break;
 
 
         case "Bool":
-            fn.AddStyleboxOverride("frame", styleboxes["NodeBool"]);
-            fn.AddStyleboxOverride("selectedframe", styleboxes["NodeBool_Selected"]);
+            fn.AddThemeStyleboxOverride("frame", styleboxes["NodeBool"]);
+            fn.AddThemeStyleboxOverride("selectedframe", styleboxes["NodeBool_Selected"]);
             break;
 
         case "List":
-            fn.AddStyleboxOverride("frame", styleboxes["NodeList"]);
-            fn.AddStyleboxOverride("selectedframe", styleboxes["NodeList_Selected"]);
+            fn.AddThemeStyleboxOverride("frame", styleboxes["NodeList"]);
+            fn.AddThemeStyleboxOverride("selectedframe", styleboxes["NodeList_Selected"]);
             break;
 
         case "Img":
-            fn.AddStyleboxOverride("frame", styleboxes["NodeImage"]);
-            fn.AddStyleboxOverride("selectedframe", styleboxes["NodeImage_Selected"]);
+            fn.AddThemeStyleboxOverride("frame", styleboxes["NodeImage"]);
+            fn.AddThemeStyleboxOverride("selectedframe", styleboxes["NodeImage_Selected"]);
             break;
 
         default:
-            fn.AddStyleboxOverride("frame", styleboxes["NodeOther"]);
-            fn.AddStyleboxOverride("selectedframe", styleboxes["NodeOther_Selected"]);
+            fn.AddThemeStyleboxOverride("frame", styleboxes["NodeOther"]);
+            fn.AddThemeStyleboxOverride("selectedframe", styleboxes["NodeOther_Selected"]);
             break;
     }
 
@@ -81,7 +81,7 @@ public class UIBuilder : Node
 
     public static void AddOutputUI(FNode toNode, string labeltext, FOutput fOutp, int atIdx = -1) {
         var hb = new HbOutput();
-        hb.HintTooltip = fOutp.description;
+        hb.TooltipText = fOutp.description;
         var lb = new Label();
         lb.Text = labeltext;
         Godot.Color slotColor;
@@ -128,10 +128,10 @@ public class UIBuilder : Node
                 break;
         }
         Control ct = new Control();
-        ct.SizeFlagsHorizontal = 2;
+        ct.SizeFlagsHorizontal = Control.SizeFlags.Expand;
         hb.AddChild(ct);
         hb.AddChild(lb);
-        hb.RectMinSize = new Vector2(0, 40);
+        hb.CustomMinimumSize = new Vector2(0, 40);
         toNode.AddChild(hb);
         
 
@@ -147,7 +147,7 @@ public class UIBuilder : Node
         var hb = new HbInput();
         var lb = new Label();
         lb.Text = labeltext;
-        lb.RectMinSize = new Vector2(130, 0);
+        lb.CustomMinimumSize = new Vector2(130, 0);
         hb.AddChild(lb);
         Control ct;
         Godot.Color slotColor;
@@ -172,7 +172,7 @@ public class UIBuilder : Node
 
             case FInputBool inpBool:
                 ct = new CheckBox();
-                if(fInp.initialValue != null) (ct as CheckBox).Pressed = (bool)fInp.initialValue;
+                if(fInp.initialValue != null) (ct as CheckBox).SetPressed((bool)fInp.initialValue);
                 slotColor = Colors.LightPink;
                 break;
 
@@ -180,8 +180,7 @@ public class UIBuilder : Node
                 ct = new LineEdit();
                 Button btnTextEditor = new Button();
                 btnTextEditor.Text = " ^ ";
-                btnTextEditor.Connect("pressed", TextEditor.inst, nameof(TextEditor.ShowEditor), 
-                    new Godot.Collections.Array(){fInp.owner, labeltext});
+                btnTextEditor.Pressed += () => TextEditor.inst.ShowEditor(fInp.owner, labeltext);
                 hb.AddChild(btnTextEditor);
                 if(fInp.initialValue != null) (ct as LineEdit).Text = (string)fInp.initialValue;
                 slotColor = Colors.Orange;
@@ -202,9 +201,9 @@ public class UIBuilder : Node
                 //ct = new Label();
                 //(ct as Label).Text = "connect List Slot"; //(string)fInp.initialValue;
                 ct = new Button();
-                ((Button)ct).Text = "Edit List";
-                ct.Connect("pressed", ListCreator.inst, nameof(ListCreator.ShowCreator), 
-                    new Godot.Collections.Array(){fInp.DefaultValue, fInp.owner, labeltext}); //This might break...
+                ((Button)ct).Text = "Edit List"; 
+                //This might break...:
+                ((Button)ct).Pressed += () => ListCreator.inst.ShowCreator(fInp.DefaultValue as Godot.Collections.Array, fInp.owner, labeltext);
                 slotColor = Colors.Purple;
                 break;
 
@@ -212,11 +211,11 @@ public class UIBuilder : Node
                 GDScript calendarbutonClass = (GDScript) GD.Load("res://addons/calendar_button/scripts/calendar_script.gd");
                 DateLabel lblDate = new DateLabel();
                 lblDate.Text = DateTime.Now.ToString();
-                lblDate.SizeFlagsHorizontal = (int)Control.SizeFlags.ExpandFill;
+                lblDate.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
                 hb.AddChild(lblDate);
                 ct = (Control) calendarbutonClass.New();
                 ct.Name = "clButton";
-                ct.Connect("date_selected", lblDate, nameof(DateLabel.SetDate));
+                ct.Connect("date_selected", new Callable(lblDate, nameof(DateLabel.SetDate)));
                 slotColor = Colors.LightGreen;
                 break;
 
@@ -233,13 +232,13 @@ public class UIBuilder : Node
         }
 
         if (ct.Name != "clButton")
-            ct.SizeFlagsHorizontal = 3;
+            ct.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
 
-        hb.HintTooltip = ct.HintTooltip = fInp.description;
+        hb.TooltipText = ct.TooltipText = fInp.description;
 
         hb.AddChild(ct);
-        hb.SizeFlagsHorizontal = (int)Control.SizeFlags.ExpandFill;
-        hb.RectMinSize = new Vector2(0, 40);
+        hb.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
+        hb.CustomMinimumSize = new Vector2(0, 40);
         toNode.AddChild(hb);
         hb.Name = labeltext;
 

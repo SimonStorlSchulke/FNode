@@ -1,6 +1,6 @@
 using Godot;
 
-public class ImageViewerFullscreen : Panel
+public partial class ImageViewerFullscreen : Panel
 {
     [Export] NodePath NPViewer;
     ImageViewer viewer;
@@ -18,7 +18,7 @@ public class ImageViewerFullscreen : Panel
     }
 
     public void SetImage(Image img) {
-        ((ImageTexture)viewer.Texture).CreateFromImage(img);
+        viewer.Texture = ImageTexture.CreateFromImage(img);
     }
 
     public void SetImage(ImageTexture img) {
@@ -42,9 +42,9 @@ public class ImageViewerFullscreen : Panel
     }
 
     public void ShowViewer() {
-        viewer.RectScale = new Vector2(1, 1);
-        viewer.RectSize = OS.WindowSize * 0.8f;
-        viewer.RectPosition = RectSize / 2 - viewer.RectSize / 2;
+        viewer.Scale = new Vector2(1, 1);
+        viewer.Size = (Vector2)DisplayServer.WindowGetSize() * 0.8f;
+        viewer.Position = Size / 2 - viewer.Size / 2;
         Show();
     }
 }

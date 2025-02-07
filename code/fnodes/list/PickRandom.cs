@@ -1,23 +1,24 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
-public class FNodePickRandom : FNode
+public partial class FNodePickRandom : FNode
 {
     ulong seedAdds = 0;
 
     public FNodePickRandom() {
-        HintTooltip = "Retrieve a random Item from a List. The output is of a variable Type.";
+        TooltipText = "Retrieve a random Item from a List. The output is of a variable Type.";
         category = "List";
 
         RandomNumberGenerator rng = new RandomNumberGenerator();
 
-        FNode.IdxReset();
+        IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
             {"List", new FInputList(this)},
             {"Seed", new FInputInt(this, initialValue: -1, min: -1, description: "If you put -1 here, the seed will be randomized")},
         };
 
-        FNode.IdxReset();
+        IdxReset();
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
             {
             "Item", new FOutput(this, delegate() {
@@ -32,7 +33,7 @@ public class FNodePickRandom : FNode
                 rng.Seed += seedAdds;
                 seedAdds++;
 
-                var arr = inputs["List"].Get<Godot.Collections.Array>();
+                var arr = inputs["List"].Get<List<object>>();
 
                 int idx = rng.RandiRange(0, arr.Count - 1);
 

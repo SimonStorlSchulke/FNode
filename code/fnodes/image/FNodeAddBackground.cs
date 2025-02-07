@@ -1,10 +1,10 @@
 using Godot;
 using ImageMagick;
 
-public class FNodeAddBackground : FNode
+public partial class FNodeAddBackground : FNode
 {
     public FNodeAddBackground() {
-        HintTooltip = "Replace transparent parts of the Image with a color";
+        TooltipText = "Replace transparent parts of the Image with a color";
         category = "Img";
 
         FNode.IdxReset();

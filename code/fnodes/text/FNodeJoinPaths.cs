@@ -1,10 +1,10 @@
 using Godot;
 using System;
 
-public class FNodeJoinPaths : FNode, IFNodeVarInputSize
+public partial class FNodeJoinPaths : FNode, IFNodeVarInputSize
 {
     public FNodeJoinPaths() {
-        HintTooltip = "Join multiple filepaths";
+        TooltipText = "Join multiple filepaths";
         category = "Text";        
 
         FNode.IdxReset();
@@ -16,7 +16,7 @@ public class FNodeJoinPaths : FNode, IFNodeVarInputSize
         FNode.IdxReset();
         outputs = new System.Collections.Generic.Dictionary<string, FOutput>() {
             {
-            "Path", new FOutputString(this, delegate() 
+            "Path3D", new FOutputString(this, delegate() 
             {
                 string str = "";
                 int i = 0;
@@ -32,17 +32,17 @@ public class FNodeJoinPaths : FNode, IFNodeVarInputSize
     public override void _Ready() {
         base._Ready();
         HBoxContainer HBButtons = new HBoxContainer();
-        nButton plus = new nButton("+", this, nameof(AddLine), name: "PlusButton");
-        nButton minus = new nButton("+", this, nameof(RemoveLine), name: "MinusButton");
-        plus.SizeFlagsHorizontal = minus.SizeFlagsHorizontal = (int)SizeFlags.ExpandFill;
+        nButton plus = new nButton("+", this, AddLine, name: "PlusButton");
+        nButton minus = new nButton("+", this, RemoveLine, name: "MinusButton");
+        plus.SizeFlagsHorizontal = minus.SizeFlagsHorizontal = SizeFlags.ExpandFill;
         HBButtons.Name = "HBButtons";
         HBButtons.AddChildren(plus, minus);
         AddChild(HBButtons);
     }
 
     void AddLine() {
-        inputs.Add("Path" + (inputs.Count+1), new FInputString(this, inputs.Count));
-        UIBuilder.AddInputUI(this, "Path"+(inputs.Count), inputs["Path" + (inputs.Count)]);
+        inputs.Add("Path3D" + (inputs.Count+1), new FInputString(this, inputs.Count));
+        UIBuilder.AddInputUI(this, "Path3D"+(inputs.Count), inputs["Path3D" + (inputs.Count)]);
         MoveChild(GetNode("HBButtons"), GetChildCount()-1);
         SetSlot(GetChildCount()-2, true, 0, Colors.Orange, false, 0, Colors.Orange, null, null);
         SetSlot(GetChildCount()-1, false, 0, Colors.Red, false, 0, Colors.Red, null, null);
@@ -52,11 +52,11 @@ public class FNodeJoinPaths : FNode, IFNodeVarInputSize
         if (GetChildCount() < 5) {
             return;
         }
-        inputs.Remove("Path" + (inputs.Count));
+        inputs.Remove("Path3D" + (inputs.Count));
         Node rmNode = GetChild(GetChildCount()-2);
         RemoveChild(rmNode);
         rmNode.QueueFree();
-        RectSize = RectMinSize;
+        Size = CustomMinimumSize;
         SetSlot(GetChildCount()-1, false, 0, Colors.Red, false, 0, Colors.Red, null, null);
     }
 

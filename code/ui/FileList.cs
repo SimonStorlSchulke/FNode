@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-public class FileList : Control
+public partial class FileList : Control
 {
     [Export] PackedScene folderSection;
     VBoxContainer vbFileLists;
@@ -76,10 +76,10 @@ public class FileList : Control
         List<int> collapsed = new List<int>{};
         List<int> nonRecursive = new List<int>{};
         foreach (FolderSection fs in vbFileLists.GetChildren()) {
-            if (!fs.Cb.Pressed) {
+            if (!fs.Cb.IsPressed()) {
                 collapsed.Add(fs.GetIndex());
             }
-            if (!fs.CbRecursive.Pressed) {
+            if (!fs.CbRecursive.IsPressed()) {
                 nonRecursive.Add(fs.GetIndex());
             }
             fs.QueueFree();
@@ -88,15 +88,15 @@ public class FileList : Control
         int i = 0;
         foreach (var dictItem in fileStack) {
             string dirPath = dictItem.Key;
-            FolderSection fs = folderSection.Instance<FolderSection>();
+            FolderSection fs = folderSection.Instantiate<FolderSection>();
             fs.ConnecedFolder = dirPath;
             vbFileLists.AddChild(fs);
-            fs.Cb.Text = UIUtil.GetOverflowDots(dirPath.GetFile(), fs.Cb.GetFont("normal"), 185);
-            fs.Cb.HintTooltip = dirPath;
+            fs.Cb.Text = UIUtil.GetOverflowDots(dirPath.GetFile(), fs.Cb.GetThemeFont("normal"), 185);
+            fs.Cb.TooltipText = dirPath;
             fs.AddFiles(dictItem.Value);
 
             if (collapsed.Contains(i)) {
-                fs.Cb.Pressed = false;
+                fs.Cb.SetPressed(false);
                 fs.FileList.Visible = false;
             }
 
@@ -106,7 +106,7 @@ public class FileList : Control
             fs.BtnReload.Visible = notLoosFiles;
 
             if (notLoosFiles) {
-                fs.CbRecursive.Pressed = !nonRecursive.Contains(i);
+                fs.CbRecursive.SetPressed(!nonRecursive.Contains(i));
             }
             i++;
         }

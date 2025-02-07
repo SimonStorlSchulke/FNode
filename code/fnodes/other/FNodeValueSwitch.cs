@@ -4,12 +4,12 @@ using System;
 
 
 
-public class FNodeValueSwitch : FNode
+public partial class FNodeValueSwitch : FNode
 {
     OptionButton ob;
 
     public FNodeValueSwitch() {
-        HintTooltip = "Switch between the values of the False and True inputs depending on the state of the Switch input.";
+        TooltipText = "Switch between the values of the False and True inputs depending on the state of the Switch input.";
         category = "Other";
 
 

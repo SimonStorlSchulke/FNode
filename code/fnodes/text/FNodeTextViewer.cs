@@ -1,13 +1,13 @@
 using Godot;
 using System;
 
-public class FNodeTextViewer : FNode
+public partial class FNodeTextViewer : FNode
 {
     string accumulatedString = "";
     public FNodeTextViewer() {
 
         Resizable = true;
-        Connect("resize_request", this, nameof(OnResize));
+        Connect("resize_request", new Callable(this, nameof(OnResize)));
 
         category = "Text";        
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
@@ -20,7 +20,7 @@ public class FNodeTextViewer : FNode
     }
 
     public void OnResize(Vector2 newSize) {
-        RectSize = newSize;
+        Size = newSize;
     }
 
     public override void ExecutiveMethod() {
@@ -42,10 +42,10 @@ public class FNodeTextViewer : FNode
     public override void _Ready() {
         base._Ready();
         TextEdit TEViewer = new TextEdit();
-        TEViewer.Readonly = true;
+        TEViewer.SetEditable(true);
         TEViewer.Name = "Viewer";
-        TEViewer.RectMinSize = new Vector2(350, 300);
-        TEViewer.SizeFlagsHorizontal = TEViewer.SizeFlagsVertical =  (int)SizeFlags.ExpandFill;
+        TEViewer.CustomMinimumSize = new Vector2(350, 300);
+        TEViewer.SizeFlagsHorizontal = TEViewer.SizeFlagsVertical =  SizeFlags.ExpandFill;
         AddChild(TEViewer);
     }
 

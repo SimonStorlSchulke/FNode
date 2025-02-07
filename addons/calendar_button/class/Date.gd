@@ -1,12 +1,12 @@
 class_name Date
 
-var day : int setget set_day
-var month : int setget set_month
-var year : int setget set_year
+var day : int: set = set_day
+var month : int: set = set_month
+var year : int: set = set_year
 
-func _init(day : int = OS.get_datetime()["day"], 
-		month : int = OS.get_datetime()["month"], 
-		year : int = OS.get_datetime()["year"]):
+func _init(day : int = Time.get_datetime_dict_from_system()["day"], 
+		month : int = Time.get_datetime_dict_from_system()["month"], 
+		year : int = Time.get_datetime_dict_from_system()["year"]):
 	self.day = day
 	self.month = month
 	self.year = year
@@ -36,13 +36,13 @@ func month() -> int:
 func year() -> int:
 	return year
 
-func set_day(var _day : int):
+func set_day(_day : int):
 	day = _day
 
-func set_month(var _month : int):
+func set_month(_month : int):
 	month = _month
 
-func set_year(var _year : int):
+func set_year(_year : int):
 	year = _year
 
 func change_to_prev_month():

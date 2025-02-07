@@ -2,7 +2,7 @@ using System.IO;
 using Godot;
 using System;
 
-public class FNodeCopy : FNode
+public partial class FNodeCopy : FNode
 {
     public FNodeCopy() {
         category = "File";

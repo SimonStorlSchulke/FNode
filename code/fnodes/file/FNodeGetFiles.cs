@@ -2,14 +2,14 @@ using Godot;
 using System;
 using System.IO;
 
-public class FNodeGetFiles : FNode
+public partial class FNodeGetFiles : FNode
 {
     FileInfo currentFile;
     string currentFileRoot;
     public FNodeGetFiles()
     {
         category = "File";
-        HintTooltip = "For each iteration, return the File at the current Evaluation index";
+        TooltipText = "For each iteration, return the File at the current Evaluation index";
         
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
@@ -71,7 +71,7 @@ public class FNodeGetFiles : FNode
                 catch {
                     return "";
                 }
-            }, description: "The Directory you dropped onto the Filestack - not always the same as Base Dir if files are recursively loaded (from subfolders)"
+            }, description: "The DirAccess you dropped onto the Filestack - not always the same as Base Dir if files are recursively loaded (from subfolders)"
             )},
             {
             "Creation Time", new FOutputDate(this, delegate() {

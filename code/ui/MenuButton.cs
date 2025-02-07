@@ -1,6 +1,6 @@
 using Godot;
 
-public class MenuButton : Godot.MenuButton
+public partial class MenuButton : Godot.MenuButton
 {
     [Export] NodePath NPIO;
     [Export] NodePath NPPUHotkey;
@@ -9,7 +9,7 @@ public class MenuButton : Godot.MenuButton
 
     public override void _Ready() {
         io = GetNode<IO>(NPIO);
-        GetPopup().Connect("id_pressed", this, nameof(OnItemPressed));
+        GetPopup().Connect("id_pressed", new Callable(this, nameof(OnItemPressed)));
     }
 
     public void OnItemPressed(int idx) {

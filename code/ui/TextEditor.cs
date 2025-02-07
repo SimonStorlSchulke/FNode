@@ -1,7 +1,7 @@
 using Godot;
 
 ///<summary>Editor for Text-inputs on FNodes</summary>
-public class TextEditor : AcceptDialog
+public partial class TextEditor : AcceptDialog
 {
     public static TextEditor inst;
     FInputString connectedInput;
@@ -11,7 +11,7 @@ public class TextEditor : AcceptDialog
     }
 
     public void ShowEditor(FNode connectedNode, string connectedSlotName) {
-        connectedInput = Main.Inst.CurrentProject.NodeTree.GetNode<FNode>(connectedNode.Name)
+        connectedInput = Main.Inst.CurrentProject.NodeTree.GetNode<FNode>(new NodePath(connectedNode.Name))
             .inputs[connectedSlotName] as FInputString; //Dangerous...
         connectedInput.UpdateDefaultValueFromUI();
         GetNode<TextEdit>("TE").Text = connectedInput.DefaultValue as string;

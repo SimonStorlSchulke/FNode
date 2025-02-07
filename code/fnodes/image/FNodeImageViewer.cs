@@ -1,7 +1,7 @@
 using Godot;
 using ImageMagick;
 
-public class FNodeImageViewer : FNode
+public partial class FNodeImageViewer : FNode
 {
     TextureButton tx;
     ImageTexture tex;
@@ -9,10 +9,10 @@ public class FNodeImageViewer : FNode
 
 
     public FNodeImageViewer() {
-        HintTooltip = "Displays the connected Image on the Node itself when running the NodeTree. Click to enlarge.";
+        TooltipText = "Displays the connected Image on the Node itself when running the NodeTree. Click to enlarge.";
         category = "Img";
 
-        Connect("resize_request", this, nameof(OnResize));
+        Connect("resize_request", new Callable(this, nameof(OnResize)));
         Resizable = true;
 
 
@@ -28,7 +28,7 @@ public class FNodeImageViewer : FNode
     }
 
     public void OnResize(Vector2 newSize) {
-        RectSize = newSize;
+        Size = newSize;
     }
 
 
@@ -42,8 +42,7 @@ public class FNodeImageViewer : FNode
             return;
         }
         Image im = ImageUtils.MagickImageToGDImage(image);
-        tex = new ImageTexture();
-        tex.CreateFromImage(im);
+        tex = ImageTexture.CreateFromImage(im);
 
         tx.TextureNormal = tex;
     }
@@ -52,16 +51,16 @@ public class FNodeImageViewer : FNode
     public override void _Ready() {
         base._Ready();
         tx = new TextureButton();
-        tx.SizeFlagsHorizontal = (int)SizeFlags.ExpandFill;
-        tx.SizeFlagsVertical = (int)SizeFlags.ExpandFill;
+        tx.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+        tx.SizeFlagsVertical = SizeFlags.ExpandFill;
         tx.StretchMode = TextureButton.StretchModeEnum.KeepAspectCentered;
-        tx.RectMinSize = new Vector2(300, 300);
-        tx.Expand = true;
+        tx.CustomMinimumSize = new Vector2(300, 300);
+        //tx.Expand = true;
         AddChild(tx);
         Label lbl = new Label();
         lbl.Text = "Click to enlarge";
         AddChild(lbl);
-        tx.Connect("pressed", this, nameof(Enlarge));
+        tx.Connect("pressed", new Callable(this, nameof(Enlarge)));
     }
 
     public void Enlarge() {

@@ -1,10 +1,10 @@
 using ImageMagick;
 using Godot;
 
-public class FNodeCropImage : FNode
+public partial class FNodeCropImage : FNode
 {
     public FNodeCropImage() {
-        HintTooltip = "Crop Image";
+        TooltipText = "Crop Image";
         category = "Img";
 
         FNode.IdxReset();

@@ -1,6 +1,6 @@
 using Godot;
 
-public class UIInput : Node
+public partial class UIInput : Node
 {
     [Export] NodePath NPHelpPanel;
     [Export] NodePath NPIO;
@@ -29,10 +29,10 @@ public class UIInput : Node
         else if (e.IsActionPressed("background_black")) {
             StyleBoxFlat sbBlack = new StyleBoxFlat();
             sbBlack.BgColor = Colors.Black;
-            if (Main.Inst.CurrentProject.NodeTree.HasStyleboxOverride("bg")) {
-                Main.Inst.CurrentProject.NodeTree.AddStyleboxOverride("bg", null);
+            if (Main.Inst.CurrentProject.NodeTree.HasThemeStyleboxOverride("bg")) {
+                Main.Inst.CurrentProject.NodeTree.AddThemeStyleboxOverride("bg", null);
             } else {
-                Main.Inst.CurrentProject.NodeTree.AddStyleboxOverride("bg", sbBlack);
+                Main.Inst.CurrentProject.NodeTree.AddThemeStyleboxOverride("bg", sbBlack);
             }
         }
     }

@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class FNodeText : FNode
+public partial class FNodeText : FNode
 {
     public FNodeText() {
         category = "Text";        

@@ -1,9 +1,9 @@
 using Godot;
 
-public class FNodeReplaceText : FNode, IFNodeVarInputSize
+public partial class FNodeReplaceText : FNode, IFNodeVarInputSize
 {
     public FNodeReplaceText() {
-        HintTooltip = "Replace Semgents of a Text with other Segments";
+        TooltipText = "Replace Semgents of a Text with other Segments";
         category = "Text";        
 
         FNode.IdxReset();
@@ -44,7 +44,7 @@ public class FNodeReplaceText : FNode, IFNodeVarInputSize
         Button plusButton = new Button();
         plusButton.Name = "PlusButton";
         plusButton.Text = "+";
-        plusButton.Connect("pressed", this, nameof(AddInput));
+        plusButton.Connect("pressed", new Callable(this, nameof(AddInput)));
         AddChild(plusButton);
     }
 

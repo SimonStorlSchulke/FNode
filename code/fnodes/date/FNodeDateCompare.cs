@@ -2,7 +2,7 @@ using System.IO;
 using Godot;
 using System;
 
-public class FNodeDateCompare : FNode
+public partial class FNodeDateCompare : FNode
 {
     public FNodeDateCompare()
     {

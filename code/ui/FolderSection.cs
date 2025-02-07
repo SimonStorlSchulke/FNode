@@ -2,7 +2,7 @@ using Godot;
 using System.Linq;
 
 ///<summary>Lists files contained in a folder - used by FileList></summary>
-public class FolderSection : VBoxContainer
+public partial class FolderSection : VBoxContainer
 {
     public ItemList FileList;
     public CheckButton Cb;
@@ -19,9 +19,9 @@ public class FolderSection : VBoxContainer
         fileList = GetParent().GetParent().GetParent<FileList>(); //TODO  dangerous. Will break when reordering FolderSection Scene
         CbRecursive = GetNode<CheckButton>("HBFolder/CBRecursive");
         BtnReload = GetNode<Button>("HBFolder/BTNReload");
-        Cb.Connect("toggled", this, nameof(OnToggleList));
-        CbRecursive.Connect("pressed", this, nameof(OnReloadFiles));
-        BtnReload.Connect("pressed", this, nameof(OnReloadFiles));
+        Cb.Connect("toggled", new Callable(this, nameof(OnToggleList)));
+        CbRecursive.Connect("pressed", new Callable(this, nameof(OnReloadFiles)));
+        BtnReload.Connect("pressed", new Callable(this, nameof(OnReloadFiles)));
     }
 
     public void AddFile(string path) {
@@ -44,7 +44,7 @@ public class FolderSection : VBoxContainer
     }
 
     public void OnReloadFiles() {
-        bool recursive = CbRecursive.Pressed;
+        bool recursive = CbRecursive.IsPressed();
         int idx = GetIndex();
         string path = fileList.fileStack.ElementAt(idx).Key;
         fileList.fileStack.ElementAt(idx).Value.Clear();

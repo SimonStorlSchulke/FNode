@@ -1,10 +1,10 @@
 using Godot;
 
-public class FNodeFileExists : FNode
+public partial class FNodeFileExists : FNode
 {
     public FNodeFileExists() {
         category = "File";
-        HintTooltip = "Returns true if a file with 'Filename' exists in the given 'Folder'";
+        TooltipText = "Returns true if a file with 'Filename' exists in the given 'Folder'";
         
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {

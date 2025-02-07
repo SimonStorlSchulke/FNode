@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class Errorlog : Node
+public partial class Errorlog : Node
 {
     static Color errorColor = new Color(1,.3f,.3f);
 

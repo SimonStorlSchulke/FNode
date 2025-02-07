@@ -2,12 +2,12 @@ using Godot;
 using System;
 using ImageMagick;
 
-public class FNodeImageInfo : FNode
+public partial class FNodeImageInfo : FNode
 {
     MagickImage currentImage;
 
     public FNodeImageInfo() {
-        HintTooltip = "Get information about the connected Image";
+        TooltipText = "Get information about the connected Image";
         category = "Img";
 
         FNode.IdxReset();

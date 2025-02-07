@@ -2,10 +2,10 @@ using System.IO;
 using Godot;
 using System;
 
-public class FNodeFilterImages : FNode
+public partial class FNodeFilterImages : FNode
 {
     public FNodeFilterImages() {
-        HintTooltip = "Filter Image files by the given Toggle input";
+        TooltipText = "Filter Image files by the given Toggle input";
         category = "Img";
 
         FNode.IdxReset();

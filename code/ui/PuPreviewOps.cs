@@ -1,7 +1,7 @@
 using Godot;
 
 ///<summary>Popup to list all File operations that would be done if the Nodetree was run in non-preview mode</summary>
-public class PuPreviewOps : WindowDialog
+public partial class PuPreviewOps : Window
 {
     [Export] NodePath NPFilesDeleted;
     static RichTextLabel filesDeleted;

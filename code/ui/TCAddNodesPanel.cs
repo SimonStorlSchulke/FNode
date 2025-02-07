@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Godot;
 using System;
 
-public class TCAddNodesPanel : Control
+public partial class TCAddNodesPanel : Control
 {
     [Export] NodePath NPSearchResults;
     VBSearchResults searchResults;
@@ -83,7 +83,7 @@ public class TCAddNodesPanel : Control
         }
 
         foreach (CheckButton tab in GetNode("VBTabs").GetChildren()) {
-            tab.Connect("pressed", this, nameof(OnChangeTab), new Godot.Collections.Array(){tab.GetIndex()});
+            tab.Pressed += () => OnChangeTab(tab.GetIndex());
         }
     }
 
@@ -91,7 +91,7 @@ public class TCAddNodesPanel : Control
         int i = 0;
         foreach (CheckButton tab in GetNode("VBTabs").GetChildren()) {
             if (TabIndex != i) {
-                tab.Pressed = false;
+                tab.SetPressed(false);;
             }
             i++;
         }
@@ -110,23 +110,22 @@ public class TCAddNodesPanel : Control
 
     void CreateAddButton<fnType>() where fnType : FNode {
         Button AddNodeButton = new Button();
-        AddNodeButton.SizeFlagsHorizontal = (int)SizeFlags.ExpandFill;
-        AddNodeButton.Align = Button.TextAlign.Left;
+        AddNodeButton.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+        AddNodeButton.SetTextAlignment(HorizontalAlignment.Left);
         FNode fn = (FNode)Activator.CreateInstance(typeof(fnType));
         AddNodeButton.Text = UIUtil.SnakeCaseToWords(typeof(fnType).Name.Replace("FNode", ""));
-        AddNodeButton.HintTooltip = fn.HintTooltip;
-        AddNodeButton.Connect("button_down", this, nameof(StartDrag), new Godot.Collections.Array{fn});
+        AddNodeButton.TooltipText = fn.TooltipText;
+        AddNodeButton.ButtonDown += () => StartDrag(fn);
 
-        AddNodeButton.RectMinSize = new Vector2(0, 50);
-        AddNodeButton.AddStyleboxOverride("normal", buttonColorStyles[fn.category]);
-        AddNodeButton.AddStyleboxOverride("hover", buttonColorStyles[fn.category]);
-        AddNodeButton.AddStyleboxOverride("pressed", buttonColorStyles[fn.category]);
-        AddNodeButton.AddStyleboxOverride("focus", buttonColorStyles[fn.category]);
+        AddNodeButton.CustomMinimumSize = new Vector2(0, 50);
+        AddNodeButton.AddThemeStyleboxOverride("normal", buttonColorStyles[fn.category]);
+        AddNodeButton.AddThemeStyleboxOverride("hover", buttonColorStyles[fn.category]);
+        AddNodeButton.AddThemeStyleboxOverride("pressed", buttonColorStyles[fn.category]);
+        AddNodeButton.AddThemeStyleboxOverride("focus", buttonColorStyles[fn.category]);
 
         GetNode("Panels/" + fn.category).AddChild(AddNodeButton);
         Button searchResultButton = (Button)AddNodeButton.Duplicate();
-
-        searchResultButton.Connect("button_down", searchResults, nameof(StartDrag), new Godot.Collections.Array{fn});
+        searchResultButton.ButtonDown += () => StartDrag(fn);
         searchResultButton.Visible = false;
         searchResults.AddChild(searchResultButton);
     }
@@ -144,7 +143,7 @@ public class TCAddNodesPanel : Control
             return;
         }
         if (e is InputEventMouseButton) {
-            if (((InputEventMouseButton)e).ButtonIndex == (int)ButtonList.Left && ((InputEventMouseButton)e).Pressed == false) {
+            if (((InputEventMouseButton)e).ButtonIndex == MouseButton.Left && ((InputEventMouseButton)e).IsPressed() == false) {
                 if (Main.Inst.CurrentProject.NodeTree.MouseOver()) {
                     Main.Inst.OnAddNodeFromUI(draggedFnode, false);
                 } else {

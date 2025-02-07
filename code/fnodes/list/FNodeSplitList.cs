@@ -1,10 +1,10 @@
 using Godot;
 using System;
 
-public class FNodeSplitList : FNode
+public partial class FNodeSplitList : FNode
 {
     public FNodeSplitList() {
-        HintTooltip = "Split a list into two at a given index.";
+        TooltipText = "Split a list into two at a given index.";
         category = "List";
 
         FNode.IdxReset();

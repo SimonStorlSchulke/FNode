@@ -1,9 +1,9 @@
 using ImageMagick;
 
-public class FNodeResizeImage : FNode
+public partial class FNodeResizeImage : FNode
 {
     public FNodeResizeImage() {
-        HintTooltip = "Resize an Image to a given size";
+        TooltipText = "Resize an Image to a given size";
         category = "Img";
 
         FNode.IdxReset();

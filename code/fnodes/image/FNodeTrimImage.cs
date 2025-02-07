@@ -1,9 +1,9 @@
 using ImageMagick;
 
-public class FNodeTrimImage : FNode
+public partial class FNodeTrimImage : FNode
 {
     public FNodeTrimImage() {
-        HintTooltip = "Trim the transparent space at the sides of an Image";
+        TooltipText = "Trim the transparent space at the sides of an Image";
         category = "Img";
 
         FNode.IdxReset();

@@ -3,13 +3,13 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
-public class Main : Control
+public partial class Main : Control
 {
     [Signal]
-    public delegate void StartParsing();
+    public delegate void StartParsingEventHandler();
 
     [Signal]
-    public delegate void MainReady();
+    public delegate void MainReadyEventHandler();
 
     public static Main Inst;
     public Project CurrentProject;
@@ -23,21 +23,24 @@ public class Main : Control
     public static bool preventRun = false;
 
     public override void _Ready() {
-        GetTree().Connect("files_dropped", this, nameof(OnFilesDropped));
+        GetTree().Connect("files_dropped", new Callable(this, nameof(OnFilesDropped)));
         projectScene = GD.Load<PackedScene>("res://ui/Project.tscn");
         ProjectTabs = GetNode<TabContainer>(NPProjectTabs);
         CurrentProject = ProjectTabs.GetChild<Project>(ProjectTabs.CurrentTab);
-        ProjectTabs.Connect("tab_selected", this, nameof(OnChangeProject));
+        ProjectTabs.Connect("tab_selected", new Callable(this, nameof(OnChangeProject)));
         addNodeButtons = GetNode<TCAddNodesPanel>(NPAddNodeButtons);
         addNodeButtons.CreateButtons();
     }
 
     public override void _EnterTree() {
         Inst = this;
-        float UIScale = OS.GetScreenSize().x > 2000 ? 0.85f : 0.6f;
-        OS.WindowSize = OS.GetScreenSize() * 0.7f; //Always open window at 0.7% screen size
-        OS.WindowPosition = OS.GetScreenSize() / 2 - OS.WindowSize / 2;
-        GetTree().SetScreenStretch(SceneTree.StretchMode.Disabled, SceneTree.StretchAspect.Ignore, new Vector2(128, 128), UIScale);
+        
+       float UIScale = DisplayServer.ScreenGetSize().X > 2000 ? 0.85f : 0.6f;
+       
+        DisplayServer.WindowSetSize((Vector2I)((Vector2)DisplayServer.ScreenGetSize() * 0.7f)); //Always open window at 0.7% screen size
+       DisplayServer.WindowSetPosition(DisplayServer.ScreenGetSize() / 2 - DisplayServer.ScreenGetSize() / 2);
+        // TODO migration
+       //GetTree().SetScreenStretch(SceneTree.StretchMode.Disabled, SceneTree.StretchAspect.Ignore, new Vector2(128, 128), UIScale);
     }
 
     /// <summary>  </summary>
@@ -55,7 +58,8 @@ public class Main : Control
             FNode fnDup = (FNode)fn.Duplicate();
 
             // place new fnode right to the selected one
-            fnDup.Offset = fnSel.Offset + new Vector2(fnSel.RectSize.x + 50, 0);
+            fnDup.OffsetLeft = fnSel.OffsetLeft + fnSel.Size.X + 50;
+            fnDup.OffsetTop = fnSel.OffsetTop;
             
             CurrentProject.NodeTree.AddChild(fnDup);
 
@@ -89,7 +93,7 @@ public class Main : Control
     }
 
     public static Project NewProject(string name) {
-        Project pr = Inst.projectScene.Instance<Project>();
+        Project pr = Inst.projectScene.Instantiate<Project>();
         pr.Name = name;
         Inst.ProjectTabs.AddChild(pr);
         Inst.ProjectTabs.SetTabTitle(pr.GetIndex(), name);
@@ -109,8 +113,11 @@ public class Main : Control
             foreach (string f in files) {
                 //Magic Numbers Bad
                 FNodeFileInfo fi = new FNodeFileInfo();
-                fi.Offset = CurrentProject.NodeTree.GetMouseOffset();
-                fi.Offset += new Vector2(i * 340, 0);
+
+                var mouseOffset = CurrentProject.NodeTree.GetMouseOffset();
+                fi.OffsetLeft = mouseOffset.X;
+                fi.OffsetTop = mouseOffset.Y;
+                fi.OffsetLeft += i * 340;
                 CurrentProject.NodeTree.AddChild(fi);
                 fi.GetChild(10).GetChild<LineEdit>(1).Text = f;
                 fi.Title = "FI " + new string(f.GetFile().Take(22).ToArray());;
@@ -126,11 +133,11 @@ public class Main : Control
 
     public void OnSizeChanged() {
         float scaleMul = 0.5f;
-        Vector2 winSize = OS.WindowSize;
-        float scale = Mathf.Min(winSize.x / 1920f, winSize.y / 1080f);
+        Vector2 winSize = DisplayServer.WindowGetSize();
+        float scale = Mathf.Min(winSize.X / 1920f, winSize.Y / 1080f);
         scale /= scaleMul;
-        RectScale = new Vector2(1f * (1f / scale), 1f * (1f / scale));
-        RectSize = winSize * RectScale * (16f / 9f);
+        Scale = new Vector2(1f * (1f / scale), 1f * (1f / scale));
+        Size = winSize * Scale * (16f / 9f);
     }
     
     public bool preview {get; private set;}
@@ -138,11 +145,11 @@ public class Main : Control
         this.preview = preview;
         if (preventRun) return;
 
-        EmitSignal(nameof(StartParsing));
+        EmitSignal(nameof(StartParsingEventHandler));
 
         /* This starts all Nodes that need to be waited for before evaluation (like REST API calls). 
         Each AwaiterNode then checks, if it was the last one finished and starts the NodeTree Evaluation if so.*/
-        GetTree().CallGroupFlags((int)SceneTree.GroupCallFlags.Realtime, FNode.AwaiterNodesGroup, nameof(FNodeAwait.WaitFor));
+        GetTree().CallGroupFlags((int)SceneTree.GroupCallFlags.Default, FNode.AwaiterNodesGroup, nameof(FNodeAwait.WaitFor));
 
         CurrentProject.NodeTree.CheckAwaitersFinished();
     }

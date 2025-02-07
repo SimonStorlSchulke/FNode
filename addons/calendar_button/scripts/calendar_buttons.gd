@@ -4,16 +4,16 @@ const BUTTONS_COUNT = 42
 var calendar = load("res://addons/calendar_button/class/calendar.gd").new()
 var buttons_container : GridContainer
 
-func _init(var calendar_script, var buttons_container : GridContainer):
+func _init(calendar_script, buttons_container : GridContainer):
 	self.buttons_container = buttons_container
 	setup_button_signals(calendar_script)
 
-func setup_button_signals(var calendar_script):
+func setup_button_signals(calendar_script):
 	for i in range(BUTTONS_COUNT):
 		var btn_node = buttons_container.get_node("btn_" + str(i))
-		btn_node.connect("pressed", calendar_script, "day_selected", [btn_node])
+		btn_node.connect("pressed", Callable(calendar_script, "day_selected").bind(btn_node))
 
-func update_calendar_buttons(var selected_date : Date):
+func update_calendar_buttons(selected_date : Date):
 	_clear_calendar_buttons()
 	
 	var days_in_month : int = calendar.get_days_in_month(selected_date.month(), selected_date.year())

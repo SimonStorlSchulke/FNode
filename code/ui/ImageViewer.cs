@@ -1,6 +1,6 @@
 using Godot;
 
-public class ImageViewer : TextureRect
+public partial class ImageViewer : TextureRect
 {
     Control viewSpace;
 
@@ -10,15 +10,15 @@ public class ImageViewer : TextureRect
 
     public override void _Input(InputEvent e) {
         if (e is InputEventMouseButton) {
-            if (((InputEventMouseButton)e).ButtonIndex == (int)ButtonList.WheelUp) {
+            if (((InputEventMouseButton)e).ButtonIndex == MouseButton.WheelUp) {
                 Zoom(1.15f);
             }
-            else if (((InputEventMouseButton)e).ButtonIndex == (int)ButtonList.WheelDown) {
+            else if (((InputEventMouseButton)e).ButtonIndex == MouseButton.WheelDown) {
                 Zoom(0.85f);
             }
-            else if (((InputEventMouseButton)e).ButtonIndex == (int)ButtonList.Left) {
+            else if (((InputEventMouseButton)e).ButtonIndex == MouseButton.Left) {
                 mouseStartPos = GetGlobalMousePosition();
-                ViewerStartPos = RectPosition;
+                ViewerStartPos = Position;
                 draggingView = !draggingView;
             }
         }
@@ -26,12 +26,12 @@ public class ImageViewer : TextureRect
 
     public void Zoom(float factor) {
         Vector2 mousePosGloabal = viewSpace.GetGlobalMousePosition();
-        RectScale *= factor;
-        RectPosition = mousePosGloabal - (new Vector2(1920, 1080) * RectScale) / 2 + (mousePosGloabal - RectPosition) * factor;
+        Scale *= factor;
+        Position = mousePosGloabal - (new Vector2(1920, 1080) * Scale) / 2 + (mousePosGloabal - Position) * factor;
     }
 
     public bool draggingView;
-    public override void _Process(float delta) {
+    public override void _Process(double delta) {
         if (draggingView)
             DragView();
     }
@@ -39,6 +39,6 @@ public class ImageViewer : TextureRect
     public Vector2 mouseStartPos;
     public Vector2 ViewerStartPos;
     void DragView() {
-        RectPosition = ViewerStartPos + GetGlobalMousePosition() - mouseStartPos;
+        Position = ViewerStartPos + GetGlobalMousePosition() - mouseStartPos;
     }
 }

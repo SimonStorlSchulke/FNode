@@ -1,6 +1,6 @@
 using Godot;
 
-public class Project : Control
+public partial class Project : Control
 {
     public NodeTree NodeTree;
     public TCFilestacks FileStacks;

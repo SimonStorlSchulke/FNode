@@ -4,12 +4,12 @@ using System;
 
 
 // TODO - unused for now because of problems with (De)serialization. How to save changed slottypes?
-public class FNodeSwitch : FNode
+public partial class FNodeSwitch : FNode
 {
     OptionButton ob;
 
     public FNodeSwitch() {
-        HintTooltip = "Switch between the values of the False and True inputs depending on the state of the Switch input.";
+        TooltipText = "Switch between the values of the False and True inputs depending on the state of the Switch input.";
         category = "Other";
 
 

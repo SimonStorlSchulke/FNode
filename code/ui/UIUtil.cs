@@ -11,7 +11,7 @@ public static class UIUtil
     public static string GetOverflowDots(string str, Godot.Font font, float width) {
         string dotString = str;
         bool removed = false;
-        while (width - font.GetStringSize(dotString).x < 0) {
+        while (width - font.GetStringSize(dotString).X < 0) {
             dotString = dotString.Substring(0, dotString.Length-1);
             removed = true;
         }
@@ -23,33 +23,32 @@ public static class UIUtil
         float tabNamesCombinedWidth = 0;
 
         for (int i = 0; i < tc.GetTabCount(); i++) {
-            tabNamesCombinedWidth += tc.GetFont("font").GetStringSize(tc.GetTabTitle(i)).x; 
+            tabNamesCombinedWidth += tc.GetThemeFont("font").GetStringSize(tc.GetTabTitle(i)).X; 
         }
 
-        float tabMargin = (tc.RectSize.x - tabNamesCombinedWidth) / (tc.GetChildCount() * 2);
-
-        tc.GetStylebox("tab_fg").ContentMarginRight = 
-            tc.GetStylebox("tab_bg").ContentMarginRight = 
-            tc.GetStylebox("tab_fg").ContentMarginLeft = 
-            tc.GetStylebox("tab_bg").ContentMarginLeft = tabMargin;
+        float tabMargin = (tc.Size.X - tabNamesCombinedWidth) / (tc.GetChildCount() * 2);
+        tc.GetThemeStylebox("tab_fg").ContentMarginRight = 
+            tc.GetThemeStylebox("tab_bg").ContentMarginRight = 
+            tc.GetThemeStylebox("tab_fg").ContentMarginLeft = 
+            tc.GetThemeStylebox("tab_bg").ContentMarginLeft = tabMargin;
     }
 }
 
-class DateLabel : Label {
-    public void SetDate(Godot.Reference date) {
-        Text = (string)date.Call("date", new object[]{"DD.MM.YYYY"});
+partial class DateLabel : Label {
+    public void SetDate(Godot.RefCounted date) {
+        //Text = (string)date.Call("date", new object[]{"DD.MM.YYYY"}); //TODO migration wtf?
     }
 }
 
-class HbInput : HBoxContainer {
+partial class HbInput : HBoxContainer {
 
 }
 
-class HbOutput : HBoxContainer {
+partial class HbOutput : HBoxContainer {
 
 }
 
-class HbOption : HBoxContainer {
+partial class HbOption : HBoxContainer {
     public OptionButton optionButton;
     public Label label;
     public HbOption(string name, OptionButton optionButton) {
@@ -59,6 +58,6 @@ class HbOption : HBoxContainer {
         label.Text = name + ": ";
         AddChild(label);
         AddChild(optionButton);
-        SizeFlagsHorizontal = (int)SizeFlags.ExpandFill;
+        SizeFlagsHorizontal = SizeFlags.ExpandFill;
     }
 }

@@ -1,10 +1,10 @@
 using Godot;
 using System;
 
-public class FNodeListToText : FNode
+public partial class FNodeListToText : FNode
 {
     public FNodeListToText() {
-        HintTooltip = "Outputs all list Items in a text with a given Separator";
+        TooltipText = "Outputs all list Items in a text with a given Separator";
         category = "List";
 
         FNode.IdxReset();

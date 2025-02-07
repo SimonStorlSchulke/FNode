@@ -5,7 +5,7 @@ using System.Linq;
 using System;
 using System.Globalization;
 
-public abstract class FNode : GraphNode {
+public abstract partial class FNode : GraphNode {
 
     public Dictionary<string, FInput> inputs = new Dictionary<string, FInput>();
     public Dictionary<string, FOutput> outputs = new Dictionary<string, FOutput>();
@@ -19,15 +19,12 @@ public abstract class FNode : GraphNode {
     }
 
     public override void _Ready() {
-        ShowClose = true;
+        //ShowClose = true; //TODO migration
         Title = UIUtil.SnakeCaseToWords(this.GetType().Name.Replace("FNode", ""));
-        this.RectMinSize = new Vector2(250, 0);
+        this.CustomMinimumSize = new Vector2(250, 0);
         UIBuilder.CreateUI(this);
-        Connect(
-            "close_request", 
-            GetParent(),
-            nameof(NodeTree.DeleteNode), 
-            new Godot.Collections.Array(){this});
+        CloseRequest += () => GetParent().RemoveChild(this);
+
 
         if (this.GetType().GetMethod(nameof(OnBeforeEvaluation)).DeclaringType == this.GetType()) {
             AddToGroup(RunBeforeEvaluationGroup);
@@ -76,13 +73,13 @@ public abstract class FNode : GraphNode {
             ob.AddItem(item);
         }
         HbOption hb = new HbOption(name, ob);
-        hb.HintTooltip = description;
-        hb.SizeFlagsHorizontal = (int)SizeFlags.ExpandFill;
-        ob.SizeFlagsHorizontal = (int)SizeFlags.ExpandFill;
+        hb.TooltipText = description;
+        hb.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+        ob.SizeFlagsHorizontal = SizeFlags.ExpandFill;
         
         AddChild(hb);
         if (callbackMethod != "") {
-            ob.Connect("item_selected", this, callbackMethod);
+            ob.Connect("item_selected", new Callable(this, callbackMethod));
         }
     }
 
@@ -234,16 +231,16 @@ public abstract class FNode : GraphNode {
         outputs[outputs.ElementAt(foutput.idx).Key] = foutput;
     }
 
-    public virtual Godot.Collections.Dictionary<string, object> Serialize() {
-        Godot.Collections.Dictionary<string, object> saveData = new Godot.Collections.Dictionary<string, object>() {
+    public virtual Dictionary<string, object> Serialize() {
+        Dictionary<string, object> saveData = new Dictionary<string, object>() {
         };
 
         saveData.Add("Type", GetType().ToString());
         saveData.Add("NodeName", Name);
-        saveData.Add("OffsetX", Offset.x);
-        saveData.Add("OffsetY", Offset.y);
+        saveData.Add("OffsetX", OffsetLeft);
+        saveData.Add("OffsetY", OffsetTop);
 
-        Godot.Collections.Dictionary<string, object> saveDatInputs = new Godot.Collections.Dictionary<string, object>() {
+        Dictionary<string, object> saveDatInputs = new Dictionary<string, object>() {
         };
 
         foreach (var input in inputs) {
@@ -258,11 +255,11 @@ public abstract class FNode : GraphNode {
                     if (originalSaveArr[i] is System.Int32) {
                         saveArr[i] = "%FNODE-INT%" + saveArr[i];
                     }
-                    if (originalSaveArr[i] is Color) {
-                        string r = Convert.ToString(((Color)originalSaveArr[i]).r, CultureInfo.InvariantCulture);
-                        string g = Convert.ToString(((Color)originalSaveArr[i]).g, CultureInfo.InvariantCulture);
-                        string b = Convert.ToString(((Color)originalSaveArr[i]).b, CultureInfo.InvariantCulture);
-                        string a = Convert.ToString(((Color)originalSaveArr[i]).a, CultureInfo.InvariantCulture);
+                    if (originalSaveArr[i] is Color) { //TODO migration unreachable why?
+                        string r = Convert.ToString(((Color)originalSaveArr[i]).R, CultureInfo.InvariantCulture);
+                        string g = Convert.ToString(((Color)originalSaveArr[i]).G, CultureInfo.InvariantCulture);
+                        string b = Convert.ToString(((Color)originalSaveArr[i]).B, CultureInfo.InvariantCulture);
+                        string a = Convert.ToString(((Color)originalSaveArr[i]).A, CultureInfo.InvariantCulture);
                         saveArr[i] = $"%FNODE-COLOR%{r},{g},{b},{a}" ;
                     }
                 }
@@ -275,7 +272,7 @@ public abstract class FNode : GraphNode {
 
         saveData.Add("Inputs", saveDatInputs);
 
-        Godot.Collections.Dictionary<string, object> saveDatOptionButtons = new Godot.Collections.Dictionary<string, object>() {
+        Dictionary<string, object> saveDatOptionButtons = new Dictionary<string, object>() {
         };
 
         if (GetChildCount() > inputs.Count + outputs.Count) {
@@ -297,7 +294,7 @@ public abstract class FNode : GraphNode {
         return saveData;
     }
 
-    public static void Deserialize(Godot.Collections.Dictionary nodeData, Project pr) {
+    public static void Deserialize(Dictionary<string, object> nodeData, Project pr) {
         string nodeType = (string)nodeData["Type"];
         string nodeName = (string)nodeData["NodeName"];
         Vector2 offset = new Vector2((float)nodeData["OffsetX"], (float)nodeData["OffsetY"]);
@@ -309,7 +306,7 @@ public abstract class FNode : GraphNode {
         }
 
         int i = 0;
-        foreach (System.Collections.DictionaryEntry inputData in (Godot.Collections.Dictionary)nodeData["Inputs"]) {
+        foreach (KeyValuePair<string, object> inputData in (Dictionary<string, object>)nodeData["Inputs"]) {
 
             if (inputData.Value == null) {
                 continue;
@@ -344,7 +341,7 @@ public abstract class FNode : GraphNode {
             i++;
         }
 
-         foreach (System.Collections.DictionaryEntry optionButtonData in (Godot.Collections.Dictionary)nodeData["OptionButtons"]) {
+         foreach (KeyValuePair<string, object> optionButtonData in (Dictionary<string, object>)nodeData["OptionButtons"]) {
             try {
                 fn.GetNode<HbOption>((string)optionButtonData.Key).optionButton.Selected = System.Convert.ToInt32(optionButtonData.Value);
             } catch (System.Exception e) {

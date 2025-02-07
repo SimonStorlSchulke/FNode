@@ -1,8 +1,9 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 ///<summary>Editor for Lists-Inputs on FNodes</summary>
-public class ListCreator : AcceptDialog {
+public partial class ListCreator : AcceptDialog {
 
     static Godot.Collections.Array list;
 
@@ -28,7 +29,7 @@ public class ListCreator : AcceptDialog {
     public void ShowCreator(Godot.Collections.Array listInput, FNode connectedNode, string connectedSlotName) {
         list = listInput;
         //GD.Print($"{connectedNodeName} slotname: {connectedSlotName}");
-        connectedListInput = Main.Inst.CurrentProject.NodeTree.GetNode<FNode>(connectedNode.Name).inputs[connectedSlotName] as FInputList; //Dangerous...
+        connectedListInput = Main.Inst.CurrentProject.NodeTree.GetNode<FNode>(new NodePath(connectedNode.Name)).inputs[connectedSlotName] as FInputList; //Dangerous...
         if (connectedListInput.DefaultValue == null) {
             connectedListInput.DefaultValue = new Godot.Collections.Array();
         }
@@ -56,7 +57,7 @@ public class ListCreator : AcceptDialog {
                     itemValue = ((LineEdit)itemCtl).Text;
                     break;
                 case "bool":
-                    itemValue = ((CheckBox)itemCtl).Pressed;
+                    itemValue = ((CheckBox)itemCtl).IsPressed();
                     break;
                 case "int":
                     itemValue = (int)((SpinBox)itemCtl).Value;
@@ -74,7 +75,7 @@ public class ListCreator : AcceptDialog {
                     itemValue = ((SpinBox)itemCtl).Value;
                     break;
             }
-            ((Godot.Collections.Array)connectedListInput.DefaultValue).Add(itemValue);
+            ((List<object>)connectedListInput.DefaultValue).Add(itemValue);
             item.QueueFree();
         }
     }
@@ -92,7 +93,7 @@ public class ListCreator : AcceptDialog {
         HBoxContainer hbItem = new HBoxContainer();
         Label lblItem = new Label();
         lblItem.Text = type;
-        lblItem.RectMinSize = new Vector2(90, 0);
+        lblItem.CustomMinimumSize = new Vector2(90, 0);
         hbItem.AddChild(lblItem);
 
         switch (type) {
@@ -131,9 +132,9 @@ public class ListCreator : AcceptDialog {
             btnRemoveItem.Text = " X ";
             hbItem.AddChild(btnRemoveItem);
             hbItem.AddToGroup(type);
-            hbItem.GetChild<Control>(1).RectMinSize = new Vector2(200, 0);
+            hbItem.GetChild<Control>(1).CustomMinimumSize = new Vector2(200, 0);
             itemsBox.AddChild(hbItem);
-            btnRemoveItem.Connect("pressed", this, nameof(RemoveItem), new Godot.Collections.Array{hbItem});
+            btnRemoveItem.Pressed += () => RemoveItem(hbItem);
             lblItemCount.Text = itemsBox.GetChildCount().ToString() + " Items";
             hbItem.GetChild<Control>(1).GrabFocus();
     }
@@ -142,7 +143,7 @@ public class ListCreator : AcceptDialog {
     public void AddItem(object value) {
         HBoxContainer hbItem = new HBoxContainer();
         Label lblItem = new Label();
-        lblItem.RectMinSize = new Vector2(90, 0);
+        lblItem.CustomMinimumSize = new Vector2(90, 0);
         if (value == null) {
             return;
         }
@@ -171,7 +172,7 @@ public class ListCreator : AcceptDialog {
                 break;
             case bool fi:
                 CheckBox cb = new CheckBox();
-                cb.Pressed = (bool)value;
+                cb.SetPressed((bool)value);
                 hbItem.AddToGroup("bool");
                 hbItem.AddChild(cb);
                 break;
@@ -207,9 +208,9 @@ public class ListCreator : AcceptDialog {
             Button btnRemoveItem = new Button();
             btnRemoveItem.Text = " X ";
             hbItem.AddChild(btnRemoveItem);
-            hbItem.GetChild<Control>(1).RectMinSize = new Vector2(200, 0);
+            hbItem.GetChild<Control>(1).CustomMinimumSize = new Vector2(200, 0);
             itemsBox.AddChild(hbItem);
-            btnRemoveItem.Connect("pressed", this, nameof(RemoveItem), new Godot.Collections.Array{hbItem});
+            btnRemoveItem.Pressed += () => RemoveItem(hbItem);
             lblItemCount.Text = itemsBox.GetChildCount().ToString() + " Items";
     }
 

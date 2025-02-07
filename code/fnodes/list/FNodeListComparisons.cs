@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class FNodeListComparisons : FNode
+public partial class FNodeListComparisons : FNode
 {
     string longestString = "";
     int longestStringIdx;
@@ -13,7 +13,7 @@ public class FNodeListComparisons : FNode
     int smallestNumerIdx;
     public FNodeListComparisons()
     {
-        HintTooltip = "Multiple comparison operations .";
+        TooltipText = "Multiple comparison operations .";
         category = "List";
 
         FNode.IdxReset();

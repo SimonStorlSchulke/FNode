@@ -1,8 +1,7 @@
-using System.Collections;
+using System.Collections.Generic;
 using Godot;
-using Godot.Collections;
 
-public class IO : Node {
+public partial class IO : Node {
 
     [Export] NodePath NPFDSave;
     FileDialog FDSave;
@@ -11,9 +10,9 @@ public class IO : Node {
 
     public override void _Ready() {
         FDSave = GetNode<FileDialog>(NPFDSave);
-        FDSave.Connect("file_selected", this, nameof(OnSaveFileSelected));
+        FDSave.Connect("file_selected", new Callable(this, nameof(OnSaveFileSelected)));
         FDLoad = GetNode<FileDialog>(NPFDLoad);
-        FDLoad.Connect("file_selected", this, nameof(OnLoadFileSelected));
+        FDLoad.Connect("file_selected", new Callable(this, nameof(OnLoadFileSelected)));
         FDLoad.CurrentDir = FDSave.CurrentDir = GetDefaultSaveDir();
     }
 
@@ -46,23 +45,24 @@ public class IO : Node {
     public static Dictionary<string, object> serializeProject(NodeTree nt) {
 
         Dictionary<string, object> saveData = new Dictionary<string, object>();
-        Godot.Collections.Array<Dictionary<string, object>> nodesDict = new Godot.Collections.Array<Dictionary<string, object>>();
+        List<Dictionary<string, object>> nodesDict = new ();
 
-        foreach (FNode fnd in nt.GetFNodes()) {
-            nodesDict.Add(fnd.Serialize());
-        }
+      //  foreach (FNode fnd in nt.GetFNodes()) {
+      //      nodesDict.Add(fnd.Serialize());
+      //  }
 
         saveData.Add("Nodes", nodesDict);
         saveData.Add("Connections", nt.GetConnectionList());
         saveData.Add("iterations", Main.Inst.CurrentProject.spIterations.Value);
-        saveData.Add("ScrollOffsetX", Main.Inst.CurrentProject.NodeTree.ScrollOffset.x);
-        saveData.Add("ScrollOffsetY", Main.Inst.CurrentProject.NodeTree.ScrollOffset.y);
+        saveData.Add("ScrollOffsetX", Main.Inst.CurrentProject.NodeTree.ScrollOffset.X);
+        saveData.Add("ScrollOffsetY", Main.Inst.CurrentProject.NodeTree.ScrollOffset.Y);
         return saveData;
     }
 
     public static Dictionary<string, object> CopySelectedNodes(NodeTree nt) {
         Dictionary<string, object> copyData = new Dictionary<string, object>();
-        Godot.Collections.Dictionary<string, object> nodesDict = new Godot.Collections.Dictionary<string, object>();
+        /*
+        Dictionary<string, object> nodesDict = new();
 
         foreach (FNode fnd in nt.GetSelectedNodes()) {
             nodesDict.Add(fnd.Name, fnd.Serialize());
@@ -80,16 +80,17 @@ public class IO : Node {
             }
         }
         copyData.Add("Connections", connectionList);
-        OS.Clipboard = JSON.Print(copyData);
+        //OS.Clipboard = JSON.Print(copyData); //TODO migration
+        */
         return copyData;
     }
 
     public static void PasteNodes() {
-
+        /*
         var pastedData = new Dictionary<string, object>((Dictionary)JSON.Parse(OS.Clipboard).Result);
-        Godot.Collections.Dictionary nodesData = pastedData["Nodes"] as Dictionary;
+        Dictionary<string,object> nodesData = pastedData["Nodes"] as  Dictionary<string,object>;
 
-        foreach (DictionaryEntry nodeData in nodesData) {
+        foreach (KeyValuePair<string, object> nodeData in nodesData) {
             FNode.Deserialize(nodeData.Value as Godot.Collections.Dictionary, Main.Inst.CurrentProject);
         }
 
@@ -102,22 +103,23 @@ public class IO : Node {
                      (string)cData["to"],
                      (int)((System.Single)cData["to_port"]));
             }
+            */
     }
 
     public void Save(string path) {
+        //TODO migration
+      // var saveData = IO.serializeProject(Main.Inst.CurrentProject.NodeTree);
 
-        var saveData = IO.serializeProject(Main.Inst.CurrentProject.NodeTree);
+      // var saveGame = new File();
+      // saveGame.Open(path, File.ModeFlags.Write);
+      // saveGame.StoreLine(JSON.Print(saveData));
+      // saveGame.Close();
 
-        var saveGame = new File();
-        saveGame.Open(path, File.ModeFlags.Write);
-        saveGame.StoreLine(JSON.Print(saveData));
-        saveGame.Close();
-
-        InfoLine.Show($"Saved Project to {path}");
-        Main.Inst.ProjectTabs.SetTabTitle(Main.Inst.ProjectTabs.CurrentTab, System.IO.Path.GetFileNameWithoutExtension(path));
+      // InfoLine.Show($"Saved Project to {path}");
+      // Main.Inst.ProjectTabs.SetTabTitle(Main.Inst.ProjectTabs.CurrentTab, System.IO.Path.GetFileNameWithoutExtension(path));
     }
 
-    public void Load(string path) {
+    public void Load(string path) { /* TODO migration
         var saveGame = new File();
         if (!saveGame.FileExists(path))
             return; // Error! We don't have a save to load.
@@ -129,7 +131,7 @@ public class IO : Node {
 
         Project pr = Main.NewProject(System.IO.Path.GetFileNameWithoutExtension(path));
 
-        while (saveGame.GetPosition() < saveGame.GetLen()) {
+        while (saveGame.GetPosition() < saveGame.GetLength()) {
             var saveData = new Dictionary<string, object>((Dictionary)JSON.Parse(saveGame.GetLine()).Result);
 
             try {
@@ -159,6 +161,6 @@ public class IO : Node {
 
         }
 
-        saveGame.Close();
+        saveGame.Close(); */
     }
 }

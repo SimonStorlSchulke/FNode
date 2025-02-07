@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class VBSearchResults : VBoxContainer
+public partial class VBSearchResults : VBoxContainer
 {
     Resource cursorDragNode;
 
@@ -46,7 +46,7 @@ public class VBSearchResults : VBoxContainer
             return;
         }
         if (e is InputEventMouseButton) {
-            if (((InputEventMouseButton)e).ButtonIndex == (int)ButtonList.Left && ((InputEventMouseButton)e).Pressed == false) {
+            if (((InputEventMouseButton)e).ButtonIndex == MouseButton.Left && ((InputEventMouseButton)e).IsPressed() == false) {
                 if (Main.Inst.CurrentProject.NodeTree.MouseOver()) {
                     Main.Inst.OnAddNodeFromUI(draggedFnode, false);
                 } else {

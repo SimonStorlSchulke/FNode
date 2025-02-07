@@ -1,10 +1,10 @@
 using Godot;
 using System;
 
-public class FNodeCutText : FNode
+public partial class FNodeCutText : FNode
 {
     public FNodeCutText() {
-        HintTooltip = "Cut Characters from Start and End of a Text";
+        TooltipText = "Cut Characters from Start and End of a Text";
         category = "Text";        
 
         FNode.IdxReset();

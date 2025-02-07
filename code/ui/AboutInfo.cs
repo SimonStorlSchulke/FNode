@@ -1,7 +1,7 @@
 using Godot;
 
 [Tool]
-public class AboutInfo : Label
+public partial class AboutInfo : Label
 {
     [Export] bool update {get{return true;} set {UpdateInfo();}}
     [Export] string Version;

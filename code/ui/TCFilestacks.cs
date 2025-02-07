@@ -1,7 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 
-public class TCFilestacks : TabContainer {
+public partial class TCFilestacks : TabContainer {
 
     public override void _Ready() {
         for (int i = 0; i < 6; i++) {   

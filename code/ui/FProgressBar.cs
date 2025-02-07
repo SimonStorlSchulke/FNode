@@ -1,6 +1,6 @@
 using Godot;
 
-public class FProgressBar : Godot.ProgressBar
+public partial class FProgressBar : Godot.ProgressBar
 {
     public static FProgressBar inst;
 

@@ -2,10 +2,10 @@ using System.IO;
 using Godot;
 using System;
 
-public class FNodeIndexInfo : FNode
+public partial class FNodeIndexInfo : FNode
 {
     public FNodeIndexInfo() {
-        HintTooltip = "Info about the current iteration index.";
+        TooltipText = "Info about the current iteration index.";
         category = "Math";        
 
         FNode.IdxReset();

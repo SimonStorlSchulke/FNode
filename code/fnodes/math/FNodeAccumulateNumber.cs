@@ -2,12 +2,12 @@ using System.IO;
 using Godot;
 using System;
 
-public class FNodeAccumulateNumber : FNode
+public partial class FNodeAccumulateNumber : FNode
 {
     float accumulatedFloat = 0;
     string selectedOption;
     public FNodeAccumulateNumber() {
-        HintTooltip = "Accumulates the Input Numbers from all Iterations \nand combines them using the Separator";
+        TooltipText = "Accumulates the Input Numbers from all Iterations \nand combines them using the Separator";
         category = "Math";
         FNode.IdxReset();
         inputs = new System.Collections.Generic.Dictionary<string, FInput>() {
@@ -41,7 +41,7 @@ public class FNodeAccumulateNumber : FNode
                 //inputs["Value"].connectedTo.owner.OnNextIteration();
 
                 // so we brute force all RunBeforeIterationGroup-Nodes instead...
-                GetTree().CallGroupFlags((int)SceneTree.GroupCallFlags.Realtime, FNode.RunBeforeIterationGroup, nameof(FNode.OnNextIteration));
+                GetTree().CallGroupFlags((int)SceneTree.GroupCallFlags.Default, FNode.RunBeforeIterationGroup, nameof(FNode.OnNextIteration));
 
                 accumulatedFloat += inputs["Number"].Get<float>();
                 Project.IdxEval++;

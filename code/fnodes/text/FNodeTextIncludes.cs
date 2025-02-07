@@ -2,11 +2,11 @@ using Godot;
 using System;
 using  static GdExtensions;
 
-public class FNodeTextIncludes : FNode, IFNodeVarInputSize
+public partial class FNodeTextIncludes : FNode, IFNodeVarInputSize
 {
     OptionButton ob;
     public FNodeTextIncludes() {
-        HintTooltip = "Returns true if the given String includes one of the given strings";
+        TooltipText = "Returns true if the given String includes one of the given strings";
         category = "Text";        
 
         FNode.IdxReset();
@@ -79,12 +79,12 @@ public class FNodeTextIncludes : FNode, IFNodeVarInputSize
         Button minusButton = new Button();
         plusButton.Name = "PlusButton";
         minusButton.Name = "MinusButton";
-        plusButton.SizeFlagsHorizontal = minusButton.SizeFlagsHorizontal = (int)SizeFlags.ExpandFill;
+        plusButton.SizeFlagsHorizontal = minusButton.SizeFlagsHorizontal = SizeFlags.ExpandFill;
         HBPlusMinus.AddChildren(plusButton, minusButton);
         plusButton.Text = "+";
         minusButton.Text = "-";
-        plusButton.Connect("pressed", this, nameof(AddLine));
-        minusButton.Connect("pressed", this, nameof(RemoveLine));
+        plusButton.Connect("pressed", new Callable(this, nameof(AddLine)));
+        minusButton.Connect("pressed", new Callable(this, nameof(RemoveLine)));
         AddChild(HBPlusMinus);
 
         ob = new OptionButton();

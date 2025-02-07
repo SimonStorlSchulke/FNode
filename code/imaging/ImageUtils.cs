@@ -9,8 +9,7 @@ public static class ImageUtils
         mImg.Depth = 8;
         byte[] b = mImg.ToByteArray(MagickFormat.Rgba);
 
-        Godot.Image im = new Godot.Image();
-        im.CreateFromData(mImg.Width, mImg.Height, false, Image.Format.Rgba8, b);
+        Image im = Image.CreateFromData(mImg.Width, mImg.Height, false, Image.Format.Rgba8, b);
         return im; //that was... easier than expected
     }
 
@@ -20,7 +19,7 @@ public static class ImageUtils
 
 
     public static MagickColor ToMagickColor(this Color col) {
-        return new MagickColor((ushort)(col.r * 65535), (ushort)(col.g * 65535), (ushort)(col.b * 65535), (ushort)(col.a * 65535));
+        return new MagickColor((ushort)(col.R * 65535), (ushort)(col.G * 65535), (ushort)(col.B * 65535), (ushort)(col.A * 65535));
     }
 
 }

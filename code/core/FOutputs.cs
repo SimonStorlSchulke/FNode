@@ -5,7 +5,7 @@ using System.Linq;
 
 public delegate object GetOutputValue();
 
-public class FOutput {
+public partial class FOutput {
     public FNode owner;
     public GetOutputValue Get;
     public int idx;
@@ -22,11 +22,11 @@ public class FOutput {
 
     public List<FInput> GetConnectedInputs() {
         NodeTree nt = owner.GetParent<NodeTree>();
-        Godot.Collections.Array links = nt.GetConnectionList();
+        Godot.Collections.Array<Godot.Collections.Dictionary> links = nt.GetConnectionList();
         List<FInput> inpList = new List<FInput>();
         
         // There must be a better way...
-        foreach (Godot.Collections.Dictionary link in links) {
+        foreach (Godot.Collections.Dictionary link in links) { //TODO migration - check. won't work probably
             if ((string)link["from"] == owner.Name && (int)link["from_port"] == idx) {
                 inpList.Add(nt.GetNode<FNode>((string)link["to"]).inputs.ElementAt((int)link["to_port"]).Value);
             }
@@ -37,63 +37,63 @@ public class FOutput {
 }
 
 
-public class FOutputInt : FOutput {
+public partial class FOutputInt : FOutput {
     public FOutputInt(FNode owner, GetOutputValue method, int idx=-1, string description = "") : base(owner, method, idx, description) {
         slotType = SlotType.INT;
     }
 }
 
 
-public class FOutputFloat : FOutput {
+public partial class FOutputFloat : FOutput {
     public FOutputFloat(FNode owner, GetOutputValue method, int idx=-1, string description = "") : base(owner, method, idx, description) {
         slotType = SlotType.FLOAT;
     }
 }
 
 
-public class FOutputBool : FOutput {
+public partial class FOutputBool : FOutput {
     public FOutputBool(FNode owner, GetOutputValue method, int idx=-1, string description = "") : base(owner, method, idx, description) {
         slotType = SlotType.BOOL;
     }
 }
 
 
-public class FOutputString : FOutput {
+public partial class FOutputString : FOutput {
     public FOutputString(FNode owner, GetOutputValue method, int idx=-1, string description = "") : base(owner, method, idx, description) {
         slotType = SlotType.STRING;
     }
 }
 
 
-public class FOutputList : FOutput {
+public partial class FOutputList : FOutput {
     public FOutputList(FNode owner, GetOutputValue method, int idx=-1, string description = "") : base(owner, method, idx, description) {
         slotType = SlotType.LIST;
     }
 }
 
 
-public class FOutputFile : FOutput {
+public partial class FOutputFile : FOutput {
     public FOutputFile(FNode owner, GetOutputValue method, int idx=-1, string description = "") : base(owner, method, idx, description) {
         slotType = SlotType.FILE;
     }
 }
 
 
-public class FOutputImage : FOutput {
+public partial class FOutputImage : FOutput {
     public FOutputImage(FNode owner, GetOutputValue method, int idx=-1, string description = "") : base(owner, method, idx, description) {
         slotType = SlotType.FILE;
     }
 }
 
 
-public class FOutputColor : FOutput {
+public partial class FOutputColor : FOutput {
     public FOutputColor(FNode owner, GetOutputValue method, int idx=-1, string description = "") : base(owner, method, idx, description) {
         slotType = SlotType.COLOR;
     }
 }
 
 
-public class FOutputDate : FOutput {
+public partial class FOutputDate : FOutput {
     public FOutputDate(FNode owner, GetOutputValue method, int idx=-1, string description = "") : base(owner, method, idx, description) {
         slotType = SlotType.DATE;
     }
